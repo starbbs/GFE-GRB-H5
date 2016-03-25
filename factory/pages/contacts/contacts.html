@@ -1,0 +1,48 @@
+@@include('../../../source/include/top.html', {"name": "contacts"})
+<div class="screen-r">
+	<div class="contacts" ms-controller="contacts">
+		<form class="contacts-search" action="javascript:;"  ms-on-submit="submit">
+			<div class="contacts-search-icon" ms-visible="!search">搜索</div>
+			<input type="search" id="contacts-search-input" class="contacts-search-input" ms-duplex="search">
+		</form>
+		<div class="contacts-tabs">
+			<div class="contacts-tabs-item" ms-class="on:now==='GOP_CONTACT'" ms-click="tab('GOP_CONTACT')">果仁宝联系人</div>
+			<div class="contacts-tabs-item" ms-class="on:now==='WALLET_CONTACT'" ms-click="tab('WALLET_CONTACT')">钱包联系人</div>
+		</div>
+		<div class="contacts-list" ms-click="listClick($event)">
+			<div class="contacts-empty" ms-visible="!list.length">
+				<div class="contacts-empty-img"></div>
+				<div class="contacts-empty-world">T﹏T 还没有联系人哦,快添加吧! (≧▽≦)/</div>
+				<div class="contacts-empty-world">转果仁至新目标</div>
+				<div class="contacts-empty-world">即可将Ta添加为联系人</div>
+			</div>
+			<div class="contacts-block" ms-repeat-group="list">
+				<div class="contacts-title">{{group.name}}</div>
+				<div class="contacts-content">
+					<div class="contacts-item" ms-repeat-item="group.list" ms-data-path="$outer.$index+'/'+$index">
+						<div class="contacts-item-left">
+							<div class="contacts-item-img"><img ms-attr-src="item.picture" alt="" class="img-f"></div>
+						</div>
+						<div class="contacts-item-right">
+							<div class="contacts-item-name">{{item.name}}</div>
+							<div class="contacts-item-phone">{{item.phone}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	@@include('../../components/nav/nav.html', {
+		"name": "contacts",
+		"keyboard": "hide(contacts-search-input)"
+	})
+	<div class="view">
+		@@include('./contacts-people.html')
+		@@include('../../views/nickname/nickname.html', {
+			"label": "备注名",
+			"placeholder": "请输入备注名"
+		})
+	</div>
+	<div class="alert"></div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "contacts"})

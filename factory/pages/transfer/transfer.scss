@@ -1,0 +1,147 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2016-01-08 14:55:55 创建
+// H5微信端 --- 转果仁
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/contacts/contacts';
+
+@import '../../views/view';
+@import '../../views/nickname/nickname';
+@import '../../views/authentication/authentication';
+@import '../../views/address/address';
+@import '../../views/bill/bill';
+
+@import '../../dialogs/dialog';
+@import '../../dialogs/paypass/paypass';
+@import '../../dialogs/alert/alert';
+
+
+body {
+	background-color: $g-background;
+}
+
+
+.transfer {
+	$img: $g-pages + '/transfer/images'; //$g-pages是config.js里配置的路径
+	background-color: $g-background;
+	@extend %fade-in;
+	&-icon {
+		@for $i from 1 through 5 {
+			&-#{$i} {
+				@include sprite($img + '/' + $i + '-a.png', 36px); // 小图
+				&-big {
+					@include sprite($img + '/' + $i + '-b.png', 70px); // 大图
+				}
+				@if $i == 2 {
+					&-middle {
+						@include sprite($img + '/' + $i + '-c.png', 40px); // 中图(仅我的钱包)
+					}
+				}
+			}
+		}
+	}
+	&-item {
+		$line: '';
+		@include height(55px);
+		display: flex;
+		align-items: center;
+		padding-left: $g-padding;
+		&-line {
+			$line: & + '';
+			flex: 1;
+			display: flex;
+			align-items: center;
+			border-bottom: $g-border;
+			margin-left: $g-padding;
+			padding-right: $g-padding;
+		}
+		&:last-child {
+			#{$line} {
+				border-bottom: none;
+			}
+		}
+		&-img {
+			@include square(40px);
+			border-radius: 50%;
+			overflow: hidden;
+		}
+		&-address {
+			color: $g-ash;
+			font-size: 14px;
+			@extend .font-num;
+		}
+	}
+
+	&-contacts {
+		@extend .view-style;
+	}
+
+	&-new {
+		@extend .view-style;
+	}
+
+	&-target {
+		@extend .view-style;
+		&-head {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding-top: 22px;
+			padding-bottom: 28px;
+			line-height: 1;
+			&-img {
+				@include square(70px);
+				border-radius: 50%;
+				overflow: hidden;
+				>img{
+					border-radius: 50%;
+					overflow: hidden;
+				}
+			}
+			&-name {
+				font-size: 16px;
+				margin: 12px 0;
+			}
+			&-address {
+				font-size: 14px;
+				@extend .font-num;
+				color: $g-ash;
+			}
+		}
+		&-box {
+			margin: 0 $g-padding;
+			padding: 0 $g-padding;
+			border: $g-border;
+			border-radius: $g-radius;
+			background-color: $g-white;
+			@extend .font-num;
+			&-title {
+				font-size: 16px;
+				color: $g-input;
+				padding-top: 12px;
+			}
+			&-fee {
+				float: right;
+				font-size: 14px;
+				color: $g-ash;
+			}
+			&-line {
+				border-bottom: $g-border;
+			}
+			&-tip {
+				font-size: 14px;
+				color: #777;
+				@include height(40px);
+			}
+		}
+		&-detail {
+			@extend .block;
+			margin-top: 30px;
+			padding: 0 $g-padding;
+		}
+	}
+}

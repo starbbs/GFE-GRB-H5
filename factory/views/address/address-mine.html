@@ -1,0 +1,27 @@
+<!--果仁市场地址-->
+<div class="address-mine cover" ms-controller="address-mine">
+    <!-- <div class="text-tip-top">常用的果仁市场地址</div>  -->
+	<div class="block">
+		<div class="block-item" ms-click="marketAddress_add_click" ms-visible="!hasMarketAddress">
+			<div class="address-add"></div>
+			<div class="block-label blue">添加我的果仁市场地址</div>
+			<div class="block-arrow"></div>
+		</div>
+		<div class="block-item" ms-visible="setMarketAddress">
+            <div class="text">
+                <div class="text-box"><input id="address-mine-input-focusa" name="address-mine-input" class="text-input" autocomplete="off" placeholder="请输入果仁市场地址" type="tel" maxlength="70" data-text='close' ms-duplex="marketGopAddress"></div>
+                <div class="text-close"></div>
+            </div>
+            <div class="address-finish" ms-click="marketAddress_save_click">完成</div>
+		</div>
+		<div class="block-item address-item" ms-visible="hasMarketAddress">
+			<div class="block-label">{{marketGopAddress.substr(0,8)+'**********'}}</div>
+			<div class="address-del" ms-click="marketAddress_del_click">删除</div>
+		</div>
+	</div>
+	<div class="text-button" ms-visible="hasStepNext"><span class="button" ms-click="address_mine_next" ms-visible="callback">下一步</span></div>
+	<div class="address-bottom-tips" data-keyboard="hide(address-mine-input-focusa)">
+		<span>请前往<a href="http://www.goopal.net.cn">www.goopal.net.cn</a></span>
+		<span>获取果仁市场地址</span>
+	</div>
+</div>

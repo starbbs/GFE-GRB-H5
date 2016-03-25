@@ -1,0 +1,76 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2015-12-31 14:55:24 创建
+// H5微信端 --- 设置页面
+
+
+.setting {
+
+	$img: $g-views + '/setting/images';
+
+	@extend .view-style;
+
+	&-about {
+		@extend .setting;
+		&-icon {
+			@include sprite($img + '/1.png', 54px);
+			margin: 22px auto 0;
+		}
+		&-title {
+			margin-top: 8px;
+			margin-bottom: 24px;
+			font-size: 16px;
+			color: $g-input;
+			text-align: center;
+		}
+	}
+	&-feedback {
+		@extend .setting;
+		&-box {
+			@extend .view-box;
+			display: flex;
+			flex-direction: column;
+			box-sizing: border-box;
+			padding: 15px $g-padding 64px;
+			bottom: 0px;
+		}
+		&-main {
+			flex: 1;
+			position: relative;
+		}
+		&-tips{
+			 margin-top: 10px;
+			 margin-bottom: 10px;
+			 text-align: right;
+		}
+		&-text {
+			@extend %afull;
+			resize: none;
+			line-height: 1.6;
+		}
+		&-button {
+			//margin-top: $g-margin-top-button;
+		}
+	}
+	&-address {
+		@extend .setting;
+		&-box {
+			@extend .block;
+			margin-top: 5px!important;
+			text-align: center;
+			padding-top: 36px;
+			padding-bottom: 18px;
+		}
+		&-main {
+			padding: 0 50px;
+			font-weight: bold;
+			word-break: break-all;
+			line-height: 20px;
+		}
+		&-tip {
+			color: $g-ash;
+			margin-top: 12px;
+		}
+	}
+}

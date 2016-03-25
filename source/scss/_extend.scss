@@ -1,0 +1,34 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2015-12-21 19:48:23 创建
+// H5微信端 --- 继承占位样式
+
+
+%flex-center { // flex中心对齐
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+%fade-in { // 淡入
+	opacity: 0;
+	&.on {
+		transition: $g-transition;
+		opacity: 1;
+	}
+}
+
+
+%click { // 点击范围扩大, 用于:after中
+	content: '';
+	display: block;
+	@include atlwh(-100%, -100%, 300%, 300%);
+}
+
+
+
+
+
+

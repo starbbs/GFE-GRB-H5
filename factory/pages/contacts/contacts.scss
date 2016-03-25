@@ -1,0 +1,106 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/nav/nav';
+@import '../../components/contacts/contacts';
+
+@import '../../views/view';
+@import '../../views/nickname/nickname';
+
+// @import '../../dialogs/dialog';
+
+
+body {
+	background-color: $g-background;
+}
+
+// ::-webkit-search-cancel-button { display: none; }
+
+
+.contacts {
+
+	$img: $g-pages + '/contacts/images';
+
+	@extend %rw;
+	@extend %fade-in;
+	overflow: hidden;
+	background-color: $g-background;
+	padding-bottom: $g-padding-bottom;
+
+	&-tabs { // 切换
+		border: 1px solid $g-blue;
+		margin: 8px $g-padding 0;
+		border-radius: $g-radius;
+		display: flex;
+		overflow: hidden;
+		line-height: 29px;
+		&-item {
+			flex: 1;
+			text-align: center;
+			color: $g-blue;
+			background-color: $g-white;
+			&.on {
+				color: $g-white;
+				background-color: $g-blue;
+			}
+		}
+	}
+	&-empty { // 列表为空时的提示文字
+		text-align: center;
+		font-size: 14px;
+		margin-top: 170px;
+		white-space: nowrap;
+		position: relative;
+		&-img{
+			@include atl(-50px , 50%);
+			transform:translateX(-50%);
+			@include sprite($img +'/nopeople.png' , 42px); 
+		}
+		&-world{
+			line-height: 30px;
+		}
+	}
+
+	&-people { // 联系人详情
+		@extend .view-style;
+		&-pictory {
+			border-radius: 50%;
+			@include square(75px);
+			margin: 13px auto 0;
+			overflow: hidden;
+		}
+		&-name {
+			font-size: 16px;
+			text-align: center;
+		}
+		&-nickname {
+			text-align: center;
+			color: $g-ash;
+			line-height: 1;
+		}
+		&-text {
+			background-color: $g-white;
+			border-top: $g-border;
+			border-bottom: $g-border;
+			color: $g-ash;
+			margin-top: 28px;
+			padding: 0 $g-padding;
+			&-label {
+				width: 100px;
+			}
+		}
+		&-button {
+			@include abl(60px, $g-padding);
+			right: $g-padding;
+			.button {
+				margin-top: 15px;
+			}
+		}
+	}
+}

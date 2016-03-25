@@ -1,0 +1,96 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2016-01-09 14:29:10 创建
+// H5微信端 --- 订单
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/bank/bank';
+@import '../../components/order/order';
+
+@import '../../views/view';
+@import '../../views/authentication/authentication';
+@import '../../views/bankcard/bankcard';
+@import '../../views/bill/bill';
+
+@import '../../dialogs/dialog';
+@import '../../dialogs/bankcard/bankcard';
+@import '../../dialogs/paypass/paypass';
+@import '../../dialogs/more/more';
+@import '../../dialogs/confirm/confirm';
+@import '../../dialogs/alert/alert';
+@import '../../dialogs/success/success';
+@import '../../dialogs/info/info';
+
+body {
+	background-color: $g-background;
+}
+
+
+.order {
+
+	$img: $g-pages + '/order/images';
+
+	@extend %fade-in;
+
+	&-head {
+		&-desc {
+			border-bottom: $g-border;
+			padding: 20px $g-padding 12px;
+			line-height: 26px;
+			&-line {
+				overflow: hidden;
+			}
+			&-tip {
+				overflow: hidden;
+				color: $g-ash;
+			}
+		}
+		&-use {
+			@include height(48px);
+			background-color: #fafafa;
+			border-bottom: $g-border;
+			padding: 0 $g-padding;
+			&-guo {
+				float: left;
+				font-size: 14px;
+				color: $g-blue;
+				margin-left: 8px;
+			}
+			&-money {
+				float: right;
+				color: $g-light;
+				font-size: 16px;
+				.on > & {
+					color: $g-blue;
+				}
+			}
+		}
+		&-pay {
+			@include height(52px);
+			padding: 0 $g-padding;
+		}
+		&-radio {
+			float: left;
+			margin-top: 16px;
+			margin-right: 10px;
+			@include sprite($img + '/1.png', 16px);
+			.on > & {
+				@include sprite($img + '/2.png', 16px);
+			}
+		}
+		&-label {
+			float: left;
+			font-size: 14px;
+		}
+		&-num {
+			float: right;
+			font-size: 22px;
+		}
+	}
+	&-bill {
+		@extend .view-style;
+	}
+}

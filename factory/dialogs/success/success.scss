@@ -1,0 +1,29 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2016-01-07 16:01:30 创建
+// H5微信端 --- dialog-success
+
+
+.dialog-success {
+	$img: $g-dialogs;
+	@extend .dialog-style;
+	&-img{
+		display: block;
+		@include sprite($img + '/success/success.png' , 40px);
+		position: relative;
+		left: 50%;
+		-webkit-transform:translateX(-50%);
+		-moz-transform:translateX(-50%);
+		-o-transform:translateX(-50%);
+		-ms-transform:translateX(-50%);
+		transform:translateX(-50%);
+	}
+	.dialog-button{
+		display: block;
+		text-align: center;
+		border-top: none;
+		padding: 0px 15px 10px 15px;
+		line-height: 30px;
+	}
+}
