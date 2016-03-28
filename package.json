@@ -1,0 +1,25 @@
+{
+  "name": "h5",
+  "version": "1.2.0",
+  "description": "果仁宝微信H5官网",
+  "main": "null",
+  "scripts": {
+    "test": "null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/starbbs/GFE-GRB-H5.git"
+  },
+  "keywords": [
+    "果仁宝",
+    "H5",
+    "微信",
+    "H5"
+  ],
+  "author": "ccforeverd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/starbbs/GFE-GRB-H5/issues"
+  },
+  "homepage": "https://github.com/starbbs/GFE-GRB-H5#readme"
+}

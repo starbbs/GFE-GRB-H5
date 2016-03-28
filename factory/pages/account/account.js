@@ -1,15 +1,14 @@
 // 张树垚 2016-01-10 00:31:49 创建
 // H5微信端 --- 账单
 
-require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill', 'mydate',
+require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading', 'h5-view-bill', 'mydate',
 	'h5-weixin'
-], function(router, api, get, filters, H5bill, iScroll, billView, mydate) {
+], function(router, api, get, filters, H5bill, iscrollLoading, billView, mydate) {
 
 	router.init();
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
 	var size = 8; // 账单列表
-	var ifGetUpList = false;
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -20,19 +19,14 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 				break;
 			default:
 				router.to('/');
-				getListDown();
+				iscrollLoading.downLoadingData();
 		}
 	};
 	var timerGetList = null;
 	var originList = [];
-	var bottomHeight = 20; // 下拉加载的高度
 
-	var getListUp = function(callback) { // 获取上拉列表
-		if (vm.uploading) {
-			return;
-		}
-		vm.loadingWord = '正在加载';
-		vm.uploading = true;
+
+	iscrollLoading.upLoadingData = function(callback) { // 获取上拉列表
 		api.billList({
 			gopToken: gopToken,
 			billListPage: 1,
@@ -53,21 +47,8 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			}
 		});
 	};
-
-	
-	var getListDown = function(callback) { // 获取列表
-		if (vm.loading) {
-			return;
-		}
-		if (!page) {
-			vm.loading = true;
-			vm.loadingWord = '大大, 已经没有了...';
-			setTimeout(function() {
-				vm.loading = false;
-			}, 1000);
-			return;
-		}
-		vm.loading = true;
+	//上拉 下拉的函数
+	iscrollLoading.downLoadingData = function(callback) { // 获取列表
 		api.billList({
 			gopToken: gopToken,
 			billListPage: page,
@@ -88,55 +69,57 @@ require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5
 			}
 		});
 	};
-	
-
-	var accountScroll = new iScroll('account', {
-		vScrollbar: false,
-		preventDefault: true,
-		fixedScrollbar: true,
-		useTransition: true,
-		click: true,
-		onBeforeScrollStart:function(){
-		},
-		onScrollMove: function() {
-			if (this.y >= 0) {
-				vm.loadingWord = '松开刷新';
-				vm.uploading = true;
+	iscrollLoading.scrollMove = function() { //滑动时候
+		vm.loadingWord = '松开刷新';
+		vm.uploading = true;
+	};
+	iscrollLoading.beforeScrollEndTrue = function() { //手指移开前 满足条件
+		originList = [];
+		vm.uploading = false;
+		if (vm.uploading) {
+			return;
+		}
+		vm.loadingWord = '正在加载';
+		vm.uploading = true;
+		iscrollLoading.upLoadingData();
+		console.log('向上刷新');
+	};
+	iscrollLoading.beforeScrollEndFalse = function() { //手指移开前 不满足条件
+		setTimeout(function() {
+			vm.uploading = false;
+		}, 200);
+	};
+	iscrollLoading.scrollEnd = function() { //滑动完成后
+		console.log('向下刷新');
+		if (originList.length < size) {
+			vm.loading = true;
+			vm.loadingWord = '大大, 已经没有了...';
+			setTimeout(function() {
+				vm.loading = false;
+			}, 1000);
+		} else {
+			vm.loadingWord = '正在加载';
+			if (vm.loading) {
+				return;
 			}
-		},
-		onBeforeScrollEnd: function() {//松手那时
-			if(this.y >= 100){
-				//ifGetUpList = true;
-				originList = [];
-				vm.uploading = false;
-				getListUp();	
-
-				console.log('向上刷新');			
-			}else{
-				setTimeout(function(){
-					vm.uploading = false;
-				},200);
+			if (!page) {
+				vm.loading = true;
+				vm.loadingWord = '大大, 已经没有了...';
+				setTimeout(function() {
+					vm.loading = false;
+				}, 1000);
+				return;
 			}
-		},
-		onScrollEnd: function() {
-			//长帐单
-			if(this.y < 0 && (this.y - bottomHeight < this.maxScrollY)){
-				console.log('向下刷新');
-				if(originList.length < size){
-					vm.loading = true;
-					vm.loadingWord = '大大, 已经没有了...';
-					setTimeout(function() {
-						vm.loading = false;
-					}, 1000);
-				}else{
-					vm.loadingWord  = '正在加载';
-					getListDown();
-				}
-			}		
-		},
-	});
+			vm.loading = true;
 
+			iscrollLoading.downLoadingData();
+		}
+	};
 
+	var accountScroll = iscrollLoading.set('account', {
+		userUp: true,
+		userDown: true
+	}); //此处的{}可以替换插件里面的
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
