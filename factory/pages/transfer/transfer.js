@@ -26,11 +26,13 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		transferOutType: '',
 		gopNum: 0,
 		list: [],
+		/*
 		newTargetClick: function() { // 新目标
 			vm.transferOutType = 'NEW';
 			transferNew.newTarget = '';
 			router.go('/transfer-new');
 		},
+		*/
 		myWalletClick: function() { // 我的钱包
 			if (vm.hasWallet) {
 				vm.transferOutType = 'ME_WALLET';
@@ -38,6 +40,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 					gopToken: gopToken
 				}, function(data) {
 					if (data.status == 200) {
+						console.log(data.data);
 						var nowData = {};
 						nowData.name = '我的钱包';
 						for (var i = 0; i < data.data.walletList.length; i++) {
@@ -137,18 +140,23 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				router.go('/address-mine');
 			}
 		},
+		/*
 		gopContactClick: function() { // 果仁宝联系人
 			vm.transferOutType = 'GOP_CONTACT';
 			transferTarget.serviceFee = '0.00';
 			router.go('/transfer-contacts');
 			transferContacts.query();
 		},
+		*/
+		/*
 		walletContactClick: function() { // 钱包联系人
 			vm.transferOutType = 'WALLET_CONTACT';
 			transferTarget.serviceFee = '0.01';
 			router.go('/transfer-contacts');
 			transferContacts.query();
 		},
+		*/
+		/*
 		transferClick: function(event) { // 最近联系人
 			var item = vm.list.$model[$(event.target).closest('.transfer-item').get(0).dataset.index];
 			vm.transferOutType = item.type;
@@ -167,12 +175,15 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			targetInit(vm.transferOutType);
 			router.go('/transfer-target');
 		},
+		*/
 		showAuthenDes: function() {
 			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
 			dialogAlert.show();
 		}
 	});
-	var transferNew = avalon.define({ // 转帐第一步
+
+	/*
+	var transferNew = avalon.define({ //转帐到新目标
 		$id: 'transfer-new',
 		newTarget: '',
 		checked: true,
@@ -290,9 +301,10 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			}
 		},
 	});
+	*/
 
-
-	var transferContacts = avalon.define({
+	/*
+	var transferContacts = avalon.define({//转帐到联系人
 		$id: 'transfer-contacts',
 		search: '',
 		list: [],
@@ -314,7 +326,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 				}
 			});
 		},
-		listClick: function(ev) { //果仁宝、钱包=联系人转帐
+		listClick: function(ev) {
 			var item = $(ev.target).closest('.contacts-item');
 			if (!item.length) {
 				return;
@@ -351,7 +363,7 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 			router.go('/transfer-target');
 		},
 	});
-
+	*/
 
 	var transferTarget = avalon.define({ // 转帐输入金额的部分
 		$id: 'transfer-target',
@@ -374,12 +386,15 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		getCnyMoney: function() {//输入果仁数量监听
-			if (parseFloat(this.value) === 0){
+			console.log(transferTarget.transferNum);
+			if(!this.value){
+				return;
+			}
+			if (parseFloat(this.value) === 0 || this.value === ''){
 				$.alert('请输入正确的数量');
 				transferTarget.notchecked = true;
 				return;
 			}
-			//parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee 写入的大于总值-手续费
 			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)){
 				$.alert('您的果仁数不足');
 				transferTarget.notchecked = true;
@@ -398,7 +413,9 @@ require(['router', 'api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component
 		},
 		//确定转帐按钮
 		transferCommitClick: function() {
-			//parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)
+			if(transferTarget.notchecked){
+				return ;
+			}
 			if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
 				setTimeout(function() {

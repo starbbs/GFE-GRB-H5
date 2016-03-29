@@ -65,6 +65,8 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		question2: '',
 		answer1: '',
 		answer2: '',
+		paypass1Next:false,
+		paypass2Next:false,
 		phone: '',
 		identifyingCode: '',
 		hasProtected: true,
@@ -77,6 +79,7 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 					identifyingCode: vm.identifyingCode
 				}, function(data) {
 					if (data.status == 200) {
+						console.log(vm.identifyingCode);
 						if (vm.chooseUrl == 'paypass-protection-1') {
 							api.getQuestion({
 								gopToken: gopToken,
@@ -105,6 +108,13 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 			} else {
 				$.alert('请输入验证码');
 			}
+		},
+		paypass1Value:function(){
+			vm.paypass1Next = vm.paypass1.length === 6 ? true : false;
+			console.log(vm.paypass1Next);
+		},
+		paypass2Value:function(){
+			vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
 		},
 		quesiotn1Click: function() { // 第一个密保问题
 			api.checkQuestion({
@@ -189,7 +199,6 @@ require(['router', 'api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5
 		paypass1Click: function() {
 			if (vm.paypass1.length == 6) {
 				//验证支付密码
-				alert(111);
 				api.checkPayPwd({
 					gopToken: gopToken,
 					payPwd: vm.paypass1

@@ -9,6 +9,7 @@
 
 @import '../../views/view';
 
+@import '../../views/paypass/paypass-view';
 @import '../../dialogs/dialog';
 @import '../../dialogs/success/success';
 
@@ -20,12 +21,3 @@ body {
 // 	color: red;
 // }
 
-.paypass {
-	$img: $g-pages + '/paypass/images';
-	&-page {
-		@extend %fade-in;
-	}
-	&-view, &-choose, &-ident, &-protection, &-authentication {
-		@extend .view-style;
-	}
-}

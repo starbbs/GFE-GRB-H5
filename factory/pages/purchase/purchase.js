@@ -3,6 +3,7 @@
 
 
 require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'api', 'check', 'filters', 'h5-view-bill', 'h5-text', 'h5-ident', 'h5-weixin', 'h5-component-keyboard'], function(router, View, dialogBankcard, price, weixin, api, check, filters, billView) {
+
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
@@ -51,14 +52,27 @@ require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'ap
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
+			console.log(this.value);
 			if(this.value){
-				if(isNaN(this.value)){//输入框是非数字时 NaN === NaN -> false所以只能用isNaN判断类型
+				console.log(isNaN(this.value));
+				console.log(this.value);
+				if(isNaN(this.value) || this.value === '0.'){//输入框是非数字时 NaN === NaN -> false 用isNaN判断类型是否是数字
 					this.value = '';
+					$.alert('请输入1~3000内的金额');
 				}else{
 					this.value = parseInt(this.value);
 					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
-					vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
+					if(vm.ifBuy){
+						vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
+					}else{
+						dialogAlert.show();
+						this.value = '';
+						vm.expect = '';
+					}
+					
 				}	
+			}else{
+				vm.ifBuy = false;
 			}
 		},
 	});
