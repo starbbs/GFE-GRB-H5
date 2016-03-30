@@ -4,9 +4,9 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var security = $('.security');
-	new View('paypass-view-1');
 	new View('paypass-view-2');
-	
+	new View('paypass-view-3');
+
 	var dialogShow = function() { // 显示浮层
 		var timer = null;
 		var second = 3;
@@ -14,7 +14,7 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication
 			timer = setInterval(function() {
 				second--;
 				if (second <= 0) {
-					finish();
+					window.location.href = './mine.html';
 					dialogSuccess.hide();
 					clearInterval(timer);
 				} else {
@@ -32,41 +32,38 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication
 		authenticationed: false, // 实名认证
 		setProtected: false, // 密保问题
 		getPassWorld: true, // 是否设置密码 false未设置
-		paypass1:'',
 		paypass2:'',
-		paypass1Next:false,
+		paypass3:'',
 		paypass2Next:false,
+		paypass3Next:false,
 		authentication_click: function() {
 			router.go('/authentication');
 		},
-		paypass1Value:function(){
-			vm.paypass1Next = vm.paypass1.length === 6 ? true : false;
-			console.log(vm.paypass1Next);
-		},
 		paypass2Value:function(){
 			vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
+		},
+		paypass3Value:function(){
+			vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
 		},
 		protect_click: function(e) {
 			if (!vm.setProtected) {
 				window.location.href = "./protection.html";
 			}
 		},
-		paypass1Click : function() {
-			if (vm.paypass1.length == 6) {
-				router.go('/paypass-view-2');
+		paypass2Click : function() {
+			if (vm.paypass2.length == 6) {
+				router.go('/paypass-view-3');
 			}
 		},
-		paypass2Click : function() {
-			if (vm.paypass2 == vm.paypass1 && vm.paypass2.length == 6) {
+		paypass3Click : function() {
+			if (vm.paypass3 == vm.paypass2 && vm.paypass3.length == 6) {
 				api.setPayPassword({
 					gopToken: gopToken,
 					password: vm.paypass2
 				}, function(data) {
 					if (data.status == 200) {
-						vm.paypass1 = '';
 						vm.paypass2 = '';
-						vm.Idcard = '';
-						vm.identifyingCode = '';
+						vm.paypass3 = '';
 						dialogShow();
 					} else {
 						$.alert(data.msg);
@@ -83,7 +80,6 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication
 		}, function(data) {
 			if (data.status == 200) {
 				vm.authenticationed = true;
-				vm.authenticationedStr = "已认证";
 			} else {
 				console.log(data);
 			}
@@ -110,7 +106,6 @@ require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication
 	viewAuthen.vm.callbackFlag=true;
 	viewAuthen.vm.callback = function() {
 		vm.authenticationed = true;
-		vm.authenticationedStr = "已认证";
 	}
 	setTimeout(function() {
 		security.addClass('on');
