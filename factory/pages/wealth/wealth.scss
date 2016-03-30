@@ -49,7 +49,7 @@ body {
 			line-height: 1;
 		}
 		&-line1 {
-			color: rgba(255,255,255,.3);
+			color: #aabff5;
 			font-size: 10px;
 			margin-top: 28px;
 			span {
@@ -69,7 +69,7 @@ body {
 			}
 		}
 		&-line3 {
-			color: rgba(255,255,255,.3);
+			color: #aabff5;
 			font-size: 10px;
 		}
 		&-line4 {
@@ -133,18 +133,22 @@ body {
 			overflow: hidden;
 		}
 		&-scroll {
-			@extend %afull;
-			@include t3d();
+			// @extend %afull;
+			// @include t3d();
 		}
 		&-slide {
-			@extend %afull;
-			&:nth-child(2) {
-				@include t3d(100%);
-			}
+			// @extend %afull;
+			position: relative;
+			// float: left;
+			height: 210px;
+			// &:nth-child(2) {
+			// 	@include t3d(100%);
+			// }
 		}
 		&-item {
 			// @include atlwh(18px, 5%, 90%, 124px);
-			@extend %afull;
+			// @extend %afull;
+			height: 100%;
 		}
 		&-cover {
 			@extend %afull;
