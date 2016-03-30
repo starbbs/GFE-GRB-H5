@@ -7,8 +7,8 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 
 	var gopToken = $.cookie('gopToken');
 	var mine = $('.mine');
-	var setting_address = new View('setting-address');
-	var setting = new View('setting');
+	// var setting_address = new View('setting-address');
+	// var setting = new View('setting');
 	var setting_about = new View('setting-about');
 	var setting_us = new View('setting-us');
 	new View('setting-feedback');
@@ -21,12 +21,12 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 		dbclickOrLongpress = '长按';
 	}
 
-	setting.on('show', function() {
-		console.log('show')
-	});
-	setting.on('hide', function() {
-		console.log('hide');
-	});
+	// setting.on('show', function() {
+		// console.log('show')
+	// });
+	// setting.on('hide', function() {
+		// console.log('hide');
+	// });
 
 	address_mine.vm.setSuccess = function() {
 		vm.setMarketAddressTip = '已设置';
@@ -151,7 +151,6 @@ require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-a
 	api.info({
 		gopToken: gopToken
 	}, function(data) {
-		console.log(data);
 		if (data.status == 200) {
 			vm.phone = data.data.phone;
 			if (data.data.photo) {
