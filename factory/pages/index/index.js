@@ -36,8 +36,8 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 			window.location.href = 'home.html';
 		}, 100);
 	};
-	// $.cookie('userUrl',window.href);
-	// console.log($.cookie('userUrl'));
+	$.cookie('userUrl',window.href);
+	console.log($.cookie('userUrl'));
 	if ($.cookie('gopToken')) { // 有token
 		api.getGopNum({
 			gopToken: $.cookie('gopToken')
