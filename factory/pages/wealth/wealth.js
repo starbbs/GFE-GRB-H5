@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'filters', 'hchart', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iscrollLoading ,TouchSlide) {
+require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'highChartsSet', 'filters', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iscrollLoading ,TouchSlide ,highChartsSet) {
 
 	router.init(true);
 
@@ -140,27 +140,13 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 			}));
 		});
 	};
-
+	console.log(highChartsSet.set);
 	var annualIncomeWealthSet = function(){
 		api.annualIncomeWealth({
 		},function(data){
 			if(data.status == 200){
 				chartAnnualHandler(data.data.list);
-				chartAnnual.highcharts({
-					chart: {
-						// type: 'areaspline' // 带阴影的线
-					},
-					colors: ['#3d70ee'],
-					title: {
-						text: ''
-					},
-					subtitle: {
-						text: ''
-					},
-					legend: {
-						x: 150,
-						y: 100,
-					},
+				highChartsSet.set(chartAnnual , {
 					xAxis: {
 						// tickInterval: 3, // x坐标轴脚标间隔
 						tickInterval: (function() {
@@ -182,25 +168,6 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 						labels: {
 							formatter: function() {
 								return this.value.toFixed(2);
-							}
-						}
-					},
-					plotOptions: {
-						series: {
-							marker: {
-								enabled: false // 去掉线上的点
-							}
-						},
-						area: {
-							marker: {
-								enabled: false,
-								// symbol: 'circle',
-								// radius: 1,
-								// states: {
-								// 	hover: {
-								// 		enabled: false
-								// 	}
-								// }
 							}
 						}
 					},
@@ -232,21 +199,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 				// 	{id: 14, createTime: "2016-01-25 00:00:00", price: 9, date: "2016-01-25"}
 				// ]);
 				chartHistoryHandler(data.data.list);
-				chartHistory.highcharts({
-					chart: {
-						// type: 'areaspline' // 带阴影的线
-					},
-					colors: ['#3d70ee'],
-					title: {
-						text: ''
-					},
-					subtitle: {
-						text: ''
-					},
-					legend: {
-						x: 150,
-						y: 100,
-					},
+				highChartsSet.set(chartHistory , {
 					xAxis: {
 						// tickInterval: 3, // x坐标轴脚标间隔
 						tickInterval: (function() {
@@ -268,25 +221,6 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 						labels: {
 							formatter: function() {
 								return this.value.toFixed(2);
-							}
-						}
-					},
-					plotOptions: {
-						series: {
-							marker: {
-								enabled: false // 去掉线上的点
-							}
-						},
-						area: {
-							marker: {
-								enabled: false,
-								// symbol: 'circle',
-								// radius: 1,
-								// states: {
-								// 	hover: {
-								// 		enabled: false
-								// 	}
-								// }
 							}
 						}
 					},
