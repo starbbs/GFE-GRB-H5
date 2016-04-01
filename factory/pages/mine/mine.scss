@@ -90,9 +90,6 @@ body {
 			color: $g-silver;
 			margin-right: 12px;
 		}
-		&-green{
-			color: #2acea2;
-		}
 		&-arrow {
 			@include sprite($img + '/arrow.png', 9px, 15px);
 			margin-right: $g-padding;
