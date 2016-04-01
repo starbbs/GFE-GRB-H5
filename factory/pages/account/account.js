@@ -1,7 +1,7 @@
 // 张树垚 2016-01-10 00:31:49 创建
 // H5微信端 --- 账单
 
-require(['router', 'api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill', 'mydate',
+require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 'h5-view-bill', 'mydate',
 	'h5-weixin'
 ], function(router, api, get, filters, H5bill, iScroll, billView, mydate) {
 

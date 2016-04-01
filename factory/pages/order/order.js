@@ -2,7 +2,7 @@
 // H5微信端 --- page-order 订单
 
 
-require(['api', 'get', 'router',
+require(['h5-api', 'get', 'router',
 		'h5-view', 'h5-bankcard-append', 'h5-view-authentication', 'h5-view-bill',
 		'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
 		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more','h5-dialog-confirm','h5-dialog-alert','h5-dialog-success','h5-dialog-info',

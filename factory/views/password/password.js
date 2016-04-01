@@ -2,7 +2,7 @@
 // H5微信端 --- view-password
 
 
-define('h5-view-password', ['api', 'router', 'check', 'h5-view', 'h5-ident', 'h5-dialog-success', 'h5-text'], function(api, router, check, View, ident, dialogSuccess) {
+define('h5-view-password', ['h5-api', 'router', 'check', 'h5-view', 'h5-ident', 'h5-dialog-success', 'h5-text'], function(api, router, check, View, ident, dialogSuccess) {
 	var gopToken = $.cookie('gopToken');
 
 	var finish = function() {

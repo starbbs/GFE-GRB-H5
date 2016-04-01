@@ -2,7 +2,7 @@
 // H5微信端 --- component-ident 获取验证码
 
 
-define('h5-ident', ['api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], function(api, check, h5Check) {
+define('h5-ident', ['h5-api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'], function(api, check, h5Check) {
 
 	var gopToken = $.cookie('gopToken');
 

@@ -2,7 +2,7 @@
 // H5微信端 --- 添加银行卡
 
 
-define('h5-bankcard-append', ['router', 'api', 'check', 'h5-view', 'h5-bankcard-ident','h5-dialog-alert','h5-dialog-info', 'h5-ident', 'h5-text'], function(router, api, check, View, bankcard_ident,dialogAlert,dialogInfo) {
+define('h5-bankcard-append', ['router', 'h5-api', 'check', 'h5-view', 'h5-bankcard-ident','h5-dialog-alert','h5-dialog-info', 'h5-ident', 'h5-text'], function(router, api, check, View, bankcard_ident,dialogAlert,dialogInfo) {
 
 	var gopToken = $.cookie('gopToken');
 	var checkCardNumTimer = null;

@@ -3,7 +3,7 @@
 // H5微信端 --- dialog-paypass支付浮层
 
 
-define('h5-dialog-paypass', ['h5-dialog', 'check', 'api', 'h5-paypass'], function(Dialog, check, api) {
+define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], function(Dialog, check, api) {
 
 	var paypass = new Dialog('paypass');
 

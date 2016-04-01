@@ -2,7 +2,7 @@
 // H5微信端 --- 联系人备注名修改
 
 
-define('h5-view-nickname', ['h5-view', 'api','check', 'h5-text'], function(View, api,check) {
+define('h5-view-nickname', ['h5-view', 'h5-api','check', 'h5-text'], function(View, api,check) {
 	var gopToken = $.cookie('gopToken');
 	var nicknameView = new View('nickname');
 	var vm = avalon.define({

@@ -3,7 +3,7 @@
 
 
 define('h5-view-bill', [
-	'api', 'router', 'filters', 'mydate', // 公用功能
+	'h5-api', 'router', 'filters', 'mydate', // 公用功能
 	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
 	'h5-view-nickname', 'h5-dialog-confirm' // H5组件
 ], function(

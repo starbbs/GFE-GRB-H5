@@ -9,7 +9,8 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(api) {
 	// var baseUri = 'https://endpoint.goopal.com.cn'; // https正式服务器
 	// var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
 
-	var goIndex = function(useURL) { // 返回首页
+	var goIndex = function(useURI) { // 返回首页
+		// useURI 是否使用当前页面地址(未完成)
 		if (window.location.href.indexOf('/index.html') === -1) {
 			return window.location.href = 'index.html';
 		} else {
@@ -25,10 +26,10 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(api) {
 		baseUri: baseUri,
 		onSuccess: function(data) {
 			if (!data) {
-				return goIndex();
+				return goIndex(true);
 			}
 			if (data.status == 300 && options.ignoreStatus && options.ignoreStatus.indexOf(300) === -1) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
-				return goIndex();
+				return goIndex(true);
 			} else if (data.status == 304 && options.ignoreStatus && options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
 				return $.alert('服务器异常, 请联系后台人员!');
 			}

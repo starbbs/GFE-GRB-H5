@@ -3,7 +3,7 @@
 // H5微信端 --- 消息
 
 
-require(['api', 'router', 'get', 'h5-view-bill', 'h5-weixin'], function(api, router, get, billView) {
+require(['h5-api', 'router', 'get', 'h5-view-bill', 'h5-weixin'], function(api, router, get, billView) {
 
 	router.init(false);
 

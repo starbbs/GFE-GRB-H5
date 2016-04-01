@@ -1,7 +1,7 @@
 // 余效俭 2016-01-07 17:26:56 创建
 // H5微信端 --- 我的
 
-require(['router', 'api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-nickname', 'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet, nicknameView) {
+require(['router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-nickname', 'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet, nicknameView) {
 
 	router.init(true);
 

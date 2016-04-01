@@ -2,7 +2,7 @@
 // H5微信端 --- 银行卡信息
 
 
-require(['router', 'api', 'h5-view', 'hashMap',
+require(['router', 'h5-api', 'h5-view', 'hashMap',
 	'h5-bankcard-append','h5-ident', 'h5-view-authentication','h5-dialog-confirm', 'h5-text', 'h5-weixin'
 ], function(router, api, View, hashMap,
 	bankcardAppend,bankcardIdent, viewAuthentication,dialogConfirm) {

@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'highChartsSet', 'filters', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iscrollLoading ,TouchSlide ,highChartsSet) {
+require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'highChartsSet', 'filters', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iscrollLoading ,TouchSlide ,highChartsSet) {
 
 	router.init(true);
 

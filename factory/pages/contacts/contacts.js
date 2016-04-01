@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-view', 'filters', 'h5-component-bill', 'h5-view-nickname', 'h5-weixin', 'h5-component-keyboard'], function(router, api, View, filters, H5bill, nickname) {
+require(['router', 'h5-api', 'h5-view', 'filters', 'h5-component-bill', 'h5-view-nickname', 'h5-weixin', 'h5-component-keyboard'], function(router, api, View, filters, H5bill, nickname) {
 
 	router.init(true);
 
