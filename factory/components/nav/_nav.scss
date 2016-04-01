@@ -8,7 +8,11 @@
 .nav {
 
 	$img: $g-components + '/nav/images';
-	$imgs: ('home', 42px, 45px) ('wealth', 47px, 47px) ('contacts', 49px, 44px) ('mine', 45px, 44px);
+	$imgs: ('home', 42px, 45px)
+		('wealth', 47px, 47px)
+		('contacts', 49px, 44px)
+		('mine', 45px, 44px)
+		('discovery', 44px, 44px);
 	$bg: #282a2e; // 背景颜色
 	$on: #698ad6; // 激活时图标颜色
 	$def: #bfbfbf; // 默认图标和字体颜色, 边框颜色
