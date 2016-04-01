@@ -3,7 +3,7 @@
 // H5微信端 --- 微信授权跳转页
 
 
-require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h5-weixin'], function(router, api, get, authorization, View, viewLogin, weixin) {
+require(['router', 'h5-api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h5-weixin'], function(router, api, get, authorization, View, viewLogin, weixin) {
 
 	router.init(true);
 
@@ -16,7 +16,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 	avalon.scan(select.native, selectVM);
 
 	// $.cookie('gopToken','1f12d62f3e344e1ca654fd61533303b1'); // 有钱的帐号
-	// $.cookie('gopToken','cb51f72310fa4d22a1c7142e8d48b214'); // 杨娟的帐号
+	$.cookie('gopToken','cb51f72310fa4d22a1c7142e8d48b214'); // 杨娟的帐号
 	// $.cookie('gopToken','1b0e7048be0e4d5290d2f0219a5f64a7'); //自己
 	// $.cookie('gopToken','4b35b6239f8b465cb126cae77177f2d7'); //自己133
 	// $.cookie('gopToken','60371545982b401d9cba6eea72402f01'); //13833298624
@@ -43,6 +43,7 @@ require(['router', 'api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h
 			gopToken: $.cookie('gopToken')
 		}, function(data) {
 			if (data.status == 200) { // token有效
+				alert(111);
 				gotoHome();
 			} else { // token无效
 				$.cookie('gopToken', null);

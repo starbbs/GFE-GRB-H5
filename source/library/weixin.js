@@ -2,7 +2,7 @@
 // H5微信端 --- 微信分享
 
 
-define('h5-weixin', ['api', 'url', 'h5-alert'], function(api, url) {
+define('h5-weixin', ['h5-api', 'url', 'h5-alert'], function(api, url) {
 	var gopToken = $.cookie('gopToken');
 	var base = 'www.goopal.com.cn/wx'; // 地址
 	var weixin = {

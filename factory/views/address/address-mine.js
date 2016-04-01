@@ -1,6 +1,6 @@
 // 余效俭 2016-01-11 17:26:56 创建
 // H5微信端 --- 我的
-define('h5-view-address-mine', ['router', 'api', 'h5-view', 'check', 'h5-alert', 'h5-text'], function(router, api, View, check) {
+define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'h5-alert', 'h5-text'], function(router, api, View, check) {
     var gopToken = $.cookie('gopToken');
     var address_mine = new View('address-mine');
     var vm = address_mine.vm = avalon.define({

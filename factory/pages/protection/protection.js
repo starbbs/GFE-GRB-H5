@@ -2,7 +2,7 @@
 // H5微信端 --- 密保设置
 
 
-require(['router', 'h5-view', 'api','h5-dialog-alert', 'h5-paypass', 'h5-text', 'cookie', 'h5-weixin'], function(router, View, api,dialogAlert) {
+require(['router', 'h5-view', 'h5-api','h5-dialog-alert', 'h5-paypass', 'h5-text', 'cookie', 'h5-weixin'], function(router, View, api,dialogAlert) {
     router.init(true);
     var gopToken = $.cookie('gopToken');
     var protection = $('.protection');

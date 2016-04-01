@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'filters', 'hchart', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iscrollLoading) {
+require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'highChartsSet', 'filters', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iscrollLoading ,TouchSlide ,highChartsSet) {
 
 	router.init(true);
 
@@ -108,7 +108,26 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 	avalon.scan(main.get(0), vm);
 
 	// 历史首页图表
-	var chartHistory = $('#chart-history');
+	TouchSlide({
+		slideCell: '#touchSlide',
+		autoPlay: false,
+		mainCell: '.wealth-chart-scroll',
+		titCell: '.wealth-tab-item'
+	});
+	var chartHistory = $('#chart-history'); //历史
+	var chartAnnual = $('#chart-annual');//年化30日
+	var chartAnnualData = [];
+	var chartAnnualDate = [];	
+	var chartAnnualHandler = function(list) {
+		chartAnnualData.length = 0;
+		chartAnnualDate.length = 0;
+		list.forEach(function(item) {
+			chartAnnualData.push(item.annualIncome);
+			chartAnnualDate.push(item.date.replace(/^\d{4}-(\d{2})-(\d{2}).*$/, function(s, s1, s2) {
+				return s1 + '/' + s2;
+			}));
+		});
+	};	
 	var chartHistoryData = [];
 	var chartHistoryDate = [];
 	var chartHistoryHandler = function(list) {
@@ -121,6 +140,48 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 			}));
 		});
 	};
+	var annualIncomeWealthSet = function(){
+		api.annualIncomeWealth({
+		},function(data){
+			if(data.status == 200){
+				chartAnnualHandler(data.data.list);
+				highChartsSet.set(chartAnnual , {
+					xAxis: {
+						// tickInterval: 3, // x坐标轴脚标间隔
+						tickInterval: (function() {
+							return chartAnnualData.length - 1;
+						})(),
+						labels: {
+							formatter: function() {
+								return chartAnnualDate[this.value];
+							}
+						}
+					},
+					yAxis: {
+						title: {
+							text: ''
+						},
+						tickInterval: (function() {
+							return avalon.filters.fix(Math.round(Math.max.apply(Math, chartAnnualData) * 1.1) / 4);
+						})(),
+						labels: {
+							formatter: function() {
+								return this.value.toFixed(2);
+							}
+						}
+					},
+					series: [{
+						name: '历史价格',
+						data: chartAnnualData
+					}]
+				});
+			} else {
+				$.alert(data.msg);
+			}
+		});		
+	};
+	annualIncomeWealthSet();
+
 	var chartHistorySet = function() {
 		api.historyPrice({
 			historyDay: vm.historyDay,
@@ -137,21 +198,7 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 				// 	{id: 14, createTime: "2016-01-25 00:00:00", price: 9, date: "2016-01-25"}
 				// ]);
 				chartHistoryHandler(data.data.list);
-				chartHistory.highcharts({
-					chart: {
-						// type: 'areaspline' // 带阴影的线
-					},
-					colors: ['#3d70ee'],
-					title: {
-						text: ''
-					},
-					subtitle: {
-						text: ''
-					},
-					legend: {
-						x: 150,
-						y: 100,
-					},
+				highChartsSet.set(chartHistory , {
 					xAxis: {
 						// tickInterval: 3, // x坐标轴脚标间隔
 						tickInterval: (function() {
@@ -173,25 +220,6 @@ require(['router', 'api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscro
 						labels: {
 							formatter: function() {
 								return this.value.toFixed(2);
-							}
-						}
-					},
-					plotOptions: {
-						series: {
-							marker: {
-								enabled: false // 去掉线上的点
-							}
-						},
-						area: {
-							marker: {
-								enabled: false,
-								// symbol: 'circle',
-								// radius: 1,
-								// states: {
-								// 	hover: {
-								// 		enabled: false
-								// 	}
-								// }
 							}
 						}
 					},

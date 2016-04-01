@@ -2,7 +2,7 @@
 // H5微信端 登录
 
 
-define('h5-view-login', ['h5-view', 'check', 'api', 'h5-view-password', 'h5-text', 'h5-alert', 'cookie'], function(View, check, api, viewPassword) {
+define('h5-view-login', ['h5-view', 'check', 'h5-api', 'h5-view-password', 'h5-text', 'h5-alert', 'cookie'], function(View, check, api, viewPassword) {
 	var login = new View('login');
 	var vm = login.vm = avalon.define({
 		$id: 'view-login',

@@ -1,6 +1,6 @@
 // 余效俭 2016-1-9 10:47:16 创建
 // H5微信端 --- 安全中心
-require(['router', 'api', 'h5-view', 'h5-view-password', 'h5-view-authentication', 'h5-dialog-success', 'h5-paypass', 'h5-weixin'], function(router, api, View, viewPassword, viewAuthen ,dialogSuccess) {
+require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authentication', 'h5-dialog-success', 'h5-paypass', 'h5-weixin'], function(router, api, View, viewPassword, viewAuthen ,dialogSuccess) {
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var security = $('.security');

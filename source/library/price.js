@@ -2,7 +2,7 @@
 // H5微信端 --- 获取果仁实时价格
 
 
-define('h5-price', ['api'], function(api) {
+define('h5-price', ['h5-api'], function(api) {
 	var price = {
 		interval: 3000, // 请求间隔
 		timer: null, // 定时器

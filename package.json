@@ -4,7 +4,8 @@
   "description": "果仁宝微信H5官网",
   "main": "null",
   "scripts": {
-    "test": "null"
+    "test": "npm run gulp",
+    "gulp": "gulp --use-strict $(node --v8-options | grep harm | awk '{print $1}' | xargs) #ES6"
   },
   "repository": {
     "type": "git",
@@ -13,6 +14,8 @@
   "keywords": [
     "果仁宝",
     "微信",
+    "张树垚",
+    "ccforeverd",
     "H5"
   ],
   "author": "ccforeverd",
@@ -27,6 +30,7 @@
     "gulp-replace": "^0.5.4"
   },
   "amd": {
+    "h5-api": "{{H5_SOURCE}}/js/h5-api",
     "h5-check": "{{H5_SOURCE}}/js/check",
     "h5-price": "{{H5_SOURCE}}/js/price",
     "h5-weixin": "{{H5_SOURCE}}/js/weixin",

@@ -1,0 +1,116 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/nav/nav';
+
+@import '../../../source/scss/mixin';
+// @import '../../views/view';
+
+// @import '../../dialogs/dialog';
+
+
+html {
+	background-color: $g-background;
+}
+
+
+.home {
+
+	$img: $g-pages + '/home1/images';
+	$border: 1px solid $g-light;
+	$padding: 20px;
+	$colorwhite: #fff;
+	$colororange: #FFBB44;
+
+	&-banner{
+		height: 199.68px;
+		padding: $padding;
+		background-image: url($img + '/_down.jpg'); 
+		@include background-size;
+		&-nobuygop{
+			height: 100%;
+			&-layer1{
+				width: 245px;
+				text-align: center;
+				line-height: 25px;
+				color: #AABFF5;
+				background-color: #4B5293;
+				border-radius:10px; 
+				margin-bottom: 10px;
+				>span{
+					color: $colororange;
+				}
+			}
+			&-layer2{
+				text-align: center;
+				color: $colorwhite;
+				.layer21{
+					font-size: 32px;
+				}
+				.layer22{
+					
+				}
+			}
+			&-layer3{
+				text-align: center;
+				>a{
+					margin: 10px 0px;
+					border-radius: 5px;
+					background-color: $colororange;
+					display: block;
+					line-height: 34.134px;
+					color: $colorwhite;
+				}
+				>span{
+					color: $colororange;
+				}
+			}
+		}
+	}
+	&-gop{
+		overflow: hidden;
+		background: $colorwhite;
+		>span{
+			color: #777777;
+			float: left;
+			box-sizing: border-box;
+			width: 50%;
+			text-align: center;
+			height: 54px;
+			line-height: 54px;
+			background-repeat: no-repeat;
+			background-position: 15% 45%;
+		}
+		&-buy{
+			border-right: 1px solid #DDDDDD;
+			@include sprite($img + '/gop_buy.png', 36px, 36px);
+		}
+		&-transfer{
+			@include sprite($img + '/gop_transfer.png', 36px, 36px);
+		}
+	}
+	&-slider{
+		margin: 18px 0px;
+		height: 100px;
+		background: url($img + '/slider1.png');
+		background-size: 100% 100%;
+	}
+	&-phonebills{
+		height: 111px;
+		&-left{
+			float: left;
+		}
+		&-right{
+			float: right;
+		}
+		&-down{
+			clear: both;
+		}
+	}
+}
