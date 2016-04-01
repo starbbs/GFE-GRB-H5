@@ -21,7 +21,6 @@ html {
 
 
 .home {
-
 	$img: $g-pages + '/home1/images';
 	$border: 1px solid $g-light;
 	$padding: 20px;
@@ -29,7 +28,8 @@ html {
 	$colororange: #FFBB44;
 	$color999: #999999;
 	$colorborder: #DDDDDD;
-	
+	$colorworldblue: #AABFF5; //蓝色类似透明文字
+
 	margin-bottom: 59px;
 
 	&-banner{
@@ -43,7 +43,7 @@ html {
 				width: 245px;
 				text-align: center;
 				line-height: 25px;
-				color: #AABFF5;
+				color: $colorworldblue;
 				background-color: #4B5293;
 				border-radius:10px; 
 				margin-bottom: 10px;
@@ -74,6 +74,78 @@ html {
 				>span{
 					color: $colororange;
 				}
+			}
+		}
+		&-mygop{
+			position: relative;
+			height: 100%;
+			&-togglebtn{
+				position: absolute;
+				top: 3px;
+				right: 0px;
+			}
+			&-togglebtn:after{
+				width: 30px; height: 30px; content: ''; display: block;
+			}
+			.up{
+				@include sprite($img + '/up.png', 22px, 22px);;
+			}
+			&-totalgop{
+				color: $colorwhite;
+				.expectincome{
+					.pig{
+						@include sprite($img + '/pig.png', 22px, 22px);
+						float: left;
+						margin-left: 5px;
+					}
+					>span{
+						color: $colororange;
+					}
+					color: $colorworldblue;
+					text-align: right;
+					padding-right: 10px;
+					border-radius: 10px; 
+					background-color: #4C5292;
+					margin-left: 115px;
+					width: 160px;
+				}
+				.mytotalgop{
+					color: $colorworldblue;
+					margin-top: 10px;
+				}
+				.rmbnum{
+					text-align: center;
+					font-size: 44px;
+					>span{
+						padding-bottom: 5px;
+						border-bottom: 1px solid #8589BE;
+					}
+				}
+				.gopbottom{
+					overflow: hidden;
+					div{
+						color: $colorworldblue;
+					}
+					.mygopnum{
+						float: left;
+						 text-align: left;
+						 >span{
+							font-size: 18px;
+							color: $colorwhite;
+						}
+					}
+					.gopprice{
+						float: right;
+						text-align: right;
+						>span{
+							font-size: 18px;
+							color: $colorwhite;
+						}
+					}
+				}
+			}
+			&-incomegop{
+
 			}
 		}
 	}
