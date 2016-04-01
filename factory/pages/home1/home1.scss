@@ -27,6 +27,10 @@ html {
 	$padding: 20px;
 	$colorwhite: #fff;
 	$colororange: #FFBB44;
+	$color999: #999999;
+	$colorborder: #DDDDDD;
+	
+	margin-bottom: 59px;
 
 	&-banner{
 		height: 199.68px;
@@ -88,7 +92,7 @@ html {
 			background-position: 15% 45%;
 		}
 		&-buy{
-			border-right: 1px solid #DDDDDD;
+			border-right: 1px solid $colorborder;
 			@include sprite($img + '/gop_buy.png', 36px, 36px);
 		}
 		&-transfer{
@@ -102,15 +106,84 @@ html {
 		background-size: 100% 100%;
 	}
 	&-phonebills{
-		height: 111px;
+		background-color: $colorwhite;
+		height: 110px;
+		margin-bottom: 10px;
+		// height: 83.34px;
+		// padding: 17px 12.8px 10.66px 12.8px;
+		padding: 17px 0px 10.66px 0px;
+		text-align: center;
 		&-left{
 			float: left;
+			width: 35%;
+			height: 79px;
+			&-curprice{
+				font-size: 14px;
+				color: #F13A3A;
+				>span{
+					font-size: 20px;
+				}
+			}
+			&-oriprice{
+				color: $color999;
+				position: relative;
+				>i{
+					display: block;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					height: 1px;
+					width: 80px;
+					transform:translate(-50%,-50%);
+					border-top: 1px solid $color999;
+				}
+			}
 		}
 		&-right{
+			text-align: left;
 			float: right;
+			width: 65%;
+			height: 79px;
+			box-sizing: border-box;
+			padding-left: 35px;
+			&-productcangory{
+				font-size: 16px;
+				margin-bottom: 5px;
+			}
+			&-productrange{
+				overflow: hidden;
+				>span{
+					float: left;
+					width: 65px; 
+					line-height: 20px; 
+					border-radius: 10px;
+					border: 1px solid $colorborder;
+					text-align: center;
+					margin-right: 10px;
+					color: $color999;
+				}
+			}
 		}
 		&-down{
+			overflow: hidden;
 			clear: both;
+			border-top: 1px solid #E0E0E0;
+			width: 90%;
+			line-height: 39px;
+			margin-left: 5%;
+			>span{
+				float: left;
+				color: $color999;
+			}
+			>a{
+				float: right;
+				border-radius: 15px;
+				border: 1px solid #3D70EE;
+				line-height: 20px;
+				padding: 0px 10px;
+				margin-top: 9px;
+				color: #3D70EE;
+			}
 		}
 	}
 }
