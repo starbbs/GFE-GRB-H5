@@ -140,7 +140,6 @@ require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'is
 			}));
 		});
 	};
-	console.log(highChartsSet.set);
 	var annualIncomeWealthSet = function(){
 		api.annualIncomeWealth({
 		},function(data){
