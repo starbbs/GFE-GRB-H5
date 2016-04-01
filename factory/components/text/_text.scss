@@ -157,5 +157,10 @@
 		margin-right: - $g-padding;
 		margin-left: $g-padding;
 	}
+	&-bottom { // 页面底部的提示
+		@include ablw(20px);
+		text-align: center;
+		white-space: nowrap;
+	}
 }
 

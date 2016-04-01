@@ -1,59 +1,63 @@
-
 // 张树垚 2015-12-27 15:57:31 创建
 // H5微信端 --- 微信授权跳转页
 
 
-require(['router', 'h5-api', 'get', 'authorization', 'h5-view', 'h5-view-login', 'h5-weixin'], function(router, api, get, authorization, View, viewLogin, weixin) {
+require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-view-agreement'], function(router, api, check, get, authorization, View, weixin, ident) {
 
 	router.init(true);
 
-	var select = new View('index-select');
-	var selectVM = select.vm = avalon.define({
-		$id: 'index-select',
-		userNick: '', // 微信昵称
-		userImage: '', // 微信头像
+	var login = new View('index-login');
+	var loginVM = login.vm = avalon.define({
+		$id: 'index-login',
+		userNick: '您好', // 微信昵称
+		userImage: './images/picture.png', // 微信头像
+		identifyingCode: '', // 验证码
 	});
-	avalon.scan(select.native, selectVM);
+	avalon.scan(login.native, loginVM);
 
-	// $.cookie('gopToken','1f12d62f3e344e1ca654fd61533303b1'); // 有钱的帐号
-	$.cookie('gopToken','cb51f72310fa4d22a1c7142e8d48b214'); // 杨娟的帐号
-	// $.cookie('gopToken','1b0e7048be0e4d5290d2f0219a5f64a7'); //自己
-	// $.cookie('gopToken','4b35b6239f8b465cb126cae77177f2d7'); //自己133
-	// $.cookie('gopToken','60371545982b401d9cba6eea72402f01'); //13833298624
+	// $.gopToken('d3a40c529c9c4d16b34dc96d49934f61');
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		// return;
+		return;
 		setTimeout(function() {
 			window.location.href = authorization.default; //跳转威信授权的地址
 		}, 100);
 	};
-	var gotoSelect = function() { // 跳转select分页, 已授权, 未绑定账号
-		setTimeout(function() {
-			router.go('/index-select');
-		}, 100);
-	};
 	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号
 		setTimeout(function() {
-			window.location.href = 'home.html';
+			window.location.href = 'home.html?from=index';
 		}, 100);
 	};
-	$.cookie('userUrl',window.href);
-	console.log($.cookie('userUrl'));
-	if ($.cookie('gopToken')) { // 有token
-		api.getGopNum({
-			gopToken: $.cookie('gopToken')
-		}, function(data) {
-			if (data.status == 200) { // token有效
-				alert(111);
-				gotoHome();
-			} else { // token无效
-				$.cookie('gopToken', null);
-				gotoAuthorization();
-			}
-		});
-	} else { // 没有token
-		if (get.data.code) { // 已授权
+	var gotoLogin = function() { // 跳转login分页
+		setTimeout(function() {
+			router.to('/index-login');
+			document.title = '绑定手机号';
+		}, 100);
+	};
+
+	var gopToken = $.cookie('gopToken');
+	var wxCode = get.data.code;
+
+	var checkToken = function() {
+		if (gopToken) { // 有token
+			api.getGopNum({
+				gopToken: gopToken
+			}, function(data) {
+				if (data.status == 200) { // token有效
+					gotoHome();
+					// gotoLogin();
+				} else { // token无效
+					$.cookie('gopToken', null);
+					checkCode();
+				}
+			});
+		} else { // 没有token
+			checkCode();
+		}
+	};
+	var checkCode = function() {
+		if (wxCode) { // 已授权
 			api.wxlogin({
-				code: get.data.code
+				code: wxCode
 			}, function(data) {
 				if (data.status == 200) {
 					if (data.data.gopToken) { // 已绑定
@@ -61,9 +65,9 @@ require(['router', 'h5-api', 'get', 'authorization', 'h5-view', 'h5-view-login',
 						gotoHome();
 					} else { // 未绑定
 						$.cookie('openId', data.data.openid); // 微信id
-						selectVM.userNick = viewLogin.vm.userNick = data.data.nick;
-						selectVM.userImage = viewLogin.vm.userImage = data.data.img;
-						gotoSelect();
+						loginVM.userNick = data.data.nick;
+						loginVM.userImage = data.data.img;
+						gotoLogin();
 					}
 				} else {
 					$.alert(data.msg);
@@ -72,10 +76,12 @@ require(['router', 'h5-api', 'get', 'authorization', 'h5-view', 'h5-view-login',
 		} else { // 未授权
 			gotoAuthorization();
 		}
-	}
+	};
+
+	var init = function() {
+		checkToken();
+	};
+
+	init();
 
 });
-
-
-
-

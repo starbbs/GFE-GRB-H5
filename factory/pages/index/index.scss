@@ -9,10 +9,10 @@
 
 
 @import '../../views/view';
-@import '../../views/login/login';
+@import '../../views/agreement/agreement';
+// @import '../../views/login/login';
 
-@import '../../dialogs/dialog';
-@import '../../dialogs/alert/alert';
+// @import '../../dialogs/dialog';
 
 
 .index {
@@ -24,7 +24,7 @@
 	font-weight: bold;
 	font-size: 20px;
 
-	&-select {
+	&-login {
 		@extend .view-style;
 		&-picture {
 			margin: 34px auto 0;
@@ -46,34 +46,8 @@
 			font-weight: bold;
 			color: $g-dark;
 		}
-		&-welcome {
-			margin-top: 4px;
-			text-align: center;
-			@extend %text-overflow;
-			font-size: $g-font-normal;
-			color: $g-gray;
-		}
 		&-main {
-			font-size: $g-font-input;
 			margin-top: 68px;
-			border-top: $g-border;
-			border-bottom: $g-border;
-			background-color: $g-white;
-			&-item {
-				@include height(48px);
-				border-bottom: $g-border;
-				margin-left: $g-margin;
-				position: relative;
-				display: block;
-				&:last-child {
-					border-bottom: none;
-				}
-				&:after {
-					content: '';
-					@include atr(16px, $g-margin);
-					@include sprite($img + '/1.png', 9px, 15px);
-				}
-			}
 		}
 	}
 }
