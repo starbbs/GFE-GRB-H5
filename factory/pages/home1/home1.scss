@@ -28,6 +28,7 @@ html {
 	$color999: #999999;
 	$colorborder: #DDDDDD;
 	$colorworldblue: #AABFF5; //蓝色类似透明文字
+	$colorpricegreen: #2ACEA2; //收益绿色
 
 	margin-bottom: 59px;
 
@@ -88,14 +89,17 @@ html {
 			}
 			.up{
 				@include sprite($img + '/up.png', 22px, 22px);;
+			}			
+			.down{
+				@include sprite($img + '/down.png', 22px, 22px);;
 			}
-			&-totalgop{
+			&-totalgop{ //总共果仁
 				color: $colorwhite;
 				.expectincome{
-					.pig{
+					>i{	//小猪
 						@include sprite($img + '/pig.png', 22px, 22px);
 						float: left;
-						margin-left: 5px;
+						margin:0px 5px;
 					}
 					>span{
 						color: $colororange;
@@ -105,12 +109,13 @@ html {
 					padding-right: 10px;
 					border-radius: 10px; 
 					background-color: #4C5292;
-					margin-left: 115px;
-					width: 160px;
+					margin-right: 35px;
+					width: auto;
+					float: right;
 				}
 				.mytotalgop{
 					color: $colorworldblue;
-					margin-top: 10px;
+					padding-top: 35px;
 				}
 				.rmbnum{
 					text-align: center;
@@ -144,7 +149,60 @@ html {
 				}
 			}
 			&-incomegop{
-
+				.nowgopprice{
+					>i{	//小猪
+						@include sprite($img + '/tg.png', 22px, 22px);
+						float: left;
+						margin: 0px 5px;
+					}
+					>span{
+						color: $colorpricegreen;
+						border-bottom: 1px solid $colorpricegreen;
+						margin: 0px 5px;
+					}
+					padding: 0px 5px;
+					color: $colorworldblue;
+					text-align: right;
+					padding-right: 10px;
+					border-radius: 15px; 
+					background-color: #4C5292;
+					margin-right: 35px;
+					float: right;
+				}
+				.totalincome{
+					color: $colorworldblue;
+					padding-top: 35px;					
+				}
+				.incomenum{
+					text-align: center;
+					font-size: 44px;
+					color: $colorwhite;
+					>span{
+						padding-bottom: 5px;
+					}
+				}
+				.gopbottom{
+					overflow: hidden;
+					div{
+						color: $colorworldblue;
+					}
+					.yestodayincome{
+						float: left;
+						 text-align: left;
+						 >span{
+							font-size: 18px;
+							color: $colorwhite;
+						}
+					}
+					.yearincome{
+						float: right;
+						text-align: right;
+						>span{
+							font-size: 18px;
+							color: $colorwhite;
+						}
+					}
+				}				
 			}
 		}
 	}
