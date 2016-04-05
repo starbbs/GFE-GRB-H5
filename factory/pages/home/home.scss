@@ -189,6 +189,9 @@ html {
 			border-bottom: $border;
 			box-sizing: border-box;
 			position: relative;
+			&:nth-child(3n) {
+				border-right: none;
+			}
 		}
 		&-link {
 			@extend %afull;

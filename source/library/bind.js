@@ -20,22 +20,26 @@ define(function() {
 		// 属性
 		this.name = name; // keyboard 或 button-loading
 		this.handles = null;
+		this.formatName = format(name);
 	};
 	// 类方法
 	Bind.format = format;
 	// 原型链方法
 	Bind.prototype.setHandles = function(json) {
-		bind.handles = json;
+		this.handles = json;
 	};
 	Bind.prototype.scan = function(context) {
-		$('[data-' + name + ']', context).each(function(i, element) {
-			element.dataset.keyboard.split('|').forEach(function(string) { //遍历属性上的方法
+		//data-keyboard="hide(contacts-search-input,id1,id2)|hide(other-input,id3)"
+		$('[data-' + this.name + ']', context).each(function(i, element) {
+			element.dataset[this.formatName].split('|').forEach(function(string) { //遍历属性上的方法
 				var match = string.match(/(\w+)(\(([\w\,\-]+)\))?/);
-				if (match && match[1] in handles) {
-					handles[match[1]].apply(element, match[3] ? match[3].split(',') : []);
-					//  handles[hide].apply(element , [contacts-search-input]);
+				// ["hide(contacts-search-input,id1,id2)", "hide", "(contacts-search-input,id1,id2)", "contacts-search-input,id1,id2"]
+				if (match && handles && match[1] in handles) { // 匹配成功且方法存在
+					this.handles[match[1]].apply(element, match[3] ? match[3].split(',') : []);
+				} else {
+					cconsole.log('Error: Bind name=' + this.name + ' 匹配失败');
 				}
-			});
+			}.bind(this));
 		}.bind(this));
 	};
 

@@ -26,7 +26,7 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 			setTimeout(function() {
 				TouchSlide({
 					slideCell: '#touchSlide',
-					autoPlay: true,
+					autoPlay: false,
 					mainCell: '.home-banner-bd',
 					titCell: '.home-banner-hd-li'
 				});
