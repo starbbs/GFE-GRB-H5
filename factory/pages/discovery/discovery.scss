@@ -1,0 +1,101 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/nav/nav';
+
+// @import '../../views/view';
+
+// @import '../../dialogs/dialog';
+$img: $g-pages + '/discovery/images';
+
+html {
+	background-color: $g-background;
+}
+.discovery{
+	&-banner{
+		background: #ffffff;
+		&-li{
+			img{
+				width: 100%;
+			}
+		}
+	}
+	&-phonecharge{
+		background: #ffffff;
+		overflow: hidden;
+		&-li{
+			float: left;
+			line-height: px(128px , 750px);
+			text-align: center;
+			box-sizing: border-box;
+			width: 50%;
+			border-right: 1px solid #DDDDDD;
+			// background-repeat: no-repeat;
+			// background-size: 36px;
+			// background-position: 25px 10px;
+			&:nth-child(1){
+				background: url($img+'/phonecharge1.png') no-repeat  25px 10px;
+				background-size: 36px;
+			}
+			&:nth-last-child(1){
+			border: none;
+			background: url($img+'/phonecharge2.png') no-repeat  25px 10px;
+			background-size: 36px;
+			}
+		}
+	}
+	&-subject{
+		margin-top: 15px;
+		background: #fff;
+		padding: px(30px , 750px);
+		padding-top: 0px;
+		&:nth-last-child(1){
+			margin-bottom: 40px;
+		}
+		&-tit{
+			line-height: 45px;
+		}
+		&-bgimg{
+			height: px(322px , 750px);
+			width: 100%;
+		}
+		&-con{
+			text-align: center;
+			position: relative;
+			margin-bottom: 10px;
+		}
+		&-tits{
+			color: #ffffff;
+			font-size: 18px;
+			@include atlwh(35px, 0px, 100%, 30px);
+		}
+		&-btns{
+			overflow: hidden;
+			@include atlwh(75px, 0px, 100%, 30px);
+			>span{
+				 display: inline-block;
+				 padding: 0px 10px;
+				 border-radius: 15px; 
+			}
+		}
+		& .green >span{
+			color: #2ACEA2;
+			border: 1px solid #2ACEA2;
+		}
+		& .popur >span{
+			color: #AABFF5;
+			border: 1px solid #AABFF5;
+		}
+		& .white >span{
+			color: #ffffff;
+			border: 1px solid #ffffff;
+		}
+	}
+}
+
