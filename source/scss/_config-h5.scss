@@ -65,7 +65,7 @@ $g-height: 1136px;			// PSD高度
 		@return '@function set: Error, unexpected unit!';
 	}
 }
-@function px($width, $base: 320px, $psd: $g-width) { // PSD尺寸转px, 已宽度320px为标准
+@function px($width, $psd: $g-width, $base: 320px) { // PSD尺寸转px, 已宽度320px为标准 px(40px , 750px);
 	@if unit($width) == '' {
 		@if $width < 1 { // 小数
 			@return $width * $base;

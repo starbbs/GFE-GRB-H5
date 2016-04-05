@@ -88,10 +88,10 @@ html {
 				width: 30px; height: 30px; content: ''; display: block;
 			}
 			.up{
-				@include sprite($img + '/up.png', 22px, 22px);;
+				@include sprite($img + '/up.png', 22px, 22px);
 			}			
 			.down{
-				@include sprite($img + '/down.png', 22px, 22px);;
+				@include sprite($img + '/down.png', 22px, 22px);
 			}
 			&-totalgop{ //总共果仁
 				color: $colorwhite;

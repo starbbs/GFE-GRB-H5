@@ -1,0 +1,149 @@
+@@include('../../../source/include/top.html', {"name": "phonecharge1"})
+<div class="screen-r">
+	<div class="phonecharge" ms-controller="phonecharge">
+		<div class="phonecharge-head">
+			<img src="./images/phonecharge-1.jpg" alt="" class="img-w">
+		</div>
+
+		<dl class="phonecharge-body" id="touchSlide">
+			<dt class="phonecharge-body-title">
+				<div class="phonecharge-body-title-layer on">充话费</div>
+				<div class="phonecharge-body-title-layer">充流量 
+					<i class="phonecharge-body-title-hui"></i>
+				</div>
+			</dt>
+			<dd class="phonecharge-body-content">
+				<div class="phonecharge-text">
+					<div class="phonecharge-text-box">
+						<input 
+							type="tel" 
+							id="phonecharge-text-input" 
+							name="phonecharge-text-input" 
+							class="phonecharge-text-input" 
+							ms-class="non-null:phone" 
+							placeholder="请输入或选择手机号码" 
+							autocomplete="off" 
+							maxlength="11" 
+							ms-duplex="phone" 
+							ms-on-input="input" 
+							ms-on-focus="focus" 
+							ms-on-blur="blur">
+					</div>
+					<div class="text-close" ms-class="on:phone" ms-on-touchstart="close"></div>
+					<div class="phonecharge-text-operator" ms-visible="phone">{{carrier}}</div>
+					<div class="phonecharge-text-list" ms-visible="list.length&&focusing">
+						<div class="phonecharge-text-item" ms-repeat-item="list">
+							<div class="phonecharge-text-flex" ms-click="listClick">{{item}}</div>
+							<div class="text-close on" ms-click="listDelete(item, $remove)"></div>
+						</div>
+						<div class="phonecharge-text-bottom" ms-click="listClean">清空历史充值号码</div>
+					</div>
+				</div>
+				<div class="phonecharge-body-content-lists">
+					<!--话费充值-->
+					<div class="phonecharge-body-content-lista">
+						<div class="phonecharge-body-content-lista-tit">
+							话费充值，全国通用，立等到账
+						</div>
+						<ul>
+							<li>
+								<div>10元</div>
+								<div>售价：10.00元</div>
+							</li>
+							<li>
+								<div>20元</div>
+								<div>售价：10.00元</div>
+							</li>
+							<li>
+								<div>30元</div>
+								<div>售价：10.00元</div>
+							</li>
+							<li>
+								<div>50元</div>
+								<div>售价：10.00元</div>
+							</li>
+							<li>
+								<div>100元</div>
+								<div>售价：98.50元</div>
+							</li>
+							<li>
+								<div>200元</div>
+								<div>售价：198.00元</div>
+							</li>
+							<li>
+								<div>300元</div>
+								<div>售价：297.00元</div>
+							</li>
+							<li>
+								<div>500元</div>
+								<div>售价：495.00元</div>
+							</li>		
+							<li>
+								<div>1000元</div>
+								<div>售价：990.00元</div>
+							</li>												
+						</ul>
+					</div>
+					<!--流量充值-->
+					<div class="phonecharge-body-content-listb">
+						<div class="phonecharge-body-content-listb-tit">
+							全国流量，立即生效，2G/3G/4G通用
+						</div>
+						<ul class="phonecharge-body-content-listul">
+							<li>
+								<div>10M</div>
+								<div><i class="middleline"></i>2.85元</div>
+							</li>
+							<li>
+								<div>30M</div>
+								<div><i class="middleline"></i>2.85元</div>
+							</li>						
+							<li>
+								<div>70M</div>
+								<div><i class="middleline"></i>2.85元</div>
+							</li>						
+							<li>
+								<div>150M</div>
+								<div><i class="middleline"></i>2.85元</div>
+							</li>
+							<li>
+								<div>500M</div>
+								<div><i class="middleline"></i>2.85元</div>
+							</li>
+							<li>
+								<div>1G</div>
+								<div><i class="middleline"></i>47.50元</div>
+							</li>
+							<li>
+								<div>2G</div>
+								<div><i class="middleline"></i>2.85元</div>
+							</li>
+							<li>
+								<div>3G</div>
+								<div><i class="middleline"></i>2.85元</div>
+							</li>
+							<li>
+								<div>4G</div>
+								<div><i class="middleline"></i>123.50元</div>
+							</li>
+							<li>
+								<div>6G</div>
+								<div><i class="middleline"></i>171.00元</div>
+							</li>		
+							<li>
+								<div>11G</div>
+								<div><i class="middleline"></i>266.00元</div>
+							</li>												
+						</ul>
+					</div>					
+				</div>
+			</dd>
+		</dl>
+
+		<div class="text-button" ms-click="buttonClick">
+			<span class="button" ms-class="disabled:button=='支付'">{{button}}</span>
+		</div>
+	</div>
+	<div class="alert"></div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "phonecharge1"})
