@@ -5,6 +5,7 @@
 		router.init(true);
 		var gopToken = $.cookie('gopToken');
 		var main = $('.home');
+		/*
 		var vm = avalon.define({
 			$id: 'home',
 			defaultIndex: 0,
@@ -19,7 +20,7 @@
 			bannerImgArr: ['','']
 		});
 		avalon.scan(main.get(0), vm);
-
+		*/
 		// 首页轮播图
 		TouchSlide({
 			slideCell: '#touchSlide',

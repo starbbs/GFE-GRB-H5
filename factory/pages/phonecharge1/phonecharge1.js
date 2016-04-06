@@ -16,12 +16,12 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 	});
 
 	var focusTimer = null;
-	var cards = { // 各种充值卡
+	var jsoncards = { // 各种充值卡
 		'联通': [],
 		'移动': [],
 		'电信': [],
 	};
-	var flows = {
+	var jsonflows = {
 		'联通': [],
 		'移动': [],
 		'电信': [],		
@@ -41,8 +41,8 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 					if (data.status == 200) {
 						phoneInput[0].blur();
 						vm.carrier = data.data.carrier;
-						vm.goods = cards[data.data.carrier.substr(-2)];
-						vm.flows = flows[data.data.carrier.substr(-2)];
+						vm.goods = jsoncards[data.data.carrier.substr(-2)];
+						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 					} else {
 						$.alert(data.msg);
 					}
@@ -105,7 +105,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			});
 		},
 		goods: [], // 话费列表
-		goodsClick: function(ev) { // 商品点击
+		goodsClick: function(ev) { // 支付点击
 			var item = $(ev.target).closest('.phonecharge-lista-item');
 			if (item.length) {
 				item.addClass('cur').siblings().removeClass('cur');
@@ -150,6 +150,11 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 	});
 	avalon.scan(main.get(0), vm);
 
+	//移动时候改变支付按钮状态
+	$('#touchSlide')[0].ontouchmove = function(){
+		console.log(111);
+	};
+
 	//获取以往手机号
 	api.phoneLastest({
 		gopToken: gopToken
@@ -167,10 +172,10 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 	}, function(data) {
 		// console.log(data);
 		if (data.status == 200) {
-			console.log(data);
+			
 			data.data.productList.forEach(function(item){
 				var desc = JSON.parse(item.extraContent);
-				flows[desc.carrier].push({
+				jsonflows[desc.carrier].push({
 					id: item.id, // 商品id
 					level: desc.level, // 流量数M
 					price: desc.price, // 下划线价格
@@ -182,20 +187,19 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			console.log(data);
 		}
 	});
-
+	
 	//获取话费列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJICHONGZHIKA"
 	}, function(data) {
-		console.log(data);
 		if (data.status == 200) {
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
-				cards[desc.carrier].push({
+				jsoncards[desc.carrier].push({
 					id: item.id, // 商品id
 					currency: item.currency, // 货币(RMB)
-					price: desc.price, // 显示价格
-					use: item.price, // 实际价格
+					price: desc.price, // 下划线价格
+					use: item.price, // 支付按钮价格
 					desc: item.productDesc, // 描述
 				});
 			});
