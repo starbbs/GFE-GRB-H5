@@ -30,8 +30,9 @@
 							ms-on-blur="blur">
 					</div>
 					<div class="text-close" ms-class="on:phone" ms-on-touchstart="close"></div>
-					<div class="text-cancel">取消</div>
-					<div class="phonecharge-text-operator" ms-visible="phone">{{carrier}}</div>
+					<div class="text-cancel" ms-visible="phone.length < 11 && cancelBool" ms-on-click="cancel">取消</div>
+					<!--运营商-->
+					<div class="phonecharge-text-operator" ms-visible="phone.length===11">{{carrier}}</div>
 					<!--历史手机号-->
 					<div class="phonecharge-text-list" ms-visible="list.length&&focusing">
 						<div class="phonecharge-text-item" ms-repeat-item="list">
@@ -48,42 +49,10 @@
 							话费充值，全国通用，立等到账
 						</div>
 						<ul>
-							<li>
-								<div>10元</div>
-								<div>售价：10.00元</div>
-							</li>
-							<li>
-								<div>20元</div>
-								<div>售价：10.00元</div>
-							</li>
-							<li>
-								<div>30元</div>
-								<div>售价：10.00元</div>
-							</li>
-							<li>
-								<div>50元</div>
-								<div>售价：10.00元</div>
-							</li>
-							<li>
-								<div>100元</div>
-								<div>售价：98.50元</div>
-							</li>
-							<li>
-								<div>200元</div>
-								<div>售价：198.00元</div>
-							</li>
-							<li>
-								<div>300元</div>
-								<div>售价：297.00元</div>
-							</li>
-							<li>
-								<div>500元</div>
-								<div>售价：495.00元</div>
-							</li>		
-							<li>
-								<div>1000元</div>
-								<div>售价：990.00元</div>
-							</li>												
+							<li ms-repeat-item="goods" ms-data-id="item.id">
+								<div>{{item.price}}元</div>
+								<div>售价：{{item.use|floorFix}}元</div>
+							</li>							
 						</ul>
 					</div>
 					<!--流量充值-->

@@ -1,0 +1,138 @@
+@@include('../../../source/include/top.html', {"name": "home"})
+<div class="screen-r">
+	<div class="home" ms-controller="home">
+		<div class="home-banner">
+			<!--没有买果仁-->
+			<div class="home-banner-nobuygop" ms-visible="myGopNum===0">
+				<div class="home-banner-nobuygop-layer1">
+					港股上市公司神舟数字<span>（08255.HK）</span>旗下
+				</div>
+				<div class="home-banner-nobuygop-layer2">
+					<div class="layer21">10.00%</div>
+					<p class="layer22">预计年化收益率</p>
+				</div>
+				<div class="home-banner-nobuygop-layer3">
+					<a href="purchase.html#!/">立即购买</a>
+					<span>果仁随时当钱花，使用场景很丰富</span>
+				</div>
+			</div>
+			<!--有果仁-->
+			<div class="home-banner-mygop" ms-visible="myGopNum!=0">
+				<!--切换按钮-->
+				<div class="home-banner-mygop-togglebtn up" ms-click="toggleBtnFn()"></div>
+				<!--总资产-->
+				<div class="home-banner-mygop-totalgop" ms-visible="curIndex===1">
+					<div class="expectincome">
+						<i></i>
+						预计年化收益率<span>10.00%</span>
+					</div>
+					<div class="mytotalgop">
+						我的总资产（￥）
+					</div>
+					<div class="rmbnum">
+						<span>{{myGopNum|floorFix}}</span>
+					</div>
+					<div class="gopbottom">
+						<div class="mygopnum">
+							<div>我的果仁数(<i class="iconfont icon-g"></i>)</div>
+							<span>{{myGopNum|floorFix}}</span>
+						</div>
+						<div class="gopprice">
+							<div>果仁现价(￥)</div>
+							<span>{{gopNowPrice|floorFix}}</span>
+						</div>
+					</div>
+				</div>
+				<!--收益-->
+				<div class="home-banner-mygop-incomegop" ms-visible="curIndex===2">
+					<div class="nowgopprice">
+						<i></i>
+						果仁现价<span>{{gopNowPrice|floorFix}}</span>
+					</div>
+					<div class="totalincome">
+						累计收益（￥）
+					</div>
+					<div class="incomenum">
+						<span>{{totalInCome|floorFix}}</span>
+					</div>
+					<div class="gopbottom">
+						<div class="yestodayincome">
+							<div>昨日浮动盈亏（￥）</div>
+							<span>{{yesterDayIncome|floorFix}}</span>
+						</div>
+						<div class="yearincome">
+							<div>预计年化收益率</div>
+							<span>10.00%</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="home-gop">
+			<a href="purchase.html#!/" class="home-gop-buy">买果仁</a>
+			<a href="transfer.html#!/" class="home-gop-transfer">转果仁</a>
+		</div>
+		<div class="home-slider" id="touchSlide">
+			<ul class="home-slider-bd">
+				<li class="home-slider-bd-li" ms-repeat-img="bannerImgArr">
+					<a ms-if-loop="img.url" ms-attr-href="img.url">
+						<img ms-attr-src="img.img" alt="" class="img-w">
+					</a>
+					<img ms-if-loop="!img.url" ms-attr-src="img.img" alt="" class="img-w">
+				</li>
+			</ul>
+			<ul class="home-slider-hd">
+				<li class="home-slider-hd-li" ms-repeat="bannerImgArr"></li>
+			</ul>			
+		</div>
+		<div class="home-phonebills">
+			<div class="home-phonebills-left">
+				<div class="home-phonebills-left-curprice">
+					￥<span>23</span>.00
+				</div>
+				<div class="home-phonebills-left-oriprice">
+					原价：￥30.00 <i></i>
+				</div>
+			</div>
+			<div class="home-phonebills-right">
+				<div class="home-phonebills-right-productcangory">
+					中国移动&nbsp500M流量
+				</div>
+				<div class="home-phonebills-right-productrange">
+					<span>立即生效</span>
+					<span>全国流量</span>
+				</div>
+			</div>
+			<div class="home-phonebills-down">
+				<span>4月31号截至</span>
+				<a href="javascript:;">马上抢购</a>
+			</div>
+		</div>
+		<div class="home-phonebills">
+			<div class="home-phonebills-left">
+				<div class="home-phonebills-left-curprice">
+					￥<span>23</span>.00
+				</div>
+				<div class="home-phonebills-left-oriprice">
+					原价：￥30.00 <i></i>
+				</div>
+			</div>
+			<div class="home-phonebills-right">
+				<div class="home-phonebills-right-productcangory">
+					中国电信&nbsp500M流量
+				</div>
+				<div class="home-phonebills-right-productrange">
+					<span>立即生效</span>
+					<span>全国流量</span>
+				</div>
+			</div>
+			<div class="home-phonebills-down">
+				<span>4月31号截至</span>
+				<a href="javascript:;">马上抢购</a>
+			</div>
+		</div>
+	</div>
+	@@include('../../components/nav/nav.html', { "name": "home" })
+	<div class="alert"></div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "home"})

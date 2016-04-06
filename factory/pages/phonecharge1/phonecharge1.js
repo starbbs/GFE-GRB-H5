@@ -5,6 +5,8 @@
 require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weixin'], function(api, check, get, filters ,TouchSlide) {
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
+	var phoneInput = $('#phonecharge-text-input');
+
 
 	TouchSlide({
 		slideCell: '#touchSlide',
@@ -23,6 +25,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 	var vm = avalon.define({
 		$id: 'phonecharge',
 		phone: '',
+		cancelBool:false,
 		carrier: '', // 运营商
 		input: function() { // 手机号输入
 			if (check.phone(vm.phone).result) {
@@ -30,20 +33,26 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 					phone: vm.phone
 				}, function(data) {
 					if (data.status == 200) {
+						phoneInput[0].blur();
 						vm.carrier = data.data.carrier;
 						vm.goods = cards[data.data.carrier.substr(-2)];
+						console.log(cards[data.data.carrier.substr(-2)]);
 					} else {
 						$.alert(data.msg);
 					}
 				});
+			}else{
+				vm.goods = [];
 			}
 		},
 		focusing: false, // 焦点在输入框
 		focus: function() { // 获取焦点
+			vm.cancelBool = true;
 			vm.focusing = true;
 			clearTimeout(focusTimer);
 		},
 		blur: function() { // 失去焦点
+			vm.cancelBool = false;
 			clearTimeout(focusTimer);
 			focusTimer = setTimeout(function() {
 				vm.focusing = false;
@@ -51,7 +60,13 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 		},
 		close: function() { // 输入框清除
 			vm.phone = '';
+			vm.goods = [];
+			vm.focusing = false;
 			$('#phonecharge-text-input').val('').get(0).focus();
+		},
+		cancel:function(){
+			// phoneInput.blur();
+			vm.cancelBool = false;
 		},
 		list: [], // 历史充值号码列表
 		listClick: function() { // 选择历史号码
@@ -117,15 +132,32 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 	});
 	avalon.scan(main.get(0), vm);
 
+	//获取以往手机号
 	api.phoneLastest({
 		gopToken: gopToken
 	}, function(data) {
 		if (data.status == 200) {
 			vm.list = data.data.phoneList;
+			console.log(data);
 		} else {
 			console.log(data);
 		}
 	});
+
+
+	api.productList({
+		productType: "SHOUJILIULIANG"
+	}, function(data) {
+		// console.log(data);
+		if (data.status == 200) {
+			console.log(data)
+		} else {
+			console.log(data);
+		}
+	});
+
+
+	//获取话费列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJICHONGZHIKA"
 	}, function(data) {
@@ -141,11 +173,12 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 					desc: item.productDesc, // 描述
 				});
 			});
-			// console.log(cards)
+			console.log(cards);
 		} else {
 			console.log(data);
 		}
 	});
+
 	setTimeout(function() {
 		main.addClass('on');
 	}, 100);
