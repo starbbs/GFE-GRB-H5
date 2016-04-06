@@ -55,6 +55,7 @@ $listborder : 1px solid $bordercolor;//充值选项列表边框
 		}
 		&-content{
 			&-lista{//话费充值
+				height: px(500px, 750px);
 				overflow: hidden;
 				padding: 5px 13px;
 				&-tit{//话费充值标题
@@ -94,6 +95,7 @@ $listborder : 1px solid $bordercolor;//充值选项列表边框
 				}
 			}
 			&-listb{//流量充值
+				height: px(510px, 750px);
 				overflow: hidden;
 				padding: 5px 13px;
 				&-tit{//话费充值标题
@@ -101,11 +103,17 @@ $listborder : 1px solid $bordercolor;//充值选项列表边框
 				}
 				ul{
 					overflow: hidden;
-					.cur{
-						background: #6888D9;
-						color: #ffffff;
-						>div{
-							color: #ffffff;
+					& li.cur{
+						color: #6888D9;
+						border: 1px solid #6888D9;
+						&>div{
+							color: #6888D9;
+							&:nth-child(1){
+								color: #6888D9;
+							}
+							&>i{
+								border-color: #6888D9;
+							}
 						}
 					}
 					li{
@@ -113,19 +121,20 @@ $listborder : 1px solid $bordercolor;//充值选项列表边框
 						box-sizing: border-box;
 						text-align: center;
 						background: #ffffff;
-						border-top: $listborder;
-						border-left: $listborder;
+						border: $listborder;
 						width: px(195px , 750px);
 						padding: 5px 0px;
 						>div:nth-child(1){
 							font-size: 16px;
 							line-height: 1.5em;
+							color: #333333;
 						}
 						>div{
 							position: relative;
 							color: #CCCCCC;
 						}
 					}
+					/*
 					li:nth-last-child(1){
 						border-bottom: $listborder;
 						border-right: $listborder;
@@ -142,6 +151,7 @@ $listborder : 1px solid $bordercolor;//充值选项列表边框
 					li:nth-child(4n+4){
 						border-right: $listborder;
 					}
+					*/
 				}
 			}
 		}

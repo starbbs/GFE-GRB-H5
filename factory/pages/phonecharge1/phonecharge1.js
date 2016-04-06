@@ -21,6 +21,12 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 		'移动': [],
 		'电信': [],
 	};
+	var flows = {
+		'联通': [],
+		'移动': [],
+		'电信': [],		
+	};
+
 	var confirmData = null;
 	var vm = avalon.define({
 		$id: 'phonecharge',
@@ -36,13 +42,14 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 						phoneInput[0].blur();
 						vm.carrier = data.data.carrier;
 						vm.goods = cards[data.data.carrier.substr(-2)];
-						console.log(cards[data.data.carrier.substr(-2)]);
+						vm.flows = flows[data.data.carrier.substr(-2)];
 					} else {
 						$.alert(data.msg);
 					}
 				});
 			}else{
 				vm.goods = [];
+				vm.flows = [];
 			}
 		},
 		focusing: false, // 焦点在输入框
@@ -61,11 +68,11 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 		close: function() { // 输入框清除
 			vm.phone = '';
 			vm.goods = [];
+			vm.flows = [];
 			vm.focusing = false;
 			$('#phonecharge-text-input').val('').get(0).focus();
 		},
 		cancel:function(){
-			// phoneInput.blur();
 			vm.cancelBool = false;
 		},
 		list: [], // 历史充值号码列表
@@ -97,12 +104,23 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 				}
 			});
 		},
-		goods: [], // 商品列表
+		goods: [], // 话费列表
 		goodsClick: function(ev) { // 商品点击
-			var item = $(ev.target).closest('.phonecharge-box-item');
+			var item = $(ev.target).closest('.phonecharge-lista-item');
 			if (item.length) {
-				item.addClass('on').siblings().removeClass('on');
+				item.addClass('cur').siblings().removeClass('cur');
 				confirmData = vm.goods[item.index()].$model;
+				vm.button = '支付：¥' + filters.floorFix(confirmData.use);
+				console.log(confirmData);
+			}
+		},
+		flows:[],// 流量列表	
+		flowsClick:function(ev){
+			var item = $(ev.target).closest('.phonecharge-listb-item');
+			if(item.length){
+				item.addClass('cur').siblings().removeClass('cur');
+				confirmData = vm.flows[item.index()].$model;
+				console.log(confirmData);
 				vm.button = '支付：¥' + filters.floorFix(confirmData.use);
 			}
 		},
@@ -138,30 +156,38 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 	}, function(data) {
 		if (data.status == 200) {
 			vm.list = data.data.phoneList;
-			console.log(data);
 		} else {
 			console.log(data);
 		}
 	});
 
-
+	//获取流量列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJILIULIANG"
 	}, function(data) {
 		// console.log(data);
 		if (data.status == 200) {
-			console.log(data)
+			console.log(data);
+			data.data.productList.forEach(function(item){
+				var desc = JSON.parse(item.extraContent);
+				flows[desc.carrier].push({
+					id: item.id, // 商品id
+					level: desc.level, // 流量数M
+					price: desc.price, // 下划线价格
+					use: item.price, // 支付按钮价格
+					desc: item.productDesc, // 描述
+				});
+			});
 		} else {
 			console.log(data);
 		}
 	});
 
-
 	//获取话费列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJICHONGZHIKA"
 	}, function(data) {
-		// console.log(data);
+		console.log(data);
 		if (data.status == 200) {
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
@@ -173,7 +199,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 					desc: item.productDesc, // 描述
 				});
 			});
-			console.log(cards);
 		} else {
 			console.log(data);
 		}
