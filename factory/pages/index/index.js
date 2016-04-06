@@ -33,7 +33,11 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 			}
 			load.work();
 			H5Ident.input(mobileInput, codeInput, function() {
-				load.reset();
+				console.log(loginVM.mobile, openid)
+				api.checkPhoneRelatedWxAccount({
+					phone: loginVM.mobile,
+					unionId: openid,
+				}, function() {});
 			}, function() {
 				load.reset();
 			});

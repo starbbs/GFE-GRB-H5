@@ -14,7 +14,7 @@ define('h5-button', ['bind'], function(Bind) {
 		this.class = 'disabled'; // 添加的样式
 		this.attr = 'disabled'; // 添加的属性
 		this.timer = null; // 定时器
-		this.timeout = 3000; // 延时时间
+		this.timeout = 10000; // 延时时间
 
 		this.self.on('click', this.click.bind(this)); // 点击
 
