@@ -28,8 +28,8 @@
 					TouchSlide({
 						slideCell: '#touchSlide',
 						autoPlay: true,
-						mainCell: '.home-banner-bd',
-						titCell: '.home-banner-hd-li'
+						mainCell: '.discovery-banner',
+						titCell: '.discovery-banner-hd-li'
 					});
 				}, 100);
 			}

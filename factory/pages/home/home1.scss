@@ -39,6 +39,7 @@ html {
 		@include background-size;
 		&-nobuygop{
 			height: 100%;
+			display: none;
 			&-layer1{
 				width: 245px;
 				text-align: center;
@@ -77,6 +78,7 @@ html {
 			}
 		}
 		&-mygop{
+			display: none;
 			position: relative;
 			height: 100%;
 			&-togglebtn{
@@ -179,6 +181,7 @@ html {
 					color: $colorwhite;
 					>span{
 						padding-bottom: 5px;
+						border-bottom: 1px solid
 					}
 				}
 				.gopbottom{
@@ -229,10 +232,26 @@ html {
 		}
 	}
 	&-slider{
+		position: relative;
 		margin: 18px 0px;
-		height: 100px;
-		background: url($img + '/slider1.png');
-		background-size: 100% 100%;
+		&-hd{
+			overflow:hidden;
+			position:absolute;
+			left:50%;
+			transform: translateX(-50%);
+			bottom:10px;
+			&-li{
+				width:10px;
+				height:10px;
+				border-radius:50%;
+				background-color:rgba($g-white, 0.5);
+				float:left;
+				margin-right:8px;
+				&.on {
+					background-color: $g-white;
+				}
+			} 			
+		}
 	}
 	&-phonebills{
 		background-color: $colorwhite;

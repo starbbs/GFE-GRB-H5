@@ -1,9 +1,9 @@
 @@include('../../../source/include/top.html', {"name": "home1"})
 <div class="screen-r">
-	<div class="home on" ms-controller="home">
+	<div class="home" ms-controller="home">
 		<div class="home-banner">
 			<!--没有买果仁-->
-			<div class="home-banner-nobuygop" style="display: none;">
+			<div class="home-banner-nobuygop" ms-visible="myGopNum===0">
 				<div class="home-banner-nobuygop-layer1">
 					港股上市公司神舟数字<span>（08255.HK）</span>旗下
 				</div>
@@ -16,11 +16,12 @@
 					<span>果仁随时当钱花，使用场景很丰富</span>
 				</div>
 			</div>
-			<div class="home-banner-mygop">
+			<!--有果仁-->
+			<div class="home-banner-mygop" ms-visible="myGopNum!=0">
 				<!--切换按钮-->
-				<div class="home-banner-mygop-togglebtn up"></div>
+				<div class="home-banner-mygop-togglebtn up" ms-click="toggleBtnFn()"></div>
 				<!--总资产-->
-				<div class="home-banner-mygop-totalgop" style="display: none;">
+				<div class="home-banner-mygop-totalgop" ms-visible="curIndex===1">
 					<div class="expectincome">
 						<i></i>
 						预计年化收益率<span>10.00%</span>
@@ -29,38 +30,38 @@
 						我的总资产（￥）
 					</div>
 					<div class="rmbnum">
-						<span>1244.40</span>
+						<span>{{myGopNum|floorFix}}</span>
 					</div>
 					<div class="gopbottom">
 						<div class="mygopnum">
 							<div>我的果仁数(<i class="iconfont icon-g"></i>)</div>
-							<span>343.54</span>
+							<span>{{myGopNum|floorFix}}</span>
 						</div>
 						<div class="gopprice">
 							<div>果仁现价(￥)</div>
-							<span>3.54</span>
+							<span>{{gopNowPrice|floorFix}}</span>
 						</div>
 					</div>
 				</div>
 				<!--收益-->
-				<div class="home-banner-mygop-incomegop">
+				<div class="home-banner-mygop-incomegop" ms-visible="curIndex===2">
 					<div class="nowgopprice">
 						<i></i>
-						果仁现价<span>3.13</span>
+						果仁现价<span>{{gopNowPrice|floorFix}}</span>
 					</div>
 					<div class="totalincome">
 						累计收益（￥）
 					</div>
 					<div class="incomenum">
-						<span>1244.40</span>
+						<span>{{totalInCome|floorFix}}</span>
 					</div>
 					<div class="gopbottom">
 						<div class="yestodayincome">
 							<div>昨日浮动盈亏（￥）</div>
-							<span>-1.54</span>
+							<span>{{yesterDayIncome|floorFix}}</span>
 						</div>
 						<div class="yearincome">
-							<div>预计年华收益率</div>
+							<div>预计年化收益率</div>
 							<span>10.00%</span>
 						</div>
 					</div>
@@ -71,7 +72,18 @@
 			<span class="home-gop-buy">买果仁</span>
 			<span class="home-gop-transfer">转果仁</span>
 		</div>
-		<div class="home-slider">
+		<div class="home-slider" id="touchSlide">
+			<ul class="home-slider-bd">
+				<li class="home-slider-bd-li" ms-repeat-img="bannerImgArr">
+					<a ms-if-loop="img.url" ms-attr-href="img.url">
+						<img ms-attr-src="img.img" alt="" class="img-w">
+					</a>
+					<img ms-if-loop="!img.url" ms-attr-src="img.img" alt="" class="img-w">
+				</li>
+			</ul>
+			<ul class="home-slider-hd">
+				<li class="home-slider-hd-li" ms-repeat="bannerImgArr"></li>
+			</ul>			
 		</div>
 		<div class="home-phonebills">
 			<div class="home-phonebills-left">
