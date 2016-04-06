@@ -2,7 +2,7 @@
 // H5微信端 --- 微信授权跳转页
 
 
-require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button', 'h5-view-agreement', 'h5-text', 'h5-keyboard'], function(router, api, check, get, authorization, View, weixin, H5Ident, H5Button) {
+require(['router', 'h5-api', 'check', 'get', 'authorization', 'check', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button', 'h5-view-agreement', 'h5-text', 'h5-keyboard'], function(router, api, check, get, authorization, check, View, weixin, H5Ident, H5Button) {
 
 	// router.init(true);
 	router.init();
@@ -25,33 +25,79 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 			loginVM[attr] = '';
 		},
 		click: function() { // 按钮
+
 			// console.log(H5Button.filter(this));
-			var load = this.__loading;
 			var self = $(this);
 			if (self.hasClass('disabled')) {
-				return;
+				return $.alert('正在校验中, 请稍后');
 			}
+
+			var mobile = loginVM.mobile;
+			var mobileCheck = check.phone(mobile);
+			if (!mobileCheck.result) {
+				return $.alert(mobileCheck.message);
+			}
+
+			var code = loginVM.code;
+			var codeCheck = check.ident(code);
+			if (!mobileCheck.result) {
+				return $.alert(codeCheck.message);
+			}
+
+			var load = this.__loading;
 			load.work();
-			H5Ident.input(mobileInput, codeInput, function() {
-				console.log(loginVM.mobile, openid)
-				api.checkPhoneRelatedWxAccount({
-					phone: loginVM.mobile,
-					unionId: openid,
-				}, function() {});
-			}, function() {
-				load.reset();
+			api.identifyingCode({
+				phone: mobile,
+				identifyingCode: code
+			}, function(data) {
+				if (data.status == 200) {
+					console.log(mobile, openid)
+					api.checkPhoneRelatedWxAccount({
+						phone: mobile,
+						unionId: openid,
+					}, function(data) {
+						if (data.status == 200) {
+							api.wxregister({
+								phone: mobile,
+								identifyingCode: code,
+								openId: openid,
+							}, function(data) {
+								if (data.status == 200) {
+									load.reset('欢迎!');
+									gopToken = data.data.gopToken;
+									$.cookie('gopToken', gopToken);
+									gotoHome();
+								} else {
+									$.alert(data.msg);
+									load.reset();
+								}
+							});
+						} else {
+							$.alert(data.msg);
+							load.reset();
+						}
+					});
+				} else {
+					$.alert('验证码错误');
+					load.reset();
+				}
 			});
+
+			// H5Ident.input(mobileInput, codeInput, function() {
+			// 	console.log(loginVM.mobile, openid)
+			// 	api.checkPhoneRelatedWxAccount({
+			// 		phone: loginVM.mobile,
+			// 		unionId: openid,
+			// 	}, function(data) {
+			// 		if (data.status == 200) {} else {}
+			// 	});
+			// }, function() {
+			// 	load.reset();
+			// });
 		},
 	});
 	avalon.scan(login.native, loginVM);
 
-	// $.cookie('gopToken','1f12d62f3e344e1ca654fd61533303b1'); // 有钱的帐号
-	// $.cookie('gopToken','cb51f72310fa4d22a1c7142e8d48b214'); // 杨娟的帐号
-	// $.cookie('gopToken','31df66a5ee434a2cb6e70427e19209a9'); //自己
-	// $.cookie('gopToken','4b35b6239f8b465cb126cae77177f2d7'); //自己133
-	// $.cookie('gopToken','60371545982b401d9cba6eea72402f01'); //13833298624
-
-	// $.gopToken('d3a40c529c9c4d16b34dc96d49934f61');
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
 		// return;
 		setTimeout(function() {

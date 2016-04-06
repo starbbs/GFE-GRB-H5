@@ -16,8 +16,6 @@ define('h5-button', ['bind'], function(Bind) {
 		this.timer = null; // 定时器
 		this.timeout = 10000; // 延时时间
 
-		this.self.on('click', this.click.bind(this)); // 点击
-
 		loads.push(this);
 	};
 	Load.prototype.set = function(options) {
@@ -37,11 +35,6 @@ define('h5-button', ['bind'], function(Bind) {
 		this.self.removeClass(this.class).html(this.origin || html).removeAttr(this.attr);
 		return this;
 	};
-	Load.prototype.click = function() {
-		this.work.call(this);
-		this.onClick.call(this.element);
-	};
-	Load.prototype.onClick = $.noop;
 
 	var button = new Bind('button');
 	button.Load = Load;

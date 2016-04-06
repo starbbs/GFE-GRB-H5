@@ -155,6 +155,10 @@ define('h5-ident', ['h5-api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'
 						console.log(data);
 					}
 				});
+			} else {
+				error && error({
+					msg: '校验失败'
+				});
 			}
 		},
 		bankCheck: function(bankcardid, identInput, callback) { // 输入时校验, 用银行卡id获取验证码时
