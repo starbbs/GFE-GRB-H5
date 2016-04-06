@@ -2,16 +2,36 @@
 // H5微信端 --- 微信授权跳转页
 
 
-require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-view-agreement'], function(router, api, check, get, authorization, View, weixin, ident) {
+require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button', 'h5-view-agreement', 'h5-text', 'h5-keyboard'], function(router, api, check, get, authorization, View, weixin, H5Ident, H5Button) {
 
-	router.init(true);
+	// router.init(true);
+	router.init();
+
+	var mobileInput = $('#index-login-mobile');
+	var codeInput = $('#index-login-code');
 
 	var login = new View('index-login');
 	var loginVM = login.vm = avalon.define({
 		$id: 'index-login',
-		userNick: '您好', // 微信昵称
-		userImage: './images/picture.png', // 微信头像
-		identifyingCode: '', // 验证码
+		name: '您好', // 微信昵称
+		image: './images/picture.png', // 微信头像
+		mobile: '', // 手机号
+		code: '', // 验证码
+		close: function(attr) { // 关闭按钮
+			loginVM[attr] = '';
+		},
+		click: function() { // 按钮
+			// console.log(H5Button.filter(this));
+			var load = this.__loading;
+			var self = $(this);
+			if (self.hasClass('disabled')) {
+				return;
+			}
+			load.work();
+			H5Ident.input(mobileInput, codeInput, function() {
+				load.reset();
+			});
+		},
 	});
 	avalon.scan(login.native, loginVM);
 
@@ -23,7 +43,7 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 
 	// $.gopToken('d3a40c529c9c4d16b34dc96d49934f61');
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		return;
+		// return;
 		setTimeout(function() {
 			window.location.href = authorization.default; //跳转威信授权的地址
 		}, 100);
@@ -35,7 +55,7 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 	};
 	var gotoLogin = function() { // 跳转login分页
 		setTimeout(function() {
-			router.to('/index-login');
+			// router.to('/index-login');
 			document.title = '绑定手机号';
 		}, 100);
 	};
@@ -49,8 +69,8 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) { // token有效
-					gotoHome();
-					// gotoLogin();
+					// gotoHome();
+					gotoLogin();
 				} else { // token无效
 					$.cookie('gopToken', null);
 					checkCode();
@@ -71,8 +91,8 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 						gotoHome();
 					} else { // 未绑定
 						$.cookie('openId', data.data.openid); // 微信id
-						loginVM.userNick = data.data.nick;
-						loginVM.userImage = data.data.img;
+						loginVM.name = data.data.nick;
+						loginVM.image = data.data.img;
 						gotoLogin();
 					}
 				} else {

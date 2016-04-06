@@ -140,7 +140,7 @@ define('h5-ident', ['h5-api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'
 	return {
 		scan: _scan,
 		check: _check,
-		input: function(phoneInput, identInput, callback) { // 输入时校验, 在vm.identInput中调用, 参数为phone和ident的input以及回调, 没有输出
+		input: function(phoneInput, identInput, success, error) { // 输入时校验, 在vm.identInput中调用, 参数为phone和ident的input以及回调, 没有输出
 			var phone = phoneInput.val();
 			var ident = identInput.val();
 			if (_check(phone, ident)) {
@@ -149,8 +149,9 @@ define('h5-ident', ['h5-api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'
 					identifyingCode: ident
 				}, function(data) {
 					if (data.status == 200) {
-						callback && callback();
+						success && success(data);
 					} else {
+						error && error(data);
 						console.log(data);
 					}
 				});
