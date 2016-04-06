@@ -39,6 +39,9 @@ html {
 			// background-repeat: no-repeat;
 			// background-size: 36px;
 			// background-position: 25px 10px;
+			>a{
+				display: block;
+			}
 			&:nth-child(1){
 				background: url($img+'/phonecharge1.png') no-repeat  25px 10px;
 				background-size: 36px;
@@ -69,19 +72,24 @@ html {
 			text-align: center;
 			position: relative;
 			margin-bottom: 10px;
+			>a{
+				display: block;
+			}
 		}
 		&-tits{
 			color: #ffffff;
 			font-size: 18px;
-			@include atlwh(35px, 0px, 100%, 30px);
+			@include atlwh(40px, 0px, 100%, 30px);
 		}
 		&-btns{
 			overflow: hidden;
-			@include atlwh(75px, 0px, 100%, 30px);
+			@include atlwh(85px, 0px, 100%, 25px);
 			>span{
-				 display: inline-block;
-				 padding: 0px 10px;
-				 border-radius: 15px; 
+				line-height: 20px;
+				display: inline-block;
+				padding: 0px 10px;
+				border-radius: 15px; 
+	 			margin-right: 10px;
 			}
 		}
 		& .green >span{
