@@ -5,9 +5,29 @@
 		router.init(true);
 		var gopToken = $.cookie('gopToken');
 		var main = $('.home');
-		/*
+		var nav = $('.nav');
+		var UA = window.navigator.userAgent;
+		var urlArr = [
+			'myapp:product{"type":"phone"}',
+		    'myapp:product{"type":"flow"}',
+		    'myapp:product{"type":"phone","service":0}',
+		    'myapp:product{"type":"phone","service":1}',
+		    'myapp:product{"type":"phone","service":2}',
+		    'myapp:product{"type":"flow","service":0}',
+		    'myapp:product{"type":"flow","service":1}',		    
+		    'myapp:product{"type":"flow","service":2}'
+		];
+
+		//判断是否APP打开
+		if(UA.indexOf('IOS_APP')){
+			for(var i=0; i<urlArr.length; i++){
+				$('.urlarr')[i].href = encodeURIComponent(urlArr[i]);
+			}
+			nav.css('display','none');
+		}
+
 		var vm = avalon.define({
-			$id: 'home',
+			$id: 'discovery',
 			defaultIndex: 0,
 			price: 0,
 			priceChange: 0,
@@ -20,7 +40,7 @@
 			bannerImgArr: ['','']
 		});
 		avalon.scan(main.get(0), vm);
-		*/
+		
 		// 首页轮播图
 		TouchSlide({
 			slideCell: '#touchSlide',
