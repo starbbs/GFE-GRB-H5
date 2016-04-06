@@ -2,7 +2,7 @@
 // H5微信端 --- 修改用户密码
 
 
-require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-weixin','h5-component-keyboard'], function(router, api, View, viewPassword) {
+require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-weixin','h5-keyboard'], function(router, api, View, viewPassword) {
 
 	router.init(true);
 

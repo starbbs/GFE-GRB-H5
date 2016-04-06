@@ -2,7 +2,7 @@
 // H5微信端 --- 买果仁
 
 
-require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'h5-api', 'check', 'filters', 'h5-view-bill', 'h5-text', 'h5-ident', 'h5-weixin', 'h5-component-keyboard'], function(router, View, dialogBankcard, price, weixin, api, check, filters, billView) {
+require(['router', 'h5-view', 'h5-dialog-bankcard', 'h5-price', 'h5-weixin', 'h5-api', 'check', 'filters', 'h5-view-bill', 'h5-text', 'h5-ident', 'h5-weixin', 'h5-keyboard'], function(router, View, dialogBankcard, price, weixin, api, check, filters, billView) {
 
 	router.init(true);
 

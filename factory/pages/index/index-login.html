@@ -1,6 +1,6 @@
 <div class="index-login" ms-controller="index-login">
-	<div class='index-login-picture'><img ms-attr-src="userImage"></div>
-	<div class="index-login-name">{{userNick}}</div>
+	<div class='index-login-picture'><img ms-attr-src="image"></div>
+	<div class="index-login-name">{{name}}</div>
 	<div class="index-login-main">
 		<div class="block">
 			<div class="block-item">
@@ -16,33 +16,34 @@
 							placeholder="(+86)"
 							maxlength="11"
 							data-text="close"
+							ms-duplex="mobile"
 						>
 					</div>
-					<div class="text-close"></div>
+					<div class="text-close" ms-click="close('mobile')"></div>
 				</label>
 			</div>
 			<div class="block-item">
-				<label class="text" for="bankcard-ident-number">
+				<label class="text" for="index-login-code">
 					<div class="text-label">验证码</div>
 					<div class="text-box">
 						<input
-							id="bankcard-ident-number"
-							name="bankcard-ident-number"
+							id="index-login-code"
+							name="index-login-code"
 							class="text-input"
 							type="tel"
 							autocomplete="off"
 							placeholder=""
 							maxlength="6"
 							data-text="close"
-							ms-duplex="identifyingCode"
+							ms-duplex="code"
 						>
 					</div>
-					<div class="text-close"></div>
+					<div class="text-close" ms-click="close('code')"></div>
 				</label>
 				<div class="text-ident" data-ident="index-login-mobile"></div>
 			</div>
 		</div>
-		<div class="text-button"><span class="button" ms-class="disabled:ifClick" ms-click="click">开启果仁世界</span></div>
+		<div class="text-button"><span class="button" data-button="loading(验证中...)" ms-click="click">开启果仁世界</span></div>
 	</div>
-	<div class="text-bottom">轻点开启果仁世界<br>即表示您已阅读并接受<a href="#!/agreement">《果仁宝服务协议》</a></div>
+	<div class="text-bottom" data-keyboard="hide(index-login-mobile)|hide(index-login-code)">轻点开启果仁世界<br>即表示您已阅读并接受<a href="#!/agreement">《果仁宝服务协议》</a></div>
 </div>
