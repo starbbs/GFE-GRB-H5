@@ -22,8 +22,10 @@ html {
 		position: relative;
 	}
 	&-banner{
+		overflow: hidden;
 		background: #ffffff;
 		&-li{
+			float: left;
 			img{
 				width: 100%;
 			}

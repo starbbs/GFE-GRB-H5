@@ -16,11 +16,18 @@
 				$.cookie('gopHomeEye', vm.visible_ok);
 			},
 			gopNum: 0,
-			bannerImgArr: []
+			bannerImgArr: ['','']
 		});
 		avalon.scan(main.get(0), vm);
 
 		// 首页轮播图
+		TouchSlide({
+			slideCell: '#touchSlide',
+			autoPlay: true,
+			mainCell: '.discovery-banner',
+			titCell: '.discovery-banner-hd-li'
+		});
+		/*
 		api.static(function(data) {
 			if (data.status == 200) {
 				vm.bannerImgArr = data.data.indexSlideAds;
@@ -34,6 +41,7 @@
 				}, 100);
 			}
 		});
+
 
 		price.onFirstChange = function(next) {
 			vm.price = next;
@@ -51,7 +59,9 @@
 				console.log(data);
 			}
 		});
+
 		price.get();
+		*/
 		setTimeout(function() {
 			main.addClass('on');
 		}, 100);
