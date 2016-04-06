@@ -184,6 +184,7 @@ $listborder : 1px solid $bordercolor;//充值选项列表边框
 			padding: 0 $g-padding;
 			margin-top: 1px;
 			box-sizing: border-box;
+			z-index: 99;
 		}
 		&-item {
 			display: flex;
