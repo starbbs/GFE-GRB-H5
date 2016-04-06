@@ -5,10 +5,10 @@
 /**
  * [H5接口集合]
  * @Author   张树垚
- * @DateTime 2016-04-01 10:15:24+0800
+ * @DateTime 2016-04-01 10:15:24
  * @注意:
  * 	1.编号顺序和文档一致,方便查找和对应
- * 	2.使用文档为v1.1.0
+ * 	2.使用文档为v1.2.0
  */
 define('h5-api', ['api', 'h5-alert', 'cookie'], function(api) {
 
@@ -190,7 +190,9 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(api) {
 	api.add('duobaoJoin', '/duobao/join');
 
 	// 46.获取商品列表
-	api.add('productList', '/consume/product/list');
+	api.add('productList', '/consume/product/list', {
+		asyn: true
+	});
 
 	// 47.添加商品
 	api.add('productAdd', '/consume/product/add');
@@ -273,7 +275,7 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(api) {
 	// 73.获取联系人信息
 	api.add('contactInfo', '/contact/info', {
 		ignoreStatus: [304] // 忽略304错误
-	});4
+	});
 
 	// 7.年化收益
 	api.add('annualIncomeWealth', '/myWealth/annualIncomeWealth');

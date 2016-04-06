@@ -7,6 +7,10 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 	// router.init(true);
 	router.init();
 
+	var gopToken = $.cookie('gopToken'); // 果仁宝token
+	var wxCode = get.data.code; // 微信认证返回code
+	var openid; // 用户的微信id
+
 	var mobileInput = $('#index-login-mobile');
 	var codeInput = $('#index-login-code');
 
@@ -29,6 +33,8 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 			}
 			load.work();
 			H5Ident.input(mobileInput, codeInput, function() {
+				load.reset();
+			}, function() {
 				load.reset();
 			});
 		},
@@ -60,9 +66,6 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 		}, 100);
 	};
 
-	var gopToken = $.cookie('gopToken');
-	var wxCode = get.data.code;
-
 	var checkToken = function() {
 		if (gopToken) { // 有token
 			api.getGopNum({
@@ -87,10 +90,11 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'h5-view', 'h5-wei
 			}, function(data) {
 				if (data.status == 200) {
 					if (data.data.gopToken) { // 已绑定
-						$.cookie('gopToken', data.data.gopToken); // 果仁账户token
+						gopToken = data.data.gopToken;
+						$.cookie('gopToken', data.data.gopToken);
 						gotoHome();
 					} else { // 未绑定
-						$.cookie('openId', data.data.openid); // 微信id
+						openid = data.data.openid;
 						loginVM.name = data.data.nick;
 						loginVM.image = data.data.img;
 						gotoLogin();
