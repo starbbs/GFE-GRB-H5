@@ -169,7 +169,9 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(api) {
 	api.add('transferQuery', '/transfer/query');
 
 	// 39.消费果仁订单，手机话费充值接口
-	api.add('phoneRecharge', '/consume/product/phoneRecharge');
+	api.add('phoneRecharge', '/consume/product/phoneRecharge',{
+		asyn: true
+	});
 
 	// 40.消费果仁订单，订单查询接口
 	api.add('query', '/consume/order/query');

@@ -21,18 +21,24 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 		'移动': [],
 		'电信': [],
 	};
-	var jsonflows = {
+	var jsonflows = { // 流量充值
 		'联通': [],
 		'移动': [],
 		'电信': [],		
 	};
+	var confirmData = [];
+	var confirmIndex = null;
+	var flowsOrgoodsFn = function(){
 
-	var confirmData = null;
+	};
+
+
 	var vm = avalon.define({
 		$id: 'phonecharge',
 		phone: '',
 		cancelBool:false,
 		carrier: '', // 运营商
+		// confirmId:'',// 提交时商品ID
 		input: function() { // 手机号输入
 			if (check.phone(vm.phone).result) {
 				api.phoneInfo({
@@ -70,7 +76,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			vm.goods = [];
 			vm.flows = [];
 			vm.focusing = false;
-			$('#phonecharge-text-input').val('').get(0).focus();
+			phoneInput.val('').get(0).focus();
 		},
 		cancel:function(){
 			vm.cancelBool = false;
@@ -109,8 +115,10 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			var item = $(ev.target).closest('.phonecharge-lista-item');
 			if (item.length) {
 				item.addClass('cur').siblings().removeClass('cur');
-				confirmData = vm.goods[item.index()].$model;
-				vm.button = '支付：¥' + filters.floorFix(confirmData.use);
+				confirmData[0] = vm.goods[item.index()].$model;
+				vm.button = '支付：' + filters.floorFix(confirmData[0].use) + '元';
+				confirmIndex = 0;
+				// vm.confirmId = confirmData[0].id;
 				console.log(confirmData);
 			}
 		},
@@ -119,19 +127,30 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			var item = $(ev.target).closest('.phonecharge-listb-item');
 			if(item.length){
 				item.addClass('cur').siblings().removeClass('cur');
-				confirmData = vm.flows[item.index()].$model;
+				confirmData[1] = vm.flows[item.index()].$model;
 				console.log(confirmData);
-				vm.button = '支付：¥' + filters.floorFix(confirmData.use);
+				confirmIndex = 1;
+				// vm.confirmId = confirmData[1].id;
+				vm.button = '支付：' + filters.floorFix(confirmData[1].use) + '元';
 			}
 		},
 		button: '支付', // 按钮显示
 		buttonClick: function() { // 按钮点击
+			if(confirmIndex === 0){
+				console.log('话费');
+			}else if(confirmIndex === 1){
+				console.log('流量');
+			}else{
+				console.log('没选');
+			}
+
 			if ($(this).hasClass('disabled')) {
 				return;
 			}
+
 			api.phoneRecharge({
 				gopToken: gopToken,
-				productId: confirmData.id,
+				productId: vm.confirmId,
 				phone: vm.phone
 			}, function(data) {
 				if (data.status == 200) {
@@ -150,10 +169,25 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 	});
 	avalon.scan(main.get(0), vm);
 
+	var titles = $('.phonecharge-body-title-layer');
+	var onIndex = function(index){
+		if(titles.eq(index).hasClass('on') && confirmData[index]) {
+			confirmIndex = index;
+			vm.button = '支付：' + filters.floorFix(confirmData[index].use) + '元';
+			console.log(confirmData[index].id);
+			// vm.confirmId = confirmData[index].id;
+		} 
+	};
+
 	//移动时候改变支付按钮状态
 	$('#touchSlide')[0].ontouchmove = function(){
-		console.log(111);
+		vm.button = '支付';
 	};
+	$('#touchSlide')[0].ontouchend = function(){
+		onIndex(0);
+		onIndex(1);
+	};
+
 
 	//获取以往手机号
 	api.phoneLastest({
