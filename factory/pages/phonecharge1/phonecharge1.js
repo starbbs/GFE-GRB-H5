@@ -27,7 +27,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 		'电信': [],		
 	};
 	var confirmData = [];
-	var confirmIndex = null;
+
 	var flowsOrgoodsFn = function(){
 
 	};
@@ -38,7 +38,8 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 		phone: '',
 		cancelBool:false,
 		carrier: '', // 运营商
-		// confirmId:'',// 提交时商品ID
+		confirmId:'',// 提交时商品ID
+		confirmCangory:'',// 提交时商品类型  话费 流量
 		input: function() { // 手机号输入
 			if (check.phone(vm.phone).result) {
 				api.phoneInfo({
@@ -76,6 +77,8 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			vm.goods = [];
 			vm.flows = [];
 			vm.focusing = false;
+			vm.button = '支付';
+			confirmData = [];
 			phoneInput.val('').get(0).focus();
 		},
 		cancel:function(){
@@ -116,9 +119,9 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			if (item.length) {
 				item.addClass('cur').siblings().removeClass('cur');
 				confirmData[0] = vm.goods[item.index()].$model;
-				vm.button = '支付：' + filters.floorFix(confirmData[0].use) + '元';
-				confirmIndex = 0;
-				// vm.confirmId = confirmData[0].id;
+				vm.confirmId = confirmData[0].id;
+				vm.confirmCangory = '话费';
+				vm.button = '支付：' + filters.floorFix(confirmData[0].use) + '元';				
 				console.log(confirmData);
 			}
 		},
@@ -128,43 +131,58 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 			if(item.length){
 				item.addClass('cur').siblings().removeClass('cur');
 				confirmData[1] = vm.flows[item.index()].$model;
-				console.log(confirmData);
-				confirmIndex = 1;
-				// vm.confirmId = confirmData[1].id;
+				vm.confirmId = confirmData[1].id;
+				vm.confirmCangory = '流量';
 				vm.button = '支付：' + filters.floorFix(confirmData[1].use) + '元';
+				console.log(confirmData);				
 			}
 		},
 		button: '支付', // 按钮显示
 		buttonClick: function() { // 按钮点击
-			if(confirmIndex === 0){
-				console.log('话费');
-			}else if(confirmIndex === 1){
-				console.log('流量');
-			}else{
-				console.log('没选');
-			}
-
+			console.log(vm.confirmCangory);
+			console.log(confirmData);
 			if ($(this).hasClass('disabled')) {
 				return;
 			}
-
-			api.phoneRecharge({
-				gopToken: gopToken,
-				productId: vm.confirmId,
-				phone: vm.phone
-			}, function(data) {
-				if (data.status == 200) {
-					setTimeout(function() {
-						window.location.href = get.add('order.html', {
-							// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
-							from: 'phonecharge',
-							id: data.data.consumeOrderId
-						});
-					}, 1000 / 60);
-				} else {
-					$.alert(data.msg);
-				}
-			});
+			if(vm.confirmCangory === '话费'){
+				//话费充值API
+				api.phoneRecharge({
+					gopToken: gopToken,
+					productId: vm.confirmId,
+					phone: vm.phone
+				}, function(data) {
+					if (data.status == 200) {
+						setTimeout(function() {
+							window.location.href = get.add('order.html', {
+								// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
+								from: 'phonecharge',
+								id: data.data.consumeOrderId
+							});
+						}, 1000 / 60);
+					} else {
+						$.alert(data.msg);
+					}
+				});
+			}else{
+				//流量充值API
+				api.phoneTraffic({
+					gopToken: gopToken,
+					productId: vm.confirmId,
+					phone: vm.phone
+				}, function(data) {
+					if (data.status == 200) {
+						setTimeout(function() {
+							window.location.href = get.add('order.html', {
+								// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
+								from: 'phonecharge',
+								id: data.data.consumeOrderId
+							});
+						}, 1000 / 60);
+					} else {
+						$.alert(data.msg);
+					}
+				});				
+			}
 		}
 	});
 	avalon.scan(main.get(0), vm);
@@ -174,9 +192,9 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide','h5-alert', 'h5-weix
 		if(titles.eq(index).hasClass('on') && confirmData[index]) {
 			confirmIndex = index;
 			vm.button = '支付：' + filters.floorFix(confirmData[index].use) + '元';
-			console.log(confirmData[index].id);
-			// vm.confirmId = confirmData[index].id;
-		} 
+			vm.confirmId = confirmData[index].id;
+			vm.confirmCangory =(index===0 ? '话费' : '流量');
+		}
 	};
 
 	//移动时候改变支付按钮状态
