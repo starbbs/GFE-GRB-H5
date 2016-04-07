@@ -5,6 +5,8 @@
 
 define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], function(Dialog, check, api) {
 
+	var gopToken = $.cookie('gopToken');
+
 	var paypass = new Dialog('paypass');
 
 	var box = paypass.box = paypass.self.find('.dialog-paypass-box'); // 大盒子
@@ -28,7 +30,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], func
 			if (check.paypassCondition(value)/* && check.paypass(value).result*/) {
 				inputTimer = setTimeout(function(){
 					api.checkPayPwd({
-						gopToken: $.cookie('gopToken'),
+						gopToken: gopToken,
 						payPwd: value
 					}, function(data) {
 						if (data.status == 200) {
@@ -46,6 +48,16 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], func
 		},
 	});
 
+	api.checkPayPasswordStatus({
+		gopToken: gopToken
+	}, function(data) {
+
+	});
+
+
+	paypass.on('beforeShow', function() {
+
+	});
 	paypass.on('show', function() {
 		setTimeout(function() {
 			input.get(0).focus();
