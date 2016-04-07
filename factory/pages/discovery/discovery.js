@@ -19,7 +19,7 @@
 		];
 
 		//判断是否APP打开
-		if(UA.indexOf('IOS_APP')){
+		if(UA.indexOf('IOS_APP')>0){
 			for(var i=0; i<urlArr.length; i++){
 				$('.urlarr')[i].href = encodeURIComponent(urlArr[i]);
 			}

@@ -64,15 +64,23 @@ html {
 			// background-position: 25px 10px;
 			>a{
 				display: block;
+				overflow: hidden;
+				position: relative;
+				>span{
+					display: inline-block;
+					position: absolute; top: 10px; left: 25px;
+				}
 			}
 			&:nth-child(1){
-				background: url($img+'/phonecharge1.png') no-repeat  25px 10px;
-				background-size: 36px;
+				>a>span{
+					@include sprite($img+'/phonecharge1.png', 36px, 36px);
+				}
 			}
 			&:nth-last-child(1){
-			border: none;
-			background: url($img+'/phonecharge2.png') no-repeat  25px 10px;
-			background-size: 36px;
+				border: none;
+				>a>span{
+					@include sprite($img+'/phonecharge2.png', 36px, 36px);
+				}
 			}
 		}
 	}
