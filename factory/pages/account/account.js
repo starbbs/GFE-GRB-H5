@@ -42,15 +42,15 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 
 			billListPageSize: size
 		}, function(data) {
 			if (data.status == 200) {
-				vm.list = dataHandler(originList = originList.concat(data.data.list));
 				page = 2;
-				callback && callback(data);
+				vm.list = dataHandler(originList = data.data.list);
 				!main.hasClass('on') && setTimeout(function() {
 					main.addClass('on');
 				}, 200);
 				setTimeout(function() {
 					vm.uploading = false;
 				}, 100);
+				callback && callback(data);
 			} else {
 				$.alert(data.msg);
 			}
@@ -110,11 +110,8 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iScroll4', 
 		onBeforeScrollEnd: function() {//松手那时
 			if(this.y >= 100){
 				//ifGetUpList = true;
-				originList = [];
 				vm.uploading = false;
-				getListUp();	
-
-				console.log('向上刷新');			
+				getListUp();
 			}else{
 				setTimeout(function(){
 					vm.uploading = false;
