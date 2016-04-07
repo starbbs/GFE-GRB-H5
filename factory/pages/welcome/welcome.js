@@ -3,7 +3,7 @@
 // H5微信端 首页
 
 
-require(['authorization', 'touch-slide', 'h5-weixin'], function(authorization, TouchSlide) {
+require(['h5-authorization', 'touch-slide', 'h5-weixin'], function(authorization, TouchSlide) {
 	var main = $('.welcome');
 	TouchSlide({
 		slideCell: 'welcome-banner',

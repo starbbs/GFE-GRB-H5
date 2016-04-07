@@ -2,7 +2,7 @@
 // H5微信端 --- 微信授权跳转页
 
 
-require(['router', 'h5-api', 'check', 'get', 'authorization', 'check', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button', 'h5-view-agreement', 'h5-text', 'h5-keyboard'], function(router, api, check, get, authorization, check, View, weixin, H5Ident, H5Button) {
+require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button', 'h5-view-agreement', 'h5-text', 'h5-keyboard'], function(router, api, check, get, authorization, check, View, weixin, H5Ident, H5Button) {
 
 	// router.init(true);
 	router.init();
@@ -51,7 +51,7 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'check', 'h5-view'
 				identifyingCode: code
 			}, function(data) {
 				if (data.status == 200) {
-					console.log(mobile, openid)
+					// console.log(mobile, openid)
 					api.checkPhoneRelatedWxAccount({
 						phone: mobile,
 						unionId: openid,
@@ -66,7 +66,10 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'check', 'h5-view'
 									load.reset('欢迎!');
 									gopToken = data.data.gopToken;
 									$.cookie('gopToken', gopToken);
-									gotoHome();
+									$.alert('微信注册成功!<br>欢迎来到果仁世界!', function() {
+										return;
+										gotoHome();
+									});
 								} else {
 									$.alert(data.msg);
 									load.reset();
@@ -111,7 +114,7 @@ require(['router', 'h5-api', 'check', 'get', 'authorization', 'check', 'h5-view'
 	};
 	var gotoLogin = function() { // 跳转login分页
 		setTimeout(function() {
-			// router.to('/index-login');
+			router.to('/index-login');
 			document.title = '绑定手机号';
 		}, 100);
 	};
