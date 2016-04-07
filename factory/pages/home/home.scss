@@ -151,7 +151,7 @@ html {
 				}
 			}
 			&-incomegop{
-				.nowgopprice{
+				&-nowgopprice{
 					>i{	//小猪
 						@include sprite($img + '/tg.png', 22px, 22px);
 						float: left;
@@ -171,11 +171,11 @@ html {
 					margin-right: 35px;
 					float: right;
 				}
-				.totalincome{
+				&-totalincome{
 					color: $colorworldblue;
 					padding-top: 35px;					
 				}
-				.incomenum{
+				&-incomenum{
 					text-align: center;
 					font-size: 44px;
 					color: $colorwhite;
@@ -184,12 +184,12 @@ html {
 						border-bottom: 1px solid
 					}
 				}
-				.gopbottom{
+				&-gopbottom{
 					overflow: hidden;
 					div{
 						color: $colorworldblue;
 					}
-					.yestodayincome{
+					&-yestodayincome{
 						float: left;
 						 text-align: left;
 						 >span{
@@ -197,7 +197,7 @@ html {
 							color: $colorwhite;
 						}
 					}
-					.yearincome{
+					&-yearincome{
 						float: right;
 						text-align: right;
 						>span{
@@ -222,13 +222,22 @@ html {
 			line-height: 54px;
 			background-repeat: no-repeat;
 			background-position: 15% 45%;
+			position: relative;
+			>span{
+				position: absolute; top: 10px; left: 30px;
+				display: inline-block;
+			}
 		}
 		&-buy{
 			border-right: 1px solid $colorborder;
-			@include sprite($img + '/gop_buy.png', 36px, 36px);
+			>span{
+				@include sprite($img + '/gop_buy.png', 36px, 36px);
+			}
 		}
 		&-transfer{
-			@include sprite($img + '/gop_transfer.png', 36px, 36px);
+			>span{
+				@include sprite($img + '/gop_transfer.png', 36px, 36px);
+			}
 		}
 	}
 	&-slider{
@@ -252,6 +261,10 @@ html {
 				}
 			} 			
 		}
+	}
+	&-phonebills-title{
+		text-align: center;
+		margin-bottom: 15px;
 	}
 	&-phonebills{
 		background-color: $colorwhite;
