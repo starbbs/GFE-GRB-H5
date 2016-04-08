@@ -6,7 +6,7 @@
 		var gopToken = $.cookie('gopToken');
 		var main = $('.home');
 		var nav = $('.nav');
-		var UA = window.navigator.userAgent;
+		var UA = window.location.href;
 		var urlArr = [
 			'myapp:product{"type":"phone"}',
 			'myapp:product{"type":"flow"}',
@@ -17,9 +17,9 @@
 			'myapp:product{"type":"flow","service":1}',
 			'myapp:product{"type":"flow","service":2}'
 		];
-		alert(UA);
+
 		//判断是否APP打开
-		if (UA.indexOf('IOS_APP') > 0) {
+		if (UA.indexOf('from=discoveryiosapp') > 0) {
 			for (var i = 0; i < urlArr.length; i++) {
 				$('.urlarr')[i].href = encodeURIComponent(urlArr[i]);
 			}
