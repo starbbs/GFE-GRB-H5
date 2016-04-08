@@ -17,7 +17,7 @@
 			'myapp:product{"type":"flow","service":1}',
 			'myapp:product{"type":"flow","service":2}'
 		];
-
+		alert(UA);
 		//判断是否APP打开
 		if (UA.indexOf('IOS_APP') > 0) {
 			for (var i = 0; i < urlArr.length; i++) {
