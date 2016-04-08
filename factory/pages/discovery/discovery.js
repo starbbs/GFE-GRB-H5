@@ -19,7 +19,6 @@
 		];
 
 		//判断是否APP打开
-		alert(UA.indexOf('IOS_APP') > 0);
 		if (UA.indexOf('IOS_APP') > 0) {
 			for (var i = 0; i < urlArr.length; i++) {
 				$('.urlarr')[i].href = encodeURIComponent(urlArr[i]);
@@ -38,7 +37,7 @@
 				$.cookie('gopHomeEye', vm.visible_ok);
 			},
 			gopNum: 0,
-			bannerImgArr: ['', '']
+			bannerImgArr: ['images/discovery-slider1.png', 'images/discovery-slider2.png']
 		});
 		avalon.scan(main.get(0), vm);
 

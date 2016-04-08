@@ -3,16 +3,12 @@
 	<div class="discovery on" ms-controller="discovery">
 		<div id="touchSlide" class="discovery-touchSlide">
 			<ul class="discovery-banner">
-				<li class="discovery-banner-li">
-					<a href="javascript:;"><img src="images/discovery-slider1.png" alt=""></a>
-				</li>
-				<li class="discovery-banner-li">
-					<a href="javascript:;"><img src="images/discovery-slider2.png" alt=""></a>
+				<li class="discovery-banner-li" ms-repeat-img="bannerImgArr">
+					<a href="javascript:;"><img ms-attr-src="img" alt=""></a>
 				</li>
 			</ul>
 			<ul class="discovery-banner-hd">
-				<li class="discovery-banner-hd-li"></li>
-				<li class="discovery-banner-hd-li"></li>
+				<li class="discovery-banner-hd-li" ms-repeat-img="bannerImgArr"></li>
 				<!--<li class="discovery-banner-hd-li" ms-repeat="bannerImgArr"></li>-->				
 			</ul>
 		</div>
