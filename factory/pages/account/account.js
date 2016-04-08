@@ -11,7 +11,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 	};
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
-	var size = 8; // 账单列表
+	var size = 15; // 账单列表
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -223,32 +223,16 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 			bills.push(bill);
 		}
 	};
-	var dataHandler = function(data) { //时间处理同时获取交易的信息
+	var dataHandler = function(data) { // 时间处理同时获取交易的信息
+		now = new Date();
 		// data 列表所有的数据条目
 		return data.map(function(item) { // 确定时间
-			return $.extend(item, {
-				// _date: mydate.parseDate(item.status === 'SUCCESS' ? item.businessTime : item.createTime),
-				_date: mydate.parseDate(item.businessTime),
-			});
+			item._date = mydate.parseDate(item.businessTime);
+			return item;
 		}).sort(function(item1, item2) { // 排序
 			return item2._date.getTime() - item1._date.getTime();
 		}).reduce(function(result, item) { // 提取
-			var time = mydate.timeHandler(item._date); //time格式如下
-			// item._date ==> Wed Mar 16 2016 13:24:11 GMT+0800 (中国标准时间)
-			// 把 date格式的数据 转化成
-			// {
-			// 	year: '2016',
-			//	month: '2',
-			//	month2: '3',
-			//	month3: '三',
-			//	date: 16,
-			//	day: 3,
-			//	day2:'三',
-			//	hour: 13,
-			//	hour2: '13',
-			//	minute: 24,
-			//	minute2: '24'
-			// }
+			var time = mydate.timeHandler(item._date); // time格式如下
 			var type = H5bill.typeClass[item.type];
 			var bills = [];
 			// item是data里面的每一条数据
@@ -263,9 +247,19 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 					dataAdd('gop', bills, item);
 					break;
 				default:
-					console.log(item);
+					if (item.type === 'REFUND') {
+						console.log(item);
+						if (item.currency === 'RMB') {
+
+						} else if (item.currency === 'GOP') {
+
+						} else {
+							console.log('没有处理的退款类型', item);
+						}
+					} else {
+						console.log('没有处理的账单类型', item);
+					}
 			}
-			now = new Date();
 			var compare = mydate.timeCompare(now, item._date); //返回 今天 昨天 前天
 			var day = {
 				id: item.businessId,
