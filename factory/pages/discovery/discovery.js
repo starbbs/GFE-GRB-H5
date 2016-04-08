@@ -7,7 +7,7 @@
 		var main = $('.home');
 		var nav = $('.nav');
 		var UA = window.location.href;
-		var urlArr = [
+		var iosUrlArr = [
 			'myapp:product{"type":"phone"}',
 			'myapp:product{"type":"flow"}',
 			'myapp:product{"type":"phone","service":0}',
@@ -17,13 +17,27 @@
 			'myapp:product{"type":"flow","service":1}',
 			'myapp:product{"type":"flow","service":2}'
 		];
+		var h5UrlArr = [
+			'phonecharge.html?from=home&cangory=话费',
+			'phonecharge.html?from=home&cangory=流量',
+			'phonecharge.html?from=home&cangory=话费&carrier=移动',
+			'phonecharge.html?from=home&cangory=话费&carrier=联通',
+			'phonecharge.html?from=home&cangory=话费&carrier=电信',
+			'phonecharge.html?from=home&cangory=流量&carrier=移动',
+			'phonecharge.html?from=home&cangory=流量&carrier=联通',
+			'phonecharge.html?from=home&cangory=流量&carrier=电信',
+		];
 
 		//判断是否APP打开
 		if (UA.indexOf('from=discoveryiosapp') > 0) {
-			for (var i = 0; i < urlArr.length; i++) {
-				$('.urlarr')[i].href = encodeURIComponent(urlArr[i]);
+			for (var i = 0; i < iosUrlArr.length; i++) {
+				$('.urlarr')[i].href = encodeURIComponent(iosUrlArr[i]);
 			}
 			nav.css('display', 'none');
+		}else{
+			for (var i = 0; i < h5UrlArr.length; i++) {
+				$('.urlarr')[i].href = h5UrlArr[i];
+			}			
 		}
 
 		var vm = avalon.define({
@@ -45,10 +59,8 @@
 
 		api.static(function(data) {
 			if (data.status == 200) {
-				console.log(data.data.indexSlideAds);
 				data.data.indexSlideAds.filter(function(val,index,arr){
 					if(val.sources.indexOf('h5')!=-1){
-						console.log(val);
 						vm.bannerImgArr.push(val);
 					}
 				});

@@ -24,7 +24,7 @@ $listborder : 1px solid $bordercolor;//充值选项列表边框
 }
 
 .phonecharge {
-	$img: $g-pages + '/phonecharge1/images';
+	$img: $g-pages + '/phonecharge/images';
 	@extend %fade-in;
 	padding-bottom: $g-padding-bottom;
 	&-head {}
