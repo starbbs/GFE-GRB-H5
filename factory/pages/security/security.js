@@ -102,7 +102,7 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 			vm.getPassWorld = data.msg === '支付密码未设置' ? false : true;
 		});
 	}
-	avalon.scan();
+	
 	viewAuthen.vm.callbackFlag=true;
 	viewAuthen.vm.callback = function() {
 		vm.authenticationed = true;
@@ -111,4 +111,5 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 		security.addClass('on');
 	}, 100);
 	init();
+	avalon.scan();
 });

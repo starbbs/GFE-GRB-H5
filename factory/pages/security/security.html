@@ -21,7 +21,8 @@
 				<div class="block-arrow"></div>
 			</a>
 			-->
-			<a ms-attr-href="{{getPassWorld ? '#!/paypass-view-2': './paypass.html'}}" class="block-item">
+			<!--未设置==>false-->
+			<a ms-attr-href="{{getPassWorld ?  './paypass.html' : '#!/paypass-view-2'}}" class="block-item">
 				<div class="block-label">支付密码</div>
 				<div ms-class-1="green:getPassWorld" ms-class-2="silver:!getPassWorld">
 					{{getPassWorld?'修改':'未设置'}}
