@@ -169,7 +169,7 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(Api) {
 	api.regist('transferQuery', '/transfer/query');
 
 	// 39.消费果仁订单，手机话费充值接口
-	api.regist('phoneRecharge', '/consume/product/phoneRecharge',{
+	api.regist('phoneRecharge', '/consume/product/phoneRecharge', {
 		asyn: true
 	});
 
@@ -316,8 +316,6 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(Api) {
 
 	// 85.微信端微信注册用户
 	api.regist('wxregister', '/login/wx/wxregister');
-
-	console.log(api)
 
 	return api;
 });
