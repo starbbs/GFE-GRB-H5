@@ -20,14 +20,16 @@ html {
 .discovery{
 	&-touchSlide{
 		position: relative;
+		background: #F2F2F2; 
 	}
 	&-banner{
 		overflow: hidden;
 		background: #ffffff;
 		&-li{
 			float: left;
-			img{
-				width: 100%;
+			>a{
+				overflow: hidden;
+				display: block;
 			}
 		}
 		&-hd{
