@@ -1,7 +1,7 @@
 // 张树垚 2015-12-20 11:27:22 创建
 // H5微信端 --- 个人首页
 (function() {
-	require(['router', 'api', 'h5-price', 'h5-weixin', 'touch-slide'], function(router, api, price, weixin, TouchSlide) {
+	require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(router, api, price, weixin, TouchSlide) {
 		router.init(true);
 		var gopToken = $.cookie('gopToken');
 		var main = $('.home');
@@ -37,10 +37,34 @@
 				$.cookie('gopHomeEye', vm.visible_ok);
 			},
 			gopNum: 0,
-			bannerImgArr: ['images/discovery-slider1.png', 'images/discovery-slider2.png']
+			bannerImgArr: []
 		});
 		avalon.scan(main.get(0), vm);
 
+
+
+		api.static(function(data) {
+			if (data.status == 200) {
+				console.log(data.data.indexSlideAds);
+				data.data.indexSlideAds.filter(function(val,index,arr){
+					if(val.sources.indexOf('h5')!=-1){
+						console.log(val);
+						vm.bannerImgArr.push(val);
+					}
+				});
+				setTimeout(function() {
+					TouchSlide({
+						slideCell: '#touchSlide',
+						autoPlay: true,
+						mainCell: '.discovery-banner',
+						titCell: '.discovery-banner-hd-li'
+					});
+				}, 100);
+			}
+		});
+
+
+		/*
 		// 首页轮播图
 		TouchSlide({
 			slideCell: '#touchSlide',
@@ -48,7 +72,6 @@
 			mainCell: '.discovery-banner',
 			titCell: '.discovery-banner-hd-li'
 		});
-		/*
 		api.static(function(data) {
 			if (data.status == 200) {
 				vm.bannerImgArr = data.data.indexSlideAds;

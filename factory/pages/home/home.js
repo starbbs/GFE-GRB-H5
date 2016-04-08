@@ -77,7 +77,6 @@
 		// 首页轮播图
 		api.static(function(data) {
 			if (data.status == 200) {
-				console.log(data.data.indexSlideAds);
 				data.data.indexSlideAds.filter(function(val,index,arr){
 					if(val.sources.indexOf('h5')!=-1){
 						homeVm.bannerImgArr.push(val);

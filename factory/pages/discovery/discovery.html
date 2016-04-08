@@ -4,11 +4,14 @@
 		<div id="touchSlide" class="discovery-touchSlide">
 			<ul class="discovery-banner">
 				<li class="discovery-banner-li" ms-repeat-img="bannerImgArr">
-					<a href="javascript:;"><img ms-attr-src="img" alt="" class="img-w"></a>
+					<a ms-if-loop="img.url" ms-attr-href="img.url">
+						<img ms-attr-src="img.img" alt="" class="img-w">
+					</a>
+					<img ms-if-loop="!img.url" ms-attr-src="img.img" alt="" class="img-w">
 				</li>
 			</ul>
 			<ul class="discovery-banner-hd">
-				<li class="discovery-banner-hd-li" ms-repeat-img="bannerImgArr"></li>
+				<li class="discovery-banner-hd-li" ms-repeat="bannerImgArr"></li>
 				<!--<li class="discovery-banner-hd-li" ms-repeat="bannerImgArr"></li>-->				
 			</ul>
 		</div>
