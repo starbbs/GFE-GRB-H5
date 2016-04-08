@@ -23,11 +23,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 	//提交时存放数据
 	var confirmData = [];
 
-	var flowsOrgoodsFn = function() {
-
-	};
-
-
 	var vm = avalon.define({
 		$id: 'phonecharge',
 		phone: '',
@@ -177,78 +172,81 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 			}
 		}
 	});
-	
-
-	// 判断来源
-	var href = decodeURIComponent(window.location.href);
-	if (href.indexOf('from=home') > -1) {
-		var datajson = {};
-		href.substring(href.indexOf('from=home')).split('&').forEach(function(item) {
-			var itemarr = item.split('=');
-			datajson[itemarr[0]] = itemarr[1];
-		});
-		//判断是话费还是流量 让touchslide显示相应位置
-		if (datajson.cangory === '话费') {
-			touchSlideDefaultIndex = 0;
-		}else{
-			touchSlideDefaultIndex = 1;
-		}
-		console.log(href);
-
-		//获取用户信息 手机号 昵称等
+	var getUserPhone = function(cnfn) { //获取用户 明文 手机号码
 		api.info({
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == 200) {
-				// vm.phone = data.data.phone;
-				api.phoneInfo({
-					phone: data.data.phone
-				}, function(data) {
-					if (data.status == 200) {
-						//判断用户手机号是否与运营商一致
-						if (data.data.carrier.indexOf(datajson.carrier) < 0) { //不是优惠的运营商
-							return;
-						}
-						vm.phone = data.data.phone;
-						vm.carrier = data.data.carrier;
-						vm.goods = jsoncards[data.data.carrier.substr(-2)];
-						vm.flows = jsonflows[data.data.carrier.substr(-2)];
-						console.log(jsoncards[data.data.carrier.substr(-2)]);
+				cnfn && cnfn(data);
+			}
+		});
+	};
+	var getUserCarrier = function(cnfn){ //获取用户手机运营商
+		api.phoneInfo({
+			phone: vm.phone
+		}, function(data) {
+			if (data.status == 200) {
+				cnfn && cnfn(data);
+			}
+		});
+	};
+	var href = decodeURIComponent(window.location.href);
+	console.log(href);
+	var datajson = {};
+	//是否从优惠入口进来  显示流量或话费选项卡
+	if(href.indexOf('from=home') > -1){ 
+		href.substring(href.indexOf('from=home')).split('&').forEach(function(item) {
+			var itemarr = item.split('=');
+			datajson[itemarr[0]] = itemarr[1];
+		});
+		if (datajson.cangory === '话费') {
+			touchSlideDefaultIndex = 0;
+		} else {
+			touchSlideDefaultIndex = 1;
+		}
+	}
+	getUserPhone(function(data){ //获取用户手机号
+		if(data.status == 200){
+			vm.phone = data.data.phone;
+			getUserCarrier(function(data){// 获取手机运营商
+				if(data.status == 200){
+					vm.carrier = data.data.carrier;
+					vm.goods = jsoncards[data.data.carrier.substr(-2)];
+					vm.flows = jsonflows[data.data.carrier.substr(-2)];
+					if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
 						// 选中话费
 						if (datajson.cangory === '话费') {
 							jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
-								console.log(item);
+								if (item.price != datajson.price) {
+									return true;
+								} else {
 									vm.confirmId = item.id;
 									vm.confirmCangory = datajson.cangory;
 									confirmData[0] = item;
 									vm.button = '支付：' + filters.floorFix(item.use) + '元';
 									$('.phonecharge-lista-item').eq(index).addClass('cur').siblings().removeClass('cur');
-									console.log(confirmData);
-								if (item.price != datajson.price) {
-									return true;
+									return false;
 								}
 							});
 						} else {
 							jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
 								if (item.level != datajson.level) {
+									return true;
+								} else {
 									vm.confirmId = item.id;
 									vm.confirmCangory = datajson.cangory;
 									confirmData[1] = item;
 									vm.button = '支付：' + filters.floorFix(item.use) + '元';
 									$('.phonecharge-listb-item').eq(index).addClass('cur').siblings().removeClass('cur');
-									return true;
+									return false;
 								}
 							});
 						}
-						// vm.confirmId = dataArr[2].level;
-					} else {
-						$.alert(data.msg);
 					}
-				});
-			}
-		});
-	}
-
+				}
+			});
+		}
+	});
 	//左右滑动判断状态
 	var titles = $('.phonecharge-body-title-layer');
 	var onIndex = function(index) {
@@ -265,7 +263,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 		onIndex(0);
 		onIndex(1);
 	};
-
 	//获取以往手机号
 	api.phoneLastest({
 		gopToken: gopToken
@@ -276,7 +273,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 			console.log(data);
 		}
 	});
-
 	//获取流量列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJILIULIANG"
@@ -297,7 +293,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 			console.log(data);
 		}
 	});
-
 	//获取话费列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJICHONGZHIKA"
@@ -317,7 +312,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 			console.log(data);
 		}
 	});
-
 	TouchSlide({
 		slideCell: '#touchSlide',
 		autoPlay: false,
@@ -325,8 +319,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 		titCell: '.phonecharge-body-title-layer',
 		defaultIndex: touchSlideDefaultIndex
 	});
-
-
 	setTimeout(function() {
 		main.addClass('on');
 	}, 100);

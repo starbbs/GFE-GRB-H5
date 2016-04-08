@@ -77,7 +77,12 @@
 		// 首页轮播图
 		api.static(function(data) {
 			if (data.status == 200) {
-				homeVm.bannerImgArr = data.data.indexSlideAds;
+				console.log(data.data.indexSlideAds);
+				data.data.indexSlideAds.filter(function(val,index,arr){
+					if(val.sources.indexOf('h5')!=-1){
+						homeVm.bannerImgArr.push(val);
+					}
+				});
 				setTimeout(function() {
 					TouchSlide({
 						slideCell: '#touchSlide',
