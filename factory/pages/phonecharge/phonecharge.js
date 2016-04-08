@@ -217,6 +217,8 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 						// 选中话费
 						if (datajson.cangory === '话费') {
 							jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
+								console.log(item);
+								if(!datajson.price){return false;};
 								if (item.price != datajson.price) {
 									return true;
 								} else {
@@ -230,6 +232,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 							});
 						} else {
 							jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
+								if(!datajson.level){return false;};
 								if (item.level != datajson.level) {
 									return true;
 								} else {
