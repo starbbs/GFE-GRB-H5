@@ -6,7 +6,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 ], function(router, api, get, filters, H5bill, iscrollLoading, billView, mydate) {
 
 	router.init();
-	$(document).get(0).ontouchmove = function(event){
+	$(document).get(0).ontouchmove = function(event) {
 		event.preventDefault();
 	};
 	var gopToken = $.cookie('gopToken');
@@ -25,24 +25,23 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 				iscrollLoading.downLoadingData();
 		}
 	};
-	var timerGetList = null;
 	var originList = [];
 
-
-	iscrollLoading.upLoadingData = function(callback) { // 获取上拉列表
+	var getList = function() {
 		api.billList({
 			gopToken: gopToken,
-			billListPage: 1,
+			billListPage: page,
 			billListPageSize: size
 		}, function(data) {
+			var list = data.data.list;
 			if (data.status == 200) {
-				vm.list = dataHandler(originList = originList.concat(data.data.list));
-				page = 2;
-				callback && callback(data);
+				page = list.length < size ? 0 : page + 1; // 是否停止请求
+				vm.list = dataHandler(originList = originList.concat(list));
 				!main.hasClass('on') && setTimeout(function() {
 					main.addClass('on');
 				}, 200);
 				setTimeout(function() {
+					vm.loading = false;
 					vm.uploading = false;
 				}, 100);
 			} else {
@@ -50,34 +49,22 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 			}
 		});
 	};
-	//上拉 下拉的函数
-	iscrollLoading.downLoadingData = function(callback) { // 获取列表
-		api.billList({
-			gopToken: gopToken,
-			billListPage: page,
-			billListPageSize: size
-		}, function(data) {
-			if (data.status == 200) {
-				vm.list = dataHandler(originList = originList.concat(data.data.list));
-				page = data.data.list.length < size ? 0 : page + 1; // 是否停止请求
-				callback && callback(data);
-				!main.hasClass('on') && setTimeout(function() {
-					main.addClass('on');
-				}, 200);
-				setTimeout(function() {
-					vm.loading = false;
-				}, 100);
-			} else {
-				$.alert(data.msg);
-			}
-		});
+
+
+	iscrollLoading.upLoadingData = function() { // 获取上拉列表
+		page = 1;
+		originList = [];
+		getList();
 	};
-	iscrollLoading.scrollMove = function() { //滑动时候
+	//上拉 下拉的函数
+	iscrollLoading.downLoadingData = function() { // 获取列表
+		getList();
+	};
+	iscrollLoading.scrollMove = function() { // 滑动时候
 		vm.loadingWord = '松开刷新';
 		vm.uploading = true;
 	};
-	iscrollLoading.beforeScrollEndTrue = function() { //手指移开前 满足条件
-		originList = [];
+	iscrollLoading.beforeScrollEndTrue = function() { // 手指移开前 满足条件
 		vm.uploading = false;
 		if (vm.uploading) {
 			return;
@@ -85,74 +72,45 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 		vm.loadingWord = '正在加载';
 		vm.uploading = true;
 		iscrollLoading.upLoadingData();
-		console.log('向上刷新');
 	};
-	iscrollLoading.beforeScrollEndFalse = function() { //手指移开前 不满足条件
+	iscrollLoading.beforeScrollEndFalse = function() { // 手指移开前 不满足条件
 		setTimeout(function() {
 			vm.uploading = false;
 		}, 200);
 	};
-	iscrollLoading.scrollEnd = function() { //滑动完成后
-		console.log('向下刷新');
-		if (originList.length < size) {
+	iscrollLoading.scrollEnd = function() { // 滑动完成后
+		if (!page) {
 			vm.loading = true;
 			vm.loadingWord = '大大, 已经没有了...';
 			setTimeout(function() {
 				vm.loading = false;
 			}, 1000);
+			return;
 		} else {
 			vm.loadingWord = '正在加载';
 			if (vm.loading) {
 				return;
 			}
-			if (!page) {
-				vm.loading = true;
-				vm.loadingWord = '大大, 已经没有了...';
-				setTimeout(function() {
-					vm.loading = false;
-				}, 1000);
-				return;
-			}
 			vm.loading = true;
-
-			iscrollLoading.downLoadingData();
+			getList();
 		}
 	};
 
 	var accountScroll = iscrollLoading.set('account', {
 		userUp: true,
 		userDown: true
-	}); //此处的{}可以替换插件里面的
+	});
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
-	var dataAdd = function(kind, bills, item) { // 添加效果的数据    dataAdd('all', bills, item);
-		// dataAdd('all', [], {
-		// 	_date: Wed Mar 16 2016 13: 24: 11 GMT + 0800(中国标准时间),
-		// 	_dateTime: 1458105851732,
-		// 	businessDesc: "买果仁",
-		// 	businessId: 198,
-		// 	businessTime: "2016-03-16 13:56:00",
-		// 	createTime: "2016-03-16 13:24:11",
-		// 	extra: {
-		// 		name: "美玲1", 
-		// 		photo:"xxxxxxxxxx",
-		// 		transferInType: "GOP_CONTACT"
-		// 	},
-		// 	gopPrice: 3,
-		// 	id: 769,
-		// 	money: -1,
-		// 	status: "CLOSE",
-		// 	type: "BUY_IN",       还有可能是TRANSFER_IN
-		// 	userId: 21
-		// })
-		var type = H5bill.typeClass[item.type]; //BUY_IN ==> buy 
+	var dataAdd = function(kind, bills, item) { // 添加效果的数据
+		var type = H5bill.typeClass[item.type];
 		var bill = { // 账单
 			id: item.businessId,
 			img: '', // 头像
 			name: '', // 姓名
 			desc: item.businessDesc,
-			status: H5bill.statusBusiness[item.status], //交易状态中文  进行中  交易成功/失败。。。
+			status: H5bill.statusBusiness[item.status], // 交易状态中文  进行中  交易成功/失败。。。
 			type: type,
 			originType: item.type,
 			iconClass: '',
@@ -249,13 +207,13 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 				default:
 					if (item.type === 'REFUND') {
 						console.log(item);
-						if (item.currency === 'RMB') {
+						// if (item.currency === 'RMB') {
 
-						} else if (item.currency === 'GOP') {
+						// } else if (item.currency === 'GOP') {
 
-						} else {
-							console.log('没有处理的退款类型', item);
-						}
+						// } else {
+						// 	console.log('没有处理的退款类型', item);
+						// }
 					} else {
 						console.log('没有处理的账单类型', item);
 					}
@@ -319,8 +277,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 			getList();
 		}
 	});
-	//此函数为oncfirm事件时候的回调函数
-	//console.log(vm.list);
+	billView.on('close', function() {});
 	billView.onClose = function(vmid, vmtime) {
 		for (var i = 0; i < vm.list.length; i++) {
 			for (var j = 0; j < vm.list[i].days.length; j++) {
@@ -352,9 +309,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 			return true;
 		});
 	});
-	data.bills.forEach(function(item) {
-		item.status = 'yiguanbi'
-	})
 	*/
+
 	init();
 });
