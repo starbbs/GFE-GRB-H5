@@ -14,6 +14,7 @@
 			totalInCome:0,//累计收益
 			yesterDayIncome:0,//昨天收益
 			curIndex:0,
+			gopToken:gopToken?true:false,
 			//预计年化收益
 			toggleBtnFn:function(){//切换样式Fn
 				var $this = $(this);
@@ -27,6 +28,7 @@
 				}
 			},
 		});
+		console.log(homeVm.gopToken);
 		//我的收益  昨天 累计
 		api.getIncome({
 			gopToken:gopToken
