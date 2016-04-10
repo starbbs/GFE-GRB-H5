@@ -16,14 +16,12 @@ $img: $g-pages + '/frozen/images';
 
 html {
 	background: url($img + '/_bg.png') #3f49a3;
+	background-size: cover;
 }
 .frozen{
 	margin-top: px(120px, 750px);
 	padding: 72px;
 	color: #ffffff;
-	&:after {
-		height: 100%; width: 100%;
-	}
 	&-sorry{
 		text-align: center;
 		&-img{

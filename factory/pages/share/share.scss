@@ -1,0 +1,71 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+@import '../../components/nav/nav';
+
+// @import '../../views/view';
+
+// @import '../../dialogs/dialog';
+$img: $g-pages + '/share/images';
+
+html {
+	background: url($img + '/_bg.png') #3f49a3;
+	background-size: cover;
+}
+.share{
+	margin-top: px(120px, 750px);
+	padding: 72px;
+	color: #ffffff;
+	&-er{
+		text-align: center;
+		&-img{
+			@include sprite($img + '/2w.png', 182px, 182px);
+			display: inline-block;
+		}
+	}
+	&-erworld{
+		text-align: center;
+		line-height: px(70px, 750px);
+	}
+}
+.share-bottom{
+	box-sizing: border-box;
+	height: px(142px);
+	padding: px(30px, 750px) px(80px, 750px);
+	display: block;
+	background-color: #5F63AD;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	overflow: hidden;
+	color: #ffffff;
+	&-logo{
+		@include sprite($img + '/logo.png', 40px, 40px);
+		vertical-align: middle;
+		display: inline-block;
+		margin-right: px(30px, 750px);
+	}
+	&-world{
+		vertical-align: middle;
+		line-height: px(40px, 750px);
+		margin-right: px(80px, 750px);
+		display: inline-block;
+	}
+	&-btn{
+		color: #282828;
+		border-radius: 10px;
+		background: #ffffff;
+		display: inline-block;
+		vertical-align: middle;
+		width: px(180px, 750px);
+		line-height: px(60px, 750px);
+		text-align: center;
+	}
+}
+
