@@ -4,7 +4,7 @@
 	require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(router, api, price, weixin, TouchSlide) {
 		router.init(true);
 		var gopToken = $.cookie('gopToken');
-		var main = $('.home');
+		var main = $('.discovery');
 		var nav = $('.nav');
 		var UA = window.location.href;
 		var iosUrlArr = [

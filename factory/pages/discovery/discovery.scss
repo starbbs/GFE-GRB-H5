@@ -61,27 +61,25 @@ html {
 			box-sizing: border-box;
 			width: 50%;
 			border-right: 1px solid #DDDDDD;
-			// background-repeat: no-repeat;
-			// background-size: 36px;
-			// background-position: 25px 10px;
+			&:nth-child(1)>a>span{
+				&:nth-child(1){
+						@include sprite($img+'/phonecharge1.png', 36px, 36px);
+				}
+			}
+			&:nth-child(2)>a>span{
+				&:nth-child(1){
+						@include sprite($img+'/phonecharge2.png', 36px, 36px);
+				}
+			}
 			>a{
 				display: block;
 				overflow: hidden;
 				position: relative;
+				text-align: center;
 				>span{
+					margin: 0 5px;
 					display: inline-block;
-					position: absolute; top: 10px; left: 20px;
-				}
-			}
-			&:nth-child(1){
-				>a>span{
-					@include sprite($img+'/phonecharge1.png', 36px, 36px);
-				}
-			}
-			&:nth-last-child(1){
-				border: none;
-				>a>span{
-					@include sprite($img+'/phonecharge2.png', 36px, 36px);
+					vertical-align: middle;
 				}
 			}
 		}
