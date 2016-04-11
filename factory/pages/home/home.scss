@@ -218,8 +218,7 @@ html {
 			box-sizing: border-box;
 			width: 50%;
 			text-align: center;
-			height: 54px;
-			line-height: 54px;
+			line-height: 64px;
 			background-repeat: no-repeat;
 			background-position: 15% 45%;
 			position: relative;
@@ -271,7 +270,7 @@ html {
 	&-phonebills{
 		background-color: $colorwhite;
 		height: 110px;
-		margin-bottom: 10px;
+		margin-bottom: 9px;
 		// height: 83.34px;
 		// padding: 17px 12.8px 10.66px 12.8px;
 		padding: 17px 0px 10.66px 0px;

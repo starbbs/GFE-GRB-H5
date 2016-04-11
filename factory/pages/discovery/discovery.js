@@ -9,22 +9,22 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 	var iosUrlArr = [
 		'myapp:product{"type":"phone"}',
 		'myapp:product{"type":"flow"}',
+		'myapp:product{"type":"flow","service":0}', // 移
+		'myapp:product{"type":"flow","service":1}', // 联
+		'myapp:product{"type":"flow","service":2}',	// 信
+		'myapp:product{"type":"phone","service":2}',
 		'myapp:product{"type":"phone","service":0}',
 		'myapp:product{"type":"phone","service":1}',
-		'myapp:product{"type":"phone","service":2}',
-		'myapp:product{"type":"flow","service":0}',
-		'myapp:product{"type":"flow","service":1}',
-		'myapp:product{"type":"flow","service":2}'
 	];
 	var h5UrlArr = [
 		'phonecharge.html?from=home&cangory=话费',
 		'phonecharge.html?from=home&cangory=流量',
-		'phonecharge.html?from=home&cangory=话费&carrier=移动',
-		'phonecharge.html?from=home&cangory=话费&carrier=联通',
-		'phonecharge.html?from=home&cangory=话费&carrier=电信',
 		'phonecharge.html?from=home&cangory=流量&carrier=移动',
 		'phonecharge.html?from=home&cangory=流量&carrier=联通',
 		'phonecharge.html?from=home&cangory=流量&carrier=电信',
+		'phonecharge.html?from=home&cangory=话费&carrier=电信',
+		'phonecharge.html?from=home&cangory=话费&carrier=移动',
+		'phonecharge.html?from=home&cangory=话费&carrier=联通',
 	];
 
 	//判断是否APP打开
@@ -54,8 +54,13 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 	});
 	avalon.scan(main.get(0), vm);
 
-
-
+	TouchSlide({
+		slideCell: '#touchSlide',
+		autoPlay: true,
+		mainCell: '.discovery-banner',
+		titCell: '.discovery-banner-hd-li'
+	});
+	/*
 	api.static(function(data) {
 		if (data.status == 200) {
 			data.data.indexSlideAds.filter(function(val, index, arr) {
@@ -73,7 +78,7 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 			}, 100);
 		}
 	});
-
+	*/
 
 	/*
 	// 首页轮播图

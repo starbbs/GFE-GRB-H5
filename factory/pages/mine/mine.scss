@@ -28,7 +28,7 @@ body {
 
 	$img: $g-pages + '/mine/images';
 	$border: 1px solid $g-line;
-	$margin-top: 5px;
+	$margin-top: 9px;
 
 	@extend %rw;
     @extend %fade-in;
@@ -36,10 +36,13 @@ body {
 	background-color: $g-background;
 
 	&-block {
+		&:nth-child(1){
+			margin-top: 0px;
+		}
 		margin-top: $margin-top;
 		background-color: $g-white;
-		border-top: $border;
-		border-bottom: $border;
+		// border-top: $border;
+		// border-bottom: $border;
 	}
 
 	&-head {
