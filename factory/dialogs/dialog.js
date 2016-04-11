@@ -2,7 +2,7 @@
 // H5微信端 -- 浮层
 
 
-define('h5-dialog', [], function() {
+define('h5-dialog', function() {
 
 	var _dialogsArr = []; // 所有浮层列表.数组
 	var _dialogsJson = {}; // 所有浮层列表.JSON

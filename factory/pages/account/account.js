@@ -277,7 +277,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 			getList();
 		}
 	});
-	billView.on('close', function() {});
+	// billView.on('close', function() {});
 	billView.onClose = function(vmid, vmtime) {
 		for (var i = 0; i < vm.list.length; i++) {
 			for (var j = 0; j < vm.list[i].days.length; j++) {
