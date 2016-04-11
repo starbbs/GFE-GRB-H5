@@ -5,13 +5,14 @@
 require(['h5-api', 'get', 'router',
 		'h5-view', 'h5-bankcard-append', 'h5-view-authentication', 'h5-view-bill',
 		'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
-		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more', 'h5-dialog-confirm', 'h5-dialog-alert', 'h5-dialog-success', 'h5-dialog-info',
+		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-alert',
 		'h5-weixin'
 	],
 	function(api, get, router,
 		View, viewBankcardAppend, viewAuthentication, billView,
 		price, H5Bank, H5Ident, H5Bill,
-		dialogBankcard, dialogPaypass, dialogMore, dialogConfirm, dialogAlert, dialogSuccess, dialogInfo) {
+		dialogBankcard, dialogPaypass, dialogAlert
+	) {
 
 		router.init();
 
