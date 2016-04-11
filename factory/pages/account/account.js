@@ -158,16 +158,16 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 
 		if (kind === 'all') {
 			// console.log(item.extra);
-			if (item.extra.recordList.length) {
+			if (Array.isArray(item.extra.recordList)) {
 				item.extra.recordList.forEach(function(item) {
 					switch (item.payType) {
-						case 'GOP_PAY':
+						case 'GOP_PAY': // 果仁宝支付
 							bill.change = numHandler(-item.payGop, coins['gop'], filter['gop']);
 							break;
-						case 'UNION_PAY':
+						case 'UNION_PAY': // 银行卡支付
 							bill.change = numHandler(-item.payMoney, coins['money'], filter['money']);
 							break;
-						case 'BILL99_PAY':
+						case 'BILL99_PAY': // 块钱支付
 							bill.change = numHandler(-item.payMoney, coins['money'], filter['money']);
 							break;
 						default:

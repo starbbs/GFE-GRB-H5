@@ -2,12 +2,18 @@
 	<div class="dialog-box">
 		<div class="dialog-main">
 			@@if(typeof type === 'undefined') {alert}
-			@@if(typeof type !== 'undefined' && type === 1) {收不到动态密码？请检查您手机是否停机欠费，或者联系果仁宝客服<br>
-			<span class='blue font14'>400-184-9696</span>}
+			@@if(typeof type !== 'undefined' && type === 1) {
+				收不到动态密码？请检查您手机是否停机欠费，或者联系果仁宝客服<br>
+				<span class='blue font14'>400-184-9696</span>
+			}
+			@@if(typeof type !== 'undefined' && type === 2) {
+				您的支付密码已累计错误5次，果仁宝将关闭支付功能3小时，请3小时后再试。<br>
+				如有疑问，请联系果仁宝客服400-184-9696
+			}
 		</div>
 		<div class="dialog-button">
 			@@if(typeof type === 'undefined') {确定}
-			@@if(typeof type !== 'undefined' && type === 1) {知道了}
+			@@if(typeof type !== 'undefined' && (type === 1 || type === 2)) {知道了}
 		</div>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 // H5微信端 --- dialog-paypass支付浮层
 
 
-define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge' 'h5-paypass'], function(Dialog, check, api, judge) {
+define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge', 'h5-paypass'], function(Dialog, check, api, judge) {
 
 	var gopToken = $.cookie('gopToken');
 
@@ -43,11 +43,13 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge' 
 	};
 
 	var showAuthentication = function() { // 出认证页
+
 	};
 	var showDialogPaypass = function() { // 出支付浮层
 		prototypeShow.call(paypass);
 	};
 	var showDialogKnown = function() { // 出"知道了"弹窗
+	
 	};
 	var gotoFrozen = function() { // 进入冻结页
 		setTimeout(function() {
