@@ -128,6 +128,10 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 		button: '支付', // 按钮显示
 		buttonClick: function() { // 按钮点击
 			console.log(confirmData);
+			var json = {
+				gopNum:0,
+				gopPrice:0
+			};
 			if ($(this).hasClass('disabled')) {
 				return;
 			}
@@ -172,30 +176,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 			}
 		}
 	});
-	var getGopNumPrice = function(){ // 获取用户果仁
-		var gopNum = 0;
-		var gopPrice = 0;
-		api.getGopNum({
-			gopToken: gopToken
-		},function(data){
-			if(data.status == 200){
-				data.data.gopNum;
-			}else{
-				console.log('获取果仁失败');
-			}
-			console.log(data.data.gopNum);
-		});
-		api.price({
-		},function(data){
-			if(data.status == '200'){
-				data.data.price;
-			}else{
-				console.log('获取现价失败');
-			}
-			console.log(data.data.price);
-		});
-	};
-	getGopNumPrice();
+
 	var getUserPhone = function(cnfn) { //获取用户 明文 手机号码
 		api.info({
 			gopToken: gopToken
