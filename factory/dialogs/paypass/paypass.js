@@ -19,7 +19,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], func
 	// 3. done 		已认证	不出认证页,弹浮层
 	// 4. lock		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
 	var authenticationStatus = 'unknown';
-	api.checkPayPasswordStatus({
+	api.checkPayPasswordStatus({ // 页面加载初判断一次
 		gopToken: gopToken
 	}, function(data) { // 每次打开时都要判断
 		if (data.status == 311) {

@@ -20,7 +20,7 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(Api) {
 	var goIndex = function(useURI) { // 返回首页
 		// useURI 是否使用当前页面地址(未完成)
 		if (window.location.href.indexOf('/index.html') === -1) {
-			return window.location.href = 'index.html';
+			return window.location.href = 'index.html' + useURI ? '?uri=' + encodeURIComponent(window.location.href) : '';
 		} else {
 			$.alert('无法获得用户信息');
 		}
