@@ -9,7 +9,9 @@
 
 @import '../../components/nav/nav';
 
-// @import '../../views/view';
+@import '../../views/view';
+
+@import '../../views/discovery-temp/discovery-temp';
 
 // @import '../../dialogs/dialog';
 $img: $g-pages + '/discovery/images';
@@ -58,23 +60,26 @@ html {
 		&-li{
 			float: left;
 			line-height: 64px;
+			height: 64px;
 			text-align: center;
 			box-sizing: border-box;
 			width: 50%;
 			position: relative;
 			overflow: hidden;
-			// @include border-one('right', '#DDDDDD', 'after');
+			 @include border-one('right', #DDDDDD, 'after');
 			// border-right: 1px solid #DDDDDD;
 			&:after{
+				/*
+				display: block;
 				position: absolute;
 				content: '';
-				height: 500%;
-				width: 0.5px;
+				width: 1px;
+				height: 100%;
 				top: 0px; 
-				bottom: 0px;
 				right: 0px;
 				background: #DDDDDD;
-				// transform: scale(0.5);
+				transform: scaleX(0.5);
+				*/
 			}
 			&:nth-child(1)>a>span{
 				&:nth-child(1){

@@ -1,8 +1,11 @@
 // 张树垚 2015-12-20 11:27:22 创建
 // H5微信端 --- 个人首页
-require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(router, api, price, weixin, TouchSlide) {
+require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide','h5-view'], function(router, api, price, weixin, TouchSlide, View) {
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
+
+	new View('discovery-temp');
+
 	var main = $('.discovery');
 	var nav = $('.nav');
 	var UA = window.location.href;
@@ -64,6 +67,9 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 		visibleChange: function() {
 			vm.visible_ok = !vm.visible_ok;
 			$.cookie('gopHomeEye', vm.visible_ok);
+		},
+		aaa:function(){
+			router.go('/discovery-temp');
 		},
 		gopNum: 0,
 		bannerImgArr: []
