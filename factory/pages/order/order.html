@@ -12,17 +12,24 @@
 					<div class="fr" ms-visible="productRealPrice"><del>{{productRealPrice|fix}}</del></div>
 				</div>
 			</div>
+			<div class="order-head-use">
+			<!--
 			<div class="order-head-use" ms-class="on:gopIfUse&&gopNum" ms-click="gopClick">
+			
 				<div class="order-head-radio"></div>
+			-->
 				<div class="order-head-label">使用果仁</div>
 				<div class="order-head-use-guo">G {{gopUse|floorFix}}</div>
 				<div class="order-head-use-money">- {{gopMoney|floorFix}}</div>
 			</div>
+			<!--
 			<div class="order-head-pay">
 				<div class="order-head-label">人民币支付</div>
 				<div class="order-head-num red">- {{rmbUse|fix}}</div>
 			</div>
+			-->
 		</div>
+		<!--
 		<div class="order-box">
 			<div class="text-tip-top">请选择银行卡</div>
 			<div class="block">
@@ -51,6 +58,7 @@
 				</div>
 			</div>
 		</div>
+		-->
 		<div class="order-button"><span class="button" ms-class="disabled:!ifConfirmPay" ms-click="confirmPay">确认支付</span></div>
 	</div>
 	<div class="view">

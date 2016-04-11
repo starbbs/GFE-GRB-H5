@@ -5,13 +5,13 @@
 require(['h5-api', 'get', 'router',
 		'h5-view', 'h5-bankcard-append', 'h5-view-authentication', 'h5-view-bill',
 		'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
-		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more','h5-dialog-confirm','h5-dialog-alert','h5-dialog-success','h5-dialog-info',
+		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-more', 'h5-dialog-confirm', 'h5-dialog-alert', 'h5-dialog-success', 'h5-dialog-info',
 		'h5-weixin'
 	],
 	function(api, get, router,
 		View, viewBankcardAppend, viewAuthentication, billView,
 		price, H5Bank, H5Ident, H5Bill,
-		dialogBankcard, dialogPaypass, dialogMore,dialogConfirm,dialogAlert,dialogSuccess,dialogInfo) {
+		dialogBankcard, dialogPaypass, dialogMore, dialogConfirm, dialogAlert, dialogSuccess, dialogInfo) {
 
 		router.init();
 
@@ -21,7 +21,7 @@ require(['h5-api', 'get', 'router',
 
 		var vm = avalon.define({
 			$id: 'order',
-			money: 0, // 总金额
+			money: 0, // RMB总金额
 			phone: '', // 要发送验证码的电话
 			productDesc: '', // 订单内容
 			productRealPrice: 0, // 真实价格
@@ -29,6 +29,7 @@ require(['h5-api', 'get', 'router',
 			gopNum: 0, // 果仁数
 			gopIfUse: true, // 使用果仁数
 			gopUse: 0, // 使用多少果仁
+			/*
 			gopClick: function() { // 果仁点击
 				vm.gopIfUse = !vm.gopIfUse;
 				if (vm.gopIfUse) {
@@ -37,20 +38,22 @@ require(['h5-api', 'get', 'router',
 					vm.rmbUse = vm.money;
 				}
 			},
-			gopMoney: 0,
+			*/
+			gopMoney: 0, //所用果仁折合人民币
 			gopExchange: function() { // 换算gopMoney
 				if (vm.gopNum * vm.gopPrice >= vm.money) { // 够支付
-					vm.rmbUse = 0;
+					// vm.rmbUse = 0;
 					vm.gopUse = vm.money / vm.gopPrice;
 					vm.gopMoney = vm.money;
-					// vm.ifConfirmPay = true;
+					vm.ifConfirmPay = true;
 				} else {
-					vm.rmbUse = vm.money - vm.gopNum * vm.gopPrice;
+					// vm.rmbUse = vm.money - vm.gopNum * vm.gopPrice;
 					vm.gopUse = vm.gopNum;
 					vm.gopMoney = vm.gopNum * vm.gopPrice;
-					// vm.ifConfirmPay = false;
+					vm.ifConfirmPay = false;
 				}
 			},
+			/*
 			rmbUse: 0, // 使用多少人民币
 			bankList: [], // 银行卡列表
 			bankSelect: {}, // 选择银行卡
@@ -95,6 +98,7 @@ require(['h5-api', 'get', 'router',
 					}
 				});
 			},
+			
 			bankShow: function() { // 显示银行卡浮层
 				dialogBankcard.show();
 			},
@@ -104,6 +108,7 @@ require(['h5-api', 'get', 'router',
 					vm.ifConfirmPay = true;
 				});
 			},
+			*/
 			ifConfirmPay: false,
 			confirmPay: function() { // 确认支付
 				if (!vm.ifConfirmPay) {
@@ -116,9 +121,12 @@ require(['h5-api', 'get', 'router',
 						gopToken: gopToken, // token
 						useGop: vm.gopIfUse, // 是否使用果仁
 						consumeOrderId: get.data.id, // 订单id
-						identifyingCode: identInput.val(), // 短信验证码
-						bankCardId: vm.bankid, // 银行卡id
+						// identifyingCode: identInput.val(), // 短信验证码
+						// bankCardId: vm.bankid, // 银行卡id  4-11去除银行卡支付后可随便写ID
+						bankCardId: 12,
 						payPassword: value, // 支付密码
+						bill99ValidCode: '803585',
+						bill99token: '1330872'
 					}, function(data) {
 						if (data.status == 200) {
 							router.to('/bill');
@@ -134,6 +142,7 @@ require(['h5-api', 'get', 'router',
 			}
 		});
 
+		/*
 		var bankSelect = function(bank) { // 处理当前显示
 			bank = bank || vm.bankSelect.$model;
 			vm.bankSelectName = bank.name;
@@ -156,7 +165,7 @@ require(['h5-api', 'get', 'router',
 			vm.bankid = vm.bankSelect.id;
 			bankSelect();
 		};
-
+		*/
 		// 进入页面
 		if (get.data.id) { // 有订单ID, 跳转订单详情
 			billView.set('PAY', get.data.id, {
@@ -179,6 +188,7 @@ require(['h5-api', 'get', 'router',
 							vm.productRealPrice = JSON.parse(product.extraContent).price;
 							vm.gopExchange();
 							// 银行卡相关
+							/*
 							if (Array.isArray(data.data.bankCardList)) {
 								bankListRefresh(data.data.bankCardList);
 								dialogBankcard.on('hide', function() {
@@ -198,7 +208,8 @@ require(['h5-api', 'get', 'router',
 										}
 									});
 								};
-							}						
+							}
+							*/
 							price.onChange = price.onFirstChange = function(next) {
 								vm.gopPrice = next;
 								vm.gopExchange();
