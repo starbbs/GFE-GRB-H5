@@ -25,6 +25,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 
 	var vm = avalon.define({
 		$id: 'phonecharge',
+		bannerImgArr:[],
 		phone: '',
 		cancelBool: false,
 		carrier: '', // 运营商
@@ -327,6 +328,27 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 		titCell: '.phonecharge-body-title-layer',
 		defaultIndex: touchSlideDefaultIndex
 	});
+
+	// 轮播图
+	api.static(function(data) {
+		console.log(data);
+		if (data.status == 200) {
+			data.data.indexSlideAds.filter(function(val,index,arr){
+				if(val.sources.indexOf('h5')!=-1){
+					vm.bannerImgArr.push(val);
+				}
+			});
+			setTimeout(function() {
+				TouchSlide({
+					slideCell: '#touchSlidephonecharge',
+					autoPlay: true,
+					mainCell: '.phonecharge-slider-bd',
+					titCell: '.phonecharge-slider-hd-li'
+				});
+			}, 100);
+		}
+	});
+
 	setTimeout(function() {
 		main.addClass('on');
 	}, 100);

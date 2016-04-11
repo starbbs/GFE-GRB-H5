@@ -1,8 +1,18 @@
 @@include('../../../source/include/top.html', {"name": "phonecharge"})
 <div class="screen-r">
 	<div class="phonecharge" ms-controller="phonecharge">
-		<div class="phonecharge-head">
-			<img src="./images/phonecharge-1.jpg" alt="" class="img-w">
+		<div class="phonecharge-slider" id="touchSlidephonecharge">
+			<ul class="phonecharge-slider-bd">
+				<li class="phonecharge-slider-bd-li" ms-repeat-img="bannerImgArr">
+					<a ms-if-loop="img.url" ms-attr-href="img.url">
+						<img ms-attr-src="img.img" alt="" class="img-w">
+					</a>
+					<img ms-if-loop="!img.url" ms-attr-src="img.img" alt="" class="img-w">
+				</li>
+			</ul>
+			<ul class="phonecharge-slider-hd">
+				<li class="phonecharge-slider-hd-li" ms-repeat="bannerImgArr"></li>
+			</ul>			
 		</div>
 
 		<dl class="phonecharge-body" id="touchSlide">

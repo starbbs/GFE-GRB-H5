@@ -19,7 +19,6 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 			api.checkPayPasswordStatus({ // 页面加载初判断一次
 				gopToken: gopToken
 			}, function(data) { // 每次打开时都要判断
-				alert(111);
 				var status = res.defaultStatus;
 				if (data.status == 311) {
 					status = 'not';
