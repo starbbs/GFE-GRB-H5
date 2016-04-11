@@ -11,7 +11,7 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 		'myapp:product{"type":"flow"}',
 		'myapp:product{"type":"flow","service":0}', // 移
 		'myapp:product{"type":"flow","service":1}', // 联
-		'myapp:product{"type":"flow","service":2}',	// 信
+		'myapp:product{"type":"flow","service":2}', // 信
 		'myapp:product{"type":"phone","service":2}',
 		'myapp:product{"type":"phone","service":0}',
 		'myapp:product{"type":"phone","service":1}',
@@ -27,10 +27,26 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 		'phonecharge.html?from=home&cangory=话费&carrier=联通',
 	];
 
+	var androidUrlArr = [
+		'phonecharge.html?from=home&cangory=phone',
+		'phonecharge.html?from=home&cangory=flow',
+		'phonecharge.html?from=home&cangory=flow&carrier=move',//移动
+		'phonecharge.html?from=home&cangory=flow&carrier=unicom',//联通
+		'phonecharge.html?from=home&cangory=flow&carrier=telecom',//电信
+		'phonecharge.html?from=home&cangory=phone&carrier=telecom',
+		'phonecharge.html?from=home&cangory=phone&carrier=move',
+		'phonecharge.html?from=home&cangory=phone&carrier=unicom',
+	];
+
 	//判断是否APP打开
 	if (UA.indexOf('from=discoveryiosapp') > 0) {
 		for (var i = 0; i < iosUrlArr.length; i++) {
 			$('.urlarr')[i].href = encodeURIComponent(iosUrlArr[i]);
+		}
+		nav.css('display', 'none');
+	}else if(UA.indexOf('from=discoveryandroidapp') > 0){
+		for (var i = 0; i < androidUrlArr.length; i++) {
+			$('.urlarr')[i].href = androidUrlArr[i];
 		}
 		nav.css('display', 'none');
 	} else {

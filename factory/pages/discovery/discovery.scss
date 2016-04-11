@@ -61,7 +61,20 @@ html {
 			text-align: center;
 			box-sizing: border-box;
 			width: 50%;
-			border-right: 1px solid #DDDDDD;
+			position: relative;
+			overflow: hidden;
+			// border-right: 1px solid #DDDDDD;
+			&:after{
+				position: absolute;
+				content: '';
+				height: 500%;
+				width: 0.5px;
+				top: 0px; 
+				bottom: 0px;
+				right: 0px;
+				background: #DDDDDD;
+				// transform: scale(0.5);
+			}
 			&:nth-child(1)>a>span{
 				&:nth-child(1){
 						@include sprite($img+'/phonecharge1.png', 36px, 36px);
