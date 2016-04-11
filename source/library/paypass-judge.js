@@ -13,7 +13,7 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 	// 4. lock		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
 
 	var res = {
-		defaultStatus: 'unknown',
+		defaultStatus: 'unknown', // 默认状态
 		check: function(callback) { // 支付状态
 			callback = callback || $.noop;
 			api.checkPayPasswordStatus({ // 页面加载初判断一次

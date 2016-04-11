@@ -23,20 +23,33 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge' 
 		authenticationStatus = status;
 	});
 
-	var showAuthentication = function() { // 出认证页
-		if (authenticationStatus === 'not') {
-
+	var prototypeShow = paypass.show;
+	paypass.show = function() {
+		switch(authenticationStatus) {
+			case 'not':
+				showAuthentication();
+				break;
+			case 'done':
+				showDialogPaypass();
+				break;
+			case 'lock':
+				showDialogKnown();
+			case 'unknown':
+				console.log('未知状态');
+				break;
+			default:
+				console.log('Error: (dialog-paypass) authenticationStatus 认证状态错误');
 		}
+	};
+
+	var showAuthentication = function() { // 出认证页
 	};
 	var showDialogPaypass = function() { // 出支付浮层
-		if (authenticationStatus === 'done') {
-
-		}
+		prototypeShow.call(paypass);
 	};
 	var showDialogKnown = function() { // 出"知道了"弹窗
-		if (authenticationStatus === 'lock') {}
 	};
-	var gotoFrozen = function() {
+	var gotoFrozen = function() { // 进入冻结页
 		setTimeout(function() {
 			window.loaction.href = 'frozen.html?type=useup'; // 用光可支付次数
 		}, 100);
@@ -71,6 +84,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge' 
 							});
 							input.get(0).paypassClear();
 							judge.check(function(status, data) {
+								authenticationStatus = status;
 								if (data.data.result === 'error') {
 									if (data.data.times === 10) {
 										gotoFrozen();
@@ -86,16 +100,13 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge' 
 		},
 	});
 
-	// paypass.on('beforeShow', function() {
-
-	// });
-	paypass.on('show', function() {
+	paypass.on('show', function() { // 显示时输入框自动获取焦点
+		input.get(0).focus();
 		setTimeout(function() {
 			input.get(0).focus();
-		}, 10);
+		}, 300);
 	});
-	paypass.on('hide', function() {
-		// 清除input的value并失焦
+	paypass.on('hide', function() { // 清除input的value并失焦
 		input.val('').get(0).blur();
 		input.get(0).paypassClear();
 	});

@@ -167,8 +167,11 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 						case 'UNION_PAY':
 							bill.change = numHandler(-item.payMoney, coins['money'], filter['money']);
 							break;
+						case 'BILL99_PAY':
+							bill.change = numHandler(-item.payMoney, coins['money'], filter['money']);
+							break;
 						default:
-							console.log('err:', item);
+							console.log('Error: (account) 支付类型错误', item);
 					}
 					bills.push($.extend({}, bill));
 				});
@@ -264,7 +267,6 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 				data.name && (options.transferName = data.name);
 				data.img && (options.transferImg = data.img);
 				billView.set(data.type, data.id, options);
-				//           "BUY_IN",  "215"  {data.name:'',data.img:''}
 				router.go('/bill');
 			}
 		}
