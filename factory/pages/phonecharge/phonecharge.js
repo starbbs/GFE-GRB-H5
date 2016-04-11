@@ -179,11 +179,11 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 			gopToken: gopToken
 		},function(data){
 			if(data.status == 200){
-				data.data.gopNum
+				data.data.gopNum;
 			}else{
 				console.log('获取果仁失败');
 			}
-			console.log(data);
+			console.log(data.data.gopNum);
 		});
 		api.price({
 		},function(data){
