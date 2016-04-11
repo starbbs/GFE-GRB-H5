@@ -69,7 +69,6 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide'], function(r
 		bannerImgArr: []
 	});
 	avalon.scan(main.get(0), vm);
-
 	TouchSlide({
 		slideCell: '#touchSlide',
 		autoPlay: true,
