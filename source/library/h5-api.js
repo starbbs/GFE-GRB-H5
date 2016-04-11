@@ -13,9 +13,9 @@
 define('h5-api', ['api', 'h5-alert', 'cookie'], function(Api) {
 
 	// var baseUri = '.'; // 同域
-	// var baseUri = 'http://116.213.142.89:8080'; // http测试服务器
+	var baseUri = 'http://116.213.142.89:8080'; // http测试服务器
 	// var baseUri = 'https://endpoint.goopal.com.cn'; // https正式服务器 v1.1
-	var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
+	// var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
 
 	var goIndex = function(useURI) { // 返回首页
 		// useURI 是否使用当前页面地址(未完成)

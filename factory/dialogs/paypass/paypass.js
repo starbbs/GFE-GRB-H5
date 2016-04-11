@@ -3,7 +3,7 @@
 // H5微信端 --- dialog-paypass支付浮层
 
 
-define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], function(Dialog, check, api) {
+define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge' 'h5-paypass'], function(Dialog, check, api, judge) {
 
 	var gopToken = $.cookie('gopToken');
 
@@ -13,33 +13,33 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], func
 	var input = paypass.input = $('#dialog-paypass-input'); // 输入框
 	var inputTimer = null;
 
-	// 实名认证状态
-	// 1. unknown	未知		不出认证页,不弹浮层
-	// 2. not		未认证	出认证页,不弹浮层
-	// 3. done 		已认证	不出认证页,弹浮层
-	// 4. lock		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
-	var authenticationStatus = 'unknown';
-	api.checkPayPasswordStatus({ // 页面加载初判断一次
-		gopToken: gopToken
-	}, function(data) { // 每次打开时都要判断
-		if (data.status == 311) {
-			authenticationStatus = 'not';
-		} else {
-			authenticationStatus = 'done';
-		}
-		if (data.data.result === 'error') {
-			authenticationStatus = 'lock';
-		}
+	var authenticationStatus = judge.defaultStatus;
+	judge.check(function(status, data) {
+		// status 状态
+		// 1. unknown	未知		不出认证页,不弹浮层
+		// 2. not		未认证	出认证页,不弹浮层
+		// 3. done 		已认证	不出认证页,弹浮层
+		// 4. lock		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
+		authenticationStatus = status;
 	});
 
 	var showAuthentication = function() { // 出认证页
+		if (authenticationStatus === 'not') {
 
+		}
 	};
 	var showDialogPaypass = function() { // 出支付浮层
+		if (authenticationStatus === 'done') {
 
+		}
 	};
 	var showDialogKnown = function() { // 出"知道了"弹窗
-
+		if (authenticationStatus === 'lock') {}
+	};
+	var gotoFrozen = function() {
+		setTimeout(function() {
+			window.loaction.href = 'frozen.html?type=useup'; // 用光可支付次数
+		}, 100);
 	};
 
 	var vm = paypass.vm = avalon.define({
@@ -70,6 +70,15 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass'], func
 								top: document.body.scrollTop + box.get(0).getBoundingClientRect().top - 60 // ios键盘出现, alert定位bug
 							});
 							input.get(0).paypassClear();
+							judge.check(function(status, data) {
+								if (data.data.result === 'error') {
+									if (data.data.times === 10) {
+										gotoFrozen();
+									} else {
+										showDialogKnown();
+									}
+								}
+							});
 						}
 					});
 				}, 500);
