@@ -127,6 +127,9 @@ body {
 		&.market {
 			@include sprite($img + '/5.png', 36px);
 		}
+		&.refund {
+			@include sprite($img + '/8.png', 36px);
+		}
 	}
 	&-main {
 		height: 100%;

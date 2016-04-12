@@ -17,6 +17,11 @@ define('h5-component-bill', function() {
 			FAILURE: '交易失败',
 			CLOSE: '已关闭',
 		},
+		statusRefund: { // 退款状态对应中文
+			PROCESSING: '处理中',
+			SUCCESS: '退款成功',
+			FAILURE: '退款失败',
+		},
 		statusTransfer: {
 			PROCESSING: {
 				TRANSFER_IN: '转入进行中',

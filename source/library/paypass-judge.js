@@ -20,6 +20,7 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 				gopToken: gopToken
 			}, function(data) { // 每次打开时都要判断
 				var status = res.defaultStatus;
+				var times = 0;
 				if (data.status == 311) {
 					status = 'not';
 				} else {
@@ -27,8 +28,9 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 				}
 				if (data.data.result === 'error') {
 					status = 'lock';
+					times = data.data.times;
 				}
-				callback(status, data);
+				callback(status, times, data);
 			});
 		},
 

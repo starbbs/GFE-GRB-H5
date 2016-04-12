@@ -3,7 +3,12 @@
 // H5微信端 --- dialog-paypass支付浮层
 
 
-define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge', 'h5-paypass'], function(Dialog, check, api, judge) {
+define('h5-dialog-paypass', [
+	'h5-dialog', 'check', 'h5-api', 'h5-paypass-judge',
+	'h5-paypass'
+], function(
+	Dialog, check, api, judge
+) {
 
 	var gopToken = $.cookie('gopToken');
 
@@ -14,7 +19,7 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge',
 	var inputTimer = null;
 
 	var authenticationStatus = judge.defaultStatus;
-	judge.check(function(status, data) {
+	judge.check(function(status, times, data) {
 		// status 状态
 		// 1. unknown	未知		不出认证页,不弹浮层
 		// 2. not		未认证	出认证页,不弹浮层
@@ -84,13 +89,13 @@ define('h5-dialog-paypass', ['h5-dialog', 'check', 'h5-api', 'h5-paypass-judge',
 							$.alert(data.msg, {
 								top: document.body.scrollTop + box.get(0).getBoundingClientRect().top - 60 // ios键盘出现, alert定位bug
 							});
-							input.get(0).paypassClear();
-							judge.check(function(status, data) {
+							input.get(0).paypassClear(); // 清空输入框
+							judge.check(function(status, times, data) { // 检测当前状态
 								authenticationStatus = status;
-								if (data.data.result === 'error') {
-									if (data.data.times === 10) {
+								if (status === 'lock') { // 被锁住
+									if (times >= 10) { // 10次, 前往冻结页
 										gotoFrozen();
-									} else {
+									} else { // 其他, 显示"知道了"
 										showDialogKnown();
 									}
 								}

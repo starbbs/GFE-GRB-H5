@@ -106,7 +106,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 	var dataAdd = function(kind, bills, item) { // 添加效果的数据
 		var type = H5bill.typeClass[item.type];
 		var bill = { // 账单
-			id: item.businessId,
+			id: item.businessId, // id
 			img: '', // 头像
 			name: '', // 姓名
 			desc: item.businessDesc,
@@ -150,10 +150,16 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 				}
 			}
 		}
-		if (type === 'phone') {
-			if (item.extra && item.extra.phoneInfo) {
-				item.extra.phoneInfo.carrier && (bill.desc += ' - ' + item.extra.phoneInfo.carrier); // 运营商
+		if (type === 'phone' || item.type === 'REFUND') {
+			console.log(item)
+			if (item.extra && item.extra.product) {
+				item.extra.product.productDesc && (bill.desc += ' - ' + item.extra.product.productDesc); // 运营商
 			}
+		}
+
+		if (item.type === 'REFUND') {
+			bill.iconClass = 'refund';
+			bill.status = H5bill.statusRefund[item.status];
 		}
 
 		if (kind === 'all') {
@@ -209,14 +215,14 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 					break;
 				default:
 					if (item.type === 'REFUND') {
-						console.log(item);
-						// if (item.currency === 'RMB') {
-
-						// } else if (item.currency === 'GOP') {
-
-						// } else {
-						// 	console.log('没有处理的退款类型', item);
-						// }
+						if (item.money) { // 退人民币
+							console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
+						} else if (item.gopNumber) {
+							console.log(item);
+							dataAdd('gop', bills, item);
+						} else {
+							console.log('Error: (account) 退款错误,没有人民币和果仁', item);
+						}
 					} else {
 						console.log('没有处理的账单类型', item);
 					}
