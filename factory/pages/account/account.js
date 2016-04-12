@@ -11,7 +11,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 	};
 	var gopToken = $.cookie('gopToken');
 	var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
-	var size = 15; // 账单列表
+	var size = 200; // 账单列表
 
 	var main = $('.account'); // 主容器
 	var init = function() { // 初始化
@@ -162,8 +162,7 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 		}
 
 		if (kind === 'all') {
-			// console.log(item.extra);
-			if (Array.isArray(item.extra.recordList)) {
+			if (item.extra.recordList.length) {
 				item.extra.recordList.forEach(function(item) {
 					switch (item.payType) {
 						case 'GOP_PAY': // 果仁宝支付
@@ -201,10 +200,9 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 			var time = mydate.timeHandler(item._date); // time格式如下
 			var type = H5bill.typeClass[item.type];
 			var bills = [];
-			// item是data里面的每一条数据
 			switch (type) { // 账单类型
 				case 'phone': // 消费果仁, 果仁+人民币
-					dataAdd('all', bills, item); // dataAdd主要是给bills添加交易的信息
+					dataAdd('all', bills, item);
 					break;
 				case 'buy': // 买果仁, 人民币
 					dataAdd('money', bills, item);
@@ -217,7 +215,6 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 						if (item.money) { // 退人民币
 							console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
 						} else if (item.gopNumber) {
-							console.log(item);
 							dataAdd('gop', bills, item);
 						} else {
 							console.log('Error: (account) 退款错误,没有人民币和果仁', item);

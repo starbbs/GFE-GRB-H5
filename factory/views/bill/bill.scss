@@ -116,6 +116,9 @@
 			height: $height;
 			float: left;
 			margin-left: -18px;
+			&.one {
+				line-height: $height;
+			}
 		}
 		&-bottom {
 			clear: both;
@@ -144,6 +147,9 @@
 			}
 			&.market { // 果仁市场
 				@include sprite($img + '/6.png');
+			}
+			&.official { // 官方
+				@include sprite($img + '/10.png');
 			}
 		}
 		&-name {

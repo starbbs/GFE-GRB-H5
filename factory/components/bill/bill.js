@@ -7,7 +7,9 @@ define('h5-component-bill', function() {
 	var bill = {
 		unit: { // 货币单位
 			money: '¥',
+			RMB: '¥',
 			gop: 'G',
+			GOP: 'G',
 		},
 		statusClass: { // 订单状态对应class名称
 			PROCESSING: 'going',
@@ -30,21 +32,31 @@ define('h5-component-bill', function() {
 		getStatusRefund: function(item, ifUseUnit) { // 数据, 是否加单位
 			var status = bill.statusRefund[item.status];
 			if (item.status === 'PROCESSING') {
-				status = item.createTime === (item.businessTime || item.updateTime) ? '已提交' : '处理中';
+				status = item.createTime === (item.businessTime || item.updateTime) ? bill.statusRefund.PROCESSING1 : bill.statusRefund.PROCESSING2;
 			}
 			if (ifUseUnit && item.currency) {
-				switch(item.currency) {
-					case 'GOP':
-						status += ' (' + bill.unit.gop + ')';
-						break;
-					case 'RMB':
-						status += ' (' + bill.unit.money + ')';
-						break;
-					default:
-						console.log('Error: (bill) 未知退款货币类型: ' + item.currency);
-				}
+				status += ' (' + bill.unit[item.currency] + ')';
 			}
 			return status;
+		},
+		refundWord: {
+			PROCESSING1: '退款申请已提交',
+			PROCESSING2: '处理中...稍后退款到',
+			SUCCESS: {
+				GOP: '果仁已入账',
+				RMB: '金额已到账',
+			},
+			FAILURE: '未到账成功',
+		},
+		getRefundWord: function(item) {
+			var word = bill.refundWord[item.status];
+			if (item.status === 'PROCESSING') {
+				word = item.createTime === (item.businessTime || item.updateTime) ? bill.refundWord.PROCESSING1 : bill.refundWord.PROCESSING2;
+			}
+			if (item.status === 'SUCCESS' && item.currency) {
+				word = bill.refundWord.SUCCESS[item.currency];
+			}
+			return word;
 		},
 		statusTransfer: {
 			PROCESSING: {

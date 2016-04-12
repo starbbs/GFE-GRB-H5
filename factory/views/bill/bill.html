@@ -13,6 +13,11 @@
 					<div class="bill-get-number">+{{gopNum|floorFix}}</div>
 					<div class="bill-get-label">获得果仁(G)</div>
 				</div>
+				<!--退款-->
+				<div class="bill-get" ms-visible="refundNum">
+					<div class="bill-get-number" ms-class="silver:status==='FAILURE'">+{{refundNum|floorFix}}</div>
+					<div class="bill-get-label ash">{{refundWord}}</div>
+				</div>
 				<!--转入转出果仁-->
 				<div class="bill-get" ms-visible="transferNum">
 					<div class="bill-get-number">{{transferSign}}{{transferNum|floorFix}}</div>
@@ -32,6 +37,19 @@
 					</div>
 					<div class="bill-target-bottom"></div>
 				</div>
+				<!--退款途径-->
+				<div class="bill-target" ms-visible="type==='REFUND'">
+					<div class="bill-target-left">
+						<div class="bill-target-img">
+							<div class="bill-target-icon official"></div>
+						</div>
+					</div>
+					<div class="bill-target-right one">
+						<span class="dark">果小萌</span>
+						<span class="orange">[官方]</span>
+					</div>
+					<div class="bill-target-bottom"></div>
+				</div>
 				<!--进度条-->
 				<div class="bill-stage" ms-visible="type==='TRANSFER_OUT'&&transferStage" ms-class="{{transferStage}}">
 					<div class="bill-stage-line"></div>
@@ -45,6 +63,21 @@
 					<div class="bill-desc-right">
 						<div class="bill-desc-name" ms-class="green:transferStage=='finish'">转账成功</div>
 						<div class="bill-desc-time">{{transferOver}}</div>
+					</div>
+				</div>
+				<!--进度条-->
+				<div class="bill-stage half" ms-visible="type==='REFUND'&&status==='PROCESSING'">
+					<div class="bill-stage-line"></div>
+				</div>
+				<!--退款时间-->
+				<div class="bill-desc" ms-visible="type==='REFUND'&&status==='PROCESSING'">
+					<div class="bill-desc-left">
+						<div class="bill-desc-name green">提交成功</div>
+						<div class="bill-desc-time">{{submitTime}}</div>
+					</div>
+					<div class="bill-desc-right">
+						<div class="bill-desc-name">退款成功</div>
+						<div class="bill-desc-time">预计3~5个工作日内</div>
 					</div>
 				</div>
 				<div class="bill-reason" ms-visible="failReason">
@@ -102,7 +135,7 @@
 						<div class="bill-detail-left">收款方</div>
 						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">北京果仁宝科技有限公司</div>
 					</div>
-					<div class="bill-detail-item" ms-visible="transferTime">
+					<div class="bill-detail-item" ms-visible="transferTime&&status==='SUCCESS'">
 						<div class="bill-detail-left">到账时间</div>
 						<div class="bill-detail-right ash">{{transferTime}}</div>
 					</div>
@@ -114,7 +147,7 @@
 						<div class="bill-detail-left">关闭时间</div>
 						<div class="bill-detail-right ash">{{closeTime}}</div>
 					</div>
-					<div class="bill-detail-item" ms-visible="submitTime">
+					<div class="bill-detail-item" ms-visible="submitTime&&(status==='FAILURE'||status==='CLOSE')">
 						<div class="bill-detail-left">提交时间</div>
 						<div class="bill-detail-right" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='CLOSE'">{{submitTime}}</div>
 					</div>
@@ -126,7 +159,7 @@
 						<div class="bill-detail-left">订单号</div>
 						<div class="bill-detail-right ash">{{orderCode}}</div>
 					</div>
-					<div class="bill-detail-item" ms-visible="serialNum&&!transferTime">
+					<div class="bill-detail-item" ms-visible="serialNum">
 						<div class="bill-detail-left">流水号</div>
 						<div class="bill-detail-right ash">{{serialNum|html}}</div>
 					</div>
@@ -143,7 +176,7 @@
 			<div class="text-button"><span class="button white" ms-visible="ifSetNickname" ms-click="setNickname">设置备注名</span></div>
 			<div class="bill-more"><span class="blue" ms-visible="ifShowMore" ms-click="showMore">更多</span></div>
 			<div class="bill-more"><span class="blue" ms-visible="ifClose" ms-click="close">关闭</span></div>
-			<div class="bill-tip" ms-visible="ifTip">如有疑问，请联系果仁宝客服<br><a class="a-blue" href="tel:400-184-9696">400-184-9696</a></div>
+			<div class="bill-tip" ms-visible="ifTip">{{tip|html}}<a class="a-blue" href="tel:400-184-9696">400-184-9696</a></div>
 		</div>
 	</div>
 </div>
