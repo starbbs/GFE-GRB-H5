@@ -1,19 +1,31 @@
 // 张树垚 2016-01-09 14:29:10 创建
 // H5微信端 --- page-order 订单
 
-
+/*
 require(['h5-api', 'get', 'router',
-		'h5-view', 'h5-bankcard-append', 'h5-view-authentication', 'h5-view-bill',
+		'h5-view', 'h5-bankcard-append', 'h5-view-bill',
 		'h5-price', 'h5-bank', 'h5-ident', 'h5-component-bill',
-		'h5-dialog-bankcard', 'h5-dialog-paypass', 'h5-dialog-alert',
+		'h5-dialog-bankcard', 'h5-dialog-paypass',
 		'h5-weixin'
 	],
 	function(api, get, router,
-		View, viewBankcardAppend, viewAuthentication, billView,
+		View, viewBankcardAppend, billView,
 		price, H5Bank, H5Ident, H5Bill,
 		dialogBankcard, dialogPaypass, dialogAlert
 	) {
+*/
 
+require(['h5-api', 'get', 'router',
+		'h5-view', 'h5-view-bill',
+		'h5-price', 'h5-ident', 'h5-component-bill',
+		'h5-dialog-paypass',
+		'h5-weixin'
+	],
+	function(api, get, router,
+		View, billView,
+		price, H5Ident, H5Bill,
+		dialogPaypass
+	) {
 		router.init();
 
 		var main = $('.order');

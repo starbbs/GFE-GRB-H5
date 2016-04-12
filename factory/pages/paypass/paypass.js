@@ -213,13 +213,11 @@ require(['router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 
 		},
 		paypass2Click: function() {
 			if (vm.paypass2.length == 6) {
-				alert(2);
 				router.go('/paypass-view-3');
 			}
 		},
 		paypass3Click: function() {
 			if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
-				alert(333);
 				api.setPayPassword({
 					gopToken: gopToken,
 					password: vm.paypass3

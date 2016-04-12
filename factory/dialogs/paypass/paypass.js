@@ -1,66 +1,141 @@
-
 // 张树垚 2016-01-07 18:06:48 创建
 // H5微信端 --- dialog-paypass支付浮层
 
 
 define('h5-dialog-paypass', [
-	'h5-dialog', 'check', 'h5-api', 'h5-paypass-judge',
-	'h5-paypass'
+	'h5-dialog', 'check', 'h5-view', 'h5-api', 'h5-paypass-judge', 'h5-dialog-alert', 'router',
+	'h5-view-authentication', 'h5-paypass'
 ], function(
-	Dialog, check, api, judge
+	Dialog, check, View, api, judge, dialogAlert, router, authenticationVM
 ) {
 
+	router.init(true);
 	var gopToken = $.cookie('gopToken');
-
+	// new View('paypass-view-1');
+	new View('paypass-view-2');
+	new View('paypass-view-3');
 	var paypass = new Dialog('paypass');
+
+	// new View('authentication');
 
 	var box = paypass.box = paypass.self.find('.dialog-paypass-box'); // 大盒子
 	var input = paypass.input = $('#dialog-paypass-input'); // 输入框
 	var inputTimer = null;
 
-	var authenticationStatus = judge.defaultStatus;
-	judge.check(function(status, times, data) {
+	var paypassStatus = judge.defaultStatus;
+
+	judge.check(function(status, data) {
 		// status 状态
 		// 1. unknown	未知		不出认证页,不弹浮层
 		// 2. not		未认证	出认证页,不弹浮层
 		// 3. done 		已认证	不出认证页,弹浮层
-		// 4. lock		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
-		authenticationStatus = status;
+		// 4. lock5 lock10		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
+		// 5. notAuthentication  没实名 没设置密码
+		paypassStatus = status;
 	});
 
+
+
+	// 点击支付执行paypass浮窗show
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
-		switch(authenticationStatus) {
-			case 'not':
-				showAuthentication();
+		paypassStatus = 'not';
+		console.log(paypassStatus);
+		switch (paypassStatus) {
+			case 'not': //没有设置密码 
+				showPaypass();
+				break;
+			case 'notAuthentication': //没有设置密码  没实名
+				showAuthenticationPaypass();
 				break;
 			case 'done':
 				showDialogPaypass();
 				break;
-			case 'lock':
+			case 'lock5':
 				showDialogKnown();
+				break;
+			case 'lock10':
+				gotoFrozen();
+				break;
 			case 'unknown':
 				console.log('未知状态');
 				break;
 			default:
-				console.log('Error: (dialog-paypass) authenticationStatus 认证状态错误');
+				console.log('Error: (dialog-paypass) paypassStatus 认证状态错误');
 		}
 	};
 
-	var showAuthentication = function() { // 出认证页
-
+	var showPaypass = function() { // 设置密码
+		router.go('paypass-view-2');
+		$.extend(authenticationVM, {
+			callback: function() {
+				alert(1111);
+			}
+		});
 	};
-	var showDialogPaypass = function() { // 出支付浮层
+	var showAuthenticationPaypass = function() { //认证+设置密码
+		router.go('authentication');
+		$.extend(authenticationVM, {
+			callback: function() {
+				alert(1111);
+			}
+		});
+	};
+	var showDialogPaypass = function() { // 正常出支付浮层
 		prototypeShow.call(paypass);
 	};
-	var showDialogKnown = function() { // 出"知道了"弹窗
-	
+	var showDialogKnown = function() { // 出"知道了"弹窗  错误5次
+		dialogAlert.set('输入5次错误,3小时后解锁,知道了');
+		dialogAlert.show();
 	};
-	var gotoFrozen = function() { // 进入冻结页
+	var gotoFrozen = function() { // 进入冻结页  错误10次
 		setTimeout(function() {
-			window.loaction.href = 'frozen.html?type=useup'; // 用光可支付次数
+			window.location.href = 'frozen.html?type=useup'; // 用光可支付次数
 		}, 100);
 	};
+
+	var setpasswordVM = avalon.define({
+		$id: 'paypass-view',
+		paypass2: '',
+		paypass3: '',
+		paypass2Value:'',
+		paypass3Value:'',		
+		paypass1Next:false,
+		paypass2Next:false,
+		paypass1Value:function(){
+			setpasswordVM.paypass1Next = setpasswordVM.paypass1.length === 6 ? true : false;
+			console.log(setpasswordVM.paypass1Next);
+		},
+		paypass2Value:function(){
+			setpasswordVM.paypass2Next = setpasswordVM.paypass2.length === 6 ? true : false;
+		},		
+		paypass2Click: function() {
+			if (setpasswordVM.paypass2.length == 6) {
+				router.go('/paypass-view-3');
+			}
+		},
+		paypass3Click: function() {
+			if (setpasswordVM.paypass2 == setpasswordVM.paypass3 && setpasswordVM.paypass3.length == 6) {
+				api.setPayPassword({
+					gopToken: gopToken,
+					password: setpasswordVM.paypass3
+				}, function(data) {
+					if (data.status == 200) {
+						setpasswordVM.paypass1 = '';
+						setpasswordVM.paypass2 = '';
+						setpasswordVM.paypass3 = '';
+						// setpasswordVM.Idcard = '';
+						// setpasswordVM.identifyingCode = '';
+						// dialogShow();
+					} else {
+						$.alert(data.msg);
+					}
+				});
+			} else {
+				$.alert('两次输入不一致');
+			}
+		},
+	});
 
 	var vm = paypass.vm = avalon.define({
 		$id: 'dialog-paypass',
@@ -76,8 +151,8 @@ define('h5-dialog-paypass', [
 		input: function() { // 输入时
 			var value = this.value;
 			clearTimeout(inputTimer);
-			if (check.paypassCondition(value)/* && check.paypass(value).result*/) {
-				inputTimer = setTimeout(function(){
+			if (check.paypassCondition(value) /* && check.paypass(value).result*/ ) {
+				inputTimer = setTimeout(function() {
 					api.checkPayPwd({
 						gopToken: gopToken,
 						payPwd: value
@@ -91,7 +166,7 @@ define('h5-dialog-paypass', [
 							});
 							input.get(0).paypassClear(); // 清空输入框
 							judge.check(function(status, times, data) { // 检测当前状态
-								authenticationStatus = status;
+								paypassStatus = status;
 								if (status === 'lock') { // 被锁住
 									if (times >= 10) { // 10次, 前往冻结页
 										gotoFrozen();
@@ -117,6 +192,6 @@ define('h5-dialog-paypass', [
 		input.val('').get(0).blur();
 		input.get(0).paypassClear();
 	});
-
+	avalon.scan();
 	return paypass;
 });

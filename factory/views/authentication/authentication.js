@@ -12,7 +12,7 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert', 'h5-tex
 		Idcard: '',
 		callback: $.noop,
 		callbackFlag:false,
-		next_click: function() {
+		next_click: function() { //姓名 身份证号 下一步
 			var reg1 = /^[\u2E80-\u9FFF]+$/; //Unicode编码中的汉字范围
 			if (!reg1.test(vm.realName)) {
 				return $.alert('请输入中文名');
@@ -30,6 +30,7 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert', 'h5-tex
 							$('.not-authed').removeClass('on');
 							$('.authed').addClass('on');
 						}
+						vm.callback && vm.callback();
 					} else {
 						console.log(data);
 						$.alert('身份证号或名字错误');
@@ -64,7 +65,6 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert', 'h5-tex
 			$('.not-authed').removeClass('on');
 			$('.authed').addClass('on');
 		} else {
-			console.log(data);
 			$('.not-authed').addClass('on');
 			$('.authed').removeClass('on');
 		}

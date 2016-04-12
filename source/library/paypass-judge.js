@@ -8,9 +8,10 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 
 	// 状态
 	// 1. unknown	未知		不出认证页,不弹浮层
-	// 2. not		未认证	出认证页,不弹浮层
+	// 2. not		没密码	设置密码前先判断 是否实名认证
 	// 3. done 		已认证	不出认证页,弹浮层
-	// 4. lock		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
+	// 4. lock5		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
+	// 4. lock10		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
 
 	var res = {
 		defaultStatus: 'unknown', // 默认状态
@@ -20,17 +21,31 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 				gopToken: gopToken
 			}, function(data) { // 每次打开时都要判断
 				var status = res.defaultStatus;
-				var times = 0;
 				if (data.status == 311) {
-					status = 'not';
+					status = 'not'; //没有设置密码 再做实名认证判断
+					api.isCertification({
+						gopToken: gopToken
+					}, function(data) {
+						if (data.status == 200) {
+							if(data.msg == '未实名认证'){
+								status = 'notAuthentication';
+							}
+						} else {
+							console.log(data.msg);
+						}
+					});
+
 				} else {
 					status = 'done';
 				}
 				if (data.data.result === 'error') {
-					status = 'lock';
-					times = data.data.times;
+					if(data.data.times == 5){
+						status = 'lock5';
+					}else if(data.data.times == 10){
+						status = 'lock10';
+					}
 				}
-				callback(status, times, data);
+				callback(status, data);
 			});
 		},
 
