@@ -8,8 +8,8 @@
 .paypass {
 
 	$height: 46px;
-	$width: 290px;
-
+	$width: 100%;
+	
 	@include square($width, $height);
 	margin: 0 auto;
 	position: relative;
