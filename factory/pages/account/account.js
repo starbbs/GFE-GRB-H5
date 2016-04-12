@@ -150,15 +150,14 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 				}
 			}
 		}
-		if (type === 'phone' || item.type === 'REFUND') {
-			console.log(item)
+		if (type === 'phone' || type === 'refund') {
 			if (item.extra && item.extra.product) {
 				item.extra.product.productDesc && (bill.desc += ' - ' + item.extra.product.productDesc.replace(/\-/g, ' - ')); // 运营商
 			}
 		}
 
-		if (item.type === 'REFUND') {
-			bill.iconClass = 'refund';
+		if (type === 'refund') {
+			// bill.iconClass = 'refund';
 			bill.status = H5bill.getStatusRefund(item);
 		}
 

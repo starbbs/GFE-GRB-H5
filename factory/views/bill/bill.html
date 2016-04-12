@@ -3,9 +3,7 @@
 		<div class="bill-scroll">
 			<div class="bill-box">
 				<!--交易状态 转帐进行中 转帐成功 关闭-->
-				<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')">
-					{{headContent}}
-				</div>
+				<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')">{{headContent}}</div>
 				<div class="bill-wait" ms-visible="waitForPay">
 					<div class="bill-wait-left">等待支付(¥)</div>
 					<div class="bill-wait-right">-{{orderMoney|fix}}</div>

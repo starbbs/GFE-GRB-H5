@@ -53,6 +53,7 @@ define('h5-component-bill', function() {
 			TRANSFER_OUT: 'transfer',
 			BUY_IN: 'buy',
 			PAY: 'phone',
+			REFUND: 'refund',
 		},
 		payType: { // 支付方式
 			GOP_PAY: '果仁宝支付',
@@ -60,6 +61,7 @@ define('h5-component-bill', function() {
 			WEIXIN_MP_PAY: '微信支付',
 			WEIXIN_OPEN_PAY: '微信支付',
 			ALIPAY: '支付宝支付',
+			BILL99_PAY: '快钱支付',
 		},
 		transferType: { // 转账方式
 			WALLET_CONTACT: '钱包联系人',
