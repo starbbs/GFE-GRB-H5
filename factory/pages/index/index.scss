@@ -14,7 +14,12 @@
 
 // @import '../../dialogs/dialog';
 
-
+.block{
+	border-top: none;
+}
+.text-ident{
+	border-left: none;
+}
 .index {
 
 	$img: $g-pages + '/index/images';
@@ -26,6 +31,7 @@
 
 	&-login {
 		@extend .view-style;
+		background: #fff;
 		&-picture {
 			margin: 34px auto 0;
 			@include square(85px);
