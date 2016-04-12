@@ -2,9 +2,9 @@
 
 // 张树垚 2016-02-24 16:06:35 创建
 // H5微信端 --- view-discovery-temp发现模板
-$img: $g-pages + '/discovery/images';
 
 .discovery-temp{
+	$img: $g-pages + '/discovery/images';
 	background: #ffffff;
 	@extend .view-style;
 	&-banner{
