@@ -5,6 +5,10 @@
 
 define('h5-component-bill', function() {
 	var bill = {
+		unit: { // 货币单位
+			money: '¥',
+			gop: 'G',
+		},
 		statusClass: { // 订单状态对应class名称
 			PROCESSING: 'going',
 			SUCCESS: 'success',
@@ -23,10 +27,22 @@ define('h5-component-bill', function() {
 			SUCCESS: '退款成功',
 			FAILURE: '退款失败',
 		},
-		getStatusRefund: function(item) {
+		getStatusRefund: function(item, ifUseUnit) { // 数据, 是否加单位
 			var status = bill.statusRefund[item.status];
 			if (item.status === 'PROCESSING') {
-				status = item.createTime === item.businessTime ? '已提交' : '处理中';
+				status = item.createTime === (item.businessTime || item.updateTime) ? '已提交' : '处理中';
+			}
+			if (ifUseUnit && item.currency) {
+				switch(item.currency) {
+					case 'GOP':
+						status += ' (' + bill.unit.gop + ')';
+						break;
+					case 'RMB':
+						status += ' (' + bill.unit.money + ')';
+						break;
+					default:
+						console.log('Error: (bill) 未知退款货币类型: ' + item.currency);
+				}
 			}
 			return status;
 		},

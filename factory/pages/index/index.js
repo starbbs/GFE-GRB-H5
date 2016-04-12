@@ -10,6 +10,7 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id
+	var unionid; // 判断微信是否和手机绑定的id
 
 	var mobileInput = $('#index-login-mobile');
 	var codeInput = $('#index-login-code');
@@ -51,10 +52,9 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 				identifyingCode: code
 			}, function(data) {
 				if (data.status == 200) {
-					// console.log(mobile, openid)
 					api.checkPhoneRelatedWxAccount({
 						phone: mobile,
-						unionId: openid,
+						unionId: unionid,
 					}, function(data) {
 						if (data.status == 200) {
 							api.wxregister({
@@ -67,7 +67,6 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 									gopToken = data.data.gopToken;
 									$.cookie('gopToken', gopToken);
 									$.alert('微信注册成功!<br>欢迎来到果仁世界!', function() {
-										return;
 										gotoHome();
 									});
 								} else {
@@ -85,18 +84,6 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 					load.reset();
 				}
 			});
-
-			// H5Ident.input(mobileInput, codeInput, function() {
-			// 	console.log(loginVM.mobile, openid)
-			// 	api.checkPhoneRelatedWxAccount({
-			// 		phone: loginVM.mobile,
-			// 		unionId: openid,
-			// 	}, function(data) {
-			// 		if (data.status == 200) {} else {}
-			// 	});
-			// }, function() {
-			// 	load.reset();
-			// });
 		},
 	});
 	avalon.scan(login.native, loginVM);
@@ -125,8 +112,7 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) { // token有效
-					// gotoHome();
-					gotoLogin();
+					gotoHome();
 				} else { // token无效
 					$.cookie('gopToken', null);
 					checkCode();
@@ -148,6 +134,7 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 						gotoHome();
 					} else { // 未绑定
 						openid = data.data.openid;
+						unionid = data.data.unionid;
 						loginVM.name = data.data.nick;
 						loginVM.image = data.data.img;
 						gotoLogin();

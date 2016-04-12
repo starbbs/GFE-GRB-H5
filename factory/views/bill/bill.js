@@ -5,11 +5,13 @@
 define('h5-view-bill', [
 	'h5-api', 'router', 'filters', 'mydate', // 公用功能
 	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
-	/*'h5-view-nickname',*/ 'h5-dialog-confirm' // H5组件
+	/*'h5-view-nickname',*/
+	'h5-dialog-confirm' // H5组件
 ], function(
 	api, router, filters, mydate,
 	View, weixin, H5bill,
-	/*nicknameView,*/ dialogConfirm
+	/*nicknameView,*/
+	dialogConfirm
 ) {
 
 	var gopToken = $.cookie('gopToken');
@@ -331,7 +333,7 @@ define('h5-view-bill', [
 			type: type, // 类型
 			status: order.status, // 订单状态
 			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: H5bill.statusTransfer[order.status][type] + ' (G)', // 头部内容
+			headContent: H5bill.statusTransfer[order.status][type] + ' (' + H5bill.unit.gop + ')', // 头部内容
 			transferNum: order.gopNum, // 转果仁--果仁数
 			transferIcon: H5bill.transferClass[order.type], // 转果仁--图标
 			transferName: H5bill.transferType[order.type], // 转果仁--名字
@@ -396,7 +398,51 @@ define('h5-view-bill', [
 				return;
 			}
 			setVM({
-				
+				id: id, // 账单ID
+				type: type, // 类型
+				status: data.data.status, // 订单状态
+				headClass: H5bill.statusClass[data.data.status], // 头部样式名
+				headContent: H5bill.getStatusRefund(data.data, true), // 头部内容
+				gopNum: 0, // 买果仁--果仁数
+				gopPrice: 0, // 买果仁--成交价
+				buyMoney: 0, // 买果仁--支付金额
+
+				transferSign: '', // 转果仁--正负号
+				transferNum: 0, // 转果仁--果仁数
+				transferIcon: '', // 转果仁--图标
+				transferName: '', // 转果仁--名字
+				transferAddress: '', // 转果仁--地址
+				transferImg: '', // 转果仁--头像
+				transferStage: '', // 转果仁--阶段
+				transferTime: '', // 转果仁--到账时间
+				transferStart: '', // 转果仁--创建时间
+				transferOver: '', // 转果仁--完成或预计时间
+				transferFailReason: '', // 转果仁--失败原因
+				poundage: 0, // 转果仁--手续费
+				transferDesc: '', // 转果仁--转账说明
+
+				rebate: 0, // 获得返利
+				failReason: '', // 失败原因
+				closeReason: '', // 关闭原因
+				orderMoney: 0, // 订单金额
+				payMoney: 0, // 消费--支付金额
+				payGop: 0, // 消费--支付果仁数
+				productDesc: '', // 商品信息
+				orderTime: '', // 交易时间
+				closeTime: '', // 关闭时间
+				submitTime: '', // 提交时间
+				createTime: '', // 创建时间
+				orderCode: '', // 订单号
+				serialNum: '', // 流水号
+				payType: '', // 支付方式
+				ifReturnHome: false, // 是否显示"返回首页"按钮
+				ifFinishButton: false, // 是否显示"完成"按钮
+				ifPayButton: false, // 是否显示"前往支付"按钮
+				ifRePayButton: false, // 是否显示"重新支付"按钮
+				ifSetNickname: false, // 是否显示"设置备注名"按钮
+				ifShowMore: false, // 是否显示"更多"
+				ifClose: false, // 是否显示"关闭"
+				ifTip: false, // 是否显示底部提示
 			}, options);
 		});
 	};
