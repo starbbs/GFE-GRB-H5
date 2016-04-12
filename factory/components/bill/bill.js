@@ -18,9 +18,17 @@ define('h5-component-bill', function() {
 			CLOSE: '已关闭',
 		},
 		statusRefund: { // 退款状态对应中文
-			PROCESSING: '处理中',
+			PROCESSING1: '已提交', // 判断updatetime是否等于createtime
+			PROCESSING2: '处理中', // 不同时是处理中
 			SUCCESS: '退款成功',
 			FAILURE: '退款失败',
+		},
+		getStatusRefund: function(item) {
+			var status = bill.statusRefund[item.status];
+			if (item.status === 'PROCESSING') {
+				status = item.createTime === item.businessTime ? '已提交' : '处理中';
+			}
+			return status;
 		},
 		statusTransfer: {
 			PROCESSING: {

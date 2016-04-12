@@ -117,15 +117,15 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 		};
 		var types = { // 类型
 			money: 'money',
-			gop: 'gopNumber'
+			gop: 'gopNumber',
 		};
 		var coins = { // 货币
 			money: '¥',
-			gop: 'G'
+			gop: 'G',
 		};
 		var filter = { // 过滤器
 			money: 'fix',
-			gop: 'floorFix'
+			gop: 'floorFix',
 		};
 
 		if (type === 'transfer' && item.extra) { //转帐类型 并有extra字段
@@ -153,13 +153,13 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 		if (type === 'phone' || item.type === 'REFUND') {
 			console.log(item)
 			if (item.extra && item.extra.product) {
-				item.extra.product.productDesc && (bill.desc += ' - ' + item.extra.product.productDesc); // 运营商
+				item.extra.product.productDesc && (bill.desc += ' - ' + item.extra.product.productDesc.replace(/\-/g, ' - ')); // 运营商
 			}
 		}
 
 		if (item.type === 'REFUND') {
 			bill.iconClass = 'refund';
-			bill.status = H5bill.statusRefund[item.status];
+			bill.status = H5bill.getStatusRefund(item);
 		}
 
 		if (kind === 'all') {
