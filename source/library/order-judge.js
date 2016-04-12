@@ -3,11 +3,36 @@
 
 
 define('h5-order-judge', ['h5-api'], function(api) {
-
+	var gopToken = $.cookie('gopToken');
 	var res = {
-		check: function(callback) {
-			var status = '';
-			callback(status);
+		check: function(curPrice,callback) {
+			var status = 'gopNumNo'; //状态果仁不够
+			var gopPrice = 0;
+			var myGopNum = 0;
+			//果仁现价
+			api.price({
+				gopToken:gopToken
+			},function(data){
+				if(data.status == '200'){
+					gopPrice = data.data.price;
+					//获取果仁数
+					api.getGopNum({
+						gopToken: gopToken
+					}, function(data) {
+						if (data.status == 200) {
+							myGopNum = data.data.gopNum;
+							if(myGopNum*gopPrice < curPrice){
+								status = 'gopNumNo';
+							}else{
+								status = 'gopNumOk';
+							}
+							callback && callback(status);
+						} else {
+							console.log(data);
+						}
+					});
+				}
+			});		
 		},
 	};
 

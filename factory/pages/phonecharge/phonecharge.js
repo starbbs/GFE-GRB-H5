@@ -2,7 +2,7 @@
 // H5微信端 --- 手机充值
 
 
-require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-weixin'], function(api, check, get, filters, TouchSlide) {
+require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', 'h5-alert', 'h5-weixin'], function(api, check, get, filters, TouchSlide, orderJudge) {
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
 	var phoneInput = $('#phonecharge-text-input');
@@ -128,11 +128,13 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-alert', 'h5-wei
 		},
 		button: '支付', // 按钮显示
 		buttonClick: function() { // 按钮点击
-			console.log(confirmData);
-			var json = {
-				gopNum:0,
-				gopPrice:0
-			};
+			orderJudge.check(function(status){
+				if(status==='gopNumNo'){
+					 $.alert('您的果仁不够，请充值');
+					 return;
+				}
+			});
+			console.log(confirmData); // 充值项目的数组
 			if ($(this).hasClass('disabled')) {
 				return;
 			}
