@@ -22,6 +22,7 @@ body {
 .account {
 
 	$img: $g-pages + '/account/images';
+	$image: $g-img;
 
 	@extend %afull;
 	@extend %fade-in;
