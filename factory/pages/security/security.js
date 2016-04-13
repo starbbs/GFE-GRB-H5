@@ -30,7 +30,7 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 	var vm = avalon.define({
 		$id: 'security',
 		authenticationed: false, // 实名认证
-		setProtected: false, // 密保问题
+		setProtected: false, // 未设置 密保问题
 		getPassWorld: true, // 是否设置密码 false未设置
 		paypass2:'',
 		paypass3:'',
@@ -46,8 +46,15 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 			vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
 		},
 		protect_click: function(e) {
+			if(vm.getPassWorld){ //已经设置
+				
+			}else{// 未设置
+				$.alert('请先设置密码');
+			}
 			if (!vm.setProtected) {
 				window.location.href = "./protection.html";
+			}else{
+				// $.alert('请先设置密码');
 			}
 		},
 		paypass2Click : function() {
