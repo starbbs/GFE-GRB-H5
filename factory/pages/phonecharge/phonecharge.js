@@ -3,6 +3,7 @@
 
 
 require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', 'h5-alert', 'h5-weixin'], function(api, check, get, filters, TouchSlide, orderJudge) {
+	$.cookie('gopToken','31df66a5ee434a2cb6e70427e19209a9');
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
 	var phoneInput = $('#phonecharge-text-input');
@@ -233,7 +234,6 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 						// 选中话费
 						if (datajson.cangory === '话费') {
 							jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
-								console.log(item);
 								if(!datajson.price){return false;};
 								if (item.price != datajson.price) {
 									return true;
@@ -341,8 +341,8 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 
 	// 轮播图
 	api.static(function(data) {
-		console.log(data);
 		if (data.status == 200) {
+			console.log(data.data.indexSlideAds);
 			data.data.indexSlideAds.filter(function(val,index,arr){
 				if(val.sources.indexOf('h5')!=-1){
 					vm.bannerImgArr.push(val);
