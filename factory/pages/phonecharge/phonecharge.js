@@ -335,7 +335,13 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 			console.log(data);
 		}
 	});
-
+	TouchSlide({
+		slideCell: '#touchSlide',
+		autoPlay: false,
+		mainCell: '.phonecharge-body-content-lists',
+		titCell: '.phonecharge-body-title-layer',
+		defaultIndex: touchSlideDefaultIndex
+	});
 	// 轮播图
 	api.static(function(data) {
 		if (data.status == 200) {
@@ -345,28 +351,17 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 					vm.bannerImgArr.push(val);
 				}
 			});
-			setTimeout(function() {
-				TouchSlide({
-					slideCell: '#touchSlidephonecharge',
-					autoPlay: true,
-					mainCell: '.phonecharge-slider-bd',
-					titCell: '.phonecharge-slider-hd-li'
-				});
-			}, 100);
+			TouchSlide({
+				slideCell: '#touchSlidephonecharge',
+				autoPlay: true,
+				mainCell: '.phonecharge-slider-bd',
+				titCell: '.phonecharge-slider-hd-li'
+			});
 		}
 	});
-	
+
 	setTimeout(function() {
 		main.addClass('on');
-		setTimeout(function() {
-			TouchSlide({
-				slideCell: '#touchSlide',
-				autoPlay: false,
-				mainCell: '.phonecharge-body-content-lists',
-				titCell: '.phonecharge-body-title-layer',
-				defaultIndex: touchSlideDefaultIndex
-			});
-		}, 1000);
 	}, 100);
 	avalon.scan(main.get(0), vm);
 	return;
