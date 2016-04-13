@@ -68,7 +68,7 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 									$.cookie('gopToken', gopToken);
 									$.alert('微信注册成功!<br>欢迎来到果仁世界!', function() {
 										gotoHome();
-									});
+									}, 'half');
 								} else {
 									$.alert(data.msg);
 									load.reset();
@@ -150,6 +150,9 @@ require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-vi
 
 	var init = function() {
 		checkToken();
+		// $.alert('微信注册成功!<br>欢迎来到果仁世界!', function() {
+		// 	gotoHome();
+		// }, 'half');
 	};
 
 	init();
