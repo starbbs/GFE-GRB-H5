@@ -5,10 +5,11 @@
 
 .discovery-temp {
     $img: $g-views + "/discovery-temp/images";
-    @extend %scroll;
+    @extend %scroll; //平滑滚动
     @extend .view-style;
     background: #ffffff;
     &-1{
+    	@extend %scroll;
 		@extend .view-style;
 		background: #32C1E7;
 		color: #ffffff;
@@ -17,6 +18,7 @@
     	}
     } 
     &-2 {
+    	@extend %scroll;
         @extend .view-style;
         background: #ffffff;
     }
