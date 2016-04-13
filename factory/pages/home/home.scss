@@ -20,7 +20,8 @@ html {
 
 
 .home {
-	$img: $g-pages + '/home/images';
+	$img: $g-pages + '/home/images'; //雪碧图用的相对路径 不生成public中
+	$image: $g-img;	// 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
 	$border: 1px solid $g-light;
 	$padding: 20px;
 	$colorwhite: #fff;
@@ -35,7 +36,7 @@ html {
 	&-banner{
 		height: 199.68px;
 		padding: $padding;
-		background-image: url($img + '/_down.jpg'); 
+		background-image: url($image + '/home-down.jpg'); 
 		@include background-size;
 		&-nobuygop{
 			height: 100%;

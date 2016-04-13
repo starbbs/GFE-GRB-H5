@@ -43,37 +43,35 @@ require(['h5-api', 'get', 'router',
 			gopIfUse: true, // 使用果仁数
 			gopUse: 0, // 使用多少果仁
 			//==============================支付浮层
+			paypass1: '',
 			paypass2: '',
 			paypass3: '',
-			paypass2Value:'',
-			paypass3Value:'',		
-			paypass1Next:false,
-			paypass2Next:false,
-			paypass1Value:function(){
-				setpasswordVM.paypass1Next = setpasswordVM.paypass1.length === 6 ? true : false;
-				console.log(setpasswordVM.paypass1Next);
+			paypass1Next: false,
+			paypass2Next: false,
+			paypass3Next: false,
+			paypass2Value: function() {
+				vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
 			},
-			paypass2Value:function(){
-				setpasswordVM.paypass2Next = setpasswordVM.paypass2.length === 6 ? true : false;
-			},		
+			paypass3Value:function(){
+				vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
+			},
 			paypass2Click: function() {
-				if (setpasswordVM.paypass2.length == 6) {
+				if (vm.paypass2.length == 6) {
 					router.go('/paypass-view-3');
 				}
 			},
 			paypass3Click: function() {
-				if (setpasswordVM.paypass2 == setpasswordVM.paypass3 && setpasswordVM.paypass3.length == 6) {
+				if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
 					api.setPayPassword({
 						gopToken: gopToken,
-						password: setpasswordVM.paypass3
+						password: vm.paypass3
 					}, function(data) {
 						if (data.status == 200) {
-							setpasswordVM.paypass1 = '';
-							setpasswordVM.paypass2 = '';
-							setpasswordVM.paypass3 = '';
-							// setpasswordVM.Idcard = '';
-							// setpasswordVM.identifyingCode = '';
-							// dialogShow();
+							vm.paypass1 = '';
+							vm.paypass2 = '';
+							vm.paypass3 = '';
+							router.go('/');
+	
 						} else {
 							$.alert(data.msg);
 						}

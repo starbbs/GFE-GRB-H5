@@ -160,7 +160,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 				});
 			} else {
 				//流量充值API
-				orderJudge.check(confirmData[0].use,function(status,gopPrice,myGopNum){
+				orderJudge.check(confirmData[1].use,function(status,gopPrice,myGopNum){
 					if(status==='gopNumNo'){
 						 $.alert('您的果仁不够，请充值');
 					}else{

@@ -39,7 +39,7 @@ define('h5-dialog-paypass', [
 	// 点击支付执行paypass浮窗show
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
-		paypassStatus = 'not';
+		paypassStatus = 'showAuthenticationPaypass';
 		console.log(paypassStatus);
 		switch (paypassStatus) {
 			case 'not': //没有设置密码 
@@ -74,7 +74,7 @@ define('h5-dialog-paypass', [
 		});
 	};
 	var showAuthenticationPaypass = function() { //认证+设置密码
-		router.go('authentication');
+		router.go('/authentication');
 		$.extend(authenticationVM, {
 			callback: function() {
 				alert(1111);
@@ -93,49 +93,6 @@ define('h5-dialog-paypass', [
 			window.location.href = 'frozen.html?type=useup'; // 用光可支付次数
 		}, 100);
 	};
-
-	var setpasswordVM = avalon.define({
-		$id: 'paypass-view',
-		paypass2: '',
-		paypass3: '',
-		paypass2Value:'',
-		paypass3Value:'',		
-		paypass1Next:false,
-		paypass2Next:false,
-		paypass1Value:function(){
-			setpasswordVM.paypass1Next = setpasswordVM.paypass1.length === 6 ? true : false;
-			console.log(setpasswordVM.paypass1Next);
-		},
-		paypass2Value:function(){
-			setpasswordVM.paypass2Next = setpasswordVM.paypass2.length === 6 ? true : false;
-		},		
-		paypass2Click: function() {
-			if (setpasswordVM.paypass2.length == 6) {
-				router.go('/paypass-view-3');
-			}
-		},
-		paypass3Click: function() {
-			if (setpasswordVM.paypass2 == setpasswordVM.paypass3 && setpasswordVM.paypass3.length == 6) {
-				api.setPayPassword({
-					gopToken: gopToken,
-					password: setpasswordVM.paypass3
-				}, function(data) {
-					if (data.status == 200) {
-						setpasswordVM.paypass1 = '';
-						setpasswordVM.paypass2 = '';
-						setpasswordVM.paypass3 = '';
-						// setpasswordVM.Idcard = '';
-						// setpasswordVM.identifyingCode = '';
-						// dialogShow();
-					} else {
-						$.alert(data.msg);
-					}
-				});
-			} else {
-				$.alert('两次输入不一致');
-			}
-		},
-	});
 
 	var vm = paypass.vm = avalon.define({
 		$id: 'dialog-paypass',
