@@ -128,7 +128,8 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 		},
 		button: '支付', // 按钮显示
 		buttonClick: function() {
-		// 按钮点击orderJudge.check(curprice,cbfn(状态,当前价格,我的果仁数));判断果仁数是否够支付
+		// 按钮点击
+		// orderJudge.check(curprice,cbfn(状态,当前价格,我的果仁数));判断果仁数是否够支付
 			console.log(confirmData); // 充值项目的数组
 			if ($(this).hasClass('disabled')) {
 				return;
@@ -136,7 +137,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
 				orderJudge.check(confirmData[0].use,function(status,gopPrice,myGopNum){
-					if(status==='gopNumNo'){
+					if(status == 'gopNumNo'){
 						 $.alert('您的果仁不够，请充值');
 					}else{
 						api.phoneRecharge({
@@ -161,7 +162,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 			} else {
 				//流量充值API
 				orderJudge.check(confirmData[1].use,function(status,gopPrice,myGopNum){
-					if(status==='gopNumNo'){
+					if(status=='gopNumNo'){
 						 $.alert('您的果仁不够，请充值');
 					}else{
 						api.phoneTraffic({
