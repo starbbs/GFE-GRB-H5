@@ -20,6 +20,7 @@ html {
 
 
 .home {
+	@extend %fade-in; 
 	$img: $g-pages + '/home/images'; //雪碧图用的相对路径 不生成public中
 	$image: $g-img;	// 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
 	$border: 1px solid $g-light;
