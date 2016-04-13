@@ -7,6 +7,8 @@ define('h5-order-judge', ['h5-api'], function(api) {
 	var res = {
 		check: function(curPrice, callback) {
 			var status = 'gopNumNo'; //状态果仁不够
+			var gopPrice = 0;
+			var myGopNum = 0;			
 			var resultArr = [];
 			var todo = function() {
 				if (resultArr.length !== 2) {
@@ -15,8 +17,6 @@ define('h5-order-judge', ['h5-api'], function(api) {
 				status = resultArr[0] * resultArr[1] > curPrice ? 'gopNumOk' : 'gopNumNo';
 				callback && callback(status, gopPrice, myGopNum);
 			};
-			var gopPrice = 0;
-			var myGopNum = 0;
 			//果仁现价
 			api.price({
 				gopToken: gopToken

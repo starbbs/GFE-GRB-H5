@@ -42,6 +42,47 @@ require(['h5-api', 'get', 'router',
 			gopNum: 0, // 果仁数
 			gopIfUse: true, // 使用果仁数
 			gopUse: 0, // 使用多少果仁
+			//==============================支付浮层
+			paypass2: '',
+			paypass3: '',
+			paypass2Value:'',
+			paypass3Value:'',		
+			paypass1Next:false,
+			paypass2Next:false,
+			paypass1Value:function(){
+				setpasswordVM.paypass1Next = setpasswordVM.paypass1.length === 6 ? true : false;
+				console.log(setpasswordVM.paypass1Next);
+			},
+			paypass2Value:function(){
+				setpasswordVM.paypass2Next = setpasswordVM.paypass2.length === 6 ? true : false;
+			},		
+			paypass2Click: function() {
+				if (setpasswordVM.paypass2.length == 6) {
+					router.go('/paypass-view-3');
+				}
+			},
+			paypass3Click: function() {
+				if (setpasswordVM.paypass2 == setpasswordVM.paypass3 && setpasswordVM.paypass3.length == 6) {
+					api.setPayPassword({
+						gopToken: gopToken,
+						password: setpasswordVM.paypass3
+					}, function(data) {
+						if (data.status == 200) {
+							setpasswordVM.paypass1 = '';
+							setpasswordVM.paypass2 = '';
+							setpasswordVM.paypass3 = '';
+							// setpasswordVM.Idcard = '';
+							// setpasswordVM.identifyingCode = '';
+							// dialogShow();
+						} else {
+							$.alert(data.msg);
+						}
+					});
+				} else {
+					$.alert('两次输入不一致');
+				}
+			},
+			//==============================支付浮层
 			/*
 			gopClick: function() { // 果仁点击
 				vm.gopIfUse = !vm.gopIfUse;
