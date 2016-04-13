@@ -42,6 +42,45 @@ require(['h5-api', 'get', 'router',
 			gopNum: 0, // 果仁数
 			gopIfUse: true, // 使用果仁数
 			gopUse: 0, // 使用多少果仁
+			//==============================支付浮层
+			paypass1: '',
+			paypass2: '',
+			paypass3: '',
+			paypass1Next: false,
+			paypass2Next: false,
+			paypass3Next: false,
+			paypass2Value: function() {
+				vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
+			},
+			paypass3Value:function(){
+				vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
+			},
+			paypass2Click: function() {
+				if (vm.paypass2.length == 6) {
+					router.go('/paypass-view-3');
+				}
+			},
+			paypass3Click: function() {
+				if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
+					api.setPayPassword({
+						gopToken: gopToken,
+						password: vm.paypass3
+					}, function(data) {
+						if (data.status == 200) {
+							vm.paypass1 = '';
+							vm.paypass2 = '';
+							vm.paypass3 = '';
+							router.go('/');
+	
+						} else {
+							$.alert(data.msg);
+						}
+					});
+				} else {
+					$.alert('两次输入不一致');
+				}
+			},
+			//==============================支付浮层
 			/*
 			gopClick: function() { // 果仁点击
 				vm.gopIfUse = !vm.gopIfUse;

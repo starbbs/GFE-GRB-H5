@@ -13,6 +13,12 @@
 			<div class="paypass-item"></div>
 			<div class="paypass-item"></div>
 			<input class="paypass-input" id="paypass-@@step" name="paypass-@@step" autocomplete="off" maxlength="6" type="tel" ms-duplex="paypass@@step" ms-on-input="paypass@@stepValue">
+			<!--
+				paypass@@step             paypass1       双向绑定数据
+				paypass@@stepValue        paypass1Value  事件绑定
+				paypass@@stepNext         paypass1Next   下一步按钮状态
+				paypass@@stepClick        paypass1Click  下一步点击事件
+			-->
 		</div>
 		<div class="paypass-button">
 			<span class="button" ms-class="disabled:!paypass@@stepNext" ms-click="paypass@@stepClick">下一步</span>

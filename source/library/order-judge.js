@@ -1,5 +1,5 @@
-// 张树垚 2016-04-11 11:33:02 创建
-// H5微信端 --- order-judge 判断是否创建订单
+// 魏兵兵 2016-04-11 11:33:02 创建
+// H5微信端 --- order-judge 判断果仁现价 果仁数是否满足消费价格
 
 
 define('h5-order-judge', ['h5-api'], function(api) {
@@ -7,6 +7,8 @@ define('h5-order-judge', ['h5-api'], function(api) {
 	var res = {
 		check: function(curPrice, callback) {
 			var status = 'gopNumNo'; //状态果仁不够
+			var gopPrice = 0;
+			var myGopNum = 0;			
 			var resultArr = [];
 			var todo = function() {
 				if (resultArr.length !== 2) {
@@ -15,8 +17,6 @@ define('h5-order-judge', ['h5-api'], function(api) {
 				status = resultArr[0] * resultArr[1] > curPrice ? 'gopNumOk' : 'gopNumNo';
 				callback && callback(status, gopPrice, myGopNum);
 			};
-			var gopPrice = 0;
-			var myGopNum = 0;
 			//果仁现价
 			api.price({
 				gopToken: gopToken
