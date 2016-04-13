@@ -3,7 +3,7 @@
 
 
 require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', 'h5-alert', 'h5-weixin'], function(api, check, get, filters, TouchSlide, orderJudge) {
-	$.cookie('gopToken','31df66a5ee434a2cb6e70427e19209a9');
+	$.cookie('gopToken', '31df66a5ee434a2cb6e70427e19209a9');
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
 	var phoneInput = $('#phonecharge-text-input');
@@ -26,7 +26,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 
 	var vm = avalon.define({
 		$id: 'phonecharge',
-		bannerImgArr:[],
+		bannerImgArr: [],
 		phone: '',
 		cancelBool: false,
 		carrier: '', // 运营商
@@ -129,18 +129,18 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 		},
 		button: '支付', // 按钮显示
 		buttonClick: function() {
-		// 按钮点击
-		// orderJudge.check(curprice,cbfn(状态,当前价格,我的果仁数));判断果仁数是否够支付
+			// 按钮点击
+			// orderJudge.check(curprice,cbfn(状态,当前价格,我的果仁数));判断果仁数是否够支付
 			console.log(confirmData); // 充值项目的数组
 			if ($(this).hasClass('disabled')) {
 				return;
 			}
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
-				orderJudge.check(confirmData[0].use,function(status,gopPrice,myGopNum){
-					if(status == 'gopNumNo'){
-						 $.alert('您的果仁不够，请充值');
-					}else{
+				orderJudge.check(confirmData[0].use, function(status, gopPrice, myGopNum) {
+					if (status == 'gopNumNo') {
+						$.alert('您的果仁不够，请充值');
+					} else {
 						api.phoneRecharge({
 							gopToken: gopToken,
 							productId: vm.confirmId,
@@ -162,10 +162,10 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 				});
 			} else {
 				//流量充值API
-				orderJudge.check(confirmData[1].use,function(status,gopPrice,myGopNum){
-					if(status=='gopNumNo'){
-						 $.alert('您的果仁不够，请充值');
-					}else{
+				orderJudge.check(confirmData[1].use, function(status, gopPrice, myGopNum) {
+					if (status == 'gopNumNo') {
+						$.alert('您的果仁不够，请充值');
+					} else {
 						api.phoneTraffic({
 							gopToken: gopToken,
 							productId: vm.confirmId,
@@ -198,7 +198,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 			}
 		});
 	};
-	var getUserCarrier = function(cnfn){ //获取用户手机运营商
+	var getUserCarrier = function(cnfn) { //获取用户手机运营商
 		api.phoneInfo({
 			phone: vm.phone
 		}, function(data) {
@@ -211,7 +211,7 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 	console.log(href);
 	var datajson = {};
 	//是否从优惠入口进来  显示流量或话费选项卡
-	if(href.indexOf('from=home') > -1){ 
+	if (href.indexOf('from=home') > -1) {
 		href.substring(href.indexOf('from=home')).split('&').forEach(function(item) {
 			var itemarr = item.split('=');
 			datajson[itemarr[0]] = itemarr[1];
@@ -222,11 +222,11 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 			touchSlideDefaultIndex = 1;
 		}
 	}
-	getUserPhone(function(data){ //获取用户手机号
-		if(data.status == 200){
+	getUserPhone(function(data) { //获取用户手机号
+		if (data.status == 200) {
 			vm.phone = data.data.phone;
-			getUserCarrier(function(data){// 获取手机运营商
-				if(data.status == 200){
+			getUserCarrier(function(data) { // 获取手机运营商
+				if (data.status == 200) {
 					vm.carrier = data.data.carrier;
 					vm.goods = jsoncards[data.data.carrier.substr(-2)];
 					vm.flows = jsonflows[data.data.carrier.substr(-2)];
@@ -234,7 +234,9 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 						// 选中话费
 						if (datajson.cangory === '话费') {
 							jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
-								if(!datajson.price){return false;};
+								if (!datajson.price) {
+									return false;
+								};
 								if (item.price != datajson.price) {
 									return true;
 								} else {
@@ -248,7 +250,9 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 							});
 						} else {
 							jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
-								if(!datajson.level){return false;};
+								if (!datajson.level) {
+									return false;
+								};
 								if (item.level != datajson.level) {
 									return true;
 								} else {
@@ -331,20 +335,13 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 			console.log(data);
 		}
 	});
-	TouchSlide({
-		slideCell: '#touchSlide',
-		autoPlay: false,
-		mainCell: '.phonecharge-body-content-lists',
-		titCell: '.phonecharge-body-title-layer',
-		defaultIndex: touchSlideDefaultIndex
-	});
 
 	// 轮播图
 	api.static(function(data) {
 		if (data.status == 200) {
 			console.log(data.data.indexSlideAds);
-			data.data.indexSlideAds.filter(function(val,index,arr){
-				if(val.sources.indexOf('h5')!=-1){
+			data.data.indexSlideAds.filter(function(val, index, arr) {
+				if (val.sources.indexOf('h5') != -1) {
 					vm.bannerImgArr.push(val);
 				}
 			});
@@ -358,9 +355,18 @@ require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', '
 			}, 100);
 		}
 	});
-
+	
 	setTimeout(function() {
 		main.addClass('on');
+		setTimeout(function() {
+			TouchSlide({
+				slideCell: '#touchSlide',
+				autoPlay: false,
+				mainCell: '.phonecharge-body-content-lists',
+				titCell: '.phonecharge-body-title-layer',
+				defaultIndex: touchSlideDefaultIndex
+			});
+		}, 1000);
 	}, 100);
 	avalon.scan(main.get(0), vm);
 	return;

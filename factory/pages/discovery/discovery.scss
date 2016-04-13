@@ -18,7 +18,7 @@ html {
 
 .discovery {
     $img: $g-pages + "/discovery/images";
-
+    @extend %fade-in; 
     overflow-x: hidden;
     overflow-y: scroll;
     width: 100%;
