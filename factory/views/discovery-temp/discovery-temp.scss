@@ -1,35 +1,47 @@
-﻿@charset 'utf-8';
+﻿@charset "utf-8";
 
 // 张树垚 2016-02-24 16:06:35 创建
 // H5微信端 --- view-discovery-temp发现模板
-$img: $g-views + '/discovery-temp/images';
 
-.discovery-temp{
-	@extend .view-style;
-	&-banner{
-		&>img{
-			height: 117px;
-		}
-	}
-	&-dl{
-		margin: 38px 9px; 
-	}
-	&-dt{
-		text-align: center;
-		font-size: 16px;
-		font-weight: bold;
-	}
-	&-dd{
-		text-align: center;
-		&-sprite_a{
-			@include sprite($img+'/sprit1.png', 20px, 20px);
-			display: inline-block;
-			vertical-align: middle;
-			margin: 7px 0px;
-		}
-		&-p{
-			font-size: 15px;
-			text-align: left;
-		}
-	}
+.discovery-temp {
+    $img: $g-views + "/discovery-temp/images";
+    @extend %scroll;
+    @extend .view-style;
+    background: #ffffff;
+    &-1{
+		@extend .view-style;
+		background: #32C1E7;
+		color: #ffffff;
+    	.discovery-temp-dt{
+    		margin-bottom: 25px;
+    	}
+    } 
+    &-2 {
+        @extend .view-style;
+        background: #ffffff;
+    }
+    &-banner {
+    	width: 100%;
+    }
+    &-dl {
+        margin: 38px 9px;
+    }
+    &-dt {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    &-dd {
+        text-align: center;	
+        &-sprite_a {
+            @include sprite($img + "/sprit1.png", 20px, 20px);
+            display: inline-block;
+            vertical-align: middle;
+            margin: 7px 0px;
+        }
+        &-p {
+            font-size: 15px;
+            text-align: left;
+        }
+    }
 }

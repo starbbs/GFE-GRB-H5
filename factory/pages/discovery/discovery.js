@@ -5,6 +5,8 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide','h5-view'], 
 	var gopToken = $.cookie('gopToken');
 
 	new View('discovery-temp');
+	new View('discovery-temp-1');
+	new View('discovery-temp-2');
 
 	var main = $('.discovery');
 	var nav = $('.nav');
@@ -69,7 +71,7 @@ require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide','h5-view'], 
 			$.cookie('gopHomeEye', vm.visible_ok);
 		},
 		aaa:function(){
-			router.go('/discovery-temp');
+			router.go('/discovery-temp-1');
 		},
 		gopNum: 0,
 		bannerImgArr: []

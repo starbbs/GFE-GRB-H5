@@ -1,164 +1,192 @@
-﻿@charset 'utf-8';
-
+﻿@charset "utf-8";
 
 // 张树垚 2015-12-20 11:22:45 创建
 // H5微信端 --- 个人首页
 
+@import "../../../source/scss/main";
 
-@import '../../../source/scss/main';
+@import "../../components/nav/nav";
 
-@import '../../components/nav/nav';
+@import "../../views/view";
 
-@import '../../views/view';
-
-@import 'discovery-temp';
+@import "../../views/discovery-temp/discovery-temp";
 
 // @import '../../dialogs/dialog';
 html {
-	background-color: $g-background;
-}
-.discovery{
-	$img: $g-pages + '/discovery/images';
-	overflow-x: hidden;
-	overflow-y: scroll;
-	width: 100%;
-	height: 100%;
-	color: #777777;
-	&-touchSlide{
-		position: relative;
-		background: #F2F2F2; 
-	}
-	&-banner{
-		overflow: hidden;
-		background: #ffffff;
-		&-li{
-			float: left;
-			>a{
-				overflow: hidden;
-				display: block;
-			}
-		}
-		&-hd{
-			overflow:hidden;
-			position:absolute;
-			left:50%;
-			transform: translateX(-50%);
-			bottom:5px;
-			&-li{
-				width:6px;
-				height:6px;
-				border-radius:50%;
-				background-color:rgba($g-white, 0.5);
-				float:left;
-				margin-right:8px;
-				&.on {
-					background-color: $g-white;
-				}
-			} 			
-		}
-	}
-	&-phonecharge{
-		background: #ffffff;
-		overflow: hidden;
-		&-li{
-			float: left;
-			line-height: 64px;
-			height: 64px;
-			text-align: center;
-			box-sizing: border-box;
-			width: 50%;
-			position: relative;
-			overflow: hidden;
-			 @include border-one('right', #DDDDDD, 'after');
-			// border-right: 1px solid #DDDDDD;
-			&:after{
-				/*
-				display: block;
-				position: absolute;
-				content: '';
-				width: 1px;
-				height: 100%;
-				top: 0px; 
-				right: 0px;
-				background: #DDDDDD;
-				transform: scaleX(0.5);
-				*/
-			}
-			&:nth-child(1)>a>span{
-				&:nth-child(1){
-						@include sprite($img+'/phonecharge1.png', 36px, 36px);
-				}
-			}
-			&:nth-child(2)>a>span{
-				&:nth-child(1){
-						@include sprite($img+'/phonecharge2.png', 36px, 36px);
-				}
-			}
-			>a{
-				display: block;
-				overflow: hidden;
-				position: relative;
-				text-align: center;
-				>span{
-					margin: 0 5px;
-					display: inline-block;
-					vertical-align: middle;
-				}
-			}
-		}
-	}
-	&-subject{
-		margin-top: 10px;
-		background: #fff;
-		padding: 15px;
-		padding-top: 0px;
-		&:nth-last-child(1){
-			margin-bottom: 49px;
-		}
-		&-tit{
-			line-height: 44px;
-		}
-		&-bgimg{
-			height: 100%;
-			width: 100%;
-		}
-		&-con{
-			text-align: center;
-			position: relative;
-			margin-bottom: 9px;
-			>a{
-				height: 100%;
-				display: block;
-			}
-		}
-		&-tits{
-			color: #ffffff;
-			font-size: 18px;
-			@include atlwh(40px, 0px, 100%, 30px);
-		}
-		&-btns{
-			overflow: hidden;
-			@include atlwh(85px, 0px, 100%, 25px);
-			>span{
-				line-height: 20px;
-				display: inline-block;
-				padding: 0px 10px;
-				border-radius: 15px; 
-	 			margin-right: 10px;
-			}
-		}
-		& .green >span{
-			color: #2ACEA2;
-			border: 1px solid #2ACEA2;
-		}
-		& .popur >span{
-			color: #AABFF5;
-			border: 1px solid #AABFF5;
-		}
-		& .white >span{
-			color: #ffffff;
-			border: 1px solid #ffffff;
-		}
-	}
+    background-color: $g-background;
 }
 
+.discovery {
+    $img: $g-pages + "/discovery/images";
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    color: #777777;
+
+    &-touchSlide {
+        position: relative;
+        background: #F2F2F2;
+    }
+
+    &-banner {
+        overflow: hidden;
+        background: #ffffff;
+
+        &-li {
+            float: left;
+
+            > a {
+                overflow: hidden;
+                display: block;
+            }
+        }
+
+        &-hd {
+            overflow: hidden;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 5px;
+
+            &-li {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: rgba($g-white, 0.5);
+                float: left;
+                margin-right: 8px;
+
+                &.on {
+                    background-color: $g-white;
+                }
+            }
+        }
+    }
+
+    &-phonecharge {
+        background: #ffffff;
+        overflow: hidden;
+
+        &-li {
+            float: left;
+            line-height: 64px;
+            height: 64px;
+            text-align: center;
+            box-sizing: border-box;
+            width: 50%;
+            position: relative;
+            overflow: hidden;
+
+            @include border-one("right", #DDDDDD, "after");
+
+            // border-right: 1px solid #DDDDDD;
+            &:after {
+                /*
+                display: block;
+                position: absolute;
+                content: '';
+                width: 1px;
+                height: 100%;
+                top: 0px; 
+                right: 0px;
+                background: #DDDDDD;
+                transform: scaleX(0.5);
+                */
+            }
+
+            &:nth-child(1) > a > span {
+                &:nth-child(1) {
+                    @include sprite($img + "/phonecharge1.png", 36px, 36px);
+                }
+            }
+
+            &:nth-child(2) > a > span {
+                &:nth-child(1) {
+                    @include sprite($img + "/phonecharge2.png", 36px, 36px);
+                }
+            }
+
+            > a {
+                display: block;
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+
+                > span {
+                    margin: 0 5px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+
+    &-subject {
+        margin-top: 10px;
+        background: #fff;
+        padding: 15px;
+        padding-top: 0px;
+
+        &:nth-last-child(1) {
+            margin-bottom: 49px;
+        }
+
+        &-tit {
+            line-height: 44px;
+        }
+
+        &-bgimg {
+            height: 100%;
+            width: 100%;
+        }
+
+        &-con {
+            text-align: center;
+            position: relative;
+            margin-bottom: 9px;
+
+            > a {
+                height: 100%;
+                display: block;
+            }
+        }
+
+        &-tits {
+            color: #ffffff;
+            font-size: 18px;
+
+            @include atlwh(40px, 0px, 100%, 30px);
+        }
+
+        &-btns {
+            overflow: hidden;
+
+            @include atlwh(85px, 0px, 100%, 25px);
+
+            > span {
+                line-height: 20px;
+                display: inline-block;
+                padding: 0px 10px;
+                border-radius: 15px;
+                margin-right: 10px;
+            }
+        }
+
+        & .green > span {
+            color: #2ACEA2;
+            border: 1px solid #2ACEA2;
+        }
+
+        & .popur > span {
+            color: #AABFF5;
+            border: 1px solid #AABFF5;
+        }
+
+        & .white > span {
+            color: #ffffff;
+            border: 1px solid #ffffff;
+        }
+    }
+}
