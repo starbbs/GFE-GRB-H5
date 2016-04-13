@@ -4,6 +4,7 @@
 // H5微信端 --- view-discovery-temp发现模板
 
 .discovery-temp{
+	@extend %scroll;
 	$img: $g-pages + '/discovery/images';
 	background: #ffffff;
 	@extend .view-style;

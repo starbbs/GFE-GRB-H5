@@ -269,7 +269,12 @@ html {
 		margin-bottom: 15px;
 	}
 	&-phonebills{
+		&-jins{
+			@include atr(0px,0px);
+			@include sprite($img+'/jins.png', 90px, 90px);
+		}
 		background-color: $colorwhite;
+		position: relative;
 		height: 110px;
 		margin-bottom: 9px;
 		// height: 83.34px;
@@ -341,11 +346,11 @@ html {
 			>a{
 				float: right;
 				border-radius: 15px;
-				border: 1px solid #3D70EE;
+				background: #3D70EE;
 				line-height: 20px;
 				padding: 0px 10px;
 				margin-top: 9px;
-				color: #3D70EE;
+				color: #ffffff;
 			}
 		}
 	}

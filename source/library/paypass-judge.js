@@ -22,7 +22,8 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 			}, function(data) { // 每次打开时都要判断
 				var status = res.defaultStatus;
 				if (data.status == 311) {
-					status = 'not'; //没有设置密码 再做实名认证判断
+					status = 'not'; //没有设置密码 //再做实名认证判断
+					/*
 					api.isCertification({
 						gopToken: gopToken
 					}, function(data) {
@@ -34,7 +35,7 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 							console.log(data.msg);
 						}
 					});
-
+					*/
 				} else {
 					status = 'done';
 				}

@@ -1,5 +1,6 @@
 // 张树垚 2016-01-09 14:29:10 创建
-// H5微信端 --- page-order 订单
+// H5微信端 --- page-order 订单 
+// 此页面包含  支付浮层h5-dialog-paypass.js(实名认证，密码设置，锁定次数5-10次)
 
 /*
 require(['h5-api', 'get', 'router',
@@ -18,19 +19,40 @@ require(['h5-api', 'get', 'router',
 require(['h5-api', 'get', 'router',
 		'h5-view', 'h5-view-bill',
 		'h5-price', 'h5-ident', 'h5-component-bill',
-		'h5-dialog-paypass',
+		'h5-dialog-paypass', 'h5-dialog-success',
 		'h5-weixin'
 	],
 	function(api, get, router,
 		View, billView,
 		price, H5Ident, H5Bill,
-		dialogPaypass
+		dialogPaypass,dialogSuccess
 	) {
 		router.init();
 
 		var main = $('.order');
 		var gopToken = $.cookie('gopToken');
 		var identInput = $('#order-ident');
+
+		var dialogShow = function() { // 显示浮层
+			var timer = null;
+			var second = 3;
+			dialogSuccess.on('show', function() {
+				timer = setInterval(function() {
+					second--;
+					if (second <= 0) {
+						// finish();
+						window.location.reload();
+						dialogSuccess.hide();
+						clearInterval(timer);
+					} else {
+						dialogSuccess.button.html('支付密码设置成功，请牢记，' + second + 's后自动跳转');
+					}
+				}, 1000);
+			});
+			dialogSuccess.set('支付密码设置成功，请牢记，3S后自动跳转');
+			dialogSuccess.show();
+		};
+
 
 		var vm = avalon.define({
 			$id: 'order',
@@ -61,6 +83,7 @@ require(['h5-api', 'get', 'router',
 				}
 			},
 			paypass3Click: function() {
+				console.log(vm.paypass2 +' =='+ vm.paypass3);
 				if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
 					api.setPayPassword({
 						gopToken: gopToken,
@@ -70,8 +93,9 @@ require(['h5-api', 'get', 'router',
 							vm.paypass1 = '';
 							vm.paypass2 = '';
 							vm.paypass3 = '';
-							router.go('/');
-	
+							dialogShow();
+							// window.location.reload();
+							// router.go('/');
 						} else {
 							$.alert(data.msg);
 						}

@@ -1,5 +1,6 @@
 // 张树垚 2016-01-07 18:06:48 创建
 // H5微信端 --- dialog-paypass支付浮层
+// (浮层显示时候执此函数 并做一次API校验密码状态paypass-judge.js)
 
 
 define('h5-dialog-paypass', [
@@ -30,24 +31,22 @@ define('h5-dialog-paypass', [
 		// 2. not		未认证	出认证页,不弹浮层
 		// 3. done 		已认证	不出认证页,弹浮层
 		// 4. lock5 lock10		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
-		// 5. notAuthentication  没实名 没设置密码
+		// 5. notAuthentication  没实名 没设置密码  已经去除
 		paypassStatus = status;
 	});
-
-
 
 	// 点击支付执行paypass浮窗show
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
-		paypassStatus = 'showAuthenticationPaypass';
-		console.log(paypassStatus);
 		switch (paypassStatus) {
 			case 'not': //没有设置密码 
 				showPaypass();
 				break;
-			case 'notAuthentication': //没有设置密码  没实名
+			/*
+			case 'showAuthenticationPaypass': //没有设置密码  没实名
 				showAuthenticationPaypass();
 				break;
+			*/
 			case 'done':
 				showDialogPaypass();
 				break;
@@ -67,20 +66,18 @@ define('h5-dialog-paypass', [
 
 	var showPaypass = function() { // 设置密码
 		router.go('paypass-view-2');
-		$.extend(authenticationVM, {
-			callback: function() {
-				alert(1111);
-			}
-		});
 	};
+	/*
 	var showAuthenticationPaypass = function() { //认证+设置密码
 		router.go('/authentication');
 		$.extend(authenticationVM, {
 			callback: function() {
-				alert(1111);
+				router.go('/paypass-view-2');
+				return true;
 			}
 		});
 	};
+	*/
 	var showDialogPaypass = function() { // 正常出支付浮层
 		prototypeShow.call(paypass);
 	};

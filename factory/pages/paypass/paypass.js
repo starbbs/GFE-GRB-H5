@@ -116,6 +116,9 @@ require(['router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 
 		paypass2Value:function(){
 			vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
 		},
+		paypass3Value:function(){
+			vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
+		},		
 		quesiotn1Click: function() { // 第一个密保问题
 			api.checkQuestion({
 				gopToken: gopToken,
