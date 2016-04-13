@@ -290,7 +290,7 @@ require(['h5-api', 'get', 'router',
 								vm.gopPrice = next;
 								vm.gopExchange();
 							};
-							price.get();
+							price.once();
 						} else { // 失败, 成功, 进行中(已付款)
 							router.to('/bill');
 						}

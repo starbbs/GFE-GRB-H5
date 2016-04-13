@@ -283,37 +283,27 @@ require(['router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoad
 	});
 	// billView.on('close', function() {});
 	billView.onClose = function(vmid, vmtime) {
-		for (var i = 0; i < vm.list.length; i++) {
-			for (var j = 0; j < vm.list[i].days.length; j++) {
-				if (vm.list[i].days[j].id == vmid) { //先查找ID所在的days数组  再保存ID所在数组到本月第一条  再删除前数组  再从days头添加id所在的数组  2016-03-18 15:48:49
-					vm.list[i].days[j].time = vmtime.substr(vmtime.indexOf(' ') + 1, 5);
-					for (var x = 0; x < vm.list[i].days[j].bills.length; x++) {
-						vm.list[i].days[j].bills[x].status = '已关闭';
-					}
-					var closeArrDay = vm.list[i].days[j];
-					vm.list[i].days.splice(j, 1);
-					vm.list[0].days.unshift(closeArrDay);
-					break;
+		console.log(1)
+		vm.list.every(function(month) {
+			return month.days.every(function(day, index) {
+				if (day.id === vmid) {
+					console.log(day)
+					day.time = vmtime.substr(vmtime.indexOf(' ') + 1, 5);
+					day.bills.forEach(function(bill) {
+						bill.status = '已关闭';
+					});
+					month.days.splice(index, 1);
+					vm.list[0].days.unshift(day);
+					return false;
 				}
-			}
-		}
-		setTimeout(function() {
-			window.history.go(-1);
-		}, 1500);
+				return true;
+			});
+		});
 	};
 
-	/*
-	vm.list.every(function(month) {
-		console.log(month);
-		return month.days.every(function(day) {
-			if (day.id === 225) {
-				data = day;
-				return false;
-			}
-			return true;
-		});
-	});
-	*/
+	// setTimeout(function() {
+	// 	billView.onClose(790, '2016-04-13 17:75:04');
+	// }, 2000);
 
 	init();
 });
