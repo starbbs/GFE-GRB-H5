@@ -8,6 +8,8 @@
 .nav {
 
 	$img: $g-components + '/nav/images';
+	$names: 'home' 'discovery' 'mine';
+	$width: 48px;
 	$imgs: ('home', 42px, 45px)
 		('wealth', 47px, 47px)
 		('contacts', 49px, 44px)
@@ -56,12 +58,13 @@
 			color: $on-font;
 		}
 	}
-	@each $name, $width, $height in $imgs {
-		&-#{$name} {
+
+	@each $n in $names {
+		&-#{$n} {
 			display: inline-block;
-			@include sprite($img + '/' + $name + '.png', px($width), px($height));
+			@include sprite($img + '/' + $n + '.png', px($width), px($width));
 			.on & {
-				@include sprite($img + '/' + $name + '-on.png', px($width), px($height));
+				@include sprite($img + '/' + $n + '-on.png', px($width), px($width));
 			}
 		}
 	}
