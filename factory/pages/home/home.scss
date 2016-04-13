@@ -271,7 +271,7 @@ html {
 	&-phonebills{
 		&-jins{
 			@include atr(0px,0px);
-			@include sprite($img+'/jinsbig.png', 60px, 60px);
+			@include sprite($img+'/jins.png', 60px, 60px);
 		}
 		background-color: $colorwhite;
 		position: relative;
