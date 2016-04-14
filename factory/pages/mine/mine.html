@@ -69,22 +69,17 @@
 	</div>
 	@@include('../../components/nav/nav.html', { "name": "mine" })
 	<div class="view">
-		@@include('../../views/nickname/nickname.html', {
-			"label": "我的昵称",
-			"placeholder": "请输入我的昵称"
-		})
 		@@include('../../views/address/address-mine.html')
 		@@include('../../views/address/address-wallet.html')
 		<!-- 设置 -->
 		@@include('../../views/setting/setting.html')
 		@@include('../../views/setting/setting-about.html')
-		@@include('../../views/about-us/about-us.html')
 		@@include('../../views/setting/setting-feedback.html')
-		@@include('../../views/agreement/agreement.html')
 		@@include('../../views/setting/setting-address.html')
+		@@include('../../views/agreement/agreement.html')
+		@@include('../../views/about-us/about-us.html')
 	</div>
 	<div class="alert"></div>
-	<div class="dialog">
-	</div>
+	<!-- <div class="dialog"></div> -->
 </div>
 @@include('../../../source/include/bottom.html', {"name": "mine"})

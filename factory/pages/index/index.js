@@ -2,10 +2,14 @@
 // H5微信端 --- 微信授权跳转页
 
 
-require(['router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button', 'h5-view-agreement', 'h5-text', 'h5-keyboard'], function(router, api, check, get, authorization, check, View, weixin, H5Ident, H5Button) {
+require([
+	'router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button',
+	'h5-view-agreement', 'h5-text', 'h5-keyboard'
+], function(
+	router, api, check, get, authorization, check, View, weixin, H5Ident, H5Button
+) {
 
-	// router.init(true);
-	router.init();
+	router.init(true);
 
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
