@@ -3,5 +3,5 @@
 // H5微信端 --- page-agreement 服务协议
 
 
-require(['h5-view-agreement']);
+require(['h5-view-agreement', 'h5-weixin']);
 
