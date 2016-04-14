@@ -32,6 +32,11 @@ require([
 				homeVm.curIndex = 1;
 			}
 		},
+		gotophonecharge:function(ev){
+			var target = $(ev.target).closest('.home-phonebills');
+			if(!target.length){return;}
+			window.location.href = target.get(0).dataset.href;
+		},
 	});
 
 	//我的收益  昨天 累计

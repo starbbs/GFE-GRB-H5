@@ -77,7 +77,6 @@ html {
             width: 50%;
             position: relative;
             overflow: hidden;
-
             @include border-one("right", #DDDDDD, "after");
 
             // border-right: 1px solid #DDDDDD;

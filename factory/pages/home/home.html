@@ -12,7 +12,6 @@
 					<p class="layer22">预计年化收益率</p>
 				</div>
 				<div class="home-banner-nobuygop-layer3">
-					<!--ms-attr-href="{{gopToken ? 'purchase.html#!/' : 'login.html'}}"-->
 					<a href="purchase.html#!/">立即购买</a>
 					<span>果仁随时当钱花，使用场景很丰富</span>
 				</div>
@@ -23,6 +22,7 @@
 				<div class="home-banner-mygop-togglebtn up" ms-click="toggleBtnFn()"></div>
 				<!--总资产-->
 				<div class="home-banner-mygop-totalgop" ms-visible="curIndex===1">
+				<a href="wealth.html">
 					<div class="expectincome">
 						<i></i>
 						预计年化收益率<span>10.00%</span>
@@ -43,9 +43,11 @@
 							<span>{{gopNowPrice|floorFix}}</span>
 						</div>
 					</div>
+					</a>
 				</div>
 				<!--收益-->
 				<div class="home-banner-mygop-incomegop" ms-visible="curIndex===2">
+				<a href="wealth.html">
 					<div class="home-banner-mygop-incomegop-nowgopprice">
 						<i></i>
 						果仁现价<span>{{gopNowPrice|floorFix}}</span>
@@ -66,6 +68,7 @@
 							<span>10.00%</span>
 						</div>
 					</div>
+				</a>
 				</div>
 			</div>
 		</div>
@@ -86,8 +89,9 @@
 				<li class="home-slider-hd-li" ms-repeat="bannerImgArr"></li>
 			</ul>			
 		</div>
-		<div class="home-phonebills-title">限时抢购</div>
-		<div class="home-phonebills">
+		<!--<div class="home-phonebills-title">限时抢购</div>-->
+		<div ms-on-click="gotophonecharge($event)">	
+		<div class="home-phonebills" data-href="phonecharge.html?from=home&cangory=流量&level=500M&carrier=移动">
 			<span class="home-phonebills-jins"></span>
 			<div class="home-phonebills-left">
 				<div class="home-phonebills-left-curprice">
@@ -108,10 +112,11 @@
 			</div>
 			<div class="home-phonebills-down">
 				<span>超值优惠，5月31号截止</span>
-				<a href="phonecharge.html?from=home&cangory=流量&level=500M&carrier=移动">马上抢购</a>
+				<!--<a href="phonecharge.html?from=home&cangory=流量&level=500M&carrier=移动">马上抢购</a>-->
+				<a href="javascript:;">马上抢购</a>
 			</div>
 		</div>
-		<div class="home-phonebills">
+		<div class="home-phonebills" data-href="phonecharge.html?from=home&cangory=话费&price=50&carrier=联通">
 			<div class="home-phonebills-left">
 				<div class="home-phonebills-left-curprice">
 					￥<span>49</span>.50
@@ -131,10 +136,10 @@
 			</div>
 			<div class="home-phonebills-down">
 				<span>会理财，开源节流</span>
-				<a href="phonecharge.html?from=home&cangory=话费&price=50&carrier=联通">马上充值</a>
+				<a href="javascript:;">马上充值</a>
 			</div>
 		</div>
-		<div class="home-phonebills">
+		<div class="home-phonebills" data-href="phonecharge.html?from=home&cangory=话费&price=50&carrier=电信">
 			<div class="home-phonebills-left">
 				<div class="home-phonebills-left-curprice">
 					￥<span>49</span>.40
@@ -154,8 +159,9 @@
 			</div>
 			<div class="home-phonebills-down">
 				<span>会生活，精打细算</span>
-				<a href="phonecharge.html?from=home&cangory=话费&price=50&carrier=电信">马上充值</a>
+				<a href="javascript:;">马上充值</a>
 			</div>
+		</div>
 		</div>
 	</div>
 	@@include('../../components/nav/nav.html', { "name": "home" })

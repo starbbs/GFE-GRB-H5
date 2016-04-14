@@ -117,7 +117,7 @@ require([
 		slideCell: '#touchSlide',
 		autoPlay: false,
 		mainCell: '.wealth-chart-scroll',
-		titCell: '.wealth-tab-item'
+		titCell: '.wealth-tab-item',
 	});
 	var chartHistory = $('#chart-history'); //历史
 	var chartAnnual = $('#chart-annual'); //年化30日
