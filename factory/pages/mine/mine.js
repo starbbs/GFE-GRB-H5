@@ -58,17 +58,17 @@ require([
 		dbclickOrLongpress: dbclickOrLongpress,
 		textNum: '0/140', //可输入的文字个数上线
 		nick_click: function() {
-			$.extend(nicknameView.vm, {
-				nickname: vm.nickname,
-				id: '',
-				callback: function() {
-					$.alert('设置成功!');
-					setTimeout(function() {
-						router.go('/');
-					}, 1000);
-				}
-			});
-			router.go('/nickname');
+			// $.extend(nicknameView.vm, {
+			// 	nickname: vm.nickname,
+			// 	id: '',
+			// 	callback: function() {
+			// 		$.alert('设置成功!');
+			// 		setTimeout(function() {
+			// 			router.go('/');
+			// 		}, 1000);
+			// 	}
+			// });
+			// router.go('/nickname');
 		},
 		address_mine_click: function() { //果仁市场跳转
 			var nowData = {};

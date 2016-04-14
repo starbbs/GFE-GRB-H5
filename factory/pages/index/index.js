@@ -3,10 +3,10 @@
 
 
 require([
-	'router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-view', 'h5-weixin', 'h5-ident', 'h5-button',
-	'h5-view-agreement', 'h5-text', 'h5-keyboard'
+	'router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-view', 'h5-weixin', 'h5-button',
+	'h5-view-agreement', 'h5-text', 'h5-keyboard', 'h5-ident'
 ], function(
-	router, api, check, get, authorization, check, View, weixin, H5Ident, H5Button
+	router, api, check, get, authorization, check, View, weixin, H5Button
 ) {
 
 	router.init(true);
@@ -70,9 +70,7 @@ require([
 									load.reset('欢迎!');
 									gopToken = data.data.gopToken;
 									$.cookie('gopToken', gopToken);
-									$.alert('微信注册成功!<br>欢迎来到果仁世界!', function() {
-										gotoHome();
-									}, 'half');
+									$.alert('微信注册成功!<br>欢迎来到果仁世界!', gotoHome, 'half');
 								} else {
 									$.alert(data.msg);
 									load.reset();
@@ -154,9 +152,6 @@ require([
 
 	var init = function() {
 		checkToken();
-		// $.alert('微信注册成功!<br>欢迎来到果仁世界!', function() {
-		// 	gotoHome();
-		// }, 'half');
 	};
 
 	init();
