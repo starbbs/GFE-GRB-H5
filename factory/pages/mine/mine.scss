@@ -25,7 +25,7 @@ body {
 }
 
 .mine {
-
+	
 	$img: $g-pages + '/mine/images';
 	$border: 1px solid $g-line;
 	$margin-top: 9px;
@@ -49,6 +49,7 @@ body {
 		text-align: center;
 		line-height: 1;
 		position: relative;
+		padding-top: 8px;
 		&-picture {
 			// border: $border;
 			border-radius: 50%;
@@ -58,6 +59,7 @@ body {
 			overflow: hidden;
 			@include square(75px);
 			margin: 8px auto;
+			margin-top: 0px;
 		}
 		&-name {
 			font-size: 18px;

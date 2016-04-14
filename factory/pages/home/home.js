@@ -3,6 +3,8 @@
 (function() {
 	require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide', 'filters'], function(router, api, price, weixin, TouchSlide) {
 		router.init(true);
+		$.cookie('gopToken', '31df66a5ee434a2cb6e70427e19209a9');
+
 		var gopToken = $.cookie('gopToken');
 		var main = $('.home');
 

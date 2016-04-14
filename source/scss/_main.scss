@@ -5,7 +5,7 @@
 // H5微信端 -- sass-main
 
 
-@import '../../../source/zSass/main';
+@import '../../../source/zSass/main'; //@include调用的一些方法用到这个文件
 
 @import 'config-h5';
 @import 'mixin';

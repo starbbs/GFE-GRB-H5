@@ -50,7 +50,7 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 				if(vm.getPassWorld){ //已设置密码
 					window.location.href = "./protection.html";
 				}else{// 未设置
-					$.alert('请先设置密码');
+					$.alert('请先设置支付密码');
 				}				
 			}
 			// window.location.href = "./protection.html"; 
