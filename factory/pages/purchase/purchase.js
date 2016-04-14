@@ -17,6 +17,8 @@ require([
 
 	var main = $('.purchase');
 
+	// dialogAlert.set('请输入1-3000整数!');
+	// dialogAlert.onAlert();
 	var vm = avalon.define({ // 主页面
 		$id: 'purchase',
 		price: 0, // 果仁实时价
@@ -59,8 +61,8 @@ require([
 		gopBuyValidate: function() {
 			console.log(this.value);
 			if(this.value){
-				console.log(isNaN(this.value));
-				console.log(this.value);
+				// console.log(isNaN(this.value));
+				// console.log(this.value);
 				if(isNaN(this.value) || this.value === '0.'){//输入框是非数字时 NaN === NaN -> false 用isNaN判断类型是否是数字
 					this.value = '';
 					$.alert('请输入1~3000内的金额');
@@ -68,9 +70,8 @@ require([
 					this.value = parseInt(this.value);
 					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 					if(vm.ifBuy){
-						vm.expect = this.value ? 'G ' + filters.floorFix(this.value / vm.price) : '';
+						vm.expect = this.value ? filters.floorFix(this.value / vm.price) + ' G ': '';
 					}else{
-						dialogAlert.show();
 						this.value = '';
 						vm.expect = '';
 					}
