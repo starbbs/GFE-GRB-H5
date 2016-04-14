@@ -13,7 +13,9 @@ define('h5-keyboard', ['bind'], function(Bind) {
 					self.hide();
 				})
 				.on('blur', function() {
-					self.show();
+					setTimeout(function() {
+							self.show();
+					},200);
 				})
 		},
 	});
