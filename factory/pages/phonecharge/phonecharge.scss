@@ -133,25 +133,22 @@ body {
 				}
 				ul{
 					overflow: hidden;
-					& li.cur{
-						color: #6888D9;
-						border: 1px solid #6888D9;
-						&>div{
-							color: #6888D9;
-							&:nth-child(1){
-								color: #6888D9;
-							}
-							&>i{
-								border-color: #6888D9;
-							}
-						}
-					}
+					// border-top: $listborder;
+					// border-left: $listborder;
 					li{
+						position: relative;
 						float: left;
 						box-sizing: border-box;
 						text-align: center;
 						background: #ffffff;
 						border: $listborder;
+						margin-right: -1px;
+						margin-bottom: -1px;
+						// box-sizing: border-box;
+						// border-top: 1px solid transparent;
+						// border-left: 1px solid transparent;
+						// border-right: $listborder;
+						// border-bottom: $listborder;
 						width: px(194px , 750px);
 						padding: 5px 0px;
 						>div:nth-child(1){
@@ -162,6 +159,20 @@ body {
 						>div{
 							position: relative;
 							color: #CCCCCC;
+						}
+						&.cur {
+							z-index: 1;
+							color: #6888D9;
+							border: 1px solid #6888D9;
+							&>div{
+								color: #6888D9;
+								&:nth-child(1){
+									color: #6888D9;
+								}
+								&>i{
+									border-color: #6888D9;
+								}
+							}
 						}
 					}
 				}
