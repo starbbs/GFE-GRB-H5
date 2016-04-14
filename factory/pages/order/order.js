@@ -117,62 +117,6 @@ require([
 				vm.ifConfirmPay = false;
 			}
 		},
-		/*
-		rmbUse: 0, // 使用多少人民币
-		bankList: [], // 银行卡列表
-		bankSelect: {}, // 选择银行卡
-		bankSelectName: '',
-		bankSelectType: '',
-		bankSelectClass: '',
-		bankSelectTail: '',
-		bankIndex: 0, // 选择银行卡
-		bankid: 0, // 银行卡ID
-		bankAdd: function() { // 添加银行卡
-			// 判断是否实名认证
-			api.isCertification({
-				gopToken: gopToken
-			}, function(data) {
-				viewBankcardAppend.vm.callback = function(){
-					api.bankcardSearch({
-						gopToken: gopToken
-					}, function(data) {
-						if (data.status == 200) {
-							bankListRefresh(data.data.list);
-							setTimeout(function() {
-								router.to('/');
-							}, 100);
-						} else {
-							$.alert(data.msg);
-						}
-					});
-					// window.history.go(-2);
-				};
-				if (data.status == 200) {
-					router.go('/bankcard-append');
-				} else if (data.status == 400) {
-					$.alert('请先实名认证');
-					viewAuthentication.vm.callback=function(){							
-						router.go('/bankcard-append');
-						return true;
-					}		
-					viewAuthentication.vm.callbackFlag=true;
-					viewAuthentication.show();
-				} else {
-					$.alert(data.msg);
-				}
-			});
-		},
-			
-		bankShow: function() { // 显示银行卡浮层
-			dialogBankcard.show();
-		},
-		identInput: function() { // 验证码输入
-			vm.ifConfirmPay = false;
-			H5Ident.bankCheck(vm.bankid, identInput, function() {
-				vm.ifConfirmPay = true;
-			});
-		},
-		*/
 		ifConfirmPay: false,
 		confirmPay: function() { // 确认支付
 			if (!vm.ifConfirmPay) {

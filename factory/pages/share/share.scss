@@ -9,13 +9,13 @@
 
 @import '../../components/nav/nav';
 
+$img: $g-pages + '/share/images';
 
 html {
 	background: url($img + '/_bg.png') #3f49a3;
 	background-size: cover;
 }
 .share{
-	$img: $g-pages + '/share/images';
 	margin-top: px(120px, 750px);
 	padding: 72px;
 	color: #ffffff;
