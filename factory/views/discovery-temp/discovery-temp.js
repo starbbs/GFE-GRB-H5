@@ -2,18 +2,6 @@
 // H5微信端 --- view-bill 账单详情分页
 
 
-define('h5-view-bill', [
-	'h5-api', 'router', 'filters', 'mydate', // 公用功能
-	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
-	'h5-view-nickname', 'h5-dialog-confirm' // H5组件
-], function(
-	api, router, filters, mydate,
-	View, weixin, H5bill,
-	nicknameView, dialogConfirm
-) {
-
+define('h5-view-bill', [], function() {
 	var gopToken = $.cookie('gopToken');
-
-
-
 });

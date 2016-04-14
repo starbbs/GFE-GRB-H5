@@ -1,8 +1,11 @@
 // 张树垚 2016-01-09 12:54:11 创建
 // H5微信端 --- 手机充值
-
-
-require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', 'h5-alert', 'h5-weixin'], function(api, check, get, filters, TouchSlide, orderJudge) {
+require([
+	'h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge',
+	'h5-weixin'
+], function(
+	api, check, get, filters, TouchSlide, orderJudge
+) {
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
 	var phoneInput = $('#phonecharge-text-input');

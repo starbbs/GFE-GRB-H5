@@ -1,6 +1,11 @@
 // 余效俭 2016-1-9 10:47:16 创建
 // H5微信端 --- 安全中心
-require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authentication', 'h5-dialog-success', 'h5-paypass', 'h5-weixin'], function(router, api, View, viewPassword, viewAuthen ,dialogSuccess) {
+require([
+	'router', 'h5-api', 'h5-view', 'h5-view-authentication', 'h5-dialog-success',
+	'h5-paypass', 'h5-weixin'
+], function(
+	router, api, View, viewAuthen, dialogSuccess
+) {
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var security = $('.security');
@@ -32,22 +37,22 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 		authenticationed: false, // 实名认证
 		setProtected: false, // 未设置 密保问题
 		getPassWorld: true, // 是否设置密码 false未设置
-		paypass2:'',
-		paypass3:'',
-		paypass2Next:false,
-		paypass3Next:false,
+		paypass2: '',
+		paypass3: '',
+		paypass2Next: false,
+		paypass3Next: false,
 		authentication_click: function() {
 			router.go('/authentication');
 		},
-		paypass2Value:function(){
+		paypass2Value: function() {
 			vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
 		},
-		paypass3Value:function(){
+		paypass3Value: function() {
 			vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
 		},
 		protect_click: function(e) {
 			if (!vm.setProtected) { //没密保
-				if(vm.getPassWorld){ //已设置密码
+				if (vm.getPassWorld) { //已设置密码
 					window.location.href = "./protection.html";
 				}else{// 未设置
 					$.alert('请先设置支付密码');
@@ -55,12 +60,12 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 			}
 			// window.location.href = "./protection.html"; 
 		},
-		paypass2Click : function() {
+		paypass2Click: function() {
 			if (vm.paypass2.length == 6) {
 				router.go('/paypass-view-3');
 			}
 		},
-		paypass3Click : function() {
+		paypass3Click: function() {
 			if (vm.paypass3 == vm.paypass2 && vm.paypass3.length == 6) {
 				api.setPayPassword({
 					gopToken: gopToken,
@@ -79,6 +84,7 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 			}
 		},
 	});
+	avalon.scan();
 	var init = function() {
 		api.isCertification({
 			gopToken: gopToken
@@ -103,12 +109,12 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 		}, 200);
 		api.checkPayPasswordStatus({
 			'gopToken': gopToken
-		},function(data){
+		}, function(data) {
 			vm.getPassWorld = data.msg === '支付密码未设置' ? false : true;
 		});
 	}
-	
-	viewAuthen.vm.callbackFlag=true;
+
+	viewAuthen.vm.callbackFlag = true;
 	viewAuthen.vm.callback = function() {
 		vm.authenticationed = true;
 	}
@@ -116,5 +122,4 @@ require(['router', 'h5-api', 'h5-view', 'h5-view-password', 'h5-view-authenticat
 		security.addClass('on');
 	}, 100);
 	init();
-	avalon.scan();
 });

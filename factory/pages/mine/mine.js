@@ -1,18 +1,22 @@
 // 余效俭 2016-01-07 17:26:56 创建
 // H5微信端 --- 我的
 
-require(['router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-nickname', 'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin'], function(router, api, View, check, address_mine, address_wallet, nicknameView) {
+require([
+	'router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet',
+	'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin'
+], function(
+	router, api, View, check, address_mine, address_wallet
+) {
 
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
 	var mine = $('.mine');
-	var setting_address = new View('setting-address');
-	var setting = new View('setting');
-	var setting_about = new View('setting-about');
-	var setting_us = new View('setting-us');
+
+	new View('setting');
+	new View('setting-about');
+	new View('setting-address');
 	new View('setting-feedback');
-	var setting_agreement = new View('setting-agreement');
 
 	var dbclickOrLongpress = ''; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
 	if ($.os.ios) {
@@ -20,13 +24,6 @@ require(['router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-vie
 	} else if ($.os.android) {
 		dbclickOrLongpress = '长按';
 	}
-
-	setting.on('show', function() {
-		console.log('show')
-	});
-	setting.on('hide', function() {
-		console.log('hide');
-	});
 
 	address_mine.vm.setSuccess = function() {
 		vm.setMarketAddressTip = '已设置';

@@ -1,18 +1,13 @@
 ﻿@charset 'utf-8';
 
-
 // 张树垚 2015-12-27 15:57:15 创建
 // H5微信端 --- 微信授权跳转页
 
-
 @import '../../../source/scss/main';
-
 
 @import '../../views/view';
 @import '../../views/agreement/agreement';
-// @import '../../views/login/login';
 
-// @import '../../dialogs/dialog';
 
 .block{
 	border-top: none;
@@ -20,6 +15,7 @@
 .text-ident{
 	border-left: none;
 }
+
 .index {
 
 	$img: $g-pages + '/index/images';

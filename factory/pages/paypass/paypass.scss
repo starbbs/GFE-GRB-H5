@@ -8,8 +8,8 @@
 @import '../../../source/scss/main';
 
 @import '../../views/view';
-
 @import '../../views/paypass/paypass-view';
+
 @import '../../dialogs/dialog';
 @import '../../dialogs/success/success';
 
@@ -17,7 +17,5 @@ body {
 	background-color: $g-background;
 }
 
-// ::-webkit-input-placeholder {
-// 	color: red;
-// }
+
 

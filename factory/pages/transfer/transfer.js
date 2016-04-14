@@ -2,13 +2,16 @@
 // H5微信端 --- 转果仁
 
 
-require(['router', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
-	'h5-view-nickname', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
+require([
+	'router', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
+	'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
 	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication',
 	'h5-text', 'h5-weixin'
-], function(router, api, View, price, get, filters, H5bill,
-	nickname, viewAddressMine, viewAddressWallet, billView,
-	dialogPaypass, dialogAlert, viewAuthentication) {
+], function(
+	router, api, View, price, get, filters, H5bill,
+	viewAddressMine, viewAddressWallet, billView,
+	dialogPaypass, dialogAlert, viewAuthentication
+) {
 
 	router.init(true);
 

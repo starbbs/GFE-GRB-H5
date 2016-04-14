@@ -2,7 +2,12 @@
 // H5微信端 --- 个人首页
 
 
-require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'highChartsSet', 'filters', 'h5-weixin'], function(router, api, price, View, TouchSlide, mydate, iscrollLoading ,TouchSlide ,highChartsSet) {
+require([
+	'router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'highChartsSet',
+	'filters', 'h5-weixin'
+], function(
+	router, api, price, View, TouchSlide, mydate, iscrollLoading, TouchSlide, highChartsSet
+) {
 
 	router.init(true);
 
@@ -115,9 +120,9 @@ require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'is
 		titCell: '.wealth-tab-item'
 	});
 	var chartHistory = $('#chart-history'); //历史
-	var chartAnnual = $('#chart-annual');//年化30日
+	var chartAnnual = $('#chart-annual'); //年化30日
 	var chartAnnualData = [];
-	var chartAnnualDate = [];	
+	var chartAnnualDate = [];
 	var chartAnnualHandler = function(list) {
 		chartAnnualData.length = 0;
 		chartAnnualDate.length = 0;
@@ -127,7 +132,7 @@ require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'is
 				return s1 + '/' + s2;
 			}));
 		});
-	};	
+	};
 	var chartHistoryData = [];
 	var chartHistoryDate = [];
 	var chartHistoryHandler = function(list) {
@@ -140,12 +145,11 @@ require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'is
 			}));
 		});
 	};
-	var annualIncomeWealthSet = function(){
-		api.annualIncomeWealth({
-		},function(data){
-			if(data.status == 200){
+	var annualIncomeWealthSet = function() {
+		api.annualIncomeWealth({}, function(data) {
+			if (data.status == 200) {
 				chartAnnualHandler(data.data.list);
-				highChartsSet.set(chartAnnual , {
+				highChartsSet.set(chartAnnual, {
 					xAxis: {
 						// tickInterval: 3, // x坐标轴脚标间隔
 						tickInterval: (function() {
@@ -178,7 +182,7 @@ require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'is
 			} else {
 				$.alert(data.msg);
 			}
-		});		
+		});
 	};
 	annualIncomeWealthSet();
 
@@ -198,7 +202,7 @@ require(['router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'is
 				// 	{id: 14, createTime: "2016-01-25 00:00:00", price: 9, date: "2016-01-25"}
 				// ]);
 				chartHistoryHandler(data.data.list);
-				highChartsSet.set(chartHistory , {
+				highChartsSet.set(chartHistory, {
 					xAxis: {
 						// tickInterval: 3, // x坐标轴脚标间隔
 						tickInterval: (function() {

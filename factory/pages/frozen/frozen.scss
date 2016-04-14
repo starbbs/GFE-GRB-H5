@@ -1,23 +1,18 @@
 ﻿@charset 'utf-8';
 
-
 // 张树垚 2015-12-20 11:22:45 创建
 // H5微信端 --- 个人首页
 
 
 @import '../../../source/scss/main';
 
-@import '../../components/nav/nav';
-
-// @import '../../views/view';
-
-// @import '../../dialogs/dialog';
 $img: $g-pages + '/frozen/images';
 
 html {
 	background: url($img + '/_bg.png') #3f49a3;
 	background-size: cover;
 }
+
 .frozen{
 	margin-top: px(120px, 750px);
 	padding: 72px;

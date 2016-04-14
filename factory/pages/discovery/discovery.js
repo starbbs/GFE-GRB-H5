@@ -1,6 +1,11 @@
 // 张树垚 2015-12-20 11:27:22 创建
 // H5微信端 --- 个人首页
-require(['router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide','h5-view'], function(router, api, price, weixin, TouchSlide, View) {
+require([
+	'router', 'h5-api', 'h5-price', 'touch-slide','h5-view',
+	'h5-weixin'
+], function(
+	router, api, price, TouchSlide, View
+) {
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 

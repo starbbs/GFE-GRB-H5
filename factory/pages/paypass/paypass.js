@@ -2,7 +2,12 @@
 // H5微信端 --- 支付密码重置
 
 
-require(['router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success', 'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'], function(router, api, View, get, dialogSuccess) {
+require([
+	'router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success',
+	'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'
+], function(
+	router, api, View, get, dialogSuccess
+) {
 
 	router.init(true);
 
