@@ -133,24 +133,23 @@ body {
 				}
 				ul{
 					overflow: hidden;
-					// border-top: $listborder;
-					// border-left: $listborder;
+					border-top: $listborder;
+					border-left: $listborder;
 					li{
-						position: relative;
+						// @include border(#E5E5E5); //全边框0.5px
+						// position: relative;
+						// border: $listborder;
+						// margin-right: -1px;
+						// margin-bottom: -1px;
 						float: left;
 						box-sizing: border-box;
 						text-align: center;
 						background: #ffffff;
-						@include border(#E5E5E5);
 						width: 25%;
-						border: $listborder;
-						margin-right: -1px;
-						margin-bottom: -1px;
-						// box-sizing: border-box;
-						// border-top: 1px solid transparent;
-						// border-left: 1px solid transparent;
-						// border-right: $listborder;
-						// border-bottom: $listborder;
+						border-top: 1px solid transparent; //上边框透明
+						border-left: 1px solid transparent; //左边框透明
+						border-right: $listborder;
+						border-bottom: $listborder;
 						padding: 5px 0px;
 						>div:nth-child(1){
 							font-size: 16px;
@@ -162,7 +161,7 @@ body {
 							color: #CCCCCC;
 						}
 						&.cur {
-							z-index: 1;
+							// z-index: 1;
 							color: #6888D9;
 							border: 1px solid #6888D9;
 							&>div{
