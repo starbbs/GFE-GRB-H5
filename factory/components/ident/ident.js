@@ -30,7 +30,7 @@ define('h5-ident', ['h5-api', 'check', 'h5-check', 'h5-dialog-alert', 'h5-alert'
 		var count = 0; // 点击次数
 		var self = $(item);
 		_reset(self);
-		self.on('click', function() {
+		self.on('touchstart', function() {
 			if (self.hasClass('silver')) {
 				return;
 			}

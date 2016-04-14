@@ -7,14 +7,12 @@
 
 @import '../../../source/scss/main';
 
-@import '../../components/bank/bank';
 @import '../../components/order/order';
 
 @import '../../views/view';
 @import '../../views/bill/bill';
 
 @import '../../dialogs/dialog';
-@import '../../dialogs/bankcard/bankcard';
 @import '../../dialogs/confirm/confirm';
 @import '../../dialogs/paypass/paypass';
 @import '../../dialogs/alert/alert';
@@ -107,9 +105,5 @@
 				font: 22px/69px $g-font-num;
 			}
 		}
-	}
-
-	&-bill { // 账单(订单结果)
-		@extend .view-style;
 	}
 }

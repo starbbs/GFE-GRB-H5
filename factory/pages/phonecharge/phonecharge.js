@@ -2,8 +2,13 @@
 // H5微信端 --- 手机充值
 
 
-require(['h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge', 'h5-alert', 'h5-weixin'], function(api, check, get, filters, TouchSlide, orderJudge) {
-	$.cookie('gopToken', '31df66a5ee434a2cb6e70427e19209a9');
+require([
+	'h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge',
+	'h5-weixin'
+], function(
+	api, check, get, filters, TouchSlide, orderJudge
+) {
+
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
 	var phoneInput = $('#phonecharge-text-input');
