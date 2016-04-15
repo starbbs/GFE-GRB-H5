@@ -23,6 +23,48 @@ require([
 		'移动': [],
 		'电信': [],
 	};
+
+	//获取流量列表  联通 移动 电信
+	api.productList({
+		productType: "SHOUJILIULIANG"
+	}, function(data) {
+		if (data.status == 200) {
+			console.log('获取流量列表');			
+			data.data.productList.forEach(function(item) {
+				var desc = JSON.parse(item.extraContent);
+				jsonflows[desc.carrier].push({
+					id: item.id, // 商品id
+					level: desc.level, // 流量数M
+					price: desc.price, // 下划线价格
+					use: item.price, // 支付按钮价格
+					desc: item.productDesc, // 描述
+				});
+			});
+		} else {
+			console.log(data);
+		}
+	});
+	//获取话费列表  联通 移动 电信
+	api.productList({
+		productType: "SHOUJICHONGZHIKA"
+	}, function(data) {
+		if (data.status == 200) {
+			console.log('获取话费列表');
+			data.data.productList.forEach(function(item) {
+				var desc = JSON.parse(item.extraContent);
+				jsoncards[desc.carrier].push({
+					id: item.id, // 商品id
+					currency: item.currency, // 货币(RMB)
+					price: desc.price, // 下划线价格
+					use: item.price, // 支付按钮价格
+					desc: item.productDesc, // 描述
+				});
+			});
+		} else {
+			console.log(data);
+		}
+	});
+
 	//提交时存放数据
 	var confirmData = [];
 
@@ -228,9 +270,11 @@ require([
 		getUserPhone(function(data) { //获取用户手机号
 			if (data.status == 200) {
 				vm.phone = data.data.phone;
+				console.log(data.data.phone);
 				getUserCarrier(function(data) { // 获取手机运营商
 					if (data.status == 200) {
 						vm.carrier = data.data.carrier;
+						console.log(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
@@ -278,7 +322,10 @@ require([
 			}
 		});
 	};
-	getUserPhoneCarrier();
+	// getUserPhoneCarrier();
+	
+	setTimeout(getUserPhoneCarrier,100);
+
 	//左右滑动判断状态
 	var titles = $('.phonecharge-body-title-layer');
 
@@ -302,45 +349,7 @@ require([
 			console.log(data);
 		}
 	});
-	//获取流量列表  联通 移动 电信
-	api.productList({
-		productType: "SHOUJILIULIANG"
-	}, function(data) {
-		if (data.status == 200) {
 
-			data.data.productList.forEach(function(item) {
-				var desc = JSON.parse(item.extraContent);
-				jsonflows[desc.carrier].push({
-					id: item.id, // 商品id
-					level: desc.level, // 流量数M
-					price: desc.price, // 下划线价格
-					use: item.price, // 支付按钮价格
-					desc: item.productDesc, // 描述
-				});
-			});
-		} else {
-			console.log(data);
-		}
-	});
-	//获取话费列表  联通 移动 电信
-	api.productList({
-		productType: "SHOUJICHONGZHIKA"
-	}, function(data) {
-		if (data.status == 200) {
-			data.data.productList.forEach(function(item) {
-				var desc = JSON.parse(item.extraContent);
-				jsoncards[desc.carrier].push({
-					id: item.id, // 商品id
-					currency: item.currency, // 货币(RMB)
-					price: desc.price, // 下划线价格
-					use: item.price, // 支付按钮价格
-					desc: item.productDesc, // 描述
-				});
-			});
-		} else {
-			console.log(data);
-		}
-	});
 	TouchSlide({
 		slideCell: '#touchSlide',
 		autoPlay: false,

@@ -26,6 +26,9 @@ body {
 	$img: $g-pages + '/transfer/images'; //$g-pages是config.js里配置的路径
 	background-color: $g-background;
 	@extend %fade-in;
+	&-moneyout{
+		color: #999999;
+	}
 	&-icon {
 		@for $i from 1 through 5 {
 			&-#{$i} {
