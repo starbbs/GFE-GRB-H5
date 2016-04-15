@@ -67,7 +67,8 @@ html {
 				text-align: center;
 				color: $colorwhite;
 				.layer21{
-					font-size: 50px;
+					font-size: 60px;
+					height: 85px;
 				}
 				.layer22{
 					
@@ -75,6 +76,7 @@ html {
 			}
 			&-layer3{
 				text-align: center;
+				margin-top: 25px;
 				>a{
 					margin: 10px 0px;
 					border-radius: 5px;

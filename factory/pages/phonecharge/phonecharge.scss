@@ -12,10 +12,11 @@
 // @import '../../dialogs/dialog';
 
 
-body {
+body{
+}
+html{
 	background-color: #efeff3;
 }
-
 .middleline{ 
 	@include atlwh(10px,20px,28px,1px);
 	border-top: 1px solid #cccccc;
@@ -27,7 +28,9 @@ body {
 	$bordercolor:#E5E5E5;//边框颜色
 	$listborder : 1px solid $bordercolor;//充值选项列表边框
 	$img: $g-pages + '/phonecharge/images';
+	height: 100%;
 	@extend %fade-in;
+	.text-button{ margin-bottom: 34px;}
 	// padding-bottom: $g-padding-bottom;
 	&-slider {
 		position: relative;

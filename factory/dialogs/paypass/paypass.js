@@ -38,15 +38,15 @@ define('h5-dialog-paypass', [
 	// 点击支付执行paypass浮窗show
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
+		paypassStatus = 'showAuthenticationPaypass';
+		console.log(paypassStatus);
 		switch (paypassStatus) {
 			case 'not': //没有设置密码 
 				showPaypass();
 				break;
-			/*
 			case 'showAuthenticationPaypass': //没有设置密码  没实名
 				showAuthenticationPaypass();
 				break;
-			*/
 			case 'done':
 				showDialogPaypass();
 				break;
@@ -67,7 +67,7 @@ define('h5-dialog-paypass', [
 	var showPaypass = function() { // 设置密码
 		router.go('paypass-view-2');
 	};
-	/*
+	
 	var showAuthenticationPaypass = function() { //认证+设置密码
 		router.go('/authentication');
 		$.extend(authenticationVM, {
@@ -77,7 +77,7 @@ define('h5-dialog-paypass', [
 			}
 		});
 	};
-	*/
+	
 	var showDialogPaypass = function() { // 正常出支付浮层
 		prototypeShow.call(paypass);
 	};

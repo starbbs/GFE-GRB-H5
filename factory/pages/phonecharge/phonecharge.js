@@ -346,7 +346,8 @@ require([
 		autoPlay: false,
 		mainCell: '.phonecharge-body-content-lists',
 		titCell: '.phonecharge-body-title-layer',
-		defaultIndex: touchSlideDefaultIndex
+		defaultIndex: touchSlideDefaultIndex,
+		effect: 'left',
 	});
 	// 轮播图
 	api.static(function(data) {
