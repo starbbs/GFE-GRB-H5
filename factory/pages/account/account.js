@@ -103,6 +103,8 @@ require([
 		userUp: true,
 		userDown: true,
 		// momentum: false, //关闭拖动后惯性运动
+		// bounceLock:true, //当内容少于滚动是否可以反弹
+		// bounce:true, //启用或禁用边界的反弹，默认为true
 	});
 
 	var now = new Date(); // 当前时间
