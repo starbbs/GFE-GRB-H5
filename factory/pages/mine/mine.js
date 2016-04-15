@@ -9,6 +9,7 @@ require([
 ) {
 
 	router.init(true);
+	document.title = '我的';
 
 	var gopToken = $.cookie('gopToken');
 	var mine = $('.mine');

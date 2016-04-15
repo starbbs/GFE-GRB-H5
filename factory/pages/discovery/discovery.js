@@ -6,6 +6,7 @@ require([
 ], function(
 	router, api, price, TouchSlide, View
 ) {
+	document.title = '发现';	
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 
@@ -53,16 +54,15 @@ require([
 		for (var i = 0; i < iosUrlArr.length; i++) {
 			$('.urlarr')[i].href = encodeURIComponent(iosUrlArr[i]);
 		}
-		nav.css('display', 'none');
 	}else if(UA.indexOf('from=discoveryandroidapp') > 0){
 		for (var i = 0; i < androidUrlArr.length; i++) {
 			$('.urlarr')[i].href = androidUrlArr[i];
 		}
-		nav.css('display', 'none');
 	} else {
 		for (var i = 0; i < h5UrlArr.length; i++) {
 			$('.urlarr')[i].href = h5UrlArr[i];
 		}
+		nav.addClass('navon');		
 	}
 
 	var vm = avalon.define({

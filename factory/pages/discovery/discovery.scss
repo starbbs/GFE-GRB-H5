@@ -14,7 +14,13 @@
 html {
     background-color: $g-background;
 }
-
+.nav{
+    opacity: 0;
+}
+.navon{
+    transition: 0.3s;
+    opacity: 1;   
+}
 .discovery {
     $img: $g-pages + "/discovery/images";
     @extend %fade-in; 
