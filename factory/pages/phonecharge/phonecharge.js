@@ -224,54 +224,61 @@ require([
 			touchSlideDefaultIndex = 1;
 		}
 	}
-	getUserPhone(function(data) { //获取用户手机号
-		if (data.status == 200) {
-			vm.phone = data.data.phone;
-			getUserCarrier(function(data) { // 获取手机运营商
-				if (data.status == 200) {
-					vm.carrier = data.data.carrier;
-					vm.goods = jsoncards[data.data.carrier.substr(-2)];
-					vm.flows = jsonflows[data.data.carrier.substr(-2)];
-					if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
-						// 选中话费
-						if (datajson.cangory === '话费') {
-							jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
-								if (!datajson.price) {
-									return false;
-								};
-								if (item.price != datajson.price) {
-									return true;
-								} else {
-									vm.confirmId = item.id;
-									vm.confirmCangory = datajson.cangory;
-									confirmData[0] = item;
-									vm.button = '支付：' + filters.floorFix(item.use) + '元';
-									$('.phonecharge-lista-item').eq(index).addClass('cur').siblings().removeClass('cur');
-									return false;
-								}
-							});
-						} else {
-							jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
-								if (!datajson.level) {
-									return false;
-								};
-								if (item.level != datajson.level) {
-									return true;
-								} else {
-									vm.confirmId = item.id;
-									vm.confirmCangory = datajson.cangory;
-									confirmData[1] = item;
-									vm.button = '支付：' + filters.floorFix(item.use) + '元';
-									$('.phonecharge-listb-item').eq(index).addClass('cur').siblings().removeClass('cur');
-									return false;
-								}
-							});
+	var getUserPhoneCarrier = function(){
+		getUserPhone(function(data) { //获取用户手机号
+			if (data.status == 200) {
+				vm.phone = data.data.phone;
+				getUserCarrier(function(data) { // 获取手机运营商
+					if (data.status == 200) {
+						vm.carrier = data.data.carrier;
+						vm.goods = jsoncards[data.data.carrier.substr(-2)];
+						vm.flows = jsonflows[data.data.carrier.substr(-2)];
+						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
+							// 选中话费
+							if (datajson.cangory === '话费') {
+								jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
+									if (!datajson.price) {
+										return false;
+									};
+									if (item.price != datajson.price) {
+										return true;
+									} else {
+										vm.confirmId = item.id;
+										vm.confirmCangory = datajson.cangory;
+										confirmData[0] = item;
+										vm.button = '支付：' + filters.floorFix(item.use) + '元';
+										$('.phonecharge-lista-item').eq(index).addClass('cur').siblings().removeClass('cur');
+										return false;
+									}
+								});
+							} else {
+								jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
+									if (!datajson.level) {
+										return false;
+									};
+									if (item.level != datajson.level) {
+										return true;
+									} else {
+										vm.confirmId = item.id;
+										vm.confirmCangory = datajson.cangory;
+										confirmData[1] = item;
+										vm.button = '支付：' + filters.floorFix(item.use) + '元';
+										$('.phonecharge-listb-item').eq(index).addClass('cur').siblings().removeClass('cur');
+										return false;
+									}
+								});
+							}
 						}
+					}else{
+						getUserPhoneCarrier();
 					}
-				}
-			});
-		}
-	});
+				});
+			}else{
+				getUserPhoneCarrier();
+			}
+		});
+	};
+	getUserPhoneCarrier();
 	//左右滑动判断状态
 	var titles = $('.phonecharge-body-title-layer');
 
@@ -344,7 +351,6 @@ require([
 	// 轮播图
 	api.static(function(data) {
 		if (data.status == 200) {
-			console.log(data.data.indexSlideAds);
 			data.data.indexSlideAds.filter(function(val, index, arr) {
 				if (val.sources.indexOf('h5') != -1) {
 					vm.bannerImgArr.push(val);

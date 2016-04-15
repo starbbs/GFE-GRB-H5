@@ -22,11 +22,10 @@ html {
 %bannercenterspanstyle{ //banner中间数字样式
 	text-align: center;
 	font-size: 60px;
-	line-height: 90px;
+	line-height: 120px;
 }
 
 .home {
-	
 	$bannercenterworldlineheight: 90px; //banner图 中间大字
 	$bannercenterworldfontsize: 50px;
 
@@ -45,7 +44,7 @@ html {
 	margin-bottom: 70px;
 
 	&-banner{
-		height: 199.68px;
+		height: 234px;
 		padding: $padding;
 		background-image: url($image + '/home-down.jpg'); 
 		@include background-size;
@@ -68,7 +67,7 @@ html {
 				text-align: center;
 				color: $colorwhite;
 				.layer21{
-					font-size: 32px;
+					font-size: 50px;
 				}
 				.layer22{
 					

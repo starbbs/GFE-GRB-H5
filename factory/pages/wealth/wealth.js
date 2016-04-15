@@ -263,6 +263,7 @@ require([
 		gopToken: gopToken
 	}, function(data) {
 		if (data.status == 200) {
+			console.log(data);
 			vm.total = historyVM.total = data.data.totalIncome;
 			vm.yesterday = data.data.yesterdayIncome;
 		} else {
