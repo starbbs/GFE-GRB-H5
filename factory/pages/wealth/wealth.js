@@ -18,6 +18,10 @@ require([
 	var pageSize = 15;
 	var historyListArr = [];
 	var history = new View('wealth-history');
+
+	$(document).get(0).ontouchmove = function(event) {
+		event.preventDefault();
+	};	
 	var historyVM = history.vm = avalon.define({
 		$id: 'wealth-history',
 		total: 0,
