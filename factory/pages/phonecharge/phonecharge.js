@@ -29,7 +29,7 @@ require([
 		productType: "SHOUJILIULIANG"
 	}, function(data) {
 		if (data.status == 200) {
-			console.log('获取流量列表');			
+			// console.log('获取流量列表');			
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
 				jsonflows[desc.carrier].push({
@@ -49,7 +49,7 @@ require([
 		productType: "SHOUJICHONGZHIKA"
 	}, function(data) {
 		if (data.status == 200) {
-			console.log('获取话费列表');
+			// console.log('获取话费列表');
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
 				jsoncards[desc.carrier].push({
@@ -270,11 +270,11 @@ require([
 		getUserPhone(function(data) { //获取用户手机号
 			if (data.status == 200) {
 				vm.phone = data.data.phone;
-				console.log(data.data.phone);
+				// console.log(data.data.phone);
 				getUserCarrier(function(data) { // 获取手机运营商
 					if (data.status == 200) {
 						vm.carrier = data.data.carrier;
-						console.log(data.data.carrier);
+						// console.log(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
