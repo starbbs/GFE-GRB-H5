@@ -23,6 +23,8 @@ define('h5-view-bill', [
 	var phoneRepayData = null; // 手机重新支付数据
 	var weixinPayData = null; // 微信重新支付数据
 
+	var defaultAddress = '地址已删除'; // 默认地址栏内容
+
 	var initSettings = { // 初始化
 		id: '', // 账单ID
 		type: '', // 类型
@@ -81,7 +83,9 @@ define('h5-view-bill', [
 			if (bill.onReturnHome() === false) {
 
 			} else {
-				window.location.href = './home.html?from=bill';
+				setTimeout(function() {
+					window.location.href = './home.html?from=bill';
+				}, 100);
 			}
 		},
 		finish: function() { // 完成 -- 完成按钮只有在买果仁流程的最后一步会显示
@@ -227,7 +231,7 @@ define('h5-view-bill', [
 				console.log(data.data);
 				setOne('transferName', data.data.remark || data.data.nick || (data.data.contactType === 'WALLET_CONTACT' ? '未命名地址' : '未命名用户'));
 				setOne('transferImg', data.data.photo || '');
-				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || '');
+				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || defaultAddress);
 				if (!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS') {
 					// 显示"设置备注名"的判断, 没有备注名且转账成功
 					setOne('ifSetNickname', false);
@@ -341,7 +345,7 @@ define('h5-view-bill', [
 			transferNum: order.gopNum, // 转果仁--果仁数
 			transferIcon: H5bill.transferClass[order.type], // 转果仁--图标
 			transferName: H5bill.transferType[order.type], // 转果仁--名字
-			transferAddress: order.address ? filters.address(order.address) : '', // 转果仁--地址
+			transferAddress: order.address ? filters.address(order.address) : defaultAddress, // 转果仁--地址
 			transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
 			transferTime: order.transferTime, // 转果仁--到账时间
 			transferStart: startTime, // 转果仁--创建时间
