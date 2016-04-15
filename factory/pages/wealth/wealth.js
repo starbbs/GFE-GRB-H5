@@ -10,7 +10,6 @@ require([
 ) {
 
 	router.init(true);
-	document.title = '财富';
 	var gopToken = $.cookie('gopToken');
 	var main = $('.wealth');
 	var pageNum = 1;

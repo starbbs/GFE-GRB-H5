@@ -6,7 +6,6 @@ require([
 ], function(
 	router, api, price, TouchSlide, View
 ) {
-	document.title = '发现';	
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 
