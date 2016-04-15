@@ -4,6 +4,10 @@ created by [ccforeverd](https://github.com/ccforeverd)
 
 > 果仁宝公司微信H5端前端项目, 基于gulp的目录结构
 
+> images文件夹规则: 普通命名文件为雪碧图, 带"_"前缀命名文件为静态图
+
+> 静态图转移规则: 比如factory/pages/index/images/_1.png, 编译后生成为build/images/index-1.png
+
 
 ### source
 
