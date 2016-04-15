@@ -101,7 +101,8 @@ require([
 
 	var accountScroll = iscrollLoading.set('account', {
 		userUp: true,
-		userDown: true
+		userDown: true,
+		// momentum: false, //关闭拖动后惯性运动
 	});
 
 	var now = new Date(); // 当前时间

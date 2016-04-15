@@ -18,11 +18,11 @@ require([
 	new View('setting-address');
 	new View('setting-feedback');
 
-	var dbclickOrLongpress = ''; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
+	var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
 	if ($.os.ios) {
-		dbclickOrLongpress = '双击';
-	} else if ($.os.android) {
 		dbclickOrLongpress = '长按';
+	} else if ($.os.android) {
+		dbclickOrLongpress = '双击';
 	}
 
 	address_mine.vm.setSuccess = function() {

@@ -50,7 +50,7 @@ require([
 		paypass3Value: function() {
 			vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
 		},
-		protect_click: function(e) {
+		protect_click: function(e) {//没密保==>有没有设置过密码
 			if (!vm.setProtected) { //没密保
 				if (vm.getPassWorld) { //已设置密码
 					window.location.href = "./protection.html";

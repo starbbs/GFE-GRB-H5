@@ -274,19 +274,16 @@ require([
 	});
 	//左右滑动判断状态
 	var titles = $('.phonecharge-body-title-layer');
-	var onIndex = function(index) {
-		if (titles.eq(index).hasClass('on') && confirmData[index]) {
-			vm.button = '支付：' + filters.floorFix(confirmData[index].use) + '元';
-			vm.confirmId = confirmData[index].id;
-			vm.confirmCangory = (index === 0 ? '话费' : '流量');
-		}
-	};
-	$('#touchSlide')[0].ontouchmove = function() {
-		vm.button = '支付';
-	};
+
 	$('#touchSlide')[0].ontouchend = function() {
-		onIndex(0);
-		onIndex(1);
+		vm.button = '支付';
+		for(var i=0; i<2; i++){
+			if (titles.eq(i).hasClass('on') && confirmData[i]) {
+				vm.button = '支付：' + filters.floorFix(confirmData[i].use) + '元';
+				vm.confirmId = confirmData[i].id;
+				vm.confirmCangory = (i === 0 ? '话费' : '流量');
+			}
+		}
 	};
 	//获取以往手机号
 	api.phoneLastest({

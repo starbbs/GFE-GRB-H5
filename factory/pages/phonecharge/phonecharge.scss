@@ -13,7 +13,7 @@
 
 
 body {
-	background-color: $g-background;
+	background-color: #efeff3;
 }
 
 .middleline{ 
@@ -28,7 +28,7 @@ body {
 	$listborder : 1px solid $bordercolor;//充值选项列表边框
 	$img: $g-pages + '/phonecharge/images';
 	@extend %fade-in;
-	padding-bottom: $g-padding-bottom;
+	// padding-bottom: $g-padding-bottom;
 	&-slider {
 		position: relative;
 		background: #F2F2F2; 
@@ -85,7 +85,6 @@ body {
 		}
 		&-content{
 			&-lista{//话费充值
-				height: px(500px, 750px);
 				overflow: hidden;
 				padding: 5px 13px;
 				&-tit{//话费充值标题
