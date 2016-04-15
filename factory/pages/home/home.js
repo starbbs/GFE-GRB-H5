@@ -8,7 +8,7 @@ require([
 	router, api, price, weixin, TouchSlide
 ) {
 	// $.cookie('gopToken','b2d266cf21ef477d86aa53ce46335be0'); //杨娟
-	$.cookie('gopToken','31df66a5ee434a2cb6e70427e19209a9'); // 我的
+	// $.cookie('gopToken','31df66a5ee434a2cb6e70427e19209a9'); // 我的
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var main = $('.home');
