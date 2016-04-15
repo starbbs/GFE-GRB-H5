@@ -349,7 +349,6 @@ define('h5-view-bill', [
 			transferFailReason: order.failureMsg, // 转果仁--失败原因
 			poundage: order.serviceFee, // 转果仁--手续费
 			submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
-			serialNum: order.serialNum, // 流水号
 			transferDesc: order.transContent, // 转果仁--转账说明
 			ifTip: order.status === 'FAILURE', // 是否显示底部提示
 		};
@@ -386,6 +385,7 @@ define('h5-view-bill', [
 			var order = data.data.transferOut;
 			setVM($.extend(transferHandler(type, id, order), {
 				transferSign: '-',
+				serialNum: order.serialNum, // 流水号(只有转出有)
 			}), options);
 			order.personId && setUser(order.personId);
 		});
