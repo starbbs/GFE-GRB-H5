@@ -166,5 +166,9 @@
 	</div>
 	@@include('../../components/nav/nav.html', { "name": "home" })
 	<div class="alert"></div>
+	<div class="view">
+		<!--1 引入分页   2 分页的SASS引入@extend .view-style;需要几个引几个-->
+		@@include('../../views/discovery-temp/discovery-temp.html')
+	</div>	
 </div>
 @@include('../../../source/include/bottom.html', {"name": "home"})

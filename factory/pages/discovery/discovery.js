@@ -75,7 +75,7 @@ require([
 			$.cookie('gopHomeEye', vm.visible_ok);
 		},
 		aaa:function(){
-			router.go('/discovery-temp-1');
+			router.go('/discovery-temp');
 		},
 		gopNum: 0,
 		bannerImgArr: []

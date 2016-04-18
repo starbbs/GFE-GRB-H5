@@ -83,6 +83,17 @@ require([
 				$.alert('两次输入不一致');
 			}
 		},
+		paypassSet:function(){
+			if(vm.getPassWorld){ //已设置  改pw
+				window.location.href = './paypass.html';
+			}else{
+				if(!vm.authenticationed){
+					$.alert('请先进行实名认证!');
+					return;
+				}
+				router.go('/paypass-view-2');
+			}
+		},
 	});
 	avalon.scan();
 	var init = function() {

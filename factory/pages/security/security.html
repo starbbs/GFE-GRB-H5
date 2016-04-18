@@ -22,7 +22,10 @@
 			</a>
 			-->
 			<!--未设置==>false-->
+			<!--
 			<a ms-attr-href="{{getPassWorld ?  './paypass.html' : '#!/paypass-view-2'}}" class="block-item">
+			-->
+			<a href="javascript:;" class="block-item" ms-on-click="paypassSet">
 				<div class="block-label">支付密码</div>
 				<div ms-class-1="green:getPassWorld" ms-class-2="silver:!getPassWorld">
 					{{getPassWorld?'修改':'未设置'}}

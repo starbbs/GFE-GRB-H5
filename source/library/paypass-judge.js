@@ -27,25 +27,27 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 					api.isCertification({ //再做实名认证判断
 						gopToken: gopToken
 					}, function(data) {
-						if (data.status == 200) {
-							if (data.msg == '未实名认证') {
+						console.log(data);
+						if (data.status == 400) {
+							// if (data.msg == '未实名认证') {
 								status = 'notAuthentication';
-							}
+							// }
 						} else {
 							console.log(data.msg);
 						}
+						callback(status, data);
 					});
 				} else {
 					status = 'done';
-				}
-				if (data.data.result === 'error') {
-					if (data.data.times == 5) {
-						status = 'lock5';
-					} else if (data.data.times == 10) {
-						status = 'lock10';
+					if (data.data.result === 'error') {
+						if (data.data.times == 5) {
+							status = 'lock5';
+						} else if (data.data.times == 10) {
+							status = 'lock10';
+						}
 					}
+					callback(status, data);
 				}
-				callback(status, data);
 			});
 		},
 

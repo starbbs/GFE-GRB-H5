@@ -16,7 +16,6 @@ require([
 	dialogPaypass, dialogSuccess
 ) {
 	router.init();
-
 	var main = $('.order');
 	var gopToken = $.cookie('gopToken');
 	var identInput = $('#order-ident');
