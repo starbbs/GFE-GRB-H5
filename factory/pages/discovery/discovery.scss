@@ -12,7 +12,10 @@
 
 
 html {
-    background-color: $g-background;
+    background-color: $g-white;
+}
+body{
+    background-color:$g-background;
 }
 .nav{
     opacity: 0;
@@ -25,7 +28,7 @@ html {
     $img: $g-pages + "/discovery/images";
     @extend %fade-in; 
     overflow-x: hidden;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     width: 100%;
     height: 100%;
     color: #777777;
