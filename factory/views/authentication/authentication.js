@@ -2,7 +2,8 @@
 // H5微信端 --- view-authentication
 
 
-define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert', 'h5-text', 'cookie'], function(View, api,dialogAlert) {
+define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router', 'h5-text', 'cookie'], function(View, api,dialogAlert,router) {
+	router.init(true);
 	var name = 'authentication';
 	var gopToken = $.cookie('gopToken');
 	var view = new View(name);

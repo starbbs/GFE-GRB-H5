@@ -89,6 +89,7 @@ require([
 		api.isCertification({
 			gopToken: gopToken
 		}, function(data) {
+			console.log(data);
 			if (data.status == 200) {
 				vm.authenticationed = true;
 			} else {

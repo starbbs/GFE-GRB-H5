@@ -81,7 +81,7 @@ require([
 						vm.paypass1 = '';
 						vm.paypass2 = '';
 						vm.paypass3 = '';
-						dialogShow();
+						dialogShow(); //密码修改完成后在dialogShow中做页面跳转
 						// window.location.reload();
 						// router.go('/');
 					} else {

@@ -20,29 +20,28 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 			api.checkPayPasswordStatus({ // 页面加载初判断一次
 				gopToken: gopToken
 			}, function(data) { // 每次打开时都要判断
+				console.log(data);
 				var status = res.defaultStatus;
-				if (data.status == 311) {
-					status = 'not'; //没有设置密码 //再做实名认证判断
-					/*
-					api.isCertification({
+				if (data.status == 311) { //没有设置密码
+					status = 'not';
+					api.isCertification({ //再做实名认证判断
 						gopToken: gopToken
 					}, function(data) {
 						if (data.status == 200) {
-							if(data.msg == '未实名认证'){
+							if (data.msg == '未实名认证') {
 								status = 'notAuthentication';
 							}
 						} else {
 							console.log(data.msg);
 						}
 					});
-					*/
 				} else {
 					status = 'done';
 				}
 				if (data.data.result === 'error') {
-					if(data.data.times == 5){
+					if (data.data.times == 5) {
 						status = 'lock5';
-					}else if(data.data.times == 10){
+					} else if (data.data.times == 10) {
 						status = 'lock10';
 					}
 				}
