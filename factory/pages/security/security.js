@@ -6,7 +6,6 @@ require([
 ], function(
 	router, api, View, viewAuthen, dialogSuccess, paypassView
 ) {
-	console.log(paypassView);
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var security = $('.security');
@@ -40,6 +39,10 @@ require([
 					return;
 				}
 				router.go('/paypass-view-2set');
+				paypassView.paypass3VM.callback = function(){ // 设置密码后的回调
+					window.history.go(-2);
+					vm.getPassWorld = true;
+				};			
 			}
 		},
 	});

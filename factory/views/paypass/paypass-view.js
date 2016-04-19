@@ -23,7 +23,9 @@ define('h5-paypass-view', [
 				second--;
 				if (second <= 0) {
 					// finish();
-					window.location.reload();
+					// window.location.reload();
+					paypass3VM.callback && paypass3VM.callback();
+					// window.history.go(-3);
 					dialogSuccess.hide();
 					clearInterval(timer);
 				} else {
@@ -70,7 +72,6 @@ define('h5-paypass-view', [
 						paypass2VM.paypass2 = '';
 						paypass3VM.paypass3 = '';
 						dialogShow();
-						paypass3VM.callback && paypass3VM.callback();
 						// dialogShow(); //密码修改完成后在dialogShow中做页面跳转
 						// window.location.reload();
 						// router.go('/');

@@ -64,11 +64,15 @@ define('h5-dialog-paypass', [
 		}
 	};
 
-	var showPaypass = function() { // 设置密码
+	var showPaypass = function() { // paypass-view.js设置密码后3秒后执行paypassViewVM.paypass3VM.callback
+		// 返回设置密码前的页面
 		router.go('paypass-view-2set');
 		paypassViewVM.paypass3VM.callback = function(){
-			window.location.reload();
-		};
+			judge.check(function(status, data) {
+				paypassStatus = status;
+				window.history.go(-2);
+			});			
+		};	
 	};
 
 	var showAuthenticationPaypass = function() { //认证+设置密码
@@ -79,9 +83,17 @@ define('h5-dialog-paypass', [
 					router.go('/paypass-view-2set');
 					return true;
 				}, 1500);
-
 			}
 		});
+		paypassViewVM.paypass3VM.callback = function(){
+			judge.check(function(status, data) {
+				paypassStatus = status;
+				window.history.go(-3);
+			});			
+			// router.go('/transfer-target');
+			// window.history.go(-3);
+			// window.location.reload();
+		};		
 	};
 
 	var showDialogPaypass = function() { // 正常出支付浮层
