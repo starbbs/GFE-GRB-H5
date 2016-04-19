@@ -1,0 +1,25 @@
+<div class="paypass-view-3set paypass-view cover" ms-controller = "paypass-view-3set">
+    <div class="paypass-title">
+		再次输入六位支付密码，并牢记
+	</div>
+	<div class="paypass">
+		<div class="paypass-box">
+			<div class="paypass-item"></div>
+			<div class="paypass-item"></div>
+			<div class="paypass-item"></div>
+			<div class="paypass-item"></div>
+			<div class="paypass-item"></div>
+			<div class="paypass-item"></div>
+			<input class="paypass-input" id="paypass-3" name="paypass-3" autocomplete="off" maxlength="6" type="tel" ms-duplex="paypass3" ms-on-input="paypass3Value">
+			<!--
+				paypass@@step             paypass1       双向绑定数据
+				paypass@@stepValue        paypass1Value  事件绑定
+				paypass@@stepNext         paypass1Next   下一步按钮状态
+				paypass@@stepClick        paypass1Click  下一步点击事件
+			-->
+		</div>
+		<div class="paypass-button">
+			<span class="button" ms-class="disabled:!paypass3Next" ms-on-click="paypass3Click">下一步</span>
+		</div>
+	</div>
+</div>

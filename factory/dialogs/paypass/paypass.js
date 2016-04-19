@@ -5,16 +5,16 @@
 
 define('h5-dialog-paypass', [
 	'h5-dialog', 'check', 'h5-view', 'h5-api', 'h5-paypass-judge', 'h5-dialog-alert', 'router',
-	'h5-view-authentication', 'h5-paypass'
+	'h5-view-authentication', 'h5-paypass-view','h5-paypass'
 ], function(
-	Dialog, check, View, api, judge, dialogAlert, router, authenticationVM
+	Dialog, check, View, api, judge, dialogAlert, router, authenticationVM, paypassViewVM
 ) {
 	
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	// new View('paypass-view-1');
-	new View('paypass-view-2');
-	new View('paypass-view-3');
+	new View('paypass-view-2set');
+	new View('paypass-view-3set');
 	var paypass = new Dialog('paypass');
 
 	// new View('authentication');
@@ -65,7 +65,10 @@ define('h5-dialog-paypass', [
 	};
 
 	var showPaypass = function() { // 设置密码
-		router.go('paypass-view-2');
+		router.go('paypass-view-2set');
+		paypassViewVM.paypass3VM.callback = function(){
+			window.location.reload();
+		};
 	};
 
 	var showAuthenticationPaypass = function() { //认证+设置密码
@@ -73,7 +76,7 @@ define('h5-dialog-paypass', [
 		$.extend(authenticationVM.vm, {
 			callback: function() {
 				setTimeout(function() {
-					router.go('/paypass-view-2');
+					router.go('/paypass-view-2set');
 					return true;
 				}, 1500);
 

@@ -104,6 +104,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		opts && $.extend(this, opts);
 	};
 	View.prototype.show = function(ifShowImmediately) {
+		console.log(refreshList);
 		refreshList.slice(this.refreshIndex + 1).forEach(function(name) {
 			name in router.view && router.view[name].hide(ifShowImmediately);
 		});

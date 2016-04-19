@@ -5,7 +5,7 @@
 require([
 	'router', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
-	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication',
+	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication', 'h5-paypass-view',
 	'h5-text', 'h5-weixin'
 ], function(
 	router, api, View, price, get, filters, H5bill,
@@ -540,17 +540,6 @@ require([
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == 200) {
-				if (!data.data.realname) {
-					setTimeout(function() {
-						viewAuthentication.vm.callback = function() {
-							router.to('/');
-							return true;
-						}
-						viewAuthentication.vm.callbackFlag = true;
-						viewAuthentication.show();
-						// router.to('/authentication');
-					}, 100);
-				}
 				if (data.data.marketGopAddress) {
 					vm.marketGopAddress = data.data.marketGopAddress; //果仁市场地址
 				}

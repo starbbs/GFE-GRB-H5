@@ -7,39 +7,18 @@ require([
 	'h5-api', 'get', 'router',
 	'h5-view', 'h5-view-bill',
 	'h5-price', 'h5-ident', 'h5-component-bill',
-	'h5-dialog-paypass', 'h5-dialog-success',
+	'h5-dialog-paypass',
 	'h5-weixin'
 ], function(
 	api, get, router,
 	View, billView,
 	price, H5Ident, H5Bill,
-	dialogPaypass, dialogSuccess
+	dialogPaypass
 ) {
 	router.init();
 	var main = $('.order');
 	var gopToken = $.cookie('gopToken');
 	var identInput = $('#order-ident');
-
-	var dialogShow = function() { // 显示浮层
-		var timer = null;
-		var second = 3;
-		dialogSuccess.on('show', function() {
-			timer = setInterval(function() {
-				second--;
-				if (second <= 0) {
-					// finish();
-					window.location.reload();
-					dialogSuccess.hide();
-					clearInterval(timer);
-				} else {
-					dialogSuccess.button.html('支付密码设置成功，请牢记，' + second + 's后自动跳转');
-				}
-			}, 1000);
-		});
-		dialogSuccess.set('支付密码设置成功，请牢记，3S后自动跳转');
-		dialogSuccess.show();
-	};
-
 
 	var vm = avalon.define({
 		$id: 'order',
@@ -51,47 +30,6 @@ require([
 		gopNum: 0, // 果仁数
 		gopIfUse: true, // 使用果仁数
 		gopUse: 0, // 使用多少果仁
-		//==============================支付浮层
-		paypass1: '',
-		paypass2: '',
-		paypass3: '',
-		paypass1Next: false,
-		paypass2Next: false,
-		paypass3Next: false,
-		paypass2Value: function() {
-			vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
-		},
-		paypass3Value: function() {
-			vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
-		},
-		paypass2Click: function() {
-			if (vm.paypass2.length == 6) {
-				router.go('/paypass-view-3');
-			}
-		},
-		paypass3Click: function() {
-			console.log(vm.paypass2 + ' ==' + vm.paypass3);
-			if (vm.paypass2 == vm.paypass3 && vm.paypass3.length == 6) {
-				api.setPayPassword({
-					gopToken: gopToken,
-					password: vm.paypass3
-				}, function(data) {
-					if (data.status == 200) {
-						vm.paypass1 = '';
-						vm.paypass2 = '';
-						vm.paypass3 = '';
-						dialogShow(); //密码修改完成后在dialogShow中做页面跳转
-						// window.location.reload();
-						// router.go('/');
-					} else {
-						$.alert(data.msg);
-					}
-				});
-			} else {
-				$.alert('两次输入不一致');
-			}
-		},
-		//==============================支付浮层
 		/*
 		gopClick: function() { // 果仁点击
 			vm.gopIfUse = !vm.gopIfUse;

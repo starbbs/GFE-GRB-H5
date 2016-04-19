@@ -10,24 +10,30 @@
 @import "../../views/view";
 @import "../../views/discovery-temp/discovery-temp";
 
-
 html {
     background-color: $g-white;
 }
-body{
-    background-color:$g-background;
+
+body {
+    background-color: $g-background;
 }
-.nav{
+
+.nav {
     opacity: 0;
 }
-.navon{
+
+.navon {
     // transition: 0.3s;
-    opacity: 1;   
+    opacity: 1;
 }
+
 .discovery {
     $img: $g-pages + "/discovery/images";
-    @extend %fade-in; 
+
+    @extend %fade-in;
+
     overflow-x: hidden;
+
     // overflow-y: scroll;
     width: 100%;
     height: 100%;
@@ -86,6 +92,7 @@ body{
             width: 50%;
             position: relative;
             overflow: hidden;
+
             @include border-one("right", #DDDDDD, "after");
 
             // border-right: 1px solid #DDDDDD;
