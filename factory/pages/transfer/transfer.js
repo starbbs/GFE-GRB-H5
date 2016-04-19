@@ -12,7 +12,6 @@ require([
 	viewAddressMine, viewAddressWallet, billView,
 	dialogPaypass, dialogAlert, viewAuthentication
 ) {
-
 	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
