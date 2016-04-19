@@ -31,9 +31,9 @@ require([
 			// window.location.href = "./protection.html"; 
 		},
 		paypassSet:function(){
-			if(vm.getPassWorld){ //已设置  改pw
+			if(vm.getPassWorld){ //已设置  
 				window.location.href = './paypass.html';
-			}else{
+			}else{ //修改密码步骤
 				if(!vm.authenticationed){
 					$.alert('请先进行实名认证!');
 					return;

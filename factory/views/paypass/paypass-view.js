@@ -1,6 +1,6 @@
 // 张树垚 2016-01-09 14:29:10 创建
 // H5微信端 --- paypass-view   
-// 此页面包含  设置密码2  3步 回调成功弹窗 页面刷新
+// 此页面包含  设置密码2、3步==>定时器弹窗==>paypass3回调
 
 
 define('h5-paypass-view', [
@@ -72,6 +72,7 @@ define('h5-paypass-view', [
 						paypass2VM.paypass2 = '';
 						paypass3VM.paypass3 = '';
 						dialogShow();
+						// 回调在dialogShow里面
 						// dialogShow(); //密码修改完成后在dialogShow中做页面跳转
 						// window.location.reload();
 						// router.go('/');

@@ -100,7 +100,7 @@ define('h5-dialog-paypass', [
 		prototypeShow.call(paypass);
 	};
 	var showDialogKnown = function() { // 出"知道了"弹窗  错误5次
-		dialogAlert.set('输入5次错误,3小时后解锁,知道了');
+		dialogAlert.set('输入5次错误,3小时后解锁');
 		dialogAlert.show();
 	};
 	var gotoFrozen = function() { // 进入冻结页  错误10次
@@ -133,18 +133,19 @@ define('h5-dialog-paypass', [
 							paypass.hide();
 							vm.callback(value);
 						} else {
+							/*
 							$.alert(data.msg, {
 								top: document.body.scrollTop + box.get(0).getBoundingClientRect().top - 60 // ios键盘出现, alert定位bug
 							});
+							*/
+							$.alert(data.msg);						
 							input.get(0).paypassClear(); // 清空输入框
 							judge.check(function(status, times, data) { // 检测当前状态
 								paypassStatus = status;
-								if (status === 'lock') { // 被锁住
-									if (times >= 10) { // 10次, 前往冻结页
-										gotoFrozen();
-									} else { // 其他, 显示"知道了"
-										showDialogKnown();
-									}
+								if (status === 'lock5') { // 被锁5次
+									showDialogKnown();
+								} else if(status === 'lock10'){ 
+									gotoFrozen();
 								}
 							});
 						}
