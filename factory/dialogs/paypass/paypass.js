@@ -5,11 +5,11 @@
 
 define('h5-dialog-paypass', [
 	'h5-dialog', 'check', 'h5-view', 'h5-api', 'h5-paypass-judge', 'h5-dialog-alert', 'router',
-	'h5-view-authentication', 'h5-paypass-view','h5-paypass'
+	'h5-view-authentication', 'h5-paypass-view', 'h5-paypass'
 ], function(
 	Dialog, check, View, api, judge, dialogAlert, router, authenticationVM, paypassViewVM
 ) {
-	
+
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	// new View('paypass-view-1');
@@ -67,12 +67,12 @@ define('h5-dialog-paypass', [
 	var showPaypass = function() { // paypass-view.js设置密码后3秒后执行paypassViewVM.paypass3VM.callback
 		// 返回设置密码前的页面
 		router.go('paypass-view-2set');
-		paypassViewVM.paypass3VM.callback = function(){
+		paypassViewVM.paypass3VM.callback = function() {
 			judge.check(function(status, data) {
 				paypassStatus = status;
 				window.history.go(-2);
-			});			
-		};	
+			});
+		};
 	};
 
 	var showAuthenticationPaypass = function() { //认证+设置密码
@@ -85,23 +85,26 @@ define('h5-dialog-paypass', [
 				}, 1500);
 			}
 		});
-		paypassViewVM.paypass3VM.callback = function(){
+		paypassViewVM.paypass3VM.callback = function() {
 			judge.check(function(status, data) {
 				paypassStatus = status;
 				window.history.go(-3);
-			});			
+			});
 			// router.go('/transfer-target');
 			// window.history.go(-3);
 			// window.location.reload();
-		};		
+		};
 	};
 
 	var showDialogPaypass = function() { // 正常出支付浮层
 		prototypeShow.call(paypass);
 	};
-	var showDialogKnown = function() { // 出"知道了"弹窗  错误5次
+	// ifShowImmediately [是否立即显示, 默认false]
+	// ifHideOthers      [是否隐藏其他浮层, 默认false]
+	// HideArr           [隐藏指定的浮层, 数组是浮层的名称集合]
+	var showDialogKnown = function(ifShowImmediately, ifHideOthers ,HideArr) { // 出"知道了"弹窗  错误5次
 		dialogAlert.set('输入5次错误,3小时后解锁');
-		dialogAlert.show();
+		dialogAlert.show(ifShowImmediately, ifHideOthers ,HideArr);
 	};
 	var gotoFrozen = function() { // 进入冻结页  错误10次
 		setTimeout(function() {
@@ -138,14 +141,17 @@ define('h5-dialog-paypass', [
 								top: document.body.scrollTop + box.get(0).getBoundingClientRect().top - 60 // ios键盘出现, alert定位bug
 							});
 							*/
-							$.alert(data.msg);						
+							var alertMsg = data.msg;
 							input.get(0).paypassClear(); // 清空输入框
 							judge.check(function(status, times, data) { // 检测当前状态
 								paypassStatus = status;
 								if (status === 'lock5') { // 被锁5次
-									showDialogKnown();
-								} else if(status === 'lock10'){ 
+									// paypass.hide();
+									showDialogKnown(false,true);
+								} else if (status === 'lock10') {
 									gotoFrozen();
+								} else {
+									$.alert(alertMsg);
 								}
 							});
 						}

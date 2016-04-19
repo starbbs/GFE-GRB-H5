@@ -78,6 +78,9 @@ define('h5-dialog', function() {
 		setTimeout(function() {
 			this.self.addClass(ifShowImmediately ? 'show-immediately' : 'show');
 		}.bind(this), 10);
+		if(ifHideOthers){ //隐藏其它浮层
+			this.self.siblings('div').hide();
+		}
 		return this;
 	};
 	Dialog.prototype.hide = function(ifHideImmediately, ifNotHideMain) { // 显示
