@@ -20,7 +20,7 @@ require([
 
 	$(document).get(0).ontouchmove = function(event) {
 		event.preventDefault();
-	};	
+	};
 	var historyVM = history.vm = avalon.define({
 		$id: 'wealth-history',
 		total: 0,
@@ -148,40 +148,57 @@ require([
 			}));
 		});
 	};
+	var chartSetting = function(data, date) {
+		var setting = {
+			xAxis: {
+				tickInterval: (function() {
+					return data.length - 1;
+				})(),
+				tickWidth: 0,
+				tickmarkPlacement: 'on',
+				labels: {
+					formatter: function() {
+						return date[this.value];
+					}
+				},
+			},
+			yAxis: {
+				title: {
+					text: ''
+				},
+				tickInterval: (function() {
+					return avalon.filters.fix(Math.round(Math.max.apply(Math, data) * 1.1) / 4);
+				})(),
+				labels: {
+					formatter: function() {
+						return this.value.toFixed(2);
+					}
+				}
+			},
+			series: [{
+				data: data
+			}]
+		};
+		var max = Math.max.apply(Math, data);
+		var min = Math.min.apply(Math, data);
+		if (max === min) { // 相等时加辅助线
+			setting.yAxis.plotLines = [{
+				// color: '#C0C0C0',
+				color: 'red',
+				dashStyle: 'solid',
+				width: 10,
+				value: max + 1
+			}];
+		}
+		console.log(setting.yAxis)
+		return setting;
+	};
+
 	var annualIncomeWealthSet = function() {
-		api.annualIncomeWealth({}, function(data) {
+		api.annualIncomeWealth(function(data) {
 			if (data.status == 200) {
 				chartAnnualHandler(data.data.list);
-				highChartsSet.set(chartAnnual, {
-					xAxis: {
-						// tickInterval: 3, // x坐标轴脚标间隔
-						tickInterval: (function() {
-							return chartAnnualData.length - 1;
-						})(),
-						labels: {
-							formatter: function() {
-								return chartAnnualDate[this.value];
-							}
-						}
-					},
-					yAxis: {
-						title: {
-							text: ''
-						},
-						tickInterval: (function() {
-							return avalon.filters.fix(Math.round(Math.max.apply(Math, chartAnnualData) * 1.1) / 4);
-						})(),
-						labels: {
-							formatter: function() {
-								return this.value.toFixed(2);
-							}
-						}
-					},
-					series: [{
-						name: '历史价格',
-						data: chartAnnualData
-					}]
-				});
+				highChartsSet.set(chartAnnual, chartSetting(chartAnnualData, chartAnnualDate));
 			} else {
 				$.alert(data.msg);
 			}
@@ -195,46 +212,8 @@ require([
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == 200) {
-				// chartHistoryHandler([
-				// 	{id: 8, createTime: "2016-01-19 00:00:00", price: 2, date: "2016-01-19"},
-				// 	{id: 9, createTime: "2016-01-20 00:00:00", price: 5, date: "2016-01-20"},
-				// 	{id: 10, createTime: "2016-01-21 00:00:00", price: 7, date: "2016-01-21"},
-				// 	{id: 11, createTime: "2016-01-22 00:00:00", price: 4, date: "2016-01-22"},
-				// 	{id: 12, createTime: "2016-01-23 00:00:00", price: 1, date: "2016-01-23"},
-				// 	{id: 13, createTime: "2016-01-24 00:00:00", price: 2, date: "2016-01-24"},
-				// 	{id: 14, createTime: "2016-01-25 00:00:00", price: 9, date: "2016-01-25"}
-				// ]);
 				chartHistoryHandler(data.data.list);
-				highChartsSet.set(chartHistory, {
-					xAxis: {
-						// tickInterval: 3, // x坐标轴脚标间隔
-						tickInterval: (function() {
-							return chartHistoryData.length - 1;
-						})(),
-						labels: {
-							formatter: function() {
-								return chartHistoryDate[this.value];
-							}
-						}
-					},
-					yAxis: {
-						title: {
-							text: ''
-						},
-						tickInterval: (function() {
-							return avalon.filters.fix(Math.round(Math.max.apply(Math, chartHistoryData) * 1.1) / 4);
-						})(),
-						labels: {
-							formatter: function() {
-								return this.value.toFixed(2);
-							}
-						}
-					},
-					series: [{
-						name: '历史价格',
-						data: chartHistoryData
-					}]
-				});
+				highChartsSet.set(chartHistory, chartSetting(chartHistoryData, chartHistoryDate));
 			} else {
 				$.alert(data.msg);
 			}
@@ -242,15 +221,10 @@ require([
 	};
 	chartHistorySet();
 
-	price.onFirstChange = function(next) {
-		vm.price = next;
-	};
-	//                    当前价格 上次价格 改变大小 
-	price.onChange = function(next, now, change) {
-		vm.priceChange = change;
-		vm.price = now;
-	};
-	price.get();
+
+	price.once(function(data) {
+		vm.price = data;
+	});
 
 	api.getGopNum({
 		gopToken: gopToken
@@ -266,7 +240,6 @@ require([
 		gopToken: gopToken
 	}, function(data) {
 		if (data.status == 200) {
-			console.log(data);
 			vm.total = historyVM.total = data.data.totalIncome;
 			vm.yesterday = data.data.yesterdayIncome;
 		} else {
