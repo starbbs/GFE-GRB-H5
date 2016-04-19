@@ -3,10 +3,10 @@
 
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide', 'highChartsSet',
-	'filters', 'h5-weixin'
+	'router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide',
+	'filters', 'h5-weixin', 'hchart'
 ], function(
-	router, api, price, View, TouchSlide, mydate, iscrollLoading, TouchSlide, highChartsSet
+	router, api, price, View, TouchSlide, mydate, iscrollLoading, TouchSlide
 ) {
 
 	router.init(true);
@@ -150,6 +150,21 @@ require([
 	};
 	var chartSetting = function(data, date) {
 		var setting = {
+			chart: {
+				// type: 'area'
+				// type: 'areaspline' // 带阴影的线
+			},
+			colors: ['#3d70ee'],
+			title: {
+				text: ''
+			},
+			subtitle: {
+				text: ''
+			},
+			legend: {
+				x: 150,
+				y: 100,
+			},
 			xAxis: {
 				tickInterval: (function() {
 					return data.length - 1;
@@ -175,6 +190,22 @@ require([
 					}
 				}
 			},
+			plotOptions: {
+				series: {
+					marker: {
+						enabled: false // 去掉线上的点
+					}
+				},
+				// area: {
+				// 	fillColor: { // 渐变颜色, 不知为何失效了
+				// 		linearGradient: [0, 0, 0, 300],
+				// 		stops: [
+				// 			[0, Highcharts.getOptions().colors[0]],
+				// 			[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+				// 		]
+				// 	}
+				// }
+			},
 			series: [{
 				data: data
 			}]
@@ -182,15 +213,30 @@ require([
 		var max = Math.max.apply(Math, data);
 		var min = Math.min.apply(Math, data);
 		if (max === min) { // 相等时加辅助线
-			setting.yAxis.plotLines = [{
-				// color: '#C0C0C0',
-				color: 'red',
-				dashStyle: 'solid',
-				width: 10,
-				value: max + 1
-			}];
+			var fun = function(value) {
+				return {
+					color: '#C0C0C0',
+					dashStyle: 'solid',
+					width: 0.5,
+					value: value,
+					label: {
+						text: avalon.filters.fix(max),
+						x: -40,
+						y: 5,
+						style: {
+							fontSize: 11,
+							color: '#666'
+						}
+					},
+				}
+			};
+			setting.yAxis.plotLines = [
+				fun(max - 0.5 / 3 * 1),
+				fun(max - 0.5 / 3 * 2),
+				fun(max + 0.5 / 3 * 1),
+				fun(max + 0.5 / 3 * 2),
+			];
 		}
-		console.log(setting.yAxis)
 		return setting;
 	};
 
@@ -198,7 +244,7 @@ require([
 		api.annualIncomeWealth(function(data) {
 			if (data.status == 200) {
 				chartAnnualHandler(data.data.list);
-				highChartsSet.set(chartAnnual, chartSetting(chartAnnualData, chartAnnualDate));
+				chartAnnual.highcharts(chartSetting(chartAnnualData, chartAnnualDate));
 			} else {
 				$.alert(data.msg);
 			}
@@ -213,7 +259,7 @@ require([
 		}, function(data) {
 			if (data.status == 200) {
 				chartHistoryHandler(data.data.list);
-				highChartsSet.set(chartHistory, chartSetting(chartHistoryData, chartHistoryDate));
+				chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate));
 			} else {
 				$.alert(data.msg);
 			}
