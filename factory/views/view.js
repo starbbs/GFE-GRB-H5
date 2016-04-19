@@ -9,7 +9,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 	// 2.判断分页顺序, 由dom结构判断而不是实例, 之后由分页顺序来显示隐藏
 
 	router.view = {};
-	var _list = router.view._list = []; // 所有列表
+	var _list = router.view._list = []; // 所有列表 各分页的类名
 	var _reset = router.view._reset = function() { // 重置, 隐藏所有
 		mainHide();
 	};
@@ -60,10 +60,11 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		}
 	};
 
+	// 排序view 节点
 	var refreshList = [];
 	var refreshTimer = null;
 	var refresh = function() {
-		main.children().each(function(i, item) {
+		main.children().each(function(i, item) { // main.children()  html节点
 			var name = item.className.split(' ')[0];
 			refreshList[i] = name;
 			if (name in router.view) {
