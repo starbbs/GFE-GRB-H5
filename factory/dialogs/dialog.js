@@ -78,8 +78,13 @@ define('h5-dialog', function() {
 		setTimeout(function() {
 			this.self.addClass(ifShowImmediately ? 'show-immediately' : 'show');
 		}.bind(this), 10);
-		if(ifHideOthers){ //隐藏其它浮层
-			this.self.siblings('div').hide();
+		if (ifHideOthers) { //隐藏其它浮层
+			this.self.siblings('div').hide().removeClass('show');
+		}
+		if (HideArr && HideArr.length) { // 隐藏指定浮层
+			for (var i = 0; i < HideArr.length; i++) {
+				$('.' + HideArr[i]).hide().removeClass('show');
+			}
 		}
 		return this;
 	};

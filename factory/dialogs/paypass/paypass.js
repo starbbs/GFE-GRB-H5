@@ -147,7 +147,7 @@ define('h5-dialog-paypass', [
 								paypassStatus = status;
 								if (status === 'lock5') { // 被锁5次
 									// paypass.hide();
-									showDialogKnown(false,true);
+									showDialogKnown(false,false,['dialog-paypass']);
 								} else if (status === 'lock10') {
 									gotoFrozen();
 								} else {
