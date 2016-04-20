@@ -39,7 +39,6 @@ define('h5-dialog', function() {
 	var Dialog = function(name) {
 
 		_dialogsArr.push(this);
-
 		this.name = name;
 		this.className = '.dialog-' + name;
 		this.self = $(this.className);
