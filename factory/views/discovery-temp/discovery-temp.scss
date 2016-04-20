@@ -27,6 +27,9 @@
     }
     &-dl {
         margin: 38px 9px;
+        &:nth-last-child(1){
+            margin-bottom: 49px;
+        }
     }
     &-dt {
         text-align: center;
