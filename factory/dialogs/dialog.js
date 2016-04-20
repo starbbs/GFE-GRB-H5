@@ -66,6 +66,7 @@ define('h5-dialog', function() {
 	 * @return   {[this]}                                   [返回自己]
 	 */
 	Dialog.prototype.show = function(ifShowImmediately, ifHideOthers, HideArr) { // 隐藏
+		HideArr = HideArr || [];
 		if (this.isShowing) {
 			return;
 		}
@@ -81,11 +82,9 @@ define('h5-dialog', function() {
 		if (ifHideOthers) { //隐藏其它浮层
 			this.self.siblings('div').hide().removeClass('show');
 		}
-		if (HideArr && HideArr.length) { // 隐藏指定浮层
-			for (var i = 0; i < HideArr.length; i++) {
-				$('.' + HideArr[i]).hide().removeClass('show');
-			}
-		}
+		HideArr.forEach(function(name) {
+			$('.' + name).hide().removeClass('show');
+		})
 		return this;
 	};
 	Dialog.prototype.hide = function(ifHideImmediately, ifNotHideMain) { // 显示
