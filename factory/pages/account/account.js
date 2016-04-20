@@ -289,7 +289,6 @@ require([
 	});
 	// billView.on('close', function() {});
 	billView.onClose = function(vmid, vmtime) {
-		console.log(1)
 		vm.list.every(function(month) {
 			return month.days.every(function(day, index) {
 				if (day.id === vmid) {
@@ -308,7 +307,7 @@ require([
 	};
 
 	// setTimeout(function() {
-	// 	billView.onClose(790, '2016-04-13 17:75:04');
+	// 	billView.onClose(2346, '2016-04-13 17:75:04');
 	// }, 2000);
 
 	init();

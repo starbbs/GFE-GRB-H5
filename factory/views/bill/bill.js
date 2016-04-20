@@ -154,11 +154,16 @@ define('h5-view-bill', [
 						}, function(data) {
 							if (data.status == 200) {
 								$.alert('关闭成功');
-								consumeHandler(vm.type, vm.id, 'PAY'); //关闭订单后再刷新一下bill页面
-								bill.onClose(vm.id);
+								consumeHandler(vm.type, vm.id, { //关闭订单后再刷新一下bill页面
+									onRequest: function(data) {
+										bill.onClose(data.data.consumeOrder.id, data.data.consumeOrder.updateTime);
+									}
+								});
 							}
 						});
 						break;
+					default:
+						console.log('Error: (bill) 未知的关闭账单类别:' + vm.type);
 				}
 			};
 			dialogConfirm.show();
