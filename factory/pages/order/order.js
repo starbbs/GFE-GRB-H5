@@ -15,7 +15,9 @@ require([
 	price, H5Ident, H5Bill,
 	dialogPaypass
 ) {
+
 	router.init();
+
 	var main = $('.order');
 	var gopToken = $.cookie('gopToken');
 	var identInput = $('#order-ident');
@@ -176,6 +178,10 @@ require([
 		phonecharge: '订单-手机充值', // 来自手机充值
 		loverelay: '订单-爱心接力', // 来自爱心接力
 	}[get.data.from] || '果仁宝-订单'; // 未知来源
+
+	billView.onFinish = function() { // 返回首页点击时露底问题
+		main.hide();
+	};
 
 	avalon.scan();
 });

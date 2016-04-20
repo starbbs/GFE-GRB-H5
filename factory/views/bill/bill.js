@@ -5,12 +5,10 @@
 define('h5-view-bill', [
 	'h5-api', 'router', 'filters', 'mydate', // 公用功能
 	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
-	/*'h5-view-nickname',*/
 	'h5-dialog-confirm' // H5组件
 ], function(
 	api, router, filters, mydate,
 	View, weixin, H5bill,
-	/*nicknameView,*/
 	dialogConfirm
 ) {
 
@@ -20,7 +18,6 @@ define('h5-view-bill', [
 	var main = $('.bill');
 
 	var nowData = null; // 当前使用的后台原始数据
-	var phoneRepayData = null; // 手机重新支付数据
 	var weixinPayData = null; // 微信重新支付数据
 
 	var defaultAddress = '地址已删除'; // 默认地址栏内容
@@ -70,9 +67,6 @@ define('h5-view-bill', [
 		ifReturnHome: false, // 是否显示"返回首页"按钮
 		ifFinishButton: false, // 是否显示"完成"按钮
 		ifPayButton: false, // 是否显示"前往支付"按钮
-		ifRePayButton: false, // 是否显示"重新支付"按钮
-		ifSetNickname: false, // 是否显示"设置备注名"按钮
-		ifShowMore: false, // 是否显示"更多"
 		ifClose: false, // 是否显示"关闭"
 		ifTip: false, // 是否显示底部提示
 		tip: '如有疑问，请联系果仁宝客服<br>', // 底部提示
@@ -113,20 +107,6 @@ define('h5-view-bill', [
 					window.location.href = './order.html?from=bill&id=' + vm.id;
 				}
 			}
-		},
-		rePay: function() { // 重新支付 -- 按钮去掉
-			if (phoneRepayData) {
-				api.phoneRecharge(phoneRepayData, function(data) {});
-			}
-		},
-		setNickname: function() { // 设置备注名 -- 废弃
-			if (bill.onGotoPay() === false) {
-
-			} else {
-				router.go('/nickname');
-			}
-		},
-		showMore: function() { // 更多 -- 废弃
 		},
 		close: function() { // 关闭订单
 			dialogConfirm.set('订单关闭后将无法继续付款，确定关闭？');
@@ -170,10 +150,6 @@ define('h5-view-bill', [
 		},
 	}, initSettings));
 	avalon.scan(main.get(0), vm);
-
-	// nicknameView.vm.callback = function() { // 这是备注名回调, 更新详情备注名, (尚未更新列表备注名)
-	// 	vm.transferName = nicknameView.vm.bickname;
-	// };
 
 	/**
 	 * [set 设置账单详情]
@@ -237,11 +213,6 @@ define('h5-view-bill', [
 				setOne('transferName', data.data.remark || data.data.nick || (data.data.contactType === 'WALLET_CONTACT' ? '未命名地址' : '未命名用户'));
 				setOne('transferImg', data.data.photo || '');
 				setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || defaultAddress);
-				if (!data.data.remark && vm.type === 'TRANSFER_OUT' && vm.status === 'SUCCESS') {
-					// 显示"设置备注名"的判断, 没有备注名且转账成功
-					setOne('ifSetNickname', false);
-					// nicknameView.vm.id = personId;
-				}
 			}
 		});
 	};
@@ -322,13 +293,7 @@ define('h5-view-bill', [
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
 				productDesc: product.productDesc, // 商品信息
-				ifRePayButton: order.status == 'FAILURE', // 是否显示"重新支付"按钮
 			}), options);
-			phoneRepayData = order.status == 'FAILURE' && order.productType === 'SHOUJICHONGZHIKA' ? {
-				gopToken: gopToken,
-				productId: order.productId,
-				phone: JSON.parse(order.extraContent).phone,
-			} : null;
 		});
 	};
 	var transferHandler = function(type, id, order) { // 统一处理的转账数据
@@ -439,7 +404,6 @@ define('h5-view-bill', [
 		onReturnHome: $.noop, // 点击返回首页时(可 return false 取消默认)
 		onFinish: $.noop, // 点击完成时(可 return false 取消默认)
 		onGotoPay: $.noop, // 点击支付时(可 return false 取消默认)
-		onSetNickname: $.noop, // 点击设置备注名时
 		onClose: $.noop, // 关闭订单时
 	});
 });

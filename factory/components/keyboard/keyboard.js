@@ -8,14 +8,17 @@ define('h5-keyboard', ['bind'], function(Bind) {
 	keyboard.setHandles({
 		hide: function(id) { // 写法: data-keyboard="hide(contacts-search-input)" (id不用带引号)
 			var self = $(this);
+			var timer = null;
 			var input = $('#' + id)
 				.on('focus', function() {
+					clearTimeout(timer);
 					self.hide();
 				})
 				.on('blur', function() {
-					setTimeout(function() {
-							self.show();
-					},200);
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						self.show();
+					}, 400);
 				})
 		},
 	});

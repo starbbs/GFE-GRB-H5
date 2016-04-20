@@ -45,7 +45,7 @@ require([
 
 			var code = loginVM.code;
 			var codeCheck = check.ident(code);
-			if (!mobileCheck.result) {
+			if (!codeCheck.result) {
 				return $.alert(codeCheck.message);
 			}
 
@@ -114,7 +114,8 @@ require([
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) { // token有效
-					gotoHome();
+					// gotoHome();
+					gotoLogin();
 				} else { // token无效
 					$.cookie('gopToken', null);
 					checkCode();
