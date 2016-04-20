@@ -6,13 +6,12 @@ require([
 ], function(
 	router, api, price, TouchSlide, View
 ) {
-	router.init(true);
 	var gopToken = $.cookie('gopToken');
 
 	new View('discovery-temp');
 	new View('discovery-temp-1');
 	new View('discovery-temp-2');
-
+	router.init();
 	var main = $('.discovery');
 	var nav = $('.nav');
 	var UA = window.location.href;
