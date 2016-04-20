@@ -36,7 +36,7 @@ html {
 	$border: 1px solid $g-light;
 	$padding: 20px;
 	$colorwhite: #fff;
-	$colororange: #FFBB44;
+	$colororange: #FDA354;
 	$color999: #999999;
 	$bordercolor: #e0e0e0;
 	$colorworldblue: #AABFF5; //蓝色类似透明文字
@@ -69,7 +69,8 @@ html {
 				color: $colorwhite;
 				.layer21{
 					font-size: 60px;
-					height: 85px;
+					height: 75px;
+					line-height: 85px;
 				}
 				.layer22{
 					
@@ -77,13 +78,16 @@ html {
 			}
 			&-layer3{
 				text-align: center;
+				line-height: 41px;
 				margin-top: 25px;
 				>a{
-					margin: 10px 0px;
+					font-size: 18px;					
+					margin: 10px auto;
 					border-radius: 5px;
 					background-color: $colororange;
 					display: block;
-					line-height: 34.134px;
+					line-height: 41px;
+					width: 92%;
 					color: $colorwhite;
 				}
 				>span{
@@ -237,6 +241,7 @@ html {
 				display: inline-block;
 				vertical-align: middle;
 				margin: 0 5px;
+				font-size: 14px;
 			}
 		}
 		&-buy{
@@ -278,14 +283,6 @@ html {
 		margin-bottom: 15px;
 	}
 	&-phonebills{
-		&-blocka{
-			display: block;
-			height: 100%;
-		}
-		&-jins{
-			@include atr(0px,0px);
-			@include sprite($img+'/jins.png', 60px, 60px);
-		}
 		background-color: $colorwhite;
 		position: relative;
 		height: 110px;
@@ -294,15 +291,26 @@ html {
 		// padding: 17px 12.8px 10.66px 12.8px;
 		padding: 17px 0px 10.66px 0px;
 		text-align: center;
+		&-blocka{
+			display: block;
+			height: 100%;
+		}
+		&-jins{
+			@include atr(0px,0px);
+			@include sprite($img+'/jins.png', 60px, 60px);
+		}		
 		&-left{
+			box-sizing:border-box;
+			padding-left: 5%;
 			float: left;
 			width: 35%;
 			height: 79px;
 			&-curprice{
-				font-size: 14px;
+				font-size: 18px;
 				color: #F13A3A;
+				line-height: 34px;
 				>span{
-					font-size: 26px;
+					font-size: 32px;
 				}
 			}
 			&-oriprice{
@@ -321,12 +329,20 @@ html {
 			}
 		}
 		&-right{
+			position: relative;
 			text-align: left;
 			float: right;
 			width: 65%;
 			height: 79px;
 			box-sizing: border-box;
-			padding-left: 35px;
+			padding-left: 10%;
+			&-sline{
+				width: 1px; 
+				display: inline-block;
+				background: $bordercolor;
+				height: 24px;
+				@include atl(20px,10px);
+			}
 			&-productcangory{
 				font-size: 16px;
 				margin-bottom: 5px;
@@ -335,8 +351,8 @@ html {
 				overflow: hidden;
 				>span{
 					float: left;
-					width: 65px; 
-					line-height: 20px; 
+					width: 63px; 
+					line-height: 17px; 
 					border-radius: 10px;
 					@include border($bordercolor);
 					text-align: center;
@@ -348,7 +364,7 @@ html {
 		&-down{
 			overflow: hidden;
 			clear: both;
-			border-top: 1px solid #E0E0E0;
+			border-top: 1px solid $bordercolor;
 			width: 90%;
 			line-height: 39px;
 			margin-left: 5%;
