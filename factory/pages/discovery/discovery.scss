@@ -29,7 +29,7 @@ body {
 
 .discovery {
     $img: $g-pages + "/discovery/images";
-
+    @extend %scroll; //平滑滚动
     @extend %fade-in;
 
     overflow-x: hidden;
@@ -142,6 +142,9 @@ body {
         background: #fff;
         padding: 15px;
         padding-top: 0px;
+        &:nth-last-child(1){
+            margin-bottom: 49px;
+        }
         &-tit {
             line-height: 44px;
         }
