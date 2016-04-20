@@ -37,6 +37,7 @@ body {
 	&-block {
 		&:nth-child(1){
 			margin-top: 0px;
+			height: 154px;
 		}
 		margin-top: $margin-top;
 		background-color: $g-white;
@@ -102,7 +103,7 @@ body {
 	&-icon {
 		@for $i from 1 through 9 {
 			&-#{$i} {
-				@include sprite($img + '/' + $i + '.png', 24px);
+				@include sprite($img + '/' + $i + '.png', 18px);
 			}
 		}
 	}
