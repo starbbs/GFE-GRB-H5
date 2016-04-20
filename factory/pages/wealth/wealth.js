@@ -153,6 +153,7 @@ require([
 			chart: {
 				// type: 'area'
 				// type: 'areaspline' // 带阴影的线
+				type: 'spline'
 			},
 			colors: ['#3d70ee'],
 			title: {
@@ -181,9 +182,9 @@ require([
 				title: {
 					text: ''
 				},
-				tickInterval: (function() {
-					return avalon.filters.fix(Math.round(Math.max.apply(Math, data) * 1.1) / 4);
-				})(),
+				// tickInterval: (function() {
+				// 	return avalon.filters.fix(Math.round(Math.max.apply(Math, data) * 1.1) / 4);
+				// })(),
 				labels: {
 					formatter: function() {
 						return this.value.toFixed(2);
@@ -237,6 +238,7 @@ require([
 				fun(max + 0.5 / 3 * 2),
 			];
 		}
+		console.log(setting)
 		return setting;
 	};
 
