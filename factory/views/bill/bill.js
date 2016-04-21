@@ -359,7 +359,6 @@ define('h5-view-bill', [
 			var order = data.data.transferOut;
 			setVM($.extend(transferHandler(type, id, order), {
 				transferSign: '-',
-				serialNum: order.serialNum, // 流水号(只有转出有)
 			}), options);
 			order.personId && setUser(order.personId);
 		});
