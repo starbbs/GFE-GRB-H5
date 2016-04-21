@@ -121,6 +121,9 @@ require([
 		autoPlay: false,
 		mainCell: '.wealth-chart-scroll',
 		titCell: '.wealth-tab-item',
+		endFun: function(i ,c){
+			$('.wealth-chart-box-slider-hd-li').eq(i).addClass('on').siblings('li').removeClass('on');
+		},
 	});
 	var chartHistory = $('#chart-history'); //历史
 	var chartAnnual = $('#chart-annual'); //年化30日

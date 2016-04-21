@@ -125,7 +125,26 @@ body {
 		width: 100%;
 		&-box {
 			@extend %afull;
+			position: relative;
 			overflow: hidden;
+			&-slider-hd{
+				overflow:hidden;
+				position:absolute;
+				left:50%;
+				transform: translateX(-50%);
+				bottom:5px;
+				&-li{
+					width:6px;
+					height:6px;
+					border-radius:50%;
+					background-color:rgba($g-white, 0.5);
+					float:left;
+					margin-right:8px;
+					&.on {
+						background-color: #5883f2;
+					}
+				} 
+			}
 		}
 		&-scroll {
 			// @extend %afull;
