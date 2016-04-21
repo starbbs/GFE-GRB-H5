@@ -114,8 +114,8 @@ require([
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) { // token有效
-					// gotoHome();
-					gotoLogin();
+					gotoHome();
+					// gotoLogin();
 				} else { // token无效
 					$.cookie('gopToken', null);
 					checkCode();
@@ -156,5 +156,4 @@ require([
 	};
 
 	init();
-
 });
