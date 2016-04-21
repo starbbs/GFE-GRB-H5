@@ -78,12 +78,15 @@ body {
 
 	&-item {
 		margin-left: $g-padding;
-		border-bottom: $border;
+		// border-bottom: $border;
 		@include height(48px);
 		display: flex;
 		align-items: center;
+		position: relative;
+		@include border-bottom(#999);
 		&:last-child {
-			border-bottom: none;
+			// border-bottom: none;
+			@include border-none;
 		}
 		&-name {
 			flex: 1;
