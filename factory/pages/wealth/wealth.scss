@@ -105,6 +105,7 @@ body {
 		};
 		@include media-retina(2) {
 			border-top: none;
+			border-bottom: 0px;
 		};
 		border-top: none;
 		&-item {
