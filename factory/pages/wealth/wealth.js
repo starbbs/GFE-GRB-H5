@@ -6,7 +6,7 @@ require([
 	'router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide',
 	'filters', 'h5-weixin', 'hchart'
 ], function(
-	router, api, price, View, TouchSlide, mydate, iscrollLoading, TouchSlide
+	router, api, price, View, TouchSlide, mydate, iscrollLoading
 ) {
 
 	router.init(true);
@@ -17,10 +17,11 @@ require([
 	var pageSize = 15;
 	var historyListArr = [];
 	var history = new View('wealth-history');
-
-	$(document).get(0).ontouchmove = function(event) {
+	
+	$('#wealth-history').get(0).ontouchmove = function(event) {
 		event.preventDefault();
 	};
+	
 	var historyVM = history.vm = avalon.define({
 		$id: 'wealth-history',
 		total: 0,
@@ -79,6 +80,7 @@ require([
 							data.data.list[i]['createTime'] = mydate.date2String(timerB); //日期转字符串
 						}
 					}
+
 					setTimeout(function() {
 						historyVM.loading = false;
 						wealthScroll.refresh();
@@ -86,7 +88,7 @@ require([
 					historyListArr = historyListArr.concat(data.data.list);
 					historyVM.list = historyListArr;
 				}
-
+				historyVM.loading = false;
 			} else {
 				$.alert(data.msg);
 			}
@@ -123,6 +125,7 @@ require([
 		titCell: '.wealth-tab-item',
 		endFun: function(i ,c){
 			$('.wealth-chart-box-slider-hd-li').eq(i).addClass('on').siblings('li').removeClass('on');
+			console.log(1111);
 		},
 	});
 	var chartHistory = $('#chart-history'); //历史

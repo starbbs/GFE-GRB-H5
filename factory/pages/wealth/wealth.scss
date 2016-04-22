@@ -9,20 +9,23 @@
 
 @import '../../views/view';
 
-
 body {
 	background-color: $g-background;
+	height: 100%;
 }
-
+.screen-r{
+	height: 100%;
+}
 .wealth {
 	$img: $g-pages + '/wealth/images';
 	$border: 1px solid $g-line;
 	$padding: 15px;
-
+	
 	@extend %rw;
 	@extend %fade-in;
-	padding-bottom: $g-padding-bottom;
-
+	// padding-bottom: $g-padding-bottom;
+	height: 100%;
+	overflow: hidden;
 	&-head {
 		@extend %rw;
 		height: 234px;
