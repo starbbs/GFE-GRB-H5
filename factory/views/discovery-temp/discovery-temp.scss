@@ -3,6 +3,7 @@
 // 张树垚 2016-02-24 16:06:35 创建
 // H5微信端 --- view-discovery-temp发现模板
 
+.dlw{ width: 90%; margin: 0 auto; text-align: center;}
 .discovery-temp {
     $img: $g-views + "/discovery-temp/images";
     @extend %scroll; //平滑滚动
@@ -14,7 +15,7 @@
     &-dl {
         margin: 38px 9px;
         &:nth-last-child(1){
-            margin-bottom: 49px;
+            margin-bottom: 59px;
         }
     }
     &-dt {
@@ -48,17 +49,5 @@
         @extend %scroll;
         @extend .view-style;
         background: #E1F7EA;
-        &-dl{
-
-        }
-       &-dt{
-            color: #42C534;
-            padding-bottom: 20px;
-       }
-       &-dd{
-            &-p{
-                text-indent: 2em;
-            }
-       }     
     }    
 }
