@@ -170,8 +170,20 @@ require([
 				y: 100,
 			},
 			xAxis: {
+				// showFirstLabel: false,
+				// showLastLabel: true,
+				// endOnTick: true,
+				// minTickInterval: 5,
+				// maxTickInterval: 2,
+				// maxPadding: 0.05,
+				// startOnTick: true,
 				tickInterval: (function() {
-					return data.length - 1;
+					if (data.length < 8) {
+						return 1;
+					} else {
+						return Math.round(data.length / 7);
+					}
+					// return data.length - 1;
 				})(),
 				tickWidth: 0,
 				tickmarkPlacement: 'on',
@@ -241,7 +253,6 @@ require([
 				fun(max + 0.5 / 3 * 2),
 			];
 		}
-		console.log(setting)
 		return setting;
 	};
 
@@ -271,6 +282,18 @@ require([
 		});
 	};
 	chartHistorySet();
+
+	var resizeTimer = null;
+	window.addEventListener('resize', function() {
+		clearTimeout(resizeTimer);
+		Highcharts.charts.forEach(function(item) {
+			item && item.destroy();
+		});
+		resizeTimer = setTimeout(function() {
+			annualIncomeWealthSet();
+			chartHistorySet();
+		}, 100);
+	}, false);
 
 
 	price.once(function(data) {

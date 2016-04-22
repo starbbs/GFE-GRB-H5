@@ -10,20 +10,25 @@
  * 	1.编号顺序和文档一致,方便查找和对应
  * 	2.使用文档为v1.2.0
  */
-define('h5-api', ['api', 'h5-alert', 'cookie'], function(Api) {
+define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api, authorization) {
 
 	// var baseUri = '.'; // 同域
 	var baseUri = 'http://116.213.142.89:8080'; // http测试服务器
 	// var baseUri = 'https://endpoint.goopal.com.cn'; // https正式服务器 v1.1
 	// var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
 
+	var isIndex = (function() {
+		return window.location.href.indexOf('/index.html') === -1;
+	})();
+
 	var goIndex = function(useURI) { // 返回首页
 		// useURI 是否使用当前页面地址(未完成)
-		if (window.location.href.indexOf('/index.html') === -1) {
-			return window.location.href = 'index.html' + useURI ? '?uri=' + encodeURIComponent(window.location.href) : '';
-		} else {
-			$.alert('无法获得用户信息');
-		}
+		// if (window.location.href.indexOf('/index.html') === -1) {
+		// 	return window.location.href = 'index.html' + useURI ? '?uri=' + encodeURIComponent(window.location.href) : '';
+		// } else {
+		// 	$.alert('无法获得用户信息');
+		// }
+		window.location.href = authorization.set(authorization.url, window.location.href);
 	};
 
 	$.gopToken = function(token) { // 注入gopGoken
@@ -32,9 +37,10 @@ define('h5-api', ['api', 'h5-alert', 'cookie'], function(Api) {
 
 	var api = new Api({
 		baseUri: baseUri,
-		onSuccess: function(data) { // return false 阻止后续进程
-			console.log(data)
-			if (!data) {
+		onSuccess: function(data, options) { // return false 阻止后续进程
+			console.log(data, options);
+			if (!data && !options.notGoIndex) {
+				// notGoIndex 为空时不进入首页, 在单个API中设置, 默认只要返回是空, 就跳转认证
 				goIndex(true);
 				return false;
 			}

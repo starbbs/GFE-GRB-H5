@@ -156,11 +156,11 @@ body {
 			overflow: hidden;
 			padding-top: 20px;
 			&-slider-hd{
-				overflow:hidden;
-				position:absolute;
-				left:50%;
+				overflow: hidden;
+				position: absolute;
+				left: 50%;
 				transform: translateX(-50%);
-				bottom:5px;
+				bottom: 0;
 				&-li{
 					width:6px;
 					height:6px;
