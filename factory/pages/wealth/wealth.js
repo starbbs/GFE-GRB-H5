@@ -177,13 +177,13 @@ require([
 				// maxTickInterval: 2,
 				// maxPadding: 0.05,
 				// startOnTick: true,
-				tickInterval: (function() {
-					if (data.length < 8) {
-						return 1;
-					} else {
-						return Math.round(data.length / 7);
-					}
-					// return data.length - 1;
+				tickInterval: (function() { // 间隔问题, 最终采用收尾式
+					// if (data.length < 8) {
+					// 	return 1;
+					// } else {
+					// 	return Math.round(data.length / 7);
+					// }
+					return data.length - 1;
 				})(),
 				tickWidth: 0,
 				tickmarkPlacement: 'on',
@@ -284,7 +284,7 @@ require([
 	chartHistorySet();
 
 	var resizeTimer = null;
-	window.addEventListener('resize', function() {
+	window.addEventListener('resize', function() { // 横竖屏时形状改变的问题
 		clearTimeout(resizeTimer);
 		Highcharts.charts.forEach(function(item) {
 			item && item.destroy();

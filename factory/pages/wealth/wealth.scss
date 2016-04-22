@@ -99,14 +99,7 @@ body {
 		display: flex;
 		background-color: $g-white;
 		@include border($g-bordercolor);
-		@include media-retina(1) {
-			border-top: none;
-			border-bottom: 0px;
-		};
-		@include media-retina(2) {
-			border-top: none;
-			border-bottom: 0px;
-		};
+		@include media-retina();
 		border-top: none;
 		&-item {
 			flex: 1;
@@ -130,14 +123,13 @@ body {
 				font-size: 18px;
 				margin-right: 5px;
 				font-weight: normal;
-				position: relative;
 				&:nth-child(1){
 					font-size: 12px;
 					margin: 0;
 				}
 			}	
 			&-underline{
-				@include border-one("bottom", $g-bordercolor, "after");
+				@include border-one("bottom", #ccc, "after");
 			}		
 		}
 	}
@@ -149,18 +141,17 @@ body {
 		position: relative;
 		height: 210px;
 		width: 100%;
-		padding-bottom: 30px;
+		padding-bottom: 10px;
 		&-box {
 			@extend %afull;
 			position: relative;
 			overflow: hidden;
-			padding-top: 20px;
 			&-slider-hd{
 				overflow: hidden;
 				position: absolute;
 				left: 50%;
 				transform: translateX(-50%);
-				bottom: 0;
+				bottom: 5px;
 				&-li{
 					width:6px;
 					height:6px;
