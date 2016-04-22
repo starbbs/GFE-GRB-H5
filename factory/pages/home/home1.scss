@@ -14,28 +14,19 @@
 html {
 	background-color: $g-background;
 }
-%sign{
-	font-size: 30px;
-	width: 5px;
-	display: inline-block;
-}
 %bannerbottomspanstyle{ //banner下方数字样式
 	display: inline-block;
 	font-size: 24px;
 	color: #ffffff;
 	line-height: 25px;
-	position: relative;
 }
 %bannercenterspanstyle{ //banner中间数字样式
 	text-align: center;
-	font-size: 54px;
-	line-height: 85px;
-	padding-bottom: 8px;
-	color: #fff;	
+	font-size: 64px;
+	line-height: 120px;
 }
 
 .home {
-	$bannerlayer2pt: 25px;     // banner图 我的总资产 累计收益
 	$bannercenterworldlineheight: 90px; //banner图 中间大字
 	$bannercenterworldfontsize: 50px;
 
@@ -47,13 +38,14 @@ html {
 	$colorwhite: #fff;
 	$colororange: #FDA354;
 	$color999: #999999;
+	$bordercolor: #e0e0e0;
 	$colorworldblue: #AABFF5; //蓝色类似透明文字
 	$colorpricered: #ffa2a3; //收益红
 
 	margin-bottom: 70px;
 
 	&-banner{
-		height: 194px;
+		height: 234px;
 		padding: $padding;
 		background-image: url($image + '/home-down.jpg'); 
 		@include background-size;
@@ -137,7 +129,7 @@ html {
 					color: $colorworldblue;
 					text-align: right;
 					padding-right: 10px;
-					border-radius: 13px; 
+					border-radius: 10px; 
 					background-color: #4C5292;
 					margin-right: 35px;
 					width: auto;
@@ -145,7 +137,7 @@ html {
 				}
 				.mytotalgop{
 					color: $colorworldblue;
-					padding-top: $bannerlayer2pt;
+					padding-top: 35px;
 				}
 				.rmbnum{
 					@extend %bannercenterspanstyle;
@@ -199,19 +191,13 @@ html {
 				}
 				&-totalincome{
 					color: $colorworldblue;
-					padding-top: $bannerlayer2pt;					
+					padding-top: 35px;					
 				}
 				&-incomenum{
 					@extend %bannercenterspanstyle;
-					padding-bottom: 1px;
+					color: $colorwhite;
 					>span{
 						padding-bottom: 5px;
-						display: inline-block;
-						margin: 0 auto;
-						vertical-align: middle;
-					}
-					>span:nth-child(1){
-						@extend %sign;
 					}
 				}
 				&-gopbottom{
@@ -259,7 +245,7 @@ html {
 			}
 		}
 		&-buy{
-			@include border-one("right", $g-bordercolor, "after");
+			@include border-one("right", $bordercolor, "after");
 			&-span {
 				@include sprite($img + '/gop_buy.png', 36px, 36px);
 			}
@@ -353,7 +339,7 @@ html {
 			&-sline{
 				width: 1px; 
 				display: inline-block;
-				background: $g-bordercolor;
+				background: $bordercolor;
 				height: 24px;
 				@include atl(20px,10px);
 			}
@@ -368,7 +354,7 @@ html {
 					width: 63px; 
 					line-height: 17px; 
 					border-radius: 10px;
-					@include border($g-bordercolor);
+					@include border($bordercolor);
 					text-align: center;
 					margin-right: 10px;
 					color: $color999;
@@ -378,7 +364,7 @@ html {
 		&-down{
 			overflow: hidden;
 			clear: both;
-			border-top: 1px solid $g-bordercolor;
+			border-top: 1px solid $bordercolor;
 			width: 90%;
 			line-height: 39px;
 			margin-left: 5%;
