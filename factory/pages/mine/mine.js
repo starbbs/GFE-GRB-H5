@@ -3,7 +3,7 @@
 
 require([
 	'router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet',
-	'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin'
+	'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin', 'filters'
 ], function(
 	router, api, View, check, address_mine, address_wallet
 ) {
