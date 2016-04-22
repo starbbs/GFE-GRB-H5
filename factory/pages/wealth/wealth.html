@@ -4,21 +4,26 @@
 		<div class="wealth-head">
 			<div class="wealth-head-bg up" ms-class="down:yesterday<0"></div>
 			<div class="wealth-head-content">
-				<div class="wealth-head-line1">累计收益（￥）</div>
-				<div class="wealth-head-line2">{{yesterday|sign}}{{yesterday|abs|fix}}</div>
-				<div class="wealth-head-line3">昨日浮动盈亏（￥）</div>
-				<div class="wealth-head-line4">{{total|fix}}</div>
+				<div class="wealth-head-line1">累计收益(￥)</div>
+				<div class="wealth-head-line2">
+					<span>{{yesterday|sign}}</span><span>{{yesterday|abs|fix}}</span>
+				</div>
+				<div class="wealth-head-line3">昨日浮动盈亏(￥)</div>
+				<div class="wealth-head-line4">
+					<span>{{total|sign}}</span>
+					<span>{{total|fix}}</span>
+				</div>
 			</div>
 			<div class="wealth-head-next" ms-click="showHistory"><i></i></div>
 		</div>
 		<div class="wealth-bar">
 			<div class="wealth-bar-item">
-				<div class="wealth-bar-label"><span class=" iconfont icon-g"></span>我的果仁</div>
-				<div class="wealth-bar-number">{{gopNum|floorFix}}</div>
+				<div class="wealth-bar-label"></span>我的果仁</div>
+				<div class="wealth-bar-number"><span class=" iconfont icon-g"></span> <span>{{gopNum|floorFix}}</span></div>
 			</div>
 			<div class="wealth-bar-item">
-				<div class="wealth-bar-label"><span>¥</span>果仁总价值</div>
-				<div class="wealth-bar-number">{{(gopNum*price)|floorFix}}</div>
+				<div class="wealth-bar-label">果仁总价值</div>
+				<div class="wealth-bar-number"><span>¥</span> <span class="wealth-bar-number-underline">{{(gopNum*price)|floorFix}}</span> </div>
 			</div>
 		</div>
 		<div class="wealth-chart" id="touchSlide">
