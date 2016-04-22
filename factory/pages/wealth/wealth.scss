@@ -99,6 +99,7 @@ body {
 		display: flex;
 		background-color: $g-white;
 		@include border($g-bordercolor);
+		@include media-retina();
 		border-top: none;
 		&-item {
 			flex: 1;

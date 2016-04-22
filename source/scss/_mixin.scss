@@ -103,7 +103,7 @@
 }
 
 
-@mixin border-none($element: 'after') { // 取消边框
+@mixin border-none($element: 'after') { // 取消边框  配合@mixin border-one
 	@if $element == 'both' {
 		&:before {
 			background-image: none;
