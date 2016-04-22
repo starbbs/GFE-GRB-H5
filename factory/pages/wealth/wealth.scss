@@ -98,9 +98,8 @@ body {
 		height: 62px;
 		display: flex;
 		background-color: $g-white;
-		margin-top: 5px;
-		// @include border($g-bordercolor);
 		@include border($g-bordercolor);
+		border-top: none;
 		&-item {
 			flex: 1;
 			padding-left: $padding;
