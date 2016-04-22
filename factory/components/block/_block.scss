@@ -7,8 +7,11 @@
 
 .block {
 	$img: $g-components + '/block/images';
-	border-top: $g-border;
-	border-bottom: $g-border;
+	// border-top: $g-border;
+	// border-bottom: $g-border;
+	position: relative;
+	@include border-top($g-light, 'before');
+	@include border-bottom($g-light);
 	background-color: $g-white;
 	margin-bottom: 5px;
 	&:first-child {
@@ -21,13 +24,15 @@
 		@include height(48px);
 		margin-left: $g-padding;
 		padding-right: $g-padding;
-		border-bottom: $g-border;
+		// border-bottom: $g-border;
+		@include border-bottom($g-light);
 		display: flex;
 		align-items: center;
 		position: relative;
 		// transition: $g-transition;
 		&:last-child {
-			border-bottom: none;
+			// border-bottom: none;
+			@include border-none;
 		}
 		// &:active { // 左边缺一截
 		// 	background-color: $g-light;
@@ -40,7 +45,8 @@
 	}
 	&-out {
 		@extend .block-item;
-		border-bottom: none;
+		// border-bottom: none;
+		@include border-none;
 		margin-top: 8px;
 	}
 	&-label {

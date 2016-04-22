@@ -10,11 +10,11 @@
 	@include height($g-button-height);
 	text-align: center;
 	background-color:$g-blue; 
-	border: 1px solid $g-blue-border;
+	// border: 1px solid $g-blue-border;
 	border-radius: $g-radius;
 	font-size: $g-font-button;
 	color: $g-white;
-	letter-spacing: 1px;
+	// letter-spacing: 1px;
 	&.disabled {
 		color: #aabff5;
 	}

@@ -50,7 +50,6 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 				}
 			});
 		},
-
 	};
 
 	return res;

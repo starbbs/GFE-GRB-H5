@@ -18,7 +18,7 @@
 	width: 100%;
 
 	&-label {
-		width: 75px - $g-margin;
+		width: 90px;
 		color: $g-input;
 		font-size: $g-font-input;
 		white-space: nowrap;
@@ -156,17 +156,19 @@
 		}
 	}
 	&-ident { // 验证码
-		@include square(100px, 100%);
+		@include square(128px, 100%);
 		border-left: $g-border;
 		text-align: center;
 		margin-right: - $g-padding;
-		margin-left: $g-padding;
+		// margin-left: $g-padding;
+		font-size: 14px;
 	}
 	&-bottom { // 页面底部的提示
-		@include ablw(20px);
+		@include ablw(36px);
 		text-align: center;
 		white-space: nowrap;
 		color: $g-ash;
+		line-height: 1.8;
 	}
 }
 

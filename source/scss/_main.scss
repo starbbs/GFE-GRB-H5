@@ -78,6 +78,22 @@
 	}
 }
 
+.border-none {
+	@include border-none('both');
+}
+.border-bottom {
+	@include border-bottom($g-light);
+}
+.border-top {
+	@include border-top($g-light);
+}
+.border-left {
+	@include border-left($g-light);
+}
+.border-right {
+	@include border-right($g-light);
+}
+
 
 
 

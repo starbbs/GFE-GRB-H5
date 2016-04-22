@@ -134,7 +134,8 @@ require([
 					if (data.data.gopToken) { // 已绑定
 						gopToken = data.data.gopToken;
 						$.cookie('gopToken', data.data.gopToken);
-						gotoHome();
+						// gotoHome();
+						gotoLogin();
 					} else { // 未绑定
 						openid = data.data.openid;
 						unionid = data.data.unionid;
@@ -152,7 +153,8 @@ require([
 	};
 
 	var init = function() {
-		checkToken();
+		// checkToken();
+		checkCode();
 	};
 
 	init();
