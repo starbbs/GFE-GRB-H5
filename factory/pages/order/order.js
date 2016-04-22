@@ -62,6 +62,7 @@ require([
 				return;
 			}
 			dialogPaypass.show();
+			//支付浮层消失的回调
 			dialogPaypass.vm.callback = function(value) {
 				// 支付密码校验成功
 				api.pay({

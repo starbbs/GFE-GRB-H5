@@ -8,20 +8,6 @@
     @extend %scroll; //平滑滚动
     @extend .view-style;
     background: #ffffff;
-    &-1{
-    	@extend %scroll;
-		@extend .view-style;
-		background: #32C1E7;
-		color: #ffffff;
-    	.discovery-temp-dt{
-    		margin-bottom: 25px;
-    	}
-    } 
-    &-2 {
-    	@extend %scroll;
-        @extend .view-style;
-        background: #ffffff;
-    }
     &-banner {
     	width: 100%;
     }
@@ -49,4 +35,30 @@
             text-align: left;
         }
     }
+    &-1{ //第一版
+        @extend %scroll;
+        @extend .view-style;
+        background: #32C1E7;
+        color: #ffffff;
+        .discovery-temp-dt{
+            margin-bottom: 25px;
+        }
+    } 
+    &-2 { //第二版
+        @extend %scroll;
+        @extend .view-style;
+        background: #E1F7EA;
+        &-dl{
+
+        }
+       &-dt{
+            color: #42C534;
+            padding-bottom: 20px;
+       }
+       &-dd{
+            &-p{
+                text-indent: 2em;
+            }
+       }     
+    }    
 }

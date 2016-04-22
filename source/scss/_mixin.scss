@@ -57,26 +57,26 @@
 			left: 0;
 			width: 100%;
 			height: 1px;
-			background-image: url($g-img + '/dot.png');
+			background: url($g-img + '/dot.png');
 		} @else if $position == 'bottom' {
 			bottom: 0;
 			left: 0;
 			width: 100%;
 			height: 1px;
-			background-image: url($g-img + '/dot.png');
+			background: url($g-img + '/dot.png');
 		} @else if $position == 'left' {
 			top: 0;
 			left: 0;
 			width: 1px;
 			height: 100%;
-			background-image: url($g-img + '/dot2.png');
+			background: url($g-img + '/dot2.png');
 			background-size: 100%;
 		} @else if $position == 'right' {
 			top: 0;
 			right: 0;
 			width: 1px;
 			height: 100%;
-			background-image: url($g-img + '/dot2.png');
+			background: url($g-img + '/dot2.png');
 			background-size: 100%;
 		}
 	}

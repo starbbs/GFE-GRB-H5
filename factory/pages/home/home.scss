@@ -63,11 +63,10 @@ html {
 			&-layer1{
 				width: 245px;
 				text-align: center;
-				line-height: 25px;
 				color: $colorworldblue;
 				background-color: #4B5293;
 				border-radius:10px; 
-				margin-bottom: 10px;
+				// margin-bottom: 10px;
 				>span{
 					color: $colororange;
 				}
@@ -76,9 +75,18 @@ html {
 				text-align: center;
 				color: $colorwhite;
 				.layer21{
-					font-size: 60px;
+					text-align: center;
+					// @extend %bannercenterspanstyle;
+					font-size: 54px;
 					height: 75px;
 					line-height: 85px;
+					>span{
+						font-size: 30px;
+						line-height: 85px;
+						height: 100%;
+						display: inline-block;
+						margin-left: -13px;
+					}
 				}
 				.layer22{
 					
@@ -86,19 +94,20 @@ html {
 			}
 			&-layer3{
 				text-align: center;
-				line-height: 41px;
-				margin-top: 25px;
+				// margin-top: 25px;
 				>a{
-					font-size: 18px;					
+					font-size: 16px;					
 					margin: 10px auto;
 					border-radius: 5px;
 					background-color: $colororange;
 					display: block;
-					line-height: 41px;
+					line-height: 38px;
 					width: 92%;
 					color: $colorwhite;
 				}
 				>span{
+					display: block;	
+					height: auto;				
 					color: $colororange;
 				}
 			}

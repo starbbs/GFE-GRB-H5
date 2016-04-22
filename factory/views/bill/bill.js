@@ -274,13 +274,13 @@ define('h5-view-bill', [
 		}, function(data) {
 			// console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
-			if (!data.data || !data.data.consumeOrder || data.status != 200) {
+			if (!data.data || !data.data.consumeOrder || data.status != 200) { //不成功
 				data.msg && $.alert(data.msg);
 				return;
 			}
-			var order = data.data.consumeOrder;
-			var list = data.data.recordList;
-			var product = data.data.product;
+			var order = data.data.consumeOrder; //定单信息 创建时间 
+			var list = data.data.recordList; //流水号 创建时间 支付果仁
+			var product = data.data.product; // 商品信息 流量 话费 面额
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
 			if (order.status == 'SUCCESS' && list && list.length) {
