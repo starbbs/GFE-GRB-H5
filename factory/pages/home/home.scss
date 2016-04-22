@@ -259,7 +259,7 @@ html {
 			}
 		}
 		&-buy{
-			@include border-one("right", #ddd, "after");
+			@include border-one("right", $g-bordercolor, "after");
 			&-span {
 				@include sprite($img + '/gop_buy.png', 36px, 36px);
 			}

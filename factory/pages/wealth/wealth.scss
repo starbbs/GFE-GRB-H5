@@ -99,12 +99,14 @@ body {
 		display: flex;
 		background-color: $g-white;
 		margin-top: 5px;
+		// @include border($g-bordercolor);
 		@include border($g-bordercolor);
 		&-item {
 			flex: 1;
 			padding-left: $padding;
+			position: relative;
 			&:first-child {
-				border-right: $border;
+				@include border-one("right", $g-bordercolor, "after");
 			}
 		}
 		&-label {
