@@ -29,7 +29,7 @@ body {
 	&-head {
 		@extend %rw;
 		height: 234px;
-		border-bottom: $border;
+		// border-bottom: $border;
 		&-bg {
 			@extend %afull;
 			@include background-size;

@@ -18,7 +18,7 @@ html{
 	background-color: #efeff3;
 }
 .middleline{ 
-	@include atlwh(50%,50%,30%,1px);
+	@include atlwh(50%,50%,45%,1px);
 	transform: translate(-50%, -50%);
 	border-top: 1px solid #cccccc;
 	display: inline-block;

@@ -303,7 +303,7 @@ define('h5-view-bill', [
 			finishTime = mydate.parseDate(startTime);
 			finishTime.setHours(finishTime.getHours() + 2);
 			// finishTime = '预计' + mydate.date2String3(finishTime) + '前到账';
-			finishTime = '工作日9:00-18:00提交，2小时内到账';
+			finishTime = '(工作日9:00-18:00提交)';
 		}
 		// var finishTime = order.transferTime || (order.updateTime === order.createTime ? order.status === 'PROCESSING' ? '预计 ' + avalon.filters.date(new Date().setHours(new Date().getHours() + 2), 'yyyy-MM-dd HH:mm:ss') + ' 前' : order.updateTime : order.updateTime)
 		return {
@@ -325,6 +325,7 @@ define('h5-view-bill', [
 			submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
 			transferDesc: order.transContent, // 转果仁--转账说明
 			ifTip: order.status === 'FAILURE', // 是否显示底部提示
+			serialNum: order.serialNum ,// 流水号
 		};
 	};
 	var transferInHandler = function(type, id, options) { // 转入

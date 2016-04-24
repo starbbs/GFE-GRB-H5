@@ -87,8 +87,12 @@ require([
 					}, 300);
 					historyListArr = historyListArr.concat(data.data.list);
 					historyVM.list = historyListArr;
+				}else{
+					historyVM.loadingWord = '您还没有累计收益记录哦！';
+					setTimeout(function(){
+						historyVM.loading = false;
+					},1000);
 				}
-				historyVM.loading = false;
 			} else {
 				$.alert(data.msg);
 			}

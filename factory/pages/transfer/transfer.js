@@ -42,7 +42,6 @@ require([
 					gopToken: gopToken
 				}, function(data) {
 					if (data.status == 200) {
-						console.log(data.data);
 						var nowData = {};
 						nowData.name = '我的钱包';
 						for (var i = 0; i < data.data.walletList.length; i++) {
@@ -387,6 +386,13 @@ require([
 		notchecked: true, // 是否没有检验通过
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
+		transferDesInputFocus:function(){
+			console.log(1111);
+			$('.view').css('top','-100px');
+		},
+		transferDesInputBlur:function(){
+			$('.view').css('top','0px');
+		},
 		getCnyMoney: function() {//输入果仁数量监听
 			console.log(transferTarget.transferNum);
 			if(!this.value){
@@ -423,6 +429,7 @@ require([
 				setTimeout(function() {
 					dialogPaypass.show();
 				}, 300)
+				//支付浮层  密码确认后回调
 				dialogPaypass.vm.callback = function(value) {
 					var transferOutType = vm.transferOutType;
 					if (vm.transferOutType.indexOf('NEW') > 0) {
