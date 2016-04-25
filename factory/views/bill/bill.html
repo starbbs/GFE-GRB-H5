@@ -61,7 +61,8 @@
 						<div class="bill-desc-time">{{transferStart}}</div>
 					</div>
 					<div class="bill-desc-right">
-						<div class="bill-desc-name" ms-class="green:transferStage=='finish'">2小时内到帐</div>
+						<div class="bill-desc-name green" ms-visible="transferStage=='finish'">转帐成功</div>
+						<div class="bill-desc-name" ms-visible="transferStage!='finish'">2小时内到帐</div>
 						<div class="bill-desc-time">{{transferOver}}</div>
 					</div>
 				</div>
