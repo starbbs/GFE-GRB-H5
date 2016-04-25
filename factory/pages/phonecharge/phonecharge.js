@@ -29,7 +29,7 @@ require([
 		productType: "SHOUJILIULIANG"
 	}, function(data) {
 		if (data.status == 200) {
-			// console.log('获取流量列表');			
+			// console.log('获取流量列表');	
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
 				jsonflows[desc.carrier].push({
@@ -157,7 +157,8 @@ require([
 				confirmData[0] = vm.goods[item.index()].$model;
 				vm.confirmId = confirmData[0].id;
 				vm.confirmCangory = '话费';
-				vm.button = '支付：' + filters.floorFix(confirmData[0].use) + '元';
+				vm.button = '支付：' + filters.fix(confirmData[0].use) + '元';
+				// floorFix用于果仁数量  fix用于人民币
 			}
 		},
 		flows: [], // 流量列表	
@@ -168,7 +169,7 @@ require([
 				confirmData[1] = vm.flows[item.index()].$model;
 				vm.confirmId = confirmData[1].id;
 				vm.confirmCangory = '流量';
-				vm.button = '支付：' + filters.floorFix(confirmData[1].use) + '元';
+				vm.button = '支付：' + filters.fix(confirmData[1].use) + '元';
 			}
 		},
 		button: '支付', // 按钮显示
