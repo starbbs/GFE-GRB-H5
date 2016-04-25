@@ -70,7 +70,7 @@ require([
 					this.value = parseInt(this.value);
 					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 					if(vm.ifBuy){
-						vm.expect = this.value ? filters.floorFix(this.value / vm.price) + ' G ': '';
+						vm.expect = this.value ? filters.floorFix(this.value / vm.price) : '';
 					}else{
 						this.value = '';
 						vm.expect = '';
@@ -78,6 +78,7 @@ require([
 					
 				}	
 			}else{
+				vm.expect = '';
 				vm.ifBuy = false;
 			}
 		},
