@@ -5,7 +5,11 @@
 
 
 .bill {
-
+	.underline{
+		height: 1px; 
+		background-color: $g-line;
+		margin: 15px 0px;
+	}
 	$img: $g-views + '/bill/images';
 
 	@extend .view-style;
@@ -309,6 +313,19 @@
 			float: right;
 			width: 60%;
 			text-align: right;
+			overflow: hidden;
+			&-pl{
+				float: left;
+			}
+			&-pr{
+				float: right;
+				color: $g-blue;
+			}
+			&-spanl{
+				float: left;
+				display: inline-block;
+				color: $g-blue;
+			}
 			// &:first-line {
 			// 	text-align: right;
 			// }

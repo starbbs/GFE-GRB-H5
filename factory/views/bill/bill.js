@@ -284,6 +284,7 @@ define('h5-view-bill', [
 			var order = data.data.consumeOrder; //定单信息 创建时间 
 			var list = data.data.recordList; //流水号 创建时间 支付果仁
 			var product = data.data.product; // 商品信息 流量 话费 面额
+			var trade = data.data.trade; // 支付状态
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
 			if (order.status == 'SUCCESS' && list && list.length) {
@@ -292,11 +293,13 @@ define('h5-view-bill', [
 					item.payGop && (payGop = item.payGop);
 				});
 			}
+			payGop = 1;
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
 				productDesc: JSON.parse(order.extraContent).carrier + '-' + product.productDesc.substr(2), // 商品信息
-				phoneNum: JSON.parse(order.extraContent).phone,
+				phoneNum: JSON.parse(order.extraContent).phone, //充值号码
+				transferFailReason: trade.result, //失败原因
 			}), options);
 		});
 	};
@@ -329,7 +332,7 @@ define('h5-view-bill', [
 			submitTime: order.status === 'FAILURE' ? order.createTime : '', // 提交时间
 			transferDesc: order.transContent, // 转果仁--转账说明
 			ifTip: order.status === 'FAILURE', // 是否显示底部提示
-			serialNum: order.serialNum, // 流水号
+			// serialNum: order.serialNum, // 流水号
 		};
 	};
 	var transferInHandler = function(type, id, options) { // 转入
