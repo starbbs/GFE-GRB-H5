@@ -42,8 +42,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 				return false;
 			}
 		},
-		onError: function() {
-			if (text === 'timeout') {
+		onError: function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log(arguments);
+			if (textStatus === 'timeout') {
 				$.alert('请求超时...<br>请检查您的网络');
 				return false;
 			}
