@@ -76,6 +76,7 @@ require([
 		carrier: '', // 运营商
 		confirmId: '', // 提交时商品ID
 		confirmCangory: '', // 提交时商品类型  话费 流量
+		flowsworld:'', //流量充值描述文字
 		input: function() { // 手机号输入
 			if (check.phone(vm.phone).result) {
 				api.phoneInfo({
@@ -84,6 +85,7 @@ require([
 					if (data.status == 200) {
 						phoneInput[0].blur();
 						vm.carrier = data.data.carrier;
+						setFlowsWorld(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 					} else {
@@ -91,6 +93,7 @@ require([
 					}
 				});
 			} else {
+				vm.flowsworld = '';
 				vm.goods = [];
 				vm.flows = [];
 			}
@@ -267,7 +270,15 @@ require([
 			touchSlideDefaultIndex = 1;
 		}
 	}
-	var getUserPhoneCarrier = function(){
+	//设置 流量的描述
+	var setFlowsWorld = function(carrier) {
+		if (carrier.indexOf('联通') > 0) {
+			vm.flowsworld = '同面值每月限充5次，不同面值产品可叠加1次';
+		} else if(carrier.indexOf('移动') > 0){
+			vm.flowsworld = '移动用户每月最后一天办理，下月生效';			
+		}
+	};
+	var getUserPhoneCarrier = function() {
 		getUserPhone(function(data) { //获取用户手机号
 			if (data.status == 200) {
 				vm.phone = data.data.phone;
@@ -275,7 +286,8 @@ require([
 				getUserCarrier(function(data) { // 获取手机运营商
 					if (data.status == 200) {
 						vm.carrier = data.data.carrier;
-						// console.log(data.data.carrier);
+						setFlowsWorld(data.data.carrier);
+						console.log(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
@@ -314,25 +326,25 @@ require([
 								});
 							}
 						}
-					}else{
+					} else {
 						getUserPhoneCarrier();
 					}
 				});
-			}else{
+			} else {
 				getUserPhoneCarrier();
 			}
 		});
 	};
 	// getUserPhoneCarrier();
-	
-	setTimeout(getUserPhoneCarrier,100);
+
+	setTimeout(getUserPhoneCarrier, 100);
 
 	//左右滑动判断状态
 	var titles = $('.phonecharge-body-title-layer');
 
 	$('#touchSlide')[0].ontouchend = function() {
 		vm.button = '支付';
-		for(var i=0; i<2; i++){
+		for (var i = 0; i < 2; i++) {
 			if (titles.eq(i).hasClass('on') && confirmData[i]) {
 				vm.button = '支付：' + filters.floorFix(confirmData[i].use) + '元';
 				vm.confirmId = confirmData[i].id;

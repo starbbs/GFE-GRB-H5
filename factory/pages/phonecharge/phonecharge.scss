@@ -99,6 +99,7 @@ html{
 				}
 				ul{
 					overflow: hidden;
+					padding-bottom: 25px;
 					.cur{
 						background: #6888D9;
 						color: #ffffff;
@@ -135,6 +136,7 @@ html{
 				overflow: hidden;
 				padding: 5px 13px;
 				min-height: 260px;
+				padding-bottom: 25px;				
 				&-tit{//话费充值标题
 					line-height: 35px;
 				}
