@@ -387,7 +387,6 @@ require([
 		isMarket: false, // 是否是果仁市场
 		addressToPhone: '',
 		transferDesInputFocus:function(){
-			console.log(1111);
 			$('.view').css('top','-100px');
 		},
 		transferDesInputBlur:function(){
@@ -408,9 +407,7 @@ require([
 				transferTarget.notchecked = true;
 				return;
 			}
-
 			transferTarget.notchecked = false;
-
 			var whether_include_numrice = this.value.indexOf(".");
 			if (whether_include_numrice != -1) {
 				if (this.value.substring(whether_include_numrice + 1, whether_include_numrice + 4).length > 2) {

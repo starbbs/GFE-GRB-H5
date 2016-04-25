@@ -7,7 +7,7 @@ require([
 ], function(
 	router, api, price, weixin, TouchSlide
 ) {
-	 $.cookie('gopToken','d5610892684b4523a1c2547b59318e37'); //我的
+	 // $.cookie('gopToken','d5610892684b4523a1c2547b59318e37'); //我的
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var main = $('.home');
