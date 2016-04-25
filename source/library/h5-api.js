@@ -28,7 +28,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 		// } else {
 		// 	$.alert('无法获得用户信息');
 		// }
-		window.location.href = authorization.set(authorization.url, window.location.href);
+		authorization.go();
 	};
 
 	$.gopToken = function(token) { // 注入gopGoken

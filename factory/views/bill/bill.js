@@ -86,7 +86,7 @@ define('h5-view-bill', [
 			if (bill.onFinish() === false) {
 
 			} else {
-				$.os.ios && document.write('');
+				$.os.ios && document.write(''); // iOS页面跳转时突然恢复初始状态的bug
 				window.location.href = './home.html?from=bill';
 			}
 		},

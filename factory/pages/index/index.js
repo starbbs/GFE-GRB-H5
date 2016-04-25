@@ -152,7 +152,7 @@ require([
 	};
 
 	var init = function() {
-		checkToken();
+		// checkToken();
 	};
 
 	init();
