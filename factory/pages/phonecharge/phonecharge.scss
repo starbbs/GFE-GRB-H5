@@ -31,7 +31,10 @@ html{
 	$img: $g-pages + '/phonecharge/images';
 	height: 100%;
 	@extend %fade-in;
-	.text-button{ margin-bottom: 34px;}
+	.text-button{ 
+		margin-bottom: 34px;
+		margin-top: 10px;
+	}
 	// padding-bottom: $g-padding-bottom;
 	&-slider {
 		position: relative;
@@ -182,7 +185,6 @@ html{
 			}
 		}
 	}
-
 	&-text {
 		//@extend .block;
 		background: #ffffff;
@@ -257,7 +259,7 @@ html{
 			@include height(44px);
 			margin-top: 10px;
 			margin-right: 3%;
-			border: 1px solid $g-blue;
+			border: 1px solid #6888d9;
 			color: $g-blue;
 			font-size: 16px;
 			text-align: center;
@@ -278,7 +280,7 @@ html{
 			&.on {
 				color: $g-white;
 				background-color: $g-blue;
-				border-color: $g-blue-border;
+				border-color: $g-blue;
 				line-height: 1;
 				#{$num} {
 					margin-top: 7px;
