@@ -9,6 +9,8 @@ require([
 	router, api, check, get, authorization, check, View, weixin, H5Button
 ) {
 
+	router.init(true);
+
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id
@@ -88,8 +90,6 @@ require([
 	});
 	avalon.scan(login.native, loginVM);
 
-	router.init(true);
-
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
 		// return;
 		setTimeout(function() {
@@ -135,7 +135,6 @@ require([
 						gopToken = data.data.gopToken;
 						$.cookie('gopToken', data.data.gopToken);
 						gotoHome();
-						// gotoLogin();
 					} else { // 未绑定
 						openid = data.data.openid;
 						unionid = data.data.unionid;
@@ -154,7 +153,6 @@ require([
 
 	var init = function() {
 		checkToken();
-		// checkCode();
 	};
 
 	init();
