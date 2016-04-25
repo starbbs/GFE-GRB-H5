@@ -188,10 +188,10 @@ html{
 	}
 	&-tips{
 		color:$g-blue;
-		text-align: center;
 		position: absolute; 
-		bottom: 10px;
-		display: block;
+		bottom: 0px;
+		width: 50%;
+		text-align: center;
 	}
 	&-text {
 		//@extend .block;
