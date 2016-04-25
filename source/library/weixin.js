@@ -14,7 +14,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-alert'], function(api, url) {
 		// 分享
 		title: '果仁宝',
 		desc: '果仁宝，一站式理财消费新平台',
-		link: window.location.protocol + '//' + base + '/share.html',
+		link: window.location.protocol + '//' + base + '/index.html',
 		imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
 		type: '',
 		dataUrl: '',
