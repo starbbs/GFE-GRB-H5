@@ -293,13 +293,12 @@ define('h5-view-bill', [
 					item.payGop && (payGop = item.payGop);
 				});
 			}
-			payGop = 1;
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
 				productDesc: JSON.parse(order.extraContent).carrier + '-' + product.productDesc.substr(2), // 商品信息
 				phoneNum: JSON.parse(order.extraContent).phone, //充值号码
-				transferFailReason: trade.result, //失败原因
+				// transferFailReason: trade.result ? trade.result : null, //失败原因
 			}), options);
 		});
 	};
