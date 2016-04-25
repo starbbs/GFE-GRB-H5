@@ -86,6 +86,7 @@ define('h5-view-bill', [
 			if (bill.onFinish() === false) {
 
 			} else {
+				$.os.ios && document.write('');
 				window.location.href = './home.html?from=bill';
 			}
 		},
