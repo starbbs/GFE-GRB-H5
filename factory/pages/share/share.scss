@@ -12,7 +12,7 @@
 $img: $g-pages + '/share/images';
 
 html {
-	background: url($img + '/_bg.png') #3f49a3;
+	background: url($img + '/bg.png') #3f49a3;
 	background-size: cover;
 }
 .share{
