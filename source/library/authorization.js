@@ -13,13 +13,14 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 			return window.location.href = this.set(this.main, url.basename);
 		},
 		get: function() { // 获取回跳后要跳转的链接
-			switch (get.state.trim().toLowerCase()) {
+			var state = get.data.state.trim().toLowerCase();
+			switch (state) {
 				case '': // 为空
 				case 'index': // 为首页
 				case 'state': // 为默认
-					return false;
+					state = 'home';
 			}
-			return this.main + get.state + '.html';
+			return this.main + state + '.html';
 		},
 		goGet: function() { // 进入回跳后要跳转的链接
 			return window.location.href = this.get();

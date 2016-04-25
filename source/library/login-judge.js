@@ -6,7 +6,7 @@ define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authoriza
 	var check = function(success, error) {
 		var jumpOut = function() {
 			if (!(error && error() === false)) {
-
+				authorization.go();
 			}
 		};
 		var gopToken = $.cookie('gopToken');

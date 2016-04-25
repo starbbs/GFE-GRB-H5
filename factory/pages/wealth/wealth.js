@@ -159,6 +159,8 @@ require([
 		});
 	};
 	var chartSetting = function(data, date) {
+		var max = Math.max.apply(Math, data);
+		var min = Math.min.apply(Math, data);
 		var setting = {
 			chart: {
 				// type: 'area'
@@ -204,9 +206,9 @@ require([
 				title: {
 					text: ''
 				},
-				// tickInterval: (function() {
-				// 	return avalon.filters.fix(Math.round(Math.max.apply(Math, data) * 1.1) / 4);
-				// })(),
+				tickInterval: (function() {
+					return (max - min) * 0.3;
+				})(),
 				labels: {
 					formatter: function() {
 						return this.value.toFixed(2);
@@ -233,8 +235,6 @@ require([
 				data: data
 			}]
 		};
-		var max = Math.max.apply(Math, data);
-		var min = Math.min.apply(Math, data);
 		if (max === min) { // 相等时加辅助线
 			var fun = function(value) {
 				return {

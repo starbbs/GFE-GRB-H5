@@ -17,17 +17,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 	// var baseUri = 'https://endpoint.goopal.com.cn'; // https正式服务器 v1.1
 	// var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
 
-	var isIndex = (function() {
-		return window.location.href.indexOf('/index.html') === -1;
-	})();
-
-	var goIndex = function(useURI) { // 返回首页
-		// useURI 是否使用当前页面地址(未完成)
-		// if (window.location.href.indexOf('/index.html') === -1) {
-		// 	return window.location.href = 'index.html' + useURI ? '?uri=' + encodeURIComponent(window.location.href) : '';
-		// } else {
-		// 	$.alert('无法获得用户信息');
-		// }
+	var goIndex = function() { // 返回首页
 		authorization.go();
 	};
 
@@ -38,14 +28,14 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 	var api = new Api({
 		baseUri: baseUri,
 		onSuccess: function(data, options) { // return false 阻止后续进程
-			console.log(data, options, this.options);
+			// console.log(data, options, this.options);
 			if (!data && !options.notGoIndex) {
 				// notGoIndex 为空时不进入首页, 在单个API中设置, 默认只要返回是空, 就跳转认证
-				goIndex(true);
+				goIndex();
 				return false;
 			}
 			if (data.status == 300 && this.options.ignoreStatus && this.options.ignoreStatus.indexOf(300) === -1) { // {msg: "用户登录/验证失败，请重新登录", status: "300"}
-				goIndex(true);
+				goIndex();
 				return false;
 			} else if (data.status == 304 && this.options.ignoreStatus && this.options.ignoreStatus.indexOf(304) === -1) { // {msg: "服务器异常", status: "304"}
 				$.alert('服务器异常, 请联系后台人员!');
@@ -79,7 +69,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 	api.regist('login', '/login/login');
 
 	// 7.微信自动登录（web）
-	api.regist('wxlogin', '/login/wxlogin');
+	api.regist('wxlogin', '/login/wxlogin', {
+		ignoreStatus: [304]
+	});
 
 	// 8.我的果仁数
 	api.regist('getGopNum', '/wealth/getGopNum');

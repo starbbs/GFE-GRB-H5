@@ -3,10 +3,10 @@
 
 
 require([
-	'router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-view', 'h5-weixin', 'h5-button',
+	'router', 'h5-api', 'check', 'get', 'h5-authorization', 'check', 'h5-view', 'h5-weixin', 'h5-button', 'h5-login-judge',
 	'h5-view-agreement', 'h5-text', 'h5-keyboard', 'h5-ident'
 ], function(
-	router, api, check, get, authorization, check, View, weixin, H5Button
+	router, api, check, get, authorization, check, View, weixin, H5Button, loginJudge
 ) {
 
 	router.init(true);
@@ -93,12 +93,12 @@ require([
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
 		// return;
 		setTimeout(function() {
-			window.location.href = authorization.default; //跳转威信授权的地址
+			authorization.go(); //跳转威信授权的地址
 		}, 100);
 	};
 	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号
 		setTimeout(function() {
-			window.location.href = 'home.html?from=index';
+			authorization.goGet();
 		}, 100);
 	};
 	var gotoLogin = function() { // 跳转login分页
@@ -109,28 +109,16 @@ require([
 	};
 
 	var checkToken = function() {
-		if (gopToken) { // 有token
-			api.getGopNum({
-				gopToken: gopToken
-			}, function(data) {
-				if (data.status == 200) { // token有效
-					gotoHome();
-					// gotoLogin();
-				} else { // token无效
-					$.cookie('gopToken', null);
-					checkCode();
-				}
-			});
-		} else { // 没有token
-			checkCode();
-		}
+		loginJudge.check(function() {
+			gotoHome();
+		});
 	};
 	var checkCode = function() {
 		if (wxCode) { // 已授权
 			api.wxlogin({
 				code: wxCode
 			}, function(data) {
-				if (data.status == 200) {
+				if (data.status == 200) { // code有效
 					if (data.data.gopToken) { // 已绑定
 						gopToken = data.data.gopToken;
 						$.cookie('gopToken', data.data.gopToken);
@@ -142,17 +130,18 @@ require([
 						loginVM.image = data.data.img;
 						gotoLogin();
 					}
-				} else {
-					$.alert(data.msg);
+				} else { // code无效
+					// $.alert(data.msg);
+					gotoAuthorization();
 				}
 			});
 		} else { // 未授权
-			gotoAuthorization();
+			checkToken();
 		}
 	};
 
 	var init = function() {
-		// checkToken();
+		checkCode();
 	};
 
 	init();
