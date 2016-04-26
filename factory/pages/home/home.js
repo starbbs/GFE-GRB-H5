@@ -47,6 +47,7 @@ require([
 		if (data.status == '200') {
 			homeVm.totalInCome = data.data.totalIncome;
 			homeVm.yesterDayIncome = data.data.yesterdayIncome;
+			console.log(homeVm.totalInCome);
 		}
 	});
 	//果仁现价
