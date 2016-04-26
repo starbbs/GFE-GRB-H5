@@ -101,9 +101,10 @@ define('h5-view-address-wallet', ['router', 'h5-api', 'h5-view', 'check', 'h5-al
         // window.location.reload(true);
     });
 
-    $(document).on('swipeLeft', '.address-wallet-item', function() {
+    $(document).on('swipeLeft', '.address-wallet-item', function(ev) {
         var self = $(this).removeClass('del');
         self.addClass(self.attr('data-top') === 'true' ? 'del' : 'top');
+        // return false;
     });
 
     $(document).on('swipeRight', '.address-wallet-item', function() {
