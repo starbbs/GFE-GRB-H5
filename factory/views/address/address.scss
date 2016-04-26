@@ -33,6 +33,7 @@
 	}
 	&-del {
 		@include atlwh(0, 100%, $w);
+		// width: $w;
 		background-color: $g-red;
 		color: $g-white;
 		font-size: 14px;
