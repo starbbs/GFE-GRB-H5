@@ -15,7 +15,7 @@
 				</div>
 				<!--退款-->
 				<div class="bill-get" ms-visible="refundNum">
-					<div class="bill-get-number" ms-class="silver:status==='FAILURE'">+{{refundNum|floorFix}}</div>
+					<div class="bill-get-number" ms-class="silver:status==='FAILURE'">+{{refundNum|ceilFix}}</div>
 					<div class="bill-get-label ash">{{refundWord}}</div>
 				</div>
 				<!--转入转出果仁-->
@@ -87,9 +87,7 @@
 				</div> -->
 				<!--金额相关-->
 				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney"><!--买果仁-->
-					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
-						订单金额(¥)
-					</div>
+					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">订单金额(¥)</div>
 					<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
 					<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 						<div class="bill-pay-item" ms-visible="payMoney">
@@ -129,7 +127,7 @@
 						<div class="bill-detail-left">付款详情</div>
 						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">
 							<p class="bill-detail-right-pl">果仁</p><span class="iconfont icon-g bill-detail-right-spanl"></span>
-							<p class="bill-detail-right-pr">-{{payGop|floorFix}}</p>
+							<p class="bill-detail-right-pr">-{{payGop|ceilFix}}</p>
 						</div>
 					</div>
 					<div class="underline"></div>						

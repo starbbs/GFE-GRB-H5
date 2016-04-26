@@ -218,8 +218,10 @@ require([
 					break;
 				default:
 					if (item.type === 'REFUND') {
+						// console.log(item)
 						if (item.money) { // 退人民币
 							console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
+							type = 'none'; // 页面过滤type为none的账单
 						} else if (item.gopNumber) {
 							dataAdd('gop', bills, item);
 						} else {

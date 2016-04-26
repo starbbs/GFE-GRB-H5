@@ -322,7 +322,7 @@ define('h5-view-bill', [
 			transferNum: order.gopNum, // 转果仁--果仁数
 			transferIcon: H5bill.transferClass[order.type], // 转果仁--图标
 			transferName: H5bill.transferType[order.type], // 转果仁--名字
-			transferAddress: order.address ? filters.address(order.address) : defaultAddress, // 转果仁--地址
+			transferAddress: (order.transferAddress || order.address) ? filters.address(order.transferAddress || order.address) : defaultAddress, // 转果仁--地址
 			transferStage: H5bill.transferStage[order.status], // 转果仁--阶段
 			transferTime: order.transferTime, // 转果仁--到账时间
 			transferStart: startTime, // 转果仁--创建时间
