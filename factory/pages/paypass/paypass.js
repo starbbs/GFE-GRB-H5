@@ -39,7 +39,7 @@ require([
 				}
 			}, 1000);
 		});
-		dialogSuccess.set('支付密码修改成功，请牢记，3S后自动跳转');
+		dialogSuccess.set('支付密码修改成功，请牢记，3s后自动跳转');
 		dialogSuccess.show();
 	};
 
