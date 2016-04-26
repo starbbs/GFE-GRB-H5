@@ -2,10 +2,10 @@
 // H5微信端 --- order-judge 判断果仁现价 果仁数是否满足消费价格
 
 
-define('h5-order-judge', ['h5-api'], function(api) {
+define('h5-order-judge', ['h5-api','filters'], function(api,filters) {
 	var gopToken = $.cookie('gopToken');
 	var res = {
-		check: function(curPrice, callback) {
+		check: function(curGopNum, callback) {
 			var status = 'gopNumNo'; //状态果仁不够
 			var gopPrice = 0;
 			var myGopNum = 0;			
@@ -14,7 +14,7 @@ define('h5-order-judge', ['h5-api'], function(api) {
 				if (resultArr.length !== 2) {
 					return;
 				}
-				status = resultArr[0] * resultArr[1] > curPrice ? 'gopNumOk' : 'gopNumNo';
+				status = resultArr[1] > filters.ceilFix(curGopNum) ? 'gopNumOk' : 'gopNumNo';
 				callback && callback(status, gopPrice, myGopNum);
 			};
 			//果仁现价
@@ -31,7 +31,7 @@ define('h5-order-judge', ['h5-api'], function(api) {
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) {
-					resultArr.push(myGopNum = data.data.gopNum);
+					resultArr.push(myGopNum = filters.floorFix(data.data.gopNum));
 					todo();
 				} else {
 					console.log(data);

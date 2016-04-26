@@ -23,7 +23,15 @@ require([
 		'移动': [],
 		'电信': [],
 	};
-
+	var gopPrice = [];
+	//果仁现价
+	api.price({
+		gopToken: gopToken
+	}, function(data) {
+		if (data.status == '200') {
+			gopPrice.push(data.data.price);
+		}
+	});
 	//获取流量列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJILIULIANG"
@@ -179,13 +187,12 @@ require([
 		buttonClick: function() {
 			// 按钮点击
 			// orderJudge.check(curprice,cbfn(状态,当前价格,我的果仁数));判断果仁数是否够支付
-			console.log(confirmData); // 充值项目的数组
 			if ($(this).hasClass('disabled')) {
 				return;
 			}
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
-				orderJudge.check(confirmData[0].use, function(status, gopPrice, myGopNum) {
+				orderJudge.check(confirmData[0].use / gopPrice[0], function(status, gopPrice, myGopNum) {
 					if (status == 'gopNumNo') {
 						$.alert('您的果仁不够，请充值');
 					} else {
@@ -210,7 +217,7 @@ require([
 				});
 			} else {
 				//流量充值API
-				orderJudge.check(confirmData[1].use, function(status, gopPrice, myGopNum) {
+				orderJudge.check(confirmData[1].use / gopPrice[0], function(status, gopPrice, myGopNum) {
 					if (status == 'gopNumNo') {
 						$.alert('您的果仁不够，请充值');
 					} else {
