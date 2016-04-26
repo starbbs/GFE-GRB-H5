@@ -42,6 +42,12 @@ body {
 			&-tip {
 				overflow: hidden;
 				color: $g-ash;
+				&-fl {
+				    letter-spacing: 5px;
+				}
+				&-fr {
+                    color: $g-dark;
+                }
 			}
 		}
 		&-use {
@@ -49,6 +55,7 @@ body {
 			background-color: #fafafa;
 			border-bottom: $g-border;
 			padding: 0 $g-padding;
+			margin-bottom: 10px;
 			&-guo {
 				float: left;
 				font-size: 14px;
@@ -57,8 +64,9 @@ body {
 			}
 			&-money {
 				float: right;
-				color: $g-light;
-				font-size: 16px;
+				//color: $g-light;
+				color: $g-blue;
+				font-size: 22px;
 				.on > & {
 					color: $g-blue;
 				}
@@ -67,6 +75,11 @@ body {
 		&-pay {
 			@include height(52px);
 			padding: 0 $g-padding;
+		}
+		&-tip{
+		    font: 12px/2 sans-serif, Arial, Verdana;
+		    color: $g-blue;
+		    padding: 10px 20px 12px;
 		}
 		&-radio {
 			float: left;
@@ -84,6 +97,7 @@ body {
 		&-num {
 			float: right;
 			font-size: 22px;
+			color: $g-red;
 		}
 	}
 	&-bill {

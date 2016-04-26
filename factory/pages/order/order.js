@@ -32,6 +32,7 @@ require([
 		gopNum: 0, // 果仁数
 		gopIfUse: true, // 使用果仁数
 		gopUse: 0, // 使用多少果仁
+		orderCode: '',
 		/*
 		gopClick: function() { // 果仁点击
 			vm.gopIfUse = !vm.gopIfUse;
@@ -44,6 +45,7 @@ require([
 		*/
 		gopMoney: 0, //所用果仁折合人民币
 		gopExchange: function() { // 换算gopMoney
+			//vm.gopNum 小数点后为数据库返回的六位小数
 			if (vm.gopNum * vm.gopPrice >= vm.money) { // 够支付
 				// vm.rmbUse = 0;
 				vm.gopUse = vm.money / vm.gopPrice;
@@ -134,6 +136,7 @@ require([
 						vm.gopPrice = data.data.gopPrice;
 						vm.gopNum = data.data.gopNum;
 						vm.productRealPrice = JSON.parse(product.extraContent).price;
+						vm.orderCode = order.orderCode;
 						vm.gopExchange();
 						// 银行卡相关
 						/*

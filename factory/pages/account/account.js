@@ -131,7 +131,7 @@ require([
 		};
 		var filter = { // 过滤器
 			money: 'fix',
-			gop: 'floorFix',
+			gop: 'ceilFix',
 		};
 
 		if (type === 'transfer' && item.extra) { //转帐类型 并有extra字段
