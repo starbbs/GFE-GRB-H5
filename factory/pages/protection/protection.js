@@ -78,7 +78,8 @@ require([
                 '<p>' + vm.question2 + '</br>' + vm.answer2 + '</p>';
             dialogAlert.set(QA_html);
             dialogAlert.onAlert = function() {
-                window.location.href = 'security.html';
+                // window.location.href = 'security.html';
+                window.history.go(-3);
             };
 
             api.applyQuestion({
