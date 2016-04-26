@@ -65,6 +65,7 @@ define('h5-view-bill', [
 		orderCode: '', // 订单号
 		serialNum: '', // 流水号
 		payType: '', // 支付方式
+		
 		ifReturnHome: false, // 是否显示"返回首页"按钮
 		ifFinishButton: false, // 是否显示"完成"按钮
 		ifPayButton: false, // 是否显示"前往支付"按钮
