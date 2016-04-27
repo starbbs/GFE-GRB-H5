@@ -6,12 +6,12 @@
 			<div class="wealth-head-content">
 				<div class="wealth-head-line1">累计收益(￥)</div>
 				<div class="wealth-head-line2">
-					<span>{{yesterday|sign}}</span><span>{{yesterday|abs|fix}}</span>
+					<span>{{total|sign}}</span><span>{{total|fix|abs}}</span>
 				</div>
 				<div class="wealth-head-line3">昨日浮动盈亏(￥)</div>
 				<div class="wealth-head-line4">
-					<span>{{total|sign}}</span>
-					<span>{{total|fix|abs}}</span>
+					<span>{{yesterday|sign}}</span>
+					<span>{{yesterday|abs|fix}}</span>
 				</div>
 			</div>
 			<div class="wealth-head-next" ms-on-click="showHistory"><i></i></div>

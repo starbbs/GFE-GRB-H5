@@ -58,7 +58,7 @@ body {
 		&-line2 {
 			color: $g-white;
 			font-size: 56px;
-			margin: 18px 0px 35px 0px;
+			margin:30px 0px 35px 0px;
 			span {
 				font-size: 36px;
 				margin-right: 8px;
@@ -67,7 +67,7 @@ body {
 			&>span{
 				display: inline-block;
 				vertical-align: middle;
-				font-size: 64px;
+				font-size: 50px;
 				&:nth-child(1){
 					font-size: 30px;
 				}
