@@ -144,6 +144,8 @@ body {
 		height: 100%;
 		text-align: right;
 		color: $g-ash;
+		font-size: 12px;
+		line-height: 70px;
 	}
 	&-change {
 		font-size: 16px;
@@ -152,17 +154,6 @@ body {
 	&-action {
 		font-size: 12px;
 		color: #777;
-	}
-	&-result {
-		font-size: 12px;
-		line-height: 70px;
-		&.page {
-			line-height: 24px;
-			margin-top: 11px;
-		}
-	}
-	&-page {
-		line-height: 24px;
 	}
 
 	&-bill {

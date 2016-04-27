@@ -28,10 +28,7 @@
 									<div class="account-change">{{bill.change}}</div>
 									<div class="account-action">{{bill.desc}}</div>
 								</div>
-								<div class="account-right">
-									<div class="account-result" ms-class="page:day.bills.length>1">{{bill.status}}</div>
-									<div class="account-page" ms-visible="day.bills.length>1">{{$index+1}}/{{day.bills.length}}</div>
-								</div>
+								<div class="account-right" ms-class-1="blue:bill.originStatus==='PROCESSING'" ms-class-2="red:bill.originStatus==='FAILURE'" ms-class-3="dark:bill.originStatus==='SUCCESS'">{{bill.status}}</div>
 							</div>
 						</div>
 					</div>

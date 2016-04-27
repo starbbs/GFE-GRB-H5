@@ -84,7 +84,7 @@ require([
 							forceStatus: 'PROCESSING',
 							ifFinishButton: true,
 							ifTip: true,
-							tip: '',
+							tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
 						});
 					} else {
 						$.alert(data.msg);

@@ -47,20 +47,20 @@
 }
 
 .a-blue {
-	color: $g-blue;
+	color: $g-blue !important;
 	text-decoration: none;
 }
 
-.silver { color: $g-silver; }
-.blue { color: $g-blue; }
-.red { color: $g-red; }
-.green { color: $g-green; }
-.gray { color: $g-gray; }
-.dark { color: $g-dark; }
-.ash { color: $g-ash; }
-.light { color: $g-light; }
-.input { color: $g-input; }
-.orange { color: $g-orange; }
+.silver { color: $g-silver !important; }
+.blue { color: $g-blue !important; }
+.red { color: $g-red !important; }
+.green { color: $g-green !important; }
+.gray { color: $g-gray !important; }
+.dark { color: $g-dark !important; }
+.ash { color: $g-ash !important; }
+.light { color: $g-light !important; }
+.input { color: $g-input !important; }
+.orange { color: $g-orange !important; }
 
 .bold { font-weight: bold; }
 

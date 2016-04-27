@@ -3,7 +3,7 @@
 
 require([
 	'router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide',
-	'filters', 'h5-paypass-judge-auto'
+	'filters', 'h5-login-judge-auto'
 ], function(
 	router, api, price, weixin, TouchSlide
 ) {
