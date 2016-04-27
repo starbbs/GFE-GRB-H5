@@ -82,7 +82,9 @@ require([
 						router.to('/bill');
 						billView.set('PAY', get.data.id, {
 							forceStatus: 'PROCESSING',
-							ifFinishButton: true
+							ifFinishButton: true,
+							// ifTip: true,
+							// tip: '',
 						});
 					} else {
 						$.alert(data.msg);
