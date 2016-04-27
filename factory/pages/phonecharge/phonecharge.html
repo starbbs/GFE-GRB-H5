@@ -40,14 +40,14 @@
 							ms-on-blur="blur">
 					</div>
 					<div class="text-close" ms-class="on:phone" ms-on-touchstart="close"></div>
-					<div class="text-cancel" ms-visible="phone.length < 11 && cancelBool" ms-on-click="cancel">取消</div>
+					<div class="text-cancel" ms-visible="(phone.length < 11 || !goodsFlag) && cancelBool" ms-on-touchstart="cancel">取消</div>
 					<!--运营商-->
 					<div class="phonecharge-text-operator" ms-visible="phone.length===11">{{carrier}}</div>
 					<!--历史手机号-->
 					<div class="phonecharge-text-list" ms-visible="list.length&&focusing">
 						<div class="phonecharge-text-item" ms-repeat-item="list">
 							<div class="phonecharge-text-flex" ms-click="listClick">{{item}}</div>
-							<div class="text-close on" ms-click="listDelete(item, $remove)"></div>
+							<!--<div class="text-close on" ms-click="listDelete(item, $remove)"></div>-->
 						</div>
 						<div class="phonecharge-text-bottom" ms-click="listClean">清空历史充值号码</div>
 					</div>
@@ -60,8 +60,8 @@
 						</div>
 						<ul ms-click="goodsClick($event)">
 							<li class="phonecharge-lista-item"  ms-repeat-item="goods" ms-data-id="item.id">
-								<div>{{item.price}}元</div>
-								<div>售价:{{item.use|floorFix}}元</div>
+								<div ms-class-1="sliver:!goodsFlag"  ms-class-2="dark:goodsFlag">{{item.price}}元</div>
+								<div ms-class-1="sliver:!goodsFlag"  ms-class-2="ash:goodsFlag">售价:{{item.use|floorFix}}元</div>
 							</li>							
 						</ul>
 						<div class="phonecharge-tips"></div>						

@@ -103,6 +103,9 @@ html{
 					.cur{
 						background: #6888D9;
 						color: #ffffff;
+						>div:nth-child(1){
+                            color: #ffffff;
+                        }
 						>div:nth-child(2){
 							color: #ffffff;
 						}
@@ -125,6 +128,15 @@ html{
 						>div:nth-child(2){
 							color: #999999;
 						}
+						.sliver{
+                            color: $g-silver!important;
+                        }
+                        .dark{
+                            color: $g-dark;
+                        }
+                        .ash{
+                            color: $g-ash;
+                        }
 					}
 					li:nth-child(3n+3){
 						margin-right: 0;

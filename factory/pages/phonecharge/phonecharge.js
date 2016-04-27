@@ -24,6 +24,7 @@ require([
 		'电信': [],
 	};
 	var gopPrice = [];
+	var curPhone;
 	//果仁现价
 	api.price({
 		gopToken: gopToken
@@ -85,6 +86,7 @@ require([
 		confirmId: '', // 提交时商品ID
 		confirmCangory: '', // 提交时商品类型  话费 流量
 		flowsworld:'', //流量充值描述文字
+		goodsFlag : true,
 		input: function() { // 手机号输入
 			if (check.phone(vm.phone).result) {
 				api.phoneInfo({
@@ -95,6 +97,7 @@ require([
 						vm.carrier = data.data.carrier;
 						setFlowsWorld(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
+						vm.goodsFlag = true;
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 					} else {
 						$.alert(data.msg);
@@ -102,15 +105,25 @@ require([
 				});
 			} else {
 				vm.flowsworld = '';
-				vm.goods = [];
+				vm.goodsFlag = false;
+				//vm.goods = [];
 				vm.flows = [];
+				vm.carrier = '';
+				if(vm.phone.length >= 11){
+					$.alert("手机号码不正确");
+					$(this).blur();
+					vm.cancelBool = true;
+				}
 			}
 		},
 		focusing: false, // 焦点在输入框
 		focus: function() { // 获取焦点
 			vm.cancelBool = true;
 			vm.focusing = true;
-			phoneInput.val('');
+			if (vm.phone == curPhone) {
+				phoneInput.val('');
+			}
+			vm.carrier = '';
 			clearTimeout(focusTimer);
 		},
 		blur: function() { // 失去焦点
@@ -122,15 +135,18 @@ require([
 		},
 		close: function() { // 输入框清除
 			vm.phone = '';
-			vm.goods = [];
+			//vm.goods = [];
+			vm.goodsFlag = false;
 			vm.flows = [];
-			vm.focusing = false;
+			vm.focusing = true;
 			vm.button = '支付';
 			confirmData = [];
 			phoneInput.val('').get(0).focus();
 		},
 		cancel: function() {
 			vm.cancelBool = false;
+			vm.focusing = false;
+			//$(".phonecharge-lista-item").removeClass('cur');
 		},
 		list: [], // 历史充值号码列表
 		listClick: function() { // 选择历史号码
@@ -164,7 +180,7 @@ require([
 		goods: [], // 话费列表
 		goodsClick: function(ev) { // 支付点击
 			var item = $(ev.target).closest('.phonecharge-lista-item');
-			if (item.length) {
+			if (item.length && vm.goodsFlag) {
 				item.addClass('cur').siblings().removeClass('cur');
 				confirmData[0] = vm.goods[item.index()].$model;
 				vm.confirmId = confirmData[0].id;
@@ -289,7 +305,7 @@ require([
 	var getUserPhoneCarrier = function() {
 		getUserPhone(function(data) { //获取用户手机号
 			if (data.status == 200) {
-				vm.phone = data.data.phone;
+				vm.phone = curPhone = data.data.phone;
 				// console.log(data.data.phone);
 				getUserCarrier(function(data) { // 获取手机运营商
 					if (data.status == 200) {
