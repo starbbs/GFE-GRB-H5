@@ -385,12 +385,19 @@ require([
 		content: '', // 转账说明
 		notchecked: true, // 是否没有检验通过
 		isMarket: false, // 是否是果仁市场
+		flag : true,
+		len : 0,
 		addressToPhone: '',
 		transferDesInputFocus:function(){
 			$('.view').css('top','-100px');
 		},
 		transferDesInputBlur:function(){
 			$('.view').css('top','0px');
+		},
+		transferDesInputOnInput:function(){
+			var val = $(this).val();
+			$(this).val(cutString(val));
+			transferTarget.content = cutString(val);
 		},
 		getCnyMoney: function() {//输入果仁数量监听
 			console.log(transferTarget.transferNum);
@@ -483,6 +490,31 @@ require([
 			}
 		},
 	});
+	var mbStringLength = function(s){
+		var totalLength = 0; 
+		var i; 
+		var charCode; 
+		for (i = 0; i < s.length; i++) { 
+			charCode = s.charCodeAt(i); 
+			if (charCode < 0x007f) { 
+				totalLength = totalLength + 1; 
+			} else if ((0x0080 <= charCode) && (charCode <= 0x07ff)) { 
+				totalLength += 2; 
+			} else if ((0x0800 <= charCode) && (charCode <= 0xffff)) { 
+				totalLength += 3; 
+			} 
+		} 
+		return totalLength; 
+	}
+	var cutString = function(s){
+		var len = s.length;
+		var codeLen = mbStringLength(s);
+		if(codeLen > 40){
+			return cutString(s.substring(0,len-1));
+		}else{
+			return s;
+		}
+	}
 	var dataHandler = function(data) {
 		var result = {
 			arr: [],
