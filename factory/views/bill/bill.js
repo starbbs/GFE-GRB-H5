@@ -33,6 +33,7 @@ define('h5-view-bill', [
 		gopNum: 0, // 买果仁--果仁数
 		gopPrice: 0, // 买果仁--成交价
 		buyMoney: 0, // 买果仁--支付金额
+		noPayGopNum: 0, //进行中 预得果仁
 
 		transferSign: '', // 转果仁--正负号
 		transferNum: 0, // 转果仁--果仁数
@@ -225,7 +226,7 @@ define('h5-view-bill', [
 		});
 	};
 
-//方案1 消费和买入共用orderHadnler   方案2 消费和买入分开orderHandler consumeDataHandler
+//方案1 消费和买入共用orderHadnler   方案2 消费和买入分开 consumeDataHandler  orderHandler
 	var orderHandler = function(type, id, order, waitForPay, list) { // 买入数据
 		return {
 			id: id, // 账单ID
@@ -253,7 +254,6 @@ define('h5-view-bill', [
 			payType: H5bill.payType[order.payType], // 支付方式
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
-			// phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
 		};
 	};
 	var buyInHandler = function(type, id, options) { // 买入
@@ -273,41 +273,15 @@ define('h5-view-bill', [
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
-				gopNum: order.gopNum, // 买果仁--果仁数
-				gopPrice: order.price, // 买果仁--成交价
+				gopNum: order.gopNum, // 买果仁--果仁数 成功
+				gopPrice: order.price, // 买果仁--成交价、实时市场价
 				buyMoney: order.payMoney, // 买果仁--支付金额
-				productDesc: order.businessDesc || '果仁', // 商品信息
+				productDesc: order.businessDesc || '买果仁', // 商品信息
+				noPayGopNum: order.orderMoney/order.price //进行中 预得果仁
 			}), options);
 		});
 	};
 
-	/*
-	var consumeDataHandler = function(type, id, order, waitForPay, list) { // 消费数据
-		return {
-			id: id, // 账单ID
-			type: type, // 类型
-			status: order.status, // 订单状态
-			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: H5bill.statusBusiness[order.status], // 头部内容
-			waitForPay: waitForPay, // 等待支付
-			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney,//等待支付金额
-			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
-			orderMoney: order.status === 'PROCESSING' ? '' : order.orderMoney, // 订单金额
-			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
-			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
-			// createTime: order.updateTime ? '' : order.createTime, // 创建时间
-			createTime: order.status === 'PROCESSING' ? order.createTime : '', // 创建时间
-			orderCode: order.orderCode, // 订单号
-			serialNum: $.isArray(list) ? list.map(function(item) {
-				return item.tradeNo;
-			}).join('<br>') : order.serialNum,
-			payType: H5bill.payType[order.payType], // 支付方式
-			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
-			ifClose: waitForPay, // 是否显示"关闭"
-			phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
-		};
-	};
-	*/
 	var consumeHandler = function(type, id, options) { // 消费 话费流量
 		api.query({
 			gopToken: gopToken,
@@ -323,7 +297,6 @@ define('h5-view-bill', [
 			var list = data.data.recordList; //流水号 创建时间 支付果仁
 			var product = data.data.product; // 商品信息 流量 话费 面额
 			var extra = data.data.extra;   //银行卡
-			// var trade = data.data.trade;   //失败原因
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
 			if (order.status == 'SUCCESS' && list && list.length) {
@@ -339,7 +312,7 @@ define('h5-view-bill', [
 				phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
 				bankCangory: extra.bankcard ? extra.bankcard.cardType.indexOf('SAVINGS')!=-1 ? '储蓄卡' :'信用卡' : '', //银行类型
 				bankName:  extra.bankcard ? extra.bankcard.bankName : '', //银行名称
-				failReason: order.status === 'FAILURE' ? data.data.trade.result ? data.data.trade.result : '' : '', //失败原因
+				failReason: order.status === 'FAILURE' ? data.data.trade&&data.data.trade.result ? data.data.trade.result : list[0].payResult : '', //失败原因
 			}), options);
 		});
 	};
@@ -458,3 +431,33 @@ define('h5-view-bill', [
 		onClose: $.noop, // 关闭订单时
 	});
 });
+
+
+
+	/*
+	var consumeDataHandler = function(type, id, order, waitForPay, list) { // 消费数据
+		return {
+			id: id, // 账单ID
+			type: type, // 类型
+			status: order.status, // 订单状态
+			headClass: H5bill.statusClass[order.status], // 头部样式名
+			headContent: H5bill.statusBusiness[order.status], // 头部内容
+			waitForPay: waitForPay, // 等待支付
+			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney,//等待支付金额
+			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
+			orderMoney: order.status === 'PROCESSING' ? '' : order.orderMoney, // 订单金额
+			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
+			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
+			// createTime: order.updateTime ? '' : order.createTime, // 创建时间
+			createTime: order.status === 'PROCESSING' ? order.createTime : '', // 创建时间
+			orderCode: order.orderCode, // 订单号
+			serialNum: $.isArray(list) ? list.map(function(item) {
+				return item.tradeNo;
+			}).join('<br>') : order.serialNum,
+			payType: H5bill.payType[order.payType], // 支付方式
+			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+			ifClose: waitForPay, // 是否显示"关闭"
+			phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
+		};
+	};
+	*/
