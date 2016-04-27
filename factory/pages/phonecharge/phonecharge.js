@@ -123,7 +123,7 @@ require([
 			if (vm.phone == curPhone) {
 				phoneInput.val('');
 			}
-			alert(list.length&&focusing);
+			// alert(list.length&&focusing);
 			vm.carrier = '';
 			clearTimeout(focusTimer);
 			vm.goodsFlag = false;
@@ -149,6 +149,10 @@ require([
 			vm.cancelBool = false;
 			vm.focusing = false;
 			$(".phonecharge-lista-item").removeClass('cur');
+			// setTimeout(function() {
+			// 	console.log(curPhone)
+			// 	vm.phone = curPhone;
+			// }, 300);
 		},
 		list: [], // 历史充值号码列表
 		listClick: function() { // 选择历史号码
