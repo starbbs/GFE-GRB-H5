@@ -133,7 +133,7 @@
 					<div class="bill-num dark">-{{buyMoney|fix}}</div>
 				</div>
 				<div class="bill-money" ms-visible="rebate">
-					<div class="bill-label dark">获得返利(G)</div>
+					<div class="bill-label dark">获得返利(<span class="iconfont icon-g"></span>)</div>
 					<div class="bill-num blue">+{{rebate|floorFix}}</div>
 				</div>
 				<!--帐单相关信息-->
@@ -142,10 +142,16 @@
 						<div class="bill-detail-left">失败原因</div>
 						<div class="bill-detail-right red">{{transferFailReason}}</div>
 					</div>
-					<div class="bill-detail-item" ms-visible="productDesc">
+					<!--除买果仁成功外-->
+					<div class="bill-detail-item" ms-visible="productDesc&&!((type==='BUYIN_ORDER'||type==='BUY_IN')&&status==='SUCCESS')">
 						<div class="bill-detail-left">商品信息</div>
 						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">{{productDesc}}</div>
 					</div>
+					<!--预计得果仁  买果仁关闭-->
+					<div class="bill-detail-item" ms-visible="status==='CLOSE'&&(type==='BUYIN_ORDER'||type==='BUY_IN')">
+						<div class="bill-detail-left">预计获得果仁 <span class="iconfont icon-g"></span> </div>
+						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">{{noPayGopNum|floorFix}}</div>
+					</div>					
 					<div class="bill-detail-item" ms-visible="phoneNum">
 						<div class="bill-detail-left">充值号码</div>
 						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">{{phoneNum}}</div>

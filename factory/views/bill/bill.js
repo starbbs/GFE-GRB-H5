@@ -273,7 +273,7 @@ define('h5-view-bill', [
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
-				gopNum: order.gopNum, // 买果仁--果仁数 成功
+				gopNum: order.gopNum, // 买果仁--果仁数
 				gopPrice: order.price, // 买果仁--成交价、实时市场价
 				buyMoney: order.payMoney, // 买果仁--支付金额
 				productDesc: order.businessDesc || '买果仁', // 商品信息
@@ -299,12 +299,12 @@ define('h5-view-bill', [
 			var extra = data.data.extra;   //银行卡
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
-			if (order.status == 'SUCCESS' && list && list.length) {
+			// if (order.status == 'SUCCESS' && list && list.length) {
 				list.forEach(function(item) {
 					item.payMoney && (payMoney = item.payMoney);
 					item.payGop && (payGop = item.payGop);
 				});
-			}
+			// }
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
