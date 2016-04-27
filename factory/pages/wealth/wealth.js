@@ -158,7 +158,7 @@ require([
 			}));
 		});
 	};
-	var chartSetting = function(data, date) {
+	var chartSetting = function(data, date, flag) {
 		var max = Math.max.apply(Math, data);
 		var min = Math.min.apply(Math, data);
 		var setting = {
@@ -211,7 +211,11 @@ require([
 				})(),
 				labels: {
 					formatter: function() {
-						return this.value.toFixed(2);
+						if(flag == "annual"){
+							return this.value.toFixed(2) * 100;
+						}else{
+							return this.value.toFixed(2);
+						}
 					}
 				}
 			},
@@ -267,7 +271,7 @@ require([
 		api.annualIncomeWealth(function(data) {
 			if (data.status == 200) {
 				chartAnnualHandler(data.data.list);
-				chartAnnual.highcharts(chartSetting(chartAnnualData, chartAnnualDate));
+				chartAnnual.highcharts(chartSetting(chartAnnualData, chartAnnualDate,'annual'));
 			} else {
 				$.alert(data.msg);
 			}
@@ -282,7 +286,7 @@ require([
 		}, function(data) {
 			if (data.status == 200) {
 				chartHistoryHandler(data.data.list);
-				chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate));
+				chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate,'history'));
 			} else {
 				$.alert(data.msg);
 			}
