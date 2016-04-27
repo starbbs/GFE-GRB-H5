@@ -10,10 +10,20 @@
 					<div class="bill-wait-right">-{{orderMoney|fix}}</div>
 				</div>
 				-->
-				<div class="bill-wait" ms-visible="waitForPayMoney">
+				<div class="bill-wait" ms-visible="waitForPayMoney" ms-class="borderrudiasnone:status==='PROCESSING'&&productDesc==='买果仁'">
 					<div class="bill-wait-left">等待支付(¥)</div>
 					<div class="bill-wait-right">-{{waitForPayMoney|fix}}</div>
-				</div>				
+				</div>
+				<div class="bill-wait-buygop" ms-visible="status==='PROCESSING'&&productDesc==='买果仁'">
+					<div class="bill-wait-buygop-float">
+						<div class="bill-wait-buygop-label">预获果仁 (<span class="iconfont icon-g"></span>)</div>
+						<div class="bill-wait-buygop-price green">+{{noPayGopNum|floorFix}}</div>
+					</div>
+					<div class="bill-wait-buygop-float">
+						<div class="bill-wait-buygop-label">当前价格(¥)</div>
+						<div class="bill-wait-buygop-price dark">{{gopPrice|fix}}</div>
+					</div>
+				</div>
 				<!--买果仁成功-->
 				<div class="bill-get" ms-visible="gopNum">
 					<div class="bill-get-number">+{{gopNum|floorFix}}</div>
@@ -157,12 +167,14 @@
 							<p class="bill-detail-right-pr">{{bankName}}</p>
 						</div>
 					</div>					
-					<div ms-class="underline:bankCangory||payGop"></div>						
-					<div class="bill-detail-item" ms-visible="gopPrice">
+					<div ms-class="underline:bankCangory||payGop"></div>
+										
+					<div class="bill-detail-item" ms-visible="gopPrice&&status==='SUCCESS'">
 						<div class="bill-detail-left">成交价</div>
 						<div class="fl">(¥)</div>
 						<div class="bill-detail-right blue">{{gopPrice|fix}}</div>
 					</div>
+					
 					<!-- <div class="bill-detail-item" ms-visible="payType">
 						<div class="bill-detail-left">支付方式</div>
 						<div class="bill-detail-right" ms-class-1="ash:status==='CLOSE'" ms-class-2="dark:status!=='CLOSE'">{{payType}}</div>

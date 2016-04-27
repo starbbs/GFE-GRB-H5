@@ -33,6 +33,7 @@ define('h5-view-bill', [
 		gopNum: 0, // 买果仁--果仁数
 		gopPrice: 0, // 买果仁--成交价
 		buyMoney: 0, // 买果仁--支付金额
+		noPayGopNum: 0, //进行中 预得果仁
 
 		transferSign: '', // 转果仁--正负号
 		transferNum: 0, // 转果仁--果仁数
@@ -253,7 +254,6 @@ define('h5-view-bill', [
 			payType: H5bill.payType[order.payType], // 支付方式
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
-			// phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
 		};
 	};
 	var buyInHandler = function(type, id, options) { // 买入
@@ -273,10 +273,11 @@ define('h5-view-bill', [
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
-				gopNum: order.gopNum, // 买果仁--果仁数
-				gopPrice: order.price, // 买果仁--成交价
+				gopNum: order.gopNum, // 买果仁--果仁数 成功
+				gopPrice: order.price, // 买果仁--成交价、实时市场价
 				buyMoney: order.payMoney, // 买果仁--支付金额
-				productDesc: order.businessDesc || '果仁', // 商品信息
+				productDesc: order.businessDesc || '买果仁', // 商品信息
+				noPayGopNum: order.orderMoney/order.price //进行中 预得果仁
 			}), options);
 		});
 	};
