@@ -110,7 +110,7 @@ require([
 		focus: function() { // 获取焦点
 			vm.cancelBool = true;
 			vm.focusing = true;
-			phoneInput.val('')
+			phoneInput.val('');
 			clearTimeout(focusTimer);
 		},
 		blur: function() { // 失去焦点

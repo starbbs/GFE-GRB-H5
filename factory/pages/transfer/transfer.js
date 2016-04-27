@@ -389,10 +389,10 @@ require([
 		len : 0,
 		addressToPhone: '',
 		transferDesInputFocus:function(){
-			$('.view').css('top','-100px');
+			//$('.view').css('top','-100px');
 		},
 		transferDesInputBlur:function(){
-			$('.view').css('top','0px');
+			//$('.view').css('top','0px');
 		},
 		transferDesInputOnInput:function(){
 			var val = $(this).val();
