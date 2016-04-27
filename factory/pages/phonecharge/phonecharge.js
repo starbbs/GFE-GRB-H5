@@ -212,8 +212,8 @@ require([
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
 				orderJudge.check(confirmData[0].use / gopPrice[0], function(status, gopPrice, myGopNum) {
-					if (status == 'gopNumNo') {
-						$.alert('您的果仁不够，请充值');
+					if (status == orderJudge.no) {
+						$.alert(orderJudge.tip);
 					} else {
 						api.phoneRecharge({
 							gopToken: gopToken,
@@ -237,8 +237,8 @@ require([
 			} else {
 				//流量充值API
 				orderJudge.check(confirmData[1].use / gopPrice[0], function(status, gopPrice, myGopNum) {
-					if (status == 'gopNumNo') {
-						$.alert('您的果仁不够，请充值');
+					if (status == orderJudge.no) {
+						$.alert(orderJudge.tip);
 					} else {
 						api.phoneTraffic({
 							gopToken: gopToken,
@@ -282,7 +282,6 @@ require([
 		});
 	};
 	var href = decodeURIComponent(window.location.href);
-	console.log(href);
 	var datajson = {};
 	//是否从优惠入口进来  显示流量或话费选项卡
 	if (href.indexOf('from=home') > -1) {
@@ -313,7 +312,6 @@ require([
 					if (data.status == 200) {
 						vm.carrier = data.data.carrier;
 						setFlowsWorld(data.data.carrier);
-						console.log(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商

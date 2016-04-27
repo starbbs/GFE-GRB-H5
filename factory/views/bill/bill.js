@@ -4,11 +4,11 @@
 
 define('h5-view-bill', [
 	'h5-api', 'router', 'filters', 'mydate', // 公用功能
-	'h5-view', 'h5-weixin', 'h5-component-bill', // H5功能
+	'h5-view', 'h5-weixin', 'h5-order-judge', 'h5-component-bill', // H5功能
 	'h5-dialog-confirm' // H5组件
 ], function(
 	api, router, filters, mydate,
-	View, weixin, H5bill,
+	View, weixin, orderJudge, H5bill,
 	dialogConfirm
 ) {
 
@@ -111,7 +111,14 @@ define('h5-view-bill', [
 					weixin.pay.set(weixinPayData);
 					weixin.pay.work();
 				} else {
-					window.location.href = './order.html?from=bill&id=' + vm.id;
+					// console.log();
+					orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
+						if (status === orderJudge.ok) {
+							window.location.href = './order.html?from=bill&id=' + vm.id;
+						} else {
+							$.alert(orderJudge.tip);
+						}
+					});
 				}
 			}
 		},

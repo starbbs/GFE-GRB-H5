@@ -83,8 +83,8 @@ require([
 						billView.set('PAY', get.data.id, {
 							forceStatus: 'PROCESSING',
 							ifFinishButton: true,
-							// ifTip: true,
-							// tip: '',
+							ifTip: true,
+							tip: '',
 						});
 					} else {
 						$.alert(data.msg);

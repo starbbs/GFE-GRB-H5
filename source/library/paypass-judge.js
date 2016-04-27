@@ -11,7 +11,7 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 	// 2. not		没密码	设置密码前先判断 是否实名认证
 	// 3. done 		已认证	不出认证页,弹浮层
 	// 4. lock5		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
-	// 4. lock10		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
+	// 4. lock10	已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
 
 	var res = {
 		defaultStatus: 'unknown', // 默认状态
