@@ -6,7 +6,7 @@ require([
 	'router', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
 	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication', 'h5-paypass-view',
-	'h5-text', 'h5-weixin'
+	'h5-text', 'h5-weixin', 'h5-paypass-judge-auto'
 ], function(
 	router, api, View, price, get, filters, H5bill,
 	viewAddressMine, viewAddressWallet, billView,

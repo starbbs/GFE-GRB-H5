@@ -8,7 +8,7 @@ require([
 	'h5-view', 'h5-view-bill',
 	'h5-price', 'h5-ident', 'h5-component-bill',
 	'h5-dialog-paypass',
-	'h5-weixin'
+	'h5-weixin', 'h5-paypass-judge-auto'
 ], function(
 	api, get, router,
 	View, billView,
