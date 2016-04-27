@@ -29,6 +29,7 @@ define('h5-view-bill', [
 		headClass: '', // 头部样式名
 		headContent: '', // 头部内容
 		waitForPay: false, // 等待支付
+		waitForPayMoney:'', // 等待支付金额
 		gopNum: 0, // 买果仁--果仁数
 		gopPrice: 0, // 买果仁--成交价
 		buyMoney: 0, // 买果仁--支付金额
@@ -46,7 +47,6 @@ define('h5-view-bill', [
 		transferFailReason: '', // 转果仁--失败原因
 		poundage: 0, // 转果仁--手续费
 		transferDesc: '', // 转果仁--转账说明
-		phoneNum: '', // 手机号
 
 		refundNum: 0, // 退款数目
 		refundWord: '', // 退款状态说明
@@ -57,6 +57,9 @@ define('h5-view-bill', [
 		orderMoney: 0, // 订单金额
 		payMoney: 0, // 消费--支付金额
 		payGop: 0, // 消费--支付果仁数
+		phoneNum: '', // 手机号		
+		bankCangory:'', // 银行卡类型
+		bankName:'',  //银行卡名称
 		productDesc: '', // 商品信息
 		orderTime: '', // 交易时间
 		closeTime: '', // 关闭时间
@@ -166,9 +169,10 @@ define('h5-view-bill', [
 	 * @param    {[function]}     		options.onRendered		[vm渲染回调,参数vm]
 	 */
 	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示  根据用户ID和消费类型做AJAX
-		console.log();
 		setVM(); // 清空分页
 		type = (type + '').trim().toUpperCase();
+		console.log(type);
+
 		options = options || {};
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
@@ -221,7 +225,8 @@ define('h5-view-bill', [
 		});
 	};
 
-	var orderHandler = function(type, id, order, waitForPay, list) { // 统一处理买入消费数据
+//方案1 消费和买入共用orderHadnler   方案2 消费和买入分开orderHandler consumeDataHandler
+	var orderHandler = function(type, id, order, waitForPay, list) { // 买入数据
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
@@ -229,14 +234,18 @@ define('h5-view-bill', [
 			headClass: H5bill.statusClass[order.status], // 头部样式名
 			headContent: H5bill.statusBusiness[order.status], // 头部内容
 			waitForPay: waitForPay, // 等待支付
+			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney,//等待支付金额
+			/*
 			failReason: order.status == 'FAILURE' ? order.payResult || ($.isArray(list) ? list.reduce(function(string, item, index) {
 				return string += item.payResult || ''; // 从支付方式中找出失败原因
 			}, '') : '') : '', // 失败原因
+			*/
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
-			orderMoney: order.orderMoney, // 订单金额
+			orderMoney: order.status === 'PROCESSING' ? '' : order.orderMoney, // 订单金额
 			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
 			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
-			createTime: order.updateTime ? '' : order.createTime, // 创建时间
+			// createTime: order.updateTime ? '' : order.createTime, // 创建时间
+			createTime: order.status === 'PROCESSING' ? order.createTime : '', // 创建时间
 			orderCode: order.orderCode, // 订单号
 			serialNum: $.isArray(list) ? list.map(function(item) {
 				return item.tradeNo;
@@ -244,7 +253,7 @@ define('h5-view-bill', [
 			payType: H5bill.payType[order.payType], // 支付方式
 			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			ifClose: waitForPay, // 是否显示"关闭"
-			// phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : null,
+			// phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
 		};
 	};
 	var buyInHandler = function(type, id, options) { // 买入
@@ -271,8 +280,35 @@ define('h5-view-bill', [
 			}), options);
 		});
 	};
+
+	/*
+	var consumeDataHandler = function(type, id, order, waitForPay, list) { // 消费数据
+		return {
+			id: id, // 账单ID
+			type: type, // 类型
+			status: order.status, // 订单状态
+			headClass: H5bill.statusClass[order.status], // 头部样式名
+			headContent: H5bill.statusBusiness[order.status], // 头部内容
+			waitForPay: waitForPay, // 等待支付
+			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney,//等待支付金额
+			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
+			orderMoney: order.status === 'PROCESSING' ? '' : order.orderMoney, // 订单金额
+			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
+			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
+			// createTime: order.updateTime ? '' : order.createTime, // 创建时间
+			createTime: order.status === 'PROCESSING' ? order.createTime : '', // 创建时间
+			orderCode: order.orderCode, // 订单号
+			serialNum: $.isArray(list) ? list.map(function(item) {
+				return item.tradeNo;
+			}).join('<br>') : order.serialNum,
+			payType: H5bill.payType[order.payType], // 支付方式
+			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+			ifClose: waitForPay, // 是否显示"关闭"
+			phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
+		};
+	};
+	*/
 	var consumeHandler = function(type, id, options) { // 消费 话费流量
-		console.log(options)
 		api.query({
 			gopToken: gopToken,
 			consumeOrderId: id
@@ -286,7 +322,8 @@ define('h5-view-bill', [
 			var order = data.data.consumeOrder; //定单信息 创建时间 
 			var list = data.data.recordList; //流水号 创建时间 支付果仁
 			var product = data.data.product; // 商品信息 流量 话费 面额
-			var trade = data.data.trade; // 支付状态
+			var extra = data.data.extra;   //银行卡
+			// var trade = data.data.trade;   //失败原因
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
 			if (order.status == 'SUCCESS' && list && list.length) {
@@ -298,12 +335,16 @@ define('h5-view-bill', [
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
-				productDesc: JSON.parse(order.extraContent).carrier + '-' + product.productDesc.substr(2), // 商品信息
-				phoneNum: JSON.parse(order.extraContent).phone, //充值号码
-				// transferFailReason: trade.result ? trade.result : null, //失败原因
+				productDesc: product.productDesc, // 商品信息
+				phoneNum:JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
+				bankCangory: extra.bankcard ? extra.bankcard.cardType.indexOf('SAVINGS')!=-1 ? '储蓄卡' :'信用卡' : '', //银行类型
+				bankName:  extra.bankcard ? extra.bankcard.bankName : '', //银行名称
+				failReason: order.status === 'FAILURE' ? data.data.trade.result ? data.data.trade.result : '' : '', //失败原因
 			}), options);
 		});
 	};
+
+
 	var transferHandler = function(type, id, order) { // 统一处理的转账数据
 		var startTime = order.createTime;
 		var finishTime = order.transferTime || order.updateTime;
@@ -372,6 +413,8 @@ define('h5-view-bill', [
 			order.personId && setUser(order.personId);
 		});
 	};
+
+
 	var refundHandler = function(type, id, options) { // 退款
 		api.refundQuery({
 			gopToken: gopToken,

@@ -4,10 +4,16 @@
 			<div class="bill-box">
 				<!--交易状态 转帐进行中 转帐成功 关闭-->
 				<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')">{{headContent}}</div>
+				<!--
 				<div class="bill-wait" ms-visible="waitForPay">
 					<div class="bill-wait-left">等待支付(¥)</div>
 					<div class="bill-wait-right">-{{orderMoney|fix}}</div>
 				</div>
+				-->
+				<div class="bill-wait" ms-visible="waitForPayMoney">
+					<div class="bill-wait-left">等待支付(¥)</div>
+					<div class="bill-wait-right">-{{waitForPayMoney|fix}}</div>
+				</div>				
 				<!--买果仁成功-->
 				<div class="bill-get" ms-visible="gopNum">
 					<div class="bill-get-number">+{{gopNum|floorFix}}</div>
@@ -85,10 +91,20 @@
 					<div class="fl">关闭原因</div>
 					<div class="fr red">{{closeReason|html}}</div>
 				</div> -->
+				<!--话费交易失败-->
+				<div class="bill-pay" ms-visible="failReason">
+					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
+						失败原因
+					</div>
+					<div class="bill-num red">{{failReason}}</div>
+				</div>				
 				<!--金额相关-->
 				<div class="bill-pay" ms-visible="orderMoney&&!buyMoney"><!--买果仁-->
-					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">订单金额(¥)</div>
+					<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
+						订单金额(¥)
+					</div>
 					<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
+					<!--
 					<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 						<div class="bill-pay-item" ms-visible="payMoney">
 							<div class="bill-label">支付金额</div>
@@ -99,6 +115,7 @@
 							<div class="bill-num">-{{(orderMoney-payMoney)|fix}}</div>
 						</div>
 					</div>
+					-->
 				</div>
 				
 				<div class="bill-pay" ms-visible="status==='SUCCESS'&&buyMoney">
@@ -123,14 +140,24 @@
 						<div class="bill-detail-left">充值号码</div>
 						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">{{phoneNum}}</div>
 					</div>
+					<!--付款详情 果仁支付-->
 					<div class="bill-detail-item" ms-visible="payGop">
 						<div class="bill-detail-left">付款详情</div>
 						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">
-							<p class="bill-detail-right-pl">果仁</p><span class="iconfont icon-g bill-detail-right-spanl"></span>
+							<p class="bill-detail-right-pl">果仁</p>
+							<span class="iconfont icon-g bill-detail-right-spanl"></span>
 							<p class="bill-detail-right-pr">-{{payGop|ceilFix}}</p>
 						</div>
 					</div>
-					<div class="underline"></div>						
+					<!--付款详情 银行卡支付 ms-visible="bankCangory"-->					
+					<div class="bill-detail-item"  ms-visible="bankCangory">
+						<div class="bill-detail-left">付款详情</div>					
+						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">
+							<p class="bill-detail-right-pl">{{bankCangory}}</p>
+							<p class="bill-detail-right-pr">{{bankName}}</p>
+						</div>
+					</div>					
+					<div ms-class="underline:bankCangory||payGop"></div>						
 					<div class="bill-detail-item" ms-visible="gopPrice">
 						<div class="bill-detail-left">成交价</div>
 						<div class="fl">(¥)</div>
