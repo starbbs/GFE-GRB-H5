@@ -26,7 +26,7 @@ require([
 	}
 
 	address_mine.vm.setSuccess = function() {
-		vm.setMarketAddressTip = '已设置';
+		vm.setMarketAddressTip = '查看';
 		vm.marketGopAddress = address_mine.vm.marketGopAddress;
 	};
 
@@ -164,12 +164,12 @@ require([
 				vm.setRealName = true;
 			}
 			if (data.data.marketGopAddress) {
-				vm.setMarketAddressTip = '已设置'; //果仁市场地址。null或空字符串都表示未设置
+				vm.setMarketAddressTip = '查看'; //果仁市场地址。null或空字符串都表示未设置
 				vm.hasMarketAddress = true;
 				vm.marketGopAddress = data.data.marketGopAddress.substring(0, 10) + "*************************************";
 			}
 			if (data.data.hasWallet) {
-				vm.setWallet = '已设置'; //果仁市场地址。null或空字符串都表示未设置
+				vm.setWallet = '查看'; //果仁市场地址。null或空字符串都表示未设置
 			}
 			vm.internalGopAddress = data.data.internalGopAddress; //内部果仁地址。null或空字符串都表示未设置
 
