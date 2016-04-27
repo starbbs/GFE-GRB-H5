@@ -213,7 +213,11 @@ require([
 				}, function(data) {
 					if (data.status == 200) {
 						router.go('/paypass-view-2');
-					} else {
+					} else if(data.status==310) {
+						if(data.lockTimes && data.lockTimes>9){
+							window.location.href="./frozen.html";
+						}
+					}else {
 						$.alert(data.msg);
 					}
 				});
