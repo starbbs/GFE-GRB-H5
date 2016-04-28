@@ -22,8 +22,10 @@ html {
 	&-er{
 		text-align: center;
 		&-img{
-			@include sprite($img + '/2w.png', 182px, 182px);
+			// @include sprite($img + '/2w.png', 182px, 182px);
 			display: inline-block;
+			width: 182px;
+			height: auto;
 		}
 	}
 	&-erworld{
