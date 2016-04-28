@@ -12,15 +12,15 @@ require([
 	router.init(true);
 
 	dialogAlert.set('输入5次错误,3小时后解锁');
-	var showDialogKnown = function(ifShowImmediately, ifHideOthers ,HideArr) { // 出"知道了"弹窗  错误5次	
-		dialogAlert.show(ifShowImmediately, ifHideOthers ,HideArr);
+	var showDialogKnown = function(ifShowImmediately, ifHideOthers, HideArr) { // 出"知道了"弹窗  错误5次	
+		dialogAlert.show();
 	};
 
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
 
 	var finish = function() { // 最终
-		switch(get.data.from) {
+		switch (get.data.from) {
 			case 'dialog':
 				window.location.href = './transfer.html';
 				break;
@@ -75,8 +75,8 @@ require([
 		question2: '',
 		answer1: '',
 		answer2: '',
-		paypass1Next:false,
-		paypass2Next:false,
+		paypass1Next: false,
+		paypass2Next: false,
 		phone: '',
 		identifyingCode: '',
 		hasProtected: true,
@@ -119,16 +119,16 @@ require([
 				$.alert('请输入验证码');
 			}
 		},
-		paypass1Value:function(){
+		paypass1Value: function() {
 			vm.paypass1Next = vm.paypass1.length === 6 ? true : false;
 			console.log(vm.paypass1Next);
 		},
-		paypass2Value:function(){
+		paypass2Value: function() {
 			vm.paypass2Next = vm.paypass2.length === 6 ? true : false;
 		},
-		paypass3Value:function(){
+		paypass3Value: function() {
 			vm.paypass3Next = vm.paypass3.length === 6 ? true : false;
-		},		
+		},
 		quesiotn1Click: function() { // 第一个密保问题
 			api.checkQuestion({
 				gopToken: gopToken,
@@ -168,11 +168,11 @@ require([
 			});
 		},
 		ident: function(view) {
-			if(!vm.hasProtected && view.indexOf('protection')!=-1){
+			if (!vm.hasProtected && view.indexOf('protection') != -1) {
 				$.alert('您没有设置密保问题');
 				return;
-			}			
-			if(!vm.hasRealName && view.indexOf('authentication')!=-1){
+			}
+			if (!vm.hasRealName && view.indexOf('authentication') != -1) {
 				$.alert('您没有通过实名信息认证');
 				return;
 			}
@@ -218,13 +218,13 @@ require([
 				}, function(data) {
 					if (data.status == 200) {
 						router.go('/paypass-view-2');
-					} else if(data.status==310) {
-						if(data.lockTimes && data.lockTimes>9){
-							window.location.href="./frozen.html";
-						}else if(data.lockTimes && data.lockTimes==5){
+					} else if (data.status == 310) {
+						if (data.lockTimes && data.lockTimes > 9) {
+							window.location.href = "./frozen.html";
+						} else if (data.lockTimes && data.lockTimes > 5) {
 							showDialogKnown();
 						}
-					}else {
+					} else {
 						$.alert(data.msg);
 					}
 				});
@@ -264,7 +264,7 @@ require([
 		gopToken: gopToken
 	}, function(data) {
 		//vm.hasProtected = data.status == 200;
-		vm.hasProtected = data.status == 200 ? true : false ;
+		vm.hasProtected = data.status == 200 ? true : false;
 	});
 
 	//身份证认证				
@@ -273,7 +273,7 @@ require([
 	}, function(data) {
 		if (data.status == 200) {
 			//vm.hasRealName = data.data.realname && data.data.realname != '';
-			vm.hasRealName = data.data.realname ? true : false ;
+			vm.hasRealName = data.data.realname ? true : false;
 		} else {
 			$.alert(data.msg);
 		}

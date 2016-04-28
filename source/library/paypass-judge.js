@@ -47,7 +47,6 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 					}
 					callback(status, data);
 				}
-				console.log(callback);
 			});
 		},
 	};

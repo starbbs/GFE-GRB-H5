@@ -17,7 +17,7 @@ define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authoriza
 				if (data.status == 200 ) { 
 					success && success();
 				} else if(data.status == 300){ //增加如果用户锁定进冻结页面
-					setTimeout(function(){window.location.href = './frozen.html'},210);
+					setTimeout(function(){window.location.href = './frozen.html?type=locked'},210);
 				} else {
 					jumpOut();
 				}

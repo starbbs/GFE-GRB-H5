@@ -62,7 +62,6 @@ define('h5-paypass-view', [
 			paypass3VM.paypass3Next = paypass3VM.paypass3.length === 6 ? true : false;
 		},
 		paypass3Click: function() {
-			console.log(paypass2VM.paypass2 + ' ==' + paypass3VM.paypass3);
 			if (paypass2VM.paypass2 == paypass3VM.paypass3 && paypass3VM.paypass3.length == 6) {
 				api.setPayPassword({
 					gopToken: gopToken,
