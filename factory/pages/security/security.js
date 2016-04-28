@@ -13,7 +13,6 @@ require([
 	new View('paypass-view-3set');
 
 	paypassJudge.check(function(status, data){
-		alert(status);
 	});
 	var vm = avalon.define({
 		$id: 'security',
