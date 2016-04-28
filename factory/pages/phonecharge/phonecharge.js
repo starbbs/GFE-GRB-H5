@@ -117,7 +117,7 @@ require([
 					$(this).blur();
 					vm.cancelBool = true;
 					vm.focusing = true;
-					vm.closeBool = false;
+					vm.closeBool = true;
 				}
 			}
 		},
@@ -156,8 +156,8 @@ require([
 			vm.focusing = false;
 			vm.closeBool = true;
 			$(".phonecharge-lista-item").removeClass('cur');
-			if(vm.phone){
-				$(this).siblings(".phonecharge-text-box").children("input").val(curPhone);
+			if(vm.phone || !check.phone(vm.phone).result){
+				$("#phonecharge-text-input").val(curPhone);
 				vm.phone = curPhone;
 				vm.input();
 			}
