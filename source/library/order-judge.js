@@ -2,43 +2,55 @@
 // H5微信端 --- order-judge 判断果仁现价 果仁数是否满足消费价格
 
 
-define('h5-order-judge', ['h5-api','filters'], function(api,filters) {
-	var gopToken = $.cookie('gopToken');
-	var res = {
-		check: function(curGopNum, callback) {
-			var status = 'gopNumNo'; //状态果仁不够
-			var gopPrice = 0;
-			var myGopNum = 0;			
-			var resultArr = [];
-			var todo = function() {
-				if (resultArr.length !== 2) {
-					return;
-				}
-				status = resultArr[1] > filters.ceilFix(curGopNum) ? 'gopNumOk' : 'gopNumNo';
+define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
+	var ok = 'gopNumOk';
+	var no = 'gopNumNo';
+	return {
+		ok: ok,
+		no: no,
+		tip: '您的果仁不够，请充值',
+		checkGOP: function(curGOPNum, callback) { // 以果仁数值传参
+			this.once(function(myGopNum, gopPrice) {
+				var status = myGopNum > parseFloat(filters.ceilFix(curGOPNum)) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
-			};
-			//果仁现价
-			api.price({
-				gopToken: gopToken
-			}, function(data) {
-				if (data.status == '200') {
-					resultArr.push(gopPrice = data.data.price);
-					todo();
-				}
 			});
-			//获取果仁数
-			api.getGopNum({
+		},
+		checkRMB: function(curRMBNum, callback) { // 以人民币数值传参
+			this.once(function(myGopNum, gopPrice) {
+				var status = myGopNum * gopPrice > parseFloat(curRMBNum) ? ok : no;
+				callback && callback(status, gopPrice, myGopNum);
+			});
+		},
+		once: function(callback) { // 请求一次
+			var gopToken = $.cookie('gopToken');
+			var myGopNum = 0;
+			var gopPrice = 0;
+			var i = 0;
+			var todo = function() {
+				i++;
+				if (i === 2) {
+					callback && callback(myGopNum, gopPrice);
+				}
+			};
+			api.price({ // 果仁现价
 				gopToken: gopToken
 			}, function(data) {
 				if (data.status == 200) {
-					resultArr.push(myGopNum = filters.floorFix(data.data.gopNum));
+					gopPrice = parseFloat(data.data.price);
 					todo();
-				} else {
-					console.log(data);
+				}
+			});
+			api.getGopNum({ // 获取果仁数
+				gopToken: gopToken
+			}, function(data) {
+				if (data.status == 200) {
+					myGopNum = parseFloat(data.data.gopNum);
+					todo();
 				}
 			});
 		},
+		check: function(curGOPNum, callback) { // 默认用果仁数检查 --- 不适用于手机充值
+			this.checkGOP(curGOPNum, callback);
+		},
 	};
-
-	return res;
 });

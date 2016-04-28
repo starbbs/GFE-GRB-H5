@@ -7,6 +7,7 @@ require([
 ], function(
 	router, api, get, filters, H5bill, iscrollLoading, billView, mydate
 ) {
+	// $.cookie('gopToken','b7af44824ea34409a494393b00f0788e'); 
 
 	router.init();
 	$(document).get(0).ontouchmove = function(event) {
@@ -117,6 +118,7 @@ require([
 			name: '', // 姓名
 			desc: item.businessDesc,
 			status: H5bill.statusBusiness[item.status], // 交易状态中文  进行中  交易成功/失败。。。
+			originStatus: item.status,
 			type: type,
 			originType: item.type,
 			iconClass: '',
@@ -158,7 +160,7 @@ require([
 		}
 		if (type === 'phone' || type === 'refund') {
 			if (item.extra && item.extra.product) {
-				item.extra.product.productDesc && (bill.desc += ' - ' + item.extra.product.productDesc.replace(/\-/g, ' - ')); // 运营商
+				item.extra.product.productDesc && (bill.desc = item.extra.product.productDesc.replace(/\-/g, ' - ')); // 运营商
 			}
 		}
 

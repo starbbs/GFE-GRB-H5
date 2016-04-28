@@ -87,7 +87,9 @@ require([
 		confirmCangory: '', // 提交时商品类型  话费 流量
 		flowsworld:'', //流量充值描述文字
 		goodsFlag : true,
+		closeBool : false,
 		input: function() { // 手机号输入
+			vm.closeBool = false;
 			if (check.phone(vm.phone).result) {
 				api.phoneInfo({
 					phone: vm.phone
@@ -98,6 +100,7 @@ require([
 						setFlowsWorld(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.goodsFlag = true;
+						vm.closeBool = true;
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 					} else {
 						$.alert(data.msg);
@@ -110,9 +113,11 @@ require([
 				vm.flows = [];
 				vm.carrier = '';
 				if(vm.phone.length >= 11){
-					$.alert("手机号码不正确");
+					//$.alert("手机号码不正确");
 					$(this).blur();
 					vm.cancelBool = true;
+					vm.focusing = true;
+					vm.closeBool = false;
 				}
 			}
 		},
@@ -120,12 +125,14 @@ require([
 		focus: function() { // 获取焦点
 			vm.cancelBool = true;
 			vm.focusing = true;
-			if (vm.phone == curPhone) {
+			vm.closeBool = true;
+			if (vm.phone == curPhone || check.phone(vm.phone).result || vm.phone.length == 11) {
 				phoneInput.val('');
 			}
 			vm.carrier = '';
 			clearTimeout(focusTimer);
 			vm.goodsFlag = false;
+			$(".phonecharge-lista-item").removeClass('cur');
 		},
 		blur: function() { // 失去焦点
 			vm.cancelBool = false;
@@ -147,7 +154,17 @@ require([
 		cancel: function() {
 			vm.cancelBool = false;
 			vm.focusing = false;
+			vm.closeBool = true;
 			$(".phonecharge-lista-item").removeClass('cur');
+			if(vm.phone){
+				$(this).siblings(".phonecharge-text-box").children("input").val(curPhone);
+				vm.phone = curPhone;
+				vm.input();
+			}
+			// setTimeout(function() {
+			// 	console.log(curPhone)
+			// 	vm.phone = curPhone;
+			// }, 300);
 		},
 		list: [], // 历史充值号码列表
 		listClick: function() { // 选择历史号码
@@ -211,8 +228,8 @@ require([
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
 				orderJudge.check(confirmData[0].use / gopPrice[0], function(status, gopPrice, myGopNum) {
-					if (status == 'gopNumNo') {
-						$.alert('您的果仁不够，请充值');
+					if (status == orderJudge.no) {
+						$.alert(orderJudge.tip);
 					} else {
 						api.phoneRecharge({
 							gopToken: gopToken,
@@ -236,8 +253,8 @@ require([
 			} else {
 				//流量充值API
 				orderJudge.check(confirmData[1].use / gopPrice[0], function(status, gopPrice, myGopNum) {
-					if (status == 'gopNumNo') {
-						$.alert('您的果仁不够，请充值');
+					if (status == orderJudge.no) {
+						$.alert(orderJudge.tip);
 					} else {
 						api.phoneTraffic({
 							gopToken: gopToken,
@@ -281,7 +298,6 @@ require([
 		});
 	};
 	var href = decodeURIComponent(window.location.href);
-	console.log(href);
 	var datajson = {};
 	//是否从优惠入口进来  显示流量或话费选项卡
 	if (href.indexOf('from=home') > -1) {
@@ -312,7 +328,6 @@ require([
 					if (data.status == 200) {
 						vm.carrier = data.data.carrier;
 						setFlowsWorld(data.data.carrier);
-						console.log(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
 						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商

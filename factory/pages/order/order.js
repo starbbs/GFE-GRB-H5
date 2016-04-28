@@ -8,7 +8,7 @@ require([
 	'h5-view', 'h5-view-bill',
 	'h5-price', 'h5-ident', 'h5-component-bill',
 	'h5-dialog-paypass',
-	'h5-weixin'
+	'h5-weixin', 'h5-paypass-judge-auto'
 ], function(
 	api, get, router,
 	View, billView,
@@ -83,8 +83,8 @@ require([
 						billView.set('PAY', get.data.id, {
 							forceStatus: 'PROCESSING',
 							ifFinishButton: true,
-							// ifTip: true,
-							// tip: '',
+							ifTip: true,
+							tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
 						});
 					} else {
 						$.alert(data.msg);

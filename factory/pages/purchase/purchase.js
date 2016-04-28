@@ -4,7 +4,7 @@
 
 require([
 	'router', 'h5-view', 'h5-price', 'h5-weixin', 'h5-api', 'check', 'filters', 'h5-view-bill',
-	'h5-text', 'h5-ident', 'h5-weixin', 'h5-keyboard'
+	'h5-text', 'h5-ident', 'h5-weixin', 'h5-keyboard', 'h5-login-judge-auto'
 ], function(
 	router, View, price, weixin, api, check, filters, billView
 ) {
@@ -99,11 +99,10 @@ require([
 
 	avalon.scan();
 
-	price.onFirstChange = price.onChange = function(next) {
+	price.get(function(next) {
 		vm.price = vmOrder.price = next;
 		setOrderNum();
-	};
-	price.get();
+	});
 
 	setTimeout(function() {
 		main.addClass('on');
