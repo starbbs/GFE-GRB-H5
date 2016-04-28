@@ -107,7 +107,6 @@ require([
 	*/
 	price.once(function(next) {
 		vm.price = vmOrder.price = next;
-		console.log(vm.price);
 		setOrderNum();
 	});
 
