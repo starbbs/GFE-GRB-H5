@@ -98,8 +98,16 @@ require([
 
 	avalon.scan();
 
+	/*
 	price.get(function(next) {
 		vm.price = vmOrder.price = next;
+		console.log(vm.price);
+		setOrderNum();
+	});
+	*/
+	price.once(function(next) {
+		vm.price = vmOrder.price = next;
+		console.log(vm.price);
 		setOrderNum();
 	});
 
