@@ -123,7 +123,6 @@ require([
 			if (vm.phone == curPhone) {
 				phoneInput.val('');
 			}
-			alert(list.length&&focusing);
 			vm.carrier = '';
 			clearTimeout(focusTimer);
 			vm.goodsFlag = false;
