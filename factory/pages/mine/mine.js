@@ -32,7 +32,7 @@ require([
 
 	address_wallet.vm.callback = function() {
 		router.go('/');
-	}
+	};
 
 	address_mine.vm.setDelSuccess = function() {
 		vm.setMarketAddressTip = '未设置';

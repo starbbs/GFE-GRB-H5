@@ -144,10 +144,10 @@ require([
 	};
 
 	var init = function() {
-		// checkCode();
-		setTimeout(function() {
-			gotoLogin();
-		}, 100);
+		checkCode();
+		// setTimeout(function() {
+		// 	gotoLogin();
+		// }, 100);
 	};
 
 	init();
