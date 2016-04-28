@@ -5,20 +5,20 @@
 define('h5-keyboard', ['bind'], function(Bind) {
 
 	var keyboard = new Bind('keyboard');
+	var keyboardHideTimer = null;
 	keyboard.setHandles({
 		hide: function(id) { // 写法: data-keyboard="hide(contacts-search-input)" (id不用带引号)
 			var self = $(this);
-			var timer = null;
 			var input = $('#' + id)
 				.on('focus', function() {
-					clearTimeout(timer);
+					clearTimeout(keyboardHideTimer);
 					self.hide();
 				})
 				.on('blur', function() {
-					clearTimeout(timer);
-					timer = setTimeout(function() {
+					clearTimeout(keyboardHideTimer);
+					keyboardHideTimer = setTimeout(function() {
 						self.show();
-					}, 400);
+					}, 333);
 				})
 		},
 	});

@@ -10,7 +10,7 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
 		},
 		go: function() { // 进入授权页
-			// return // 注释进入授权页
+			return // 注释进入授权页
 			setTimeout(function() {
 				window.location.href = this.set(this.main, url.basename);
 			}.bind(this), 100);
@@ -23,7 +23,7 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 				case 'state': // 为默认
 					state = 'home';
 			}
-			return this.main + state + '.html';
+			return './' + state + '.html';
 		},
 		goGet: function() { // 进入回跳后要跳转的链接
 			return window.location.href = this.get();

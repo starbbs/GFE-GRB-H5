@@ -12,9 +12,9 @@ require([
 	new View('paypass-view-2set');
 	new View('paypass-view-3set');
 
-	paypassJudge.check(function(status, data){
+	// paypassJudge.check(function(status, data){
 
-	});
+	// });
 	var vm = avalon.define({
 		$id: 'security',
 		authenticationed: false, // 实名认证

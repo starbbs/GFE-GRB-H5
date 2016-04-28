@@ -80,9 +80,12 @@ require([
 				}, function(data) {
 					if (data.status == 200) {
 						router.to('/bill');
+						console.log(vm);
 						billView.set('PAY', get.data.id, {
 							forceStatus: 'PROCESSING',
 							ifFinishButton: true,
+							waitForPayMoney: '', // 取消等待支付
+							orderMoney: vm.gopMoney, // 加入订单金额
 							ifTip: true,
 							tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
 						});
