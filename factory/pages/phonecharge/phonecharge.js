@@ -113,7 +113,7 @@ require([
 				vm.flows = [];
 				vm.carrier = '';
 				if(vm.phone.length >= 11){
-					//$.alert("手机号码不正确");
+					$.alert("手机号码不正确");
 					$(this).blur();
 					vm.cancelBool = true;
 					vm.focusing = true;
