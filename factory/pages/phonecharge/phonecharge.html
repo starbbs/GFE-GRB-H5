@@ -73,8 +73,8 @@
 						</div>
 						<ul class="phonecharge-body-content-listul" ms-click="flowsClick($event)">
 							<li class="phonecharge-listb-item" ms-repeat-item="flows" ms-data-id="item.id">
-								<div>{{item.level}}</div>
-								<div><i class="middleline"></i>{{item.price|floorFix}}元</div>
+								<div ms-class-1="sliver:!goodsFlag"  ms-class-2="dark:goodsFlag">{{item.level}}</div>
+								<div ms-class-1="sliver:!goodsFlag"  ms-class-2="ash:goodsFlag"><i class="middleline"></i>{{item.price|floorFix}}元</div>
 							</li>				
 						</ul>
 						<div class="phonecharge-tips">{{flowsworld}}</div>

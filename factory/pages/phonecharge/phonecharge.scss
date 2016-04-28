@@ -186,15 +186,24 @@ html{
 							color: #6888D9;
 							border: 1px solid #6888D9;
 							&>div{
-								color: #6888D9;
+								color: #6888D9!important;
 								&:nth-child(1){
-									color: #6888D9;
+									color: #6888D9!important;
 								}
 								&>i{
 									border-color: #6888D9;
 								}
 							}
 						}
+						.sliver{
+                            color: $g-silver!important;
+                        }
+                        .dark{
+                            color: $g-dark;
+                        }
+                        .ash{
+                            color: $g-ash;
+                        }
 					}
 				}
 			}

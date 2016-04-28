@@ -110,7 +110,7 @@ require([
 				vm.flowsworld = '';
 				vm.goodsFlag = false;
 				//vm.goods = [];
-				vm.flows = [];
+				//vm.flows = [];
 				vm.carrier = '';
 				if(vm.phone.length >= 11){
 					$.alert("手机号码不正确");
@@ -133,6 +133,7 @@ require([
 			clearTimeout(focusTimer);
 			vm.goodsFlag = false;
 			$(".phonecharge-lista-item").removeClass('cur');
+			$(".phonecharge-listb-item").removeClass('cur');
 		},
 		blur: function() { // 失去焦点
 			vm.cancelBool = false;
@@ -145,7 +146,7 @@ require([
 			vm.phone = '';
 			//vm.goods = [];
 			vm.goodsFlag = false;
-			vm.flows = [];
+			//vm.flows = [];
 			vm.focusing = true;
 			vm.button = '支付';
 			confirmData = [];
@@ -156,6 +157,7 @@ require([
 			vm.focusing = false;
 			vm.closeBool = true;
 			$(".phonecharge-lista-item").removeClass('cur');
+			$(".phonecharge-listb-item").removeClass('cur');
 			if(vm.phone || !check.phone(vm.phone).result){
 				$("#phonecharge-text-input").val(curPhone);
 				vm.phone = curPhone;
@@ -210,7 +212,7 @@ require([
 		flows: [], // 流量列表	
 		flowsClick: function(ev) {
 			var item = $(ev.target).closest('.phonecharge-listb-item');
-			if (item.length) {
+			if (item.length && vm.goodsFlag) {
 				item.addClass('cur').siblings().removeClass('cur');
 				confirmData[1] = vm.flows[item.index()].$model;
 				vm.confirmId = confirmData[1].id;
