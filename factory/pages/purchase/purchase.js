@@ -59,10 +59,8 @@ require([
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
-			console.log(this.value);
 			if(this.value){
 				// console.log(isNaN(this.value));
-				// console.log(this.value);
 				if(isNaN(this.value) || this.value === '0.'){//输入框是非数字时 NaN === NaN -> false 用isNaN判断类型是否是数字
 					this.value = '';
 					$.alert('请输入1~3000内的金额');
@@ -70,6 +68,7 @@ require([
 					this.value = parseInt(this.value);
 					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
 					if(vm.ifBuy){
+						console.log(vm.price);
 						vm.expect = this.value ? filters.floorFix(this.value / vm.price) : '';
 					}else{
 						this.value = '';

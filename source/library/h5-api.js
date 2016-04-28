@@ -75,7 +75,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 	});
 
 	// 8.我的果仁数
-	api.regist('getGopNum', '/wealth/getGopNum');
+	api.regist('getGopNum', '/wealth/getGopNum',{
+		asyn: true
+	});
 
 	// 9.果仁市场实时价格
 	api.regist('price', '/gop/price');
@@ -289,7 +291,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 
 	// 77.获取用户支付密码锁定状态
 	api.regist('checkPayPasswordStatus', '/security/checkPayPasswordStatus', {
-
+		asyn: true
 	});
 
 	// 78.微信自动登录（app）

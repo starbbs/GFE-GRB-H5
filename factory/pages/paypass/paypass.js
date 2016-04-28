@@ -3,13 +3,18 @@
 
 
 require([
-	'router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success',
+	'router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success', 'h5-dialog-alert',
 	'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin'
 ], function(
-	router, api, View, get, dialogSuccess
+	router, api, View, get, dialogSuccess, dialogAlert
 ) {
 
 	router.init(true);
+
+	dialogAlert.set('输入5次错误,3小时后解锁');
+	var showDialogKnown = function(ifShowImmediately, ifHideOthers ,HideArr) { // 出"知道了"弹窗  错误5次	
+		dialogAlert.show(ifShowImmediately, ifHideOthers ,HideArr);
+	};
 
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
@@ -216,6 +221,8 @@ require([
 					} else if(data.status==310) {
 						if(data.lockTimes && data.lockTimes>9){
 							window.location.href="./frozen.html";
+						}else if(data.lockTimes && data.lockTimes==5){
+							showDialogKnown();
 						}
 					}else {
 						$.alert(data.msg);

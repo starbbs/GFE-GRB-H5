@@ -3,7 +3,7 @@
 
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'touch-slide',
+	'router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'h5-login-judge-auto', 'touch-slide',
 	'filters', 'h5-weixin', 'hchart'
 ], function(
 	router, api, price, View, TouchSlide, mydate, iscrollLoading

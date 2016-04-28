@@ -2,12 +2,12 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide',
-	'filters', 'h5-login-judge-auto'
+	'router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide', 'h5-login-judge-auto',
+	'filters',
 ], function(
 	router, api, price, weixin, TouchSlide
 ) {
-	 // $.cookie('gopToken','d5610892684b4523a1c2547b59318e37'); //我的
+	// $.cookie('gopToken','d5610892684b4523a1c2547b59318e37'); //我的
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var main = $('.home');
@@ -33,9 +33,11 @@ require([
 				homeVm.curIndex = 1;
 			}
 		},
-		gotophonecharge:function(ev){
+		gotophonecharge: function(ev) {
 			var target = $(ev.target).closest('.home-phonebills');
-			if(!target.length){return;}
+			if (!target.length) {
+				return;
+			}
 			window.location.href = target.get(0).dataset.href;
 		},
 	});
@@ -47,7 +49,6 @@ require([
 		if (data.status == '200') {
 			homeVm.totalInCome = data.data.totalIncome;
 			homeVm.yesterDayIncome = data.data.yesterdayIncome;
-			console.log(homeVm.totalInCome);
 		}
 	});
 	//果仁现价

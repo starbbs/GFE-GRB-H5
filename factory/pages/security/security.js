@@ -1,10 +1,10 @@
 // 余效俭 2016-1-9 10:47:16 创建
 // H5微信端 --- 安全中心
 require([
-	'router', 'h5-api', 'h5-view', 'h5-view-authentication', 'h5-dialog-success','h5-paypass-view',
+	'router', 'h5-api', 'h5-view', 'h5-view-authentication', 'h5-dialog-success','h5-paypass-view','h5-paypass-judge',
 	'h5-paypass', 'h5-weixin', 
 ], function(
-	router, api, View, viewAuthen, dialogSuccess, paypassView
+	router, api, View, viewAuthen, dialogSuccess, paypassView, paypassJudge
 ) {
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
@@ -12,6 +12,9 @@ require([
 	new View('paypass-view-2set');
 	new View('paypass-view-3set');
 
+	paypassJudge.check(function(status, data){
+		alert(status);
+	});
 	var vm = avalon.define({
 		$id: 'security',
 		authenticationed: false, // 实名认证
