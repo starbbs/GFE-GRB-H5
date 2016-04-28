@@ -35,6 +35,7 @@ require([
 				case 'BUYIN_ORDER': // 超时关闭买果仁订单消息
 				case 'TRANSFER_IN': // 转入消息
 				case 'TRANSFER_OUT': // 转出消息
+				case 'REFUND': // 退款
 					// window.location.href = 'transfer.html?from=wx_info&id=' + get.data.id;
 					billView.set(type, get.data.id, {
 						onRendered: function() {
