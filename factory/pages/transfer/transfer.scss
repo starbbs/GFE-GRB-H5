@@ -88,6 +88,9 @@ body {
 
 	&-target {
 		@extend .view-style;
+		&-scroll {
+			padding-bottom: 360px;
+		}
 		&-head {
 			display: flex;
 			flex-direction: column;

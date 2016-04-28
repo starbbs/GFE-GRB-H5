@@ -88,6 +88,9 @@ require([
 			});
 		},
 	});
+	login.on('show', function() {
+		login.self.get(0).scrollTop = 0; // 显示时滚回最上面
+	});
 	avalon.scan(login.native, loginVM);
 
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
@@ -141,7 +144,10 @@ require([
 	};
 
 	var init = function() {
-		checkCode();
+		// checkCode();
+		setTimeout(function() {
+			gotoLogin();
+		}, 100);
 	};
 
 	init();

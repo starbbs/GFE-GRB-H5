@@ -622,6 +622,7 @@ require([
 	transferTargetView.on("show", function() {
 		transferTarget.transferNum = '';
 		$('.transfer-target-box .text-input').val('');
+		transferTargetView.self.get(0).scrollTop = 0; // 显示时滚回顶部
 	});
 
 	init();

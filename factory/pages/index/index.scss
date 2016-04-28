@@ -28,6 +28,9 @@
 	&-login {
 		@extend .view-style;
 		background: #fff;
+		&-scroll {
+			padding-bottom: 400px;
+		}
 		&-picture {
 			margin: 40px auto 0;
 			@include square(85px);
