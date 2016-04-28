@@ -414,7 +414,7 @@ require([
 	// 轮播图
 	api.static(function(data) {
 		if (data.status == 200) {
-			data.data.indexSlideAds.filter(function(val, index, arr) {
+			data.data.consumeSlideAds.filter(function(val, index, arr) {
 				if (val.sources.indexOf('h5') != -1) {
 					vm.bannerImgArr.push(val);
 				}
