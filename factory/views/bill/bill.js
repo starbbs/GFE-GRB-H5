@@ -312,6 +312,7 @@ define('h5-view-bill', [
 					item.payGop && (payGop = item.payGop);
 				});
 			// }
+
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
@@ -320,6 +321,12 @@ define('h5-view-bill', [
 				bankCangory: extra.bankcard ? extra.bankcard.cardType.indexOf('SAVINGS')!=-1 ? '储蓄卡' :'信用卡' : '', //银行类型
 				bankName:  extra.bankcard ? extra.bankcard.bankName : '', //银行名称
 				failReason: order.status === 'FAILURE' ? data.data.trade&&data.data.trade.result ? data.data.trade.result : list[0].payResult : '', //失败原因
+
+				// 已经支付定单
+				waitForPayMoney: list && list.length ? '' : order.orderMoney,
+				orderMoney: list && list.length ? order.orderMoney : '',
+				ifTip: list && list.length ? true : false,
+				tip:   list && list.length ?'预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
 			}), options);
 		});
 	};
