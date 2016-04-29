@@ -61,7 +61,7 @@ require([
 		ifConfirmPay: false,
 		confirmPay: function() { // 确认支付
 			if (!vm.ifConfirmPay || filters.ceilFix(vm.gopUse) > filters.floorFix(vm.gopNum)) {
-				
+
 				return;
 			}
 			dialogPaypass.show();
