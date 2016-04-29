@@ -79,7 +79,7 @@ require([
             dialogAlert.set(QA_html);
             dialogAlert.onAlert = function() {
                 // window.location.href = 'security.html';
-                window.history.go(-3);
+                window.location.href = './mine.html';
             };
 
             api.applyQuestion({

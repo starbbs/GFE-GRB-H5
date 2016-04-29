@@ -81,9 +81,7 @@ require([
 	}
 
 	viewAuthen.vm.callbackFlag = true;
-	viewAuthen.vm.callback = function() {
-		vm.authenticationed = true;
-	}
+
 	setTimeout(function() {
 		security.addClass('on');
 	}, 100);
