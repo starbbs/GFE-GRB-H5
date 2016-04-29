@@ -35,9 +35,15 @@ require([
 			if (!vm.ifBuy) {
 				return;
 			}
-
+			vm.money = '';
 			vm.ifBuy = false;
-			
+			//果仁现价
+			api.price(function(data) {
+				if (data.status == '200') {
+					// vmOrder.price = vm.price = data.data.price;
+					vmOrder.price = data.data.price;
+				}
+			});			
 			weixin.pay.onSuccess = function(res) {
 				price.stop();
 				billView.set('BUY_IN', vmOrder.id, {
@@ -47,13 +53,13 @@ require([
 				router.to('/bill');
 			};
 			weixin.pay.onCreate = function(data) {
-				vm.money = '';
 				var order = data.data.buyinOrder;
 				vmOrder.orderMoney = order.orderMoney;
 				vmOrder.id = order.id;
 				setOrderNum();
 				setTimeout(function() {
 					router.go('/purchase-order');
+					vm.price = vmOrder.price;
 				}, 100);
 			};
 			weixin.pay.create($('#purchase-main-money').val());
