@@ -94,6 +94,7 @@ html{
 				overflow: hidden;
 				padding: 5px 13px;
 				min-height: 260px;
+				position: relative;
 				&-tit{//话费充值标题
 					line-height: 35px;
 				}
@@ -148,7 +149,8 @@ html{
 				overflow: hidden;
 				padding: 5px 13px;
 				min-height: 260px;
-				padding-bottom: 25px;				
+				padding-bottom: 25px;
+				position: relative;							
 				&-tit{//话费充值标题
 					line-height: 35px;
 				}
@@ -213,7 +215,8 @@ html{
 		color:$g-blue;
 		position: absolute; 
 		bottom: 0px;
-		width: 50%;
+		left: 0;	
+		width: 100%;
 		text-align: center;
 	}
 	&-text {
@@ -242,7 +245,7 @@ html{
 			@extend %afull;
 			font: 16px/65px $g-font-num;
 			&.non-null {
-				font-size: 28px;
+				font-size: 20px;
 			}
 		}
 		&-list {

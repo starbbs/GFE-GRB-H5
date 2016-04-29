@@ -48,8 +48,8 @@ require([
 		setnick: '未设置',
 		nickname: '',
 		feedback: '',
-		setMarketAddressTip: '未设置',
-		setWallet: '未设置',
+		setMarketAddressTip: '未设置', //市场地址
+		setWallet: '未设置',   // 钱包地址
 		setRealName: false, //是否实名认证标志
 		hasMarketAddress: false, //是否有果仁市场地址标志
 		setMarketAddress: false, //正在设置果仁市场地址标志
