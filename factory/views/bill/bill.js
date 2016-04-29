@@ -264,6 +264,12 @@ define('h5-view-bill', [
 		};
 	};
 	var buyInHandler = function(type, id, options) { // 买入
+		var price;
+		api.price(function(data) {
+			if (data.status == '200') {
+				price = data.data.price;
+			}
+		});
 		api.queryBuyinOrder({
 			gopToken: gopToken,
 			buyinOrderId: id,
@@ -281,10 +287,10 @@ define('h5-view-bill', [
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			setVM($.extend(orderHandler(type, id, order, waitForPay, list), {
 				gopNum: order.gopNum, // 买果仁--果仁数
-				gopPrice: order.price, // 买果仁--成交价、实时市场价
+				gopPrice: price, // 买果仁--成交价、实时市场价
 				buyMoney: order.payMoney, // 买果仁--支付金额
 				productDesc: order.businessDesc || '买果仁', // 商品信息
-				noPayGopNum: order.orderMoney/order.price //进行中 预得果仁
+				noPayGopNum: order.orderMoney/price //进行中 预得果仁
 			}), options);
 		});
 	};
@@ -322,11 +328,12 @@ define('h5-view-bill', [
 				bankName:  extra.bankcard ? extra.bankcard.bankName : '', //银行名称
 				failReason: order.status === 'FAILURE' ? data.data.trade&&data.data.trade.result ? data.data.trade.result : list[0].payResult : '', //失败原因
 
-				// 已经支付定单
+				// 已经支付 未到帐  显示以下
+				// 已经支付  交易失败 不显示到帐
 				waitForPayMoney: list && list.length ? '' : order.orderMoney,
 				orderMoney: list && list.length ? order.orderMoney : '',
-				ifTip: list && list.length ? true : false,
-				tip:   list && list.length ?'预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
+				ifTip: list && list.length && order.status!='FAILURE' ? true : false,
+				tip: list && list.length ?'预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
 			}), options);
 		});
 	};
