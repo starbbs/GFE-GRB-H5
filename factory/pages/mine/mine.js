@@ -18,13 +18,14 @@ require([
 	new View('setting-address');
 	new View('setting-feedback');
 
+/*
 	var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
 	if ($.os.ios) {
 		dbclickOrLongpress = '长按';
 	} else if ($.os.android) {
 		dbclickOrLongpress = '双击';
 	}
-
+*/
 	address_mine.vm.setSuccess = function() {
 		vm.setMarketAddressTip = '查看';
 		vm.marketGopAddress = address_mine.vm.marketGopAddress;
@@ -55,7 +56,7 @@ require([
 		setMarketAddress: false, //正在设置果仁市场地址标志
 		marketGopAddress: '', //果仁市场地址
 		internalGopAddress: '',
-		dbclickOrLongpress: dbclickOrLongpress,
+		dbclickOrLongpress: '长按',
 		textNum: '0/140', //可输入的文字个数上线
 		nick_click: function() {
 			// $.extend(nicknameView.vm, {
