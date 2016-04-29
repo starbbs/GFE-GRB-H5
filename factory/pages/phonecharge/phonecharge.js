@@ -85,10 +85,11 @@ require([
 		carrier: '', // 运营商
 		confirmId: '', // 提交时商品ID
 		confirmCangory: '', // 提交时商品类型  话费 流量
-		flowsworld:'', //流量充值描述文字
-		goodsFlag : true,
-		closeBool : false,
+		flowsworld: '', //流量充值描述文字
+		goodsFlag: true,
+		closeBool: false,
 		input: function() { // 手机号输入
+			// clearTimeout(focusTimer);
 			vm.closeBool = false;
 			if (check.phone(vm.phone).result) {
 				api.phoneInfo({
@@ -96,6 +97,7 @@ require([
 				}, function(data) {
 					if (data.status == 200) {
 						phoneInput[0].blur();
+						curPhone = vm.phone;
 						vm.carrier = data.data.carrier;
 						setFlowsWorld(data.data.carrier);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
@@ -112,9 +114,11 @@ require([
 				//vm.goods = [];
 				//vm.flows = [];
 				vm.carrier = '';
-				if(vm.phone.length >= 11){
+				console.log(vm.phone.length);
+				if (vm.phone.length === 11) {
 					$.alert("手机号码不正确");
 					$(this).blur();
+					clearTimeout(focusTimer);
 					vm.cancelBool = true;
 					vm.focusing = true;
 					vm.closeBool = true;
@@ -136,7 +140,16 @@ require([
 			$(".phonecharge-listb-item").removeClass('cur');
 		},
 		blur: function() { // 失去焦点
-			vm.phone = !$(this).value ? curPhone : $(this).value ;
+			console.log(111);
+			var inputVal = $("#phonecharge-text-input").val();
+			if(inputVal){
+
+			}else{
+				$("#phonecharge-text-input").val(curPhone) ;
+				vm.phone = curPhone;
+			}
+			// $("#phonecharge-text-input").val(!$(this).value&& $(this).value.length ? curPhone : $(this).value ) ;
+			vm.input();
 			vm.cancelBool = false;
 			clearTimeout(focusTimer);
 			focusTimer = setTimeout(function() {
@@ -159,7 +172,7 @@ require([
 			vm.closeBool = true;
 			$(".phonecharge-lista-item").removeClass('cur');
 			$(".phonecharge-listb-item").removeClass('cur');
-			if(vm.phone || !check.phone(vm.phone).result){
+			if (vm.phone || !check.phone(vm.phone).result) {
 				$("#phonecharge-text-input").val(curPhone);
 				vm.phone = curPhone;
 				vm.input();
@@ -318,8 +331,8 @@ require([
 	var setFlowsWorld = function(carrier) {
 		if (carrier.indexOf('联通') > 0) {
 			// vm.flowsworld = '同面值每月限充5次，不同面值产品可叠加1次';
-		} else if(carrier.indexOf('移动') > 0){
-			vm.flowsworld = '移动用户每月最后一天办理，下月生效';			
+		} else if (carrier.indexOf('移动') > 0) {
+			vm.flowsworld = '移动用户每月最后一天办理，下月生效';
 		}
 	};
 	var getUserPhoneCarrier = function() {
