@@ -427,7 +427,10 @@ define('h5-view-bill', [
 				orderCode: data.data.orderCode, // 订单号
 				serialNum: data.data.serialNum, // 流水号
 				ifTip: true, // 是否显示底部提示
+				tip: data.data.status === 'FAILURE' ? '退款失败可能由多种原因造成<br>详情可咨询果仁宝客服' : '', // 底部提示
+				/*
 				tip: data.data.status === 'FAILURE' ? '退款失败可能由多种原因造成<br>详情可咨询果仁宝客服' : '请留意付款银行卡的余额变动提醒<br>', // 底部提示
+				*/
 			}, options);
 		});
 	};

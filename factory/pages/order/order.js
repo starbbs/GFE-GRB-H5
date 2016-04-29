@@ -7,13 +7,13 @@ require([
 	'h5-api', 'get', 'router',
 	'h5-view', 'h5-view-bill',
 	'h5-price', 'h5-ident', 'h5-component-bill',
-	'h5-dialog-paypass',
+	'h5-dialog-paypass','filters',
 	'h5-weixin', 'h5-paypass-judge-auto'
 ], function(
 	api, get, router,
 	View, billView,
 	price, H5Ident, H5Bill,
-	dialogPaypass
+	dialogPaypass,filters
 ) {
 
 	router.init();
@@ -60,9 +60,9 @@ require([
 		},
 		ifConfirmPay: false,
 		confirmPay: function() { // 确认支付
-			if (!vm.ifConfirmPay) {
-				return;
-			}
+			if (!vm.ifConfirmPay || filters.ceilFix(vm.gopUse)>filters.floorFix(vm.gopNum)) { //
+				 return;
+			}			
 			dialogPaypass.show();
 			//支付浮层消失的回调
 			dialogPaypass.vm.callback = function(value) {
