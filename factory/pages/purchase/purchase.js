@@ -43,7 +43,7 @@ require([
 					// vmOrder.price = vm.price = data.data.price;
 					vmOrder.price = data.data.price;
 				}
-			});			
+			});		
 			weixin.pay.onSuccess = function(res) {
 				price.stop();
 				billView.set('BUY_IN', vmOrder.id, {

@@ -11,6 +11,8 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 		tip: '您的果仁不够，请充值',
 		checkGOP: function(curGOPNum, callback) { // 以果仁数值传参
 			this.once(function(myGopNum, gopPrice) {
+				console.log(curGOPNum);
+				console.log(filters.ceilFix(curGOPNum));
 				var status = myGopNum > parseFloat(filters.ceilFix(curGOPNum)) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
 			});
