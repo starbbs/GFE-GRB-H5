@@ -129,7 +129,7 @@ require([
 		};
 		var coins = { // 货币
 			money: '¥',
-			gop: 'G',
+			gop: '<span class="iconfont icon-g"></span>',
 		};
 		var filter = { // 过滤器
 			money: 'fix',
@@ -174,7 +174,7 @@ require([
 				item.extra.recordList.forEach(function(item) {
 					switch (item.payType) {
 						case 'GOP_PAY': // 果仁宝支付
-							bill.change = numHandler(-item.payGop, coins['gop'], filter['gop']);
+							bill.change = numHandler(-item.payGop, coins['gop'], 'ceilFix'); // 果仁消费都是向上取整
 							break;
 						case 'UNION_PAY': // 银行卡支付
 							bill.change = numHandler(-item.payMoney, coins['money'], filter['money']);
@@ -192,7 +192,7 @@ require([
 				bills.push(bill);
 			}
 		} else {
-			bill.change = numHandler(item[types[kind]], coins[kind], filter[kind]);
+			bill.change = numHandler(item[types[kind]], coins[kind], filter[kind]); // 其他果仁都是向下取整
 			bills.push(bill);
 		}
 	};

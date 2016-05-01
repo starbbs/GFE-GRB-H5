@@ -192,6 +192,9 @@
 			&.official { // 官方
 				@include sprite($img + '/10.png');
 			}
+			&.refund-success { // 退款成功
+				@include sprite($img + '/11.png');
+			}
 		}
 		&-name {
 			font-size: 14px;

@@ -77,6 +77,8 @@ require([
 	//提交时存放数据
 	var confirmData = [];
 
+	var checkTimer = null; // 用于手机校验的定时器
+
 	var vm = avalon.define({
 		$id: 'phonecharge',
 		bannerImgArr: [],
@@ -91,39 +93,41 @@ require([
 		input: function() { // 手机号输入
 			// clearTimeout(focusTimer);
 			vm.closeBool = false;
-			if (check.phone(vm.phone).result) {
-				api.phoneInfo({
-					phone: vm.phone
-				}, function(data) {
-					if (data.status == 200) {
-						phoneInput[0].blur();
-						curPhone = vm.phone;
-						vm.carrier = data.data.carrier;
-						setFlowsWorld(data.data.carrier);
-						vm.goods = jsoncards[data.data.carrier.substr(-2)];
-						vm.goodsFlag = true;
+			clearTimeout(checkTimer);
+			checkTimer = setTimeout(function() {
+				if (check.phone(vm.phone).result) {
+					api.phoneInfo({
+						phone: vm.phone
+					}, function(data) {
+						if (data.status == 200) {
+							phoneInput[0].blur();
+							curPhone = vm.phone;
+							vm.carrier = data.data.carrier;
+							setFlowsWorld(data.data.carrier);
+							vm.goods = jsoncards[data.data.carrier.substr(-2)];
+							vm.goodsFlag = true;
+							vm.closeBool = true;
+							vm.flows = jsonflows[data.data.carrier.substr(-2)];
+						} else {
+							$.alert(data.msg);
+						}
+					});
+				} else {
+					vm.flowsworld = '';
+					vm.goodsFlag = false;
+					// vm.goods = [];
+					// vm.flows = [];
+					vm.carrier = '';
+					if (vm.phone.length === 11) {
+						$.alert("手机号码不正确");
+						$(this).blur();
+						clearTimeout(focusTimer);
+						vm.cancelBool = true;
+						vm.focusing = true;
 						vm.closeBool = true;
-						vm.flows = jsonflows[data.data.carrier.substr(-2)];
-					} else {
-						$.alert(data.msg);
 					}
-				});
-			} else {
-				vm.flowsworld = '';
-				vm.goodsFlag = false;
-				//vm.goods = [];
-				//vm.flows = [];
-				vm.carrier = '';
-				console.log(vm.phone.length);
-				if (vm.phone.length === 11) {
-					$.alert("手机号码不正确");
-					$(this).blur();
-					clearTimeout(focusTimer);
-					vm.cancelBool = true;
-					vm.focusing = true;
-					vm.closeBool = true;
 				}
-			}
+			}, 500);
 		},
 		focusing: false, // 焦点在输入框
 		focus: function() { // 获取焦点
@@ -131,6 +135,7 @@ require([
 			vm.focusing = true;
 			vm.closeBool = true;
 			if (vm.phone == curPhone || check.phone(vm.phone).result || vm.phone.length == 11) {
+				vm.phone = '';
 				phoneInput.val('');
 			}
 			vm.carrier = '';
@@ -140,12 +145,11 @@ require([
 			$(".phonecharge-listb-item").removeClass('cur');
 		},
 		blur: function() { // 失去焦点
-			console.log(111);
 			var inputVal = $("#phonecharge-text-input").val();
-			if(inputVal){
+			if (inputVal) {
 
-			}else{
-				$("#phonecharge-text-input").val(curPhone) ;
+			} else {
+				$("#phonecharge-text-input").val(curPhone);
 				vm.phone = curPhone;
 			}
 			// $("#phonecharge-text-input").val(!$(this).value&& $(this).value.length ? curPhone : $(this).value ) ;

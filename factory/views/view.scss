@@ -8,7 +8,6 @@
 .view {
 
 	$time: .5s; // 动画时间, 暂时全部弃用
-	$height: 400px; // 补充露底
 
 	@include fixed(0, 100%);
 	z-index: $g-index-view;
@@ -35,7 +34,10 @@
 			overflow-x: hidden;
 			overflow-y: auto;
 		}
-		&.cover { // 覆盖--解决失焦露底问题
+		&.cover { // 覆盖--解决失焦露底问题(仅在整页不滚动时使用, 不可与scroll通用, 会把after滑上来)
+
+			$height: 400px; // 补充露底
+
 			&:before, &:after {
 				content: '';
 				display: block;

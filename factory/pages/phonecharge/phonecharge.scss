@@ -240,6 +240,9 @@ html{
 			padding-left: $g-padding + 5px;
 			padding-right: 5px;
 			color: $g-ash;
+			width: 6em;
+			text-align: center;
+			white-space: nowrap;
 		}
 		&-input {
 			@extend %afull;

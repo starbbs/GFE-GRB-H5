@@ -177,11 +177,12 @@ define('h5-view-bill', [
 	 * @param    {[function]}     		options.onRendered		[vm渲染回调,参数vm]
 	 */
 	var set = function(type, id, options) { // 设置账单, 分流 -- 不做view显示  根据用户ID和消费类型做AJAX
-		setVM(); // 清空分页
-		type = (type + '').trim().toUpperCase();
-		console.log(type);
 
+		setVM(); // 清空分页
+
+		type = (type + '').trim().toUpperCase();
 		options = options || {};
+	
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
 				transferOutHandler('TRANSFER_OUT', id, options);
@@ -243,11 +244,9 @@ define('h5-view-bill', [
 			headContent: H5bill.statusBusiness[order.status], // 头部内容
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney,//等待支付金额
-			/*
-			failReason: order.status == 'FAILURE' ? order.payResult || ($.isArray(list) ? list.reduce(function(string, item, index) {
-				return string += item.payResult || ''; // 从支付方式中找出失败原因
-			}, '') : '') : '', // 失败原因
-			*/
+			// failReason: order.status == 'FAILURE' ? order.payResult || ($.isArray(list) ? list.reduce(function(string, item, index) {
+			// 	return string += item.payResult || ''; // 从支付方式中找出失败原因
+			// }, '') : '') : '', // 失败原因
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
 			orderMoney: order.status === 'PROCESSING' ? '' : order.orderMoney, // 订单金额
 			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间

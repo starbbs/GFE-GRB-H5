@@ -37,15 +37,9 @@ require([
 			}
 			vm.money = '';
 			vm.ifBuy = false;
-			//果仁现价
-			api.price(function(data) {
-				if (data.status == '200') {
-					// vmOrder.price = vm.price = data.data.price;
-					vmOrder.price = data.data.price;
-				}
-			});		
+			getPrice();
 			weixin.pay.onSuccess = function(res) {
-				price.stop();
+				getPrice();
 				billView.set('BUY_IN', vmOrder.id, {
 					forceStatus: 'SUCCESS',
 					ifFinishButton: true
@@ -59,30 +53,30 @@ require([
 				setOrderNum();
 				setTimeout(function() {
 					router.go('/purchase-order');
-					vm.price = vmOrder.price;
+					getPrice();
 				}, 100);
 			};
 			weixin.pay.create($('#purchase-main-money').val());
 		},
 		gopBuyValidate: function() {
-			if(this.value){
+			if (this.value) {
 				// console.log(isNaN(this.value));
-				if(isNaN(this.value) || this.value === '0.'){//输入框是非数字时 NaN === NaN -> false 用isNaN判断类型是否是数字
+				if (isNaN(this.value) || this.value === '0.') { //输入框是非数字时 NaN === NaN -> false 用isNaN判断类型是否是数字
 					this.value = '';
 					$.alert('请输入1~3000内的金额');
-				}else{
+				} else {
 					this.value = parseInt(this.value);
 					vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
-					if(vm.ifBuy){
+					if (vm.ifBuy) {
 						console.log(vm.price);
 						vm.expect = this.value ? filters.floorFix(this.value / vm.price) : '';
-					}else{
+					} else {
 						this.value = '';
 						vm.expect = '';
 					}
-					
-				}	
-			}else{
+
+				}
+			} else {
 				vm.expect = '';
 				vm.ifBuy = false;
 			}
@@ -101,6 +95,12 @@ require([
 	var setOrderNum = function() {
 		vmOrder.gopNum = vmOrder.orderMoney / vmOrder.price;
 	};
+	var getPrice = function() { // 果仁现价
+		price.once(function(next) {
+			vm.price = vmOrder.price = next;
+			setOrderNum();
+		});
+	};
 
 	avalon.scan();
 
@@ -111,10 +111,8 @@ require([
 		setOrderNum();
 	});
 	*/
-	price.once(function(next) {
-		vm.price = vmOrder.price = next;
-		setOrderNum();
-	});
+
+	getPrice();
 
 	setTimeout(function() {
 		main.addClass('on');

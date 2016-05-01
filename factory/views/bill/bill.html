@@ -3,13 +3,11 @@
 		<div class="bill-scroll">
 			<div class="bill-box">
 				<!--交易状态 转帐进行中 转帐成功 关闭-->
-				<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')">{{headContent}}</div>
-				<!--
-				<div class="bill-wait" ms-visible="waitForPay">
+				<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')||type==='REFUND'">{{headContent}}</div>
+				<!-- <div class="bill-wait" ms-visible="waitForPay">
 					<div class="bill-wait-left">等待支付(¥)</div>
 					<div class="bill-wait-right">-{{orderMoney|fix}}</div>
-				</div>
-				-->
+				</div> -->
 				<div class="bill-wait" ms-visible="waitForPayMoney" ms-class="borderrudiasnone:status==='PROCESSING'&&productDesc==='买果仁'">
 					<div class="bill-wait-left">等待支付(¥)</div>
 					<div class="bill-wait-right">-{{waitForPayMoney|fix}}</div>
@@ -57,12 +55,12 @@
 				<div class="bill-target" ms-visible="type==='REFUND'">
 					<div class="bill-target-left">
 						<div class="bill-target-img">
-							<div class="bill-target-icon official"></div>
+							<div class="bill-target-icon"  ms-class-1="official:status!=='SUCCESS'" ms-class-2="refund-success:status==='SUCCESS'"></div>
 						</div>
 					</div>
 					<div class="bill-target-right one">
 						<span class="dark">果小萌</span>
-						<span class="orange">[官方]</span>
+						<span ms-class-1="orange:status!=='SUCCESS'" ms-class-2="green:status==='SUCCESS'">[官方]</span>
 					</div>
 					<div class="bill-target-bottom"></div>
 				</div>
@@ -145,7 +143,7 @@
 					<!--除买果仁成功外-->
 					<div class="bill-detail-item" ms-visible="productDesc&&!((type==='BUYIN_ORDER'||type==='BUY_IN')&&status==='SUCCESS')">
 						<div class="bill-detail-left">商品信息</div>
-						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">{{productDesc}}</div>
+						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'||type==='REFUND'">{{productDesc}}</div>
 					</div>
 					<!--预计得果仁  买果仁关闭-->
 					<div class="bill-detail-item" ms-visible="status==='CLOSE'&&(type==='BUYIN_ORDER'||type==='BUY_IN')">

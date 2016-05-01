@@ -43,7 +43,8 @@ require([
 				}
 				router.go('/paypass-view-2set');
 				paypassView.paypass3VM.callback = function(){ // 设置密码后的回调
-					window.history.go(-2);
+					// window.history.go(-2);
+					window.location.href = './mine.html'; // 跳回我的
 					vm.getPassWorld = true;
 				};			
 			}
@@ -81,6 +82,9 @@ require([
 	}
 
 	viewAuthen.vm.callbackFlag = true;
+	viewAuthen.onFinish = function() { // 点击完成跳回我的页面
+		window.location.href = 'mine.html';
+	};
 
 	setTimeout(function() {
 		security.addClass('on');

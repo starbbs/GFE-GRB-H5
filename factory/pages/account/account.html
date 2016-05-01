@@ -25,7 +25,7 @@
 							</div>
 							<div class="account-main">
 								<div class="account-left">
-									<div class="account-change">{{bill.change}}</div>
+									<div class="account-change" ms-html="bill.change"></div>
 									<div class="account-action">{{bill.desc}}</div>
 								</div>
 								<div class="account-right" ms-class-1="blue:bill.originStatus==='PROCESSING'" ms-class-2="red:bill.originStatus==='FAILURE'" ms-class-3="dark:bill.originStatus==='SUCCESS'">{{bill.status}}</div>

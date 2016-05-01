@@ -7,7 +7,7 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 	var name = 'authentication';
 	var gopToken = $.cookie('gopToken');
 	var view = new View(name);
-	var vm = view.vm = avalon.define({
+	var vm = avalon.define({
 		$id: name,
 		realName: '',
 		Idcard: '',
@@ -32,7 +32,6 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 							$('.authed').addClass('on');
 						}
 						vm.showAuthenDes();
-						vm.callback && vm.callback();
 					} else {
 						console.log(data);
 						$.alert('身份证号或名字错误');
@@ -44,14 +43,15 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 		},
 		finish_click: function() {
 			router.to('/');
+			view.onFinish();
 		},
 		showAuthenDes:function(){
 			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
-			dialogAlert.show();
             dialogAlert.onAlert = function() {
                 // window.location.href = 'security.html';
                 window.location.href = './mine.html';
             };
+			dialogAlert.show();
 		}
 	});
 
@@ -80,5 +80,8 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 	view.on('hide',function(){
 		dialogAlert.hide();
 	});
-	return view;
+	return $.extend(view, {
+		vm: vm,
+		onFinish: $.noop,
+	});
 });

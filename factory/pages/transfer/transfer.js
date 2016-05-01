@@ -12,7 +12,6 @@ require([
 	viewAddressMine, viewAddressWallet, billView,
 	dialogPaypass, dialogAlert, viewAuthentication
 ) {
-	router.init(true);
 
 	var gopToken = $.cookie('gopToken');
 	var transfer = $('.transfer');
@@ -21,6 +20,8 @@ require([
 	var transferContactsView = new View('transfer-contacts');
 	var transferTargetView = new View('transfer-target');
 
+	router.init(true);
+
 	var vm = avalon.define({
 		$id: 'transfer',
 		hasWallet: false,
@@ -28,13 +29,11 @@ require([
 		transferOutType: '',
 		gopNum: 0,
 		list: [],
-		/*
-		newTargetClick: function() { // 新目标
+		/*newTargetClick: function() { // 新目标
 			vm.transferOutType = 'NEW';
 			transferNew.newTarget = '';
 			router.go('/transfer-new');
-		},
-		*/
+		},*/
 		myWalletClick: function() { // 我的钱包
 			if (vm.hasWallet) {
 				vm.transferOutType = 'ME_WALLET';

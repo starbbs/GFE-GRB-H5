@@ -83,7 +83,7 @@ require([
 						router.to('/bill');
 						console.log(vm);
 						billView.set('PAY', get.data.id, {
-							forceStatus: 'PROCESSING',
+							// forceStatus: 'PROCESSING',
 							ifFinishButton: true,
 							waitForPayMoney: '', // 取消等待支付
 							orderMoney: vm.gopMoney, // 加入订单金额
