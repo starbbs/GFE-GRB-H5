@@ -9,7 +9,7 @@ require([
 	router, api, check, get, authorization, check, View, weixin, H5Button, loginJudge
 ) {
 
-	router.init(true);
+	$.gopToken('53767d17e0cb482a820b3b57860ae85c');
 
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
@@ -144,6 +144,7 @@ require([
 	};
 
 	var init = function() {
+		router.init(true);
 		checkCode();
 		// setTimeout(function() {
 		// 	gotoLogin();

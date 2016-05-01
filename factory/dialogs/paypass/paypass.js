@@ -107,7 +107,7 @@ define('h5-dialog-paypass', [
 		dialogAlert.show(ifShowImmediately, ifHideOthers ,HideArr);
 	};
 	var gotoFrozen = function() { // 进入冻结页  错误10次
-		setTimeout(function() {
+		setInterval(function() {
 			window.location.href = 'frozen.html?type=useup'; // 用光可支付次数
 		}, 100);
 	};
