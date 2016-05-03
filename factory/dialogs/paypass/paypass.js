@@ -18,7 +18,7 @@ define('h5-dialog-paypass', [
 	var paypass = new Dialog('paypass');
 
 	// new View('authentication');
-
+	var paypassStatus = judge.defaultStatus;
 	var box = paypass.box = paypass.self.find('.dialog-paypass-box'); // 大盒子
 	var input = paypass.input = $('#dialog-paypass-input'); // 输入框
 	var inputTimer = null;
@@ -38,8 +38,6 @@ define('h5-dialog-paypass', [
 	// 点击支付执行paypass浮窗show
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
-		var paypassStatus = judge.defaultStatus;
-		
 		judge.check(function(status, data) {
 			// status 状态
 			// 1. unknown	未知		不出认证页,不弹浮层
