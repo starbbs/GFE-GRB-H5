@@ -33,10 +33,12 @@ define('h5-dialog-paypass', [
 		// 4. lock5 lock10		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
 		// 5. notAuthentication  没实名 没设置密码 
 		paypassStatus = status;
+		console.log(paypassStatus);
 	});
 
 	// 点击支付执行paypass浮窗show
 	var prototypeShow = paypass.show;
+	console.log(paypassStatus);
 	paypass.show = function() {
 		// paypassStatus = 'notAuthentication'; //模拟状态
 		console.log(paypassStatus);
