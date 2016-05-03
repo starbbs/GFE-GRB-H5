@@ -331,10 +331,10 @@ define('h5-view-bill', [
 
 				// 已经支付 未到帐  显示以下
 				// 已经支付  交易失败 不显示到帐
-				waitForPayMoney: list && list.length ? '' : order.orderMoney,
-				orderMoney: list && list.length ? order.orderMoney : '',
+				waitForPayMoney: waitForPay ? order.orderMoney : '', //(!list && !list.length )&& order.status === 'PROCESSING' ? order.orderMoney : '',
+				orderMoney: list && list.length || order.status === 'CLOSE' ? order.orderMoney : '', //订单金额
 				ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
-				tip: list && list.length ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
+				tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
 			}), options);
 		});
 	};
