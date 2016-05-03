@@ -60,12 +60,13 @@ define('h5-dialog-paypass', [
 				console.log('Error: (dialog-paypass) paypassStatus 认证状态错误');
 		}			
 	}
-	
+
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
 		clearTimeout(checkTimer);
 		checkTimer = setTimeout(function(){
 			judge.check(function(status, data) {
+				console.log(status+'支付浮窗弹出校验状态');
 				setPaypassGo(status, data);
 			});		
 		},300);
