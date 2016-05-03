@@ -22,9 +22,9 @@ define('h5-dialog-paypass', [
 	var box = paypass.box = paypass.self.find('.dialog-paypass-box'); // 大盒子
 	var input = paypass.input = $('#dialog-paypass-input'); // 输入框
 	var inputTimer = null;
-
-	var paypassStatus = judge.defaultStatus;
 	/*
+	var paypassStatus = judge.defaultStatus;
+	
 	judge.check(function(status, data) {
 		// status 状态
 		// 1. unknown	未知		不出认证页,不弹浮层
