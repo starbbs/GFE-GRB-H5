@@ -384,31 +384,31 @@ require([
 		content: '', // 转账说明
 		notchecked: true, // 是否没有检验通过
 		isMarket: false, // 是否是果仁市场
-		flag : true,
-		len : 0,
+		flag: true,
+		len: 0,
 		addressToPhone: '',
-		transferDesInputFocus:function(){
+		transferDesInputFocus: function() {
 			//$('.view').css('top','-100px');
 		},
-		transferDesInputBlur:function(){
+		transferDesInputBlur: function() {
 			//$('.view').css('top','0px');
 		},
-		transferDesInputOnInput:function(){
+		transferDesInputOnInput: function() {
 			var val = $(this).val();
 			$(this).val(cutString(val));
 			transferTarget.content = cutString(val);
 		},
-		getCnyMoney: function() {//输入果仁数量监听
+		getCnyMoney: function() { //输入果仁数量监听
 			console.log(transferTarget.transferNum);
-			if(!this.value){
+			if (!this.value) {
 				return;
 			}
-			if (parseFloat(this.value) === 0 || this.value === ''){
+			if (parseFloat(this.value) === 0 || this.value === '') {
 				$.alert('请输入正确的数量');
 				transferTarget.notchecked = true;
 				return;
 			}
-			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)){
+			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 				$.alert('您的果仁数不足');
 				transferTarget.notchecked = true;
 				return;
@@ -424,14 +424,14 @@ require([
 		},
 		//确定转帐按钮
 		transferCommitClick: function() {
-			if(transferTarget.notchecked){
-				return ;
+			if (transferTarget.notchecked) {
+				return;
 			}
 			if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
-				setTimeout(function() {
-					dialogPaypass.show();
-				}, 300)
+				// setTimeout(function() {
+				dialogPaypass.show();
+				// }, 300)
 				//支付浮层  密码确认后回调
 				dialogPaypass.vm.callback = function(value) {
 					var transferOutType = vm.transferOutType;
@@ -489,28 +489,28 @@ require([
 			}
 		},
 	});
-	var mbStringLength = function(s){
-		var totalLength = 0; 
-		var i; 
-		var charCode; 
-		for (i = 0; i < s.length; i++) { 
-			charCode = s.charCodeAt(i); 
-			if (charCode < 0x007f) { 
-				totalLength = totalLength + 1; 
-			} else if ((0x0080 <= charCode) && (charCode <= 0x07ff)) { 
-				totalLength += 2; 
-			} else if ((0x0800 <= charCode) && (charCode <= 0xffff)) { 
-				totalLength += 3; 
-			} 
-		} 
-		return totalLength; 
+	var mbStringLength = function(s) {
+		var totalLength = 0;
+		var i;
+		var charCode;
+		for (i = 0; i < s.length; i++) {
+			charCode = s.charCodeAt(i);
+			if (charCode < 0x007f) {
+				totalLength = totalLength + 1;
+			} else if ((0x0080 <= charCode) && (charCode <= 0x07ff)) {
+				totalLength += 2;
+			} else if ((0x0800 <= charCode) && (charCode <= 0xffff)) {
+				totalLength += 3;
+			}
+		}
+		return totalLength;
 	}
-	var cutString = function(s){
+	var cutString = function(s) {
 		var len = s.length;
 		var codeLen = mbStringLength(s);
-		if(codeLen > 40){
-			return cutString(s.substring(0,len-1));
-		}else{
+		if (codeLen > 40) {
+			return cutString(s.substring(0, len - 1));
+		} else {
 			return s;
 		}
 	}
