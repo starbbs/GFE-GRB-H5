@@ -26,7 +26,6 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 					api.isCertification({ //再做实名认证判断
 						gopToken: gopToken
 					}, function(data) {
-						console.log(data);
 						if (data.status == 400) {
 							// if (data.msg == '未实名认证') {
 								status = 'notAuthentication';
