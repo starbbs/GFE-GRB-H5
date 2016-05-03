@@ -39,7 +39,7 @@ define('h5-dialog-paypass', [
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
 		// paypassStatus = 'notAuthentication'; //模拟状态
-		// console.log(paypassStatus);
+		console.log(paypassStatus);
 		switch (paypassStatus) {
 			case 'not': //没有设置密码 
 				showPaypass();
