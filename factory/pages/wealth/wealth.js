@@ -3,12 +3,11 @@
 
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-view', 'touch-slide', 'mydate', 'iscrollLoading', 'h5-login-judge-auto', 'touch-slide',
+	'router', 'h5-api', 'h5-price', 'h5-view', 'h5-touchsliderBanner', 'mydate', 'iscrollLoading', 'h5-login-judge-auto', 'touch-slide',
 	'filters', 'h5-weixin', 'hchart'
 ], function(
-	router, api, price, View, TouchSlide, mydate, iscrollLoading
+	router, api, price, View, touchsliderBanner, mydate, iscrollLoading
 ) {
-
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var main = $('.wealth');
@@ -17,11 +16,11 @@ require([
 	var pageSize = 15;
 	var historyListArr = [];
 	var history = new View('wealth-history');
-	
+
 	$('#wealth-history').get(0).ontouchmove = function(event) {
 		event.preventDefault();
 	};
-	
+
 	var historyVM = history.vm = avalon.define({
 		$id: 'wealth-history',
 		total: 0,
@@ -87,11 +86,11 @@ require([
 					}, 300);
 					historyListArr = historyListArr.concat(data.data.list);
 					historyVM.list = historyListArr;
-				}else{
+				} else {
 					historyVM.loadingWord = '您还没有累计收益记录哦！';
-					setTimeout(function(){
+					setTimeout(function() {
 						historyVM.loading = false;
-					},1000);
+					}, 1000);
 				}
 			} else {
 				$.alert(data.msg);
@@ -122,16 +121,15 @@ require([
 	avalon.scan(main.get(0), vm);
 
 	// 历史首页图表
-	TouchSlide({
-		slideCell: '#touchSlide',
+	touchsliderBanner.touchsliderFn({
 		autoPlay: false,
 		mainCell: '.wealth-chart-scroll',
 		titCell: '.wealth-tab-item',
-		endFun: function(i ,c){
+		endFun: function(i, c) {
 			$('.wealth-chart-box-slider-hd-li').eq(i).addClass('on').siblings('li').removeClass('on');
-			console.log(1111);
 		},
 	});
+
 	var chartHistory = $('#chart-history'); //历史
 	var chartAnnual = $('#chart-annual'); //年化30日
 	var chartAnnualData = [];
@@ -211,9 +209,9 @@ require([
 				})(),
 				labels: {
 					formatter: function() {
-						if(flag == "annual"){
+						if (flag == "annual") {
 							return this.value.toFixed(2) * 100;
-						}else{
+						} else {
 							return this.value.toFixed(2);
 						}
 					}
@@ -271,7 +269,7 @@ require([
 		api.annualIncomeWealth(function(data) {
 			if (data.status == 200) {
 				chartAnnualHandler(data.data.list);
-				chartAnnual.highcharts(chartSetting(chartAnnualData, chartAnnualDate,'annual'));
+				chartAnnual.highcharts(chartSetting(chartAnnualData, chartAnnualDate, 'annual'));
 			} else {
 				$.alert(data.msg);
 			}
@@ -286,7 +284,7 @@ require([
 		}, function(data) {
 			if (data.status == 200) {
 				chartHistoryHandler(data.data.list);
-				chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate,'history'));
+				chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
 			} else {
 				$.alert(data.msg);
 			}

@@ -5,7 +5,7 @@
 // H5微信端 --- 个人首页
 
 
-@import '../../../source/scss/main';
+@import '../../../source/scss/main'; //里面有components $.alert() 的一些样式
 
 @import '../../components/nav/nav';
 @import "../../views/view";
@@ -279,28 +279,7 @@ html {
 			}
 		}
 	}
-	&-slider{
-		position: relative;
-		margin: 9px 0px;
-		&-hd{
-			overflow:hidden;
-			position:absolute;
-			left:50%;
-			transform: translateX(-50%);
-			bottom:5px;
-			&-li{
-				width:6px;
-				height:6px;
-				border-radius:50%;
-				background-color:rgba($g-white, 0.5);
-				float:left;
-				margin-right:8px;
-				&.on {
-					background-color: #5883f2;
-				}
-			} 			
-		}
-	}
+
 	&-phonebills-title{
 		text-align: center;
 		margin-bottom: 15px;

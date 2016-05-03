@@ -2,10 +2,10 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'touch-slide', 'h5-login-judge-auto',
+	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'h5-login-judge-auto',
 	'filters',
 ], function(
-	router, api, price, weixin, TouchSlide
+	router, api, price, weixin, touchsliderBanner
 ) {
 	// $.cookie('gopToken','d5610892684b4523a1c2547b59318e37'); //我的
 	router.init(true);
@@ -81,12 +81,7 @@ require([
 					homeVm.bannerImgArr.push(val);
 				}
 			});
-			TouchSlide({
-				slideCell: '#touchSlide',
-				autoPlay: true,
-				mainCell: '.home-slider-bd',
-				titCell: '.home-slider-hd-li'
-			});
+			touchsliderBanner.touchsliderFn();
 		}
 	});
 

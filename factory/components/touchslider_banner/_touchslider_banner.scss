@@ -1,0 +1,28 @@
+﻿@charset 'utf-8';
+
+
+// 张树垚 2015-12-17 15:24:25 创建
+// H5微信端 -- 轮播图样式
+
+.slider{
+	position: relative;
+	margin: 9px 0px;
+	&-hd{
+		overflow:hidden;
+		position:absolute;
+		left:50%;
+		transform: translateX(-50%);
+		bottom:5px;
+		&-li{
+			width:6px;
+			height:6px;
+			border-radius:50%;
+			background-color:rgba($g-gray, 0.5);
+			float:left;
+			margin-right:8px;
+			&.on {
+				background-color: #5883f2;
+			}
+		} 			
+	}	
+}
