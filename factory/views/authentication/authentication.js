@@ -26,12 +26,14 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 					IDcard: vm.Idcard
 				}, function(data) {
 					if (data.status == 200) {
-						// $.alert('实名认证成功')
+						$.alert('实名认证成功，2秒后跳转');
 						if(!vm.callback()){
 							$('.not-authed').removeClass('on');
 							$('.authed').addClass('on');
 						}
-						vm.showAuthenDes();
+						setTimeout(function(){
+							window.location.href = './mine.html';
+						},2000);
 					} else {
 						console.log(data);
 						$.alert('身份证号或名字错误');
@@ -49,7 +51,7 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 			dialogAlert.set('为保证您的账户资金安全，请您输入真实姓名，实名信息校验正确后不可更改');
             dialogAlert.onAlert = function() {
                 // window.location.href = 'security.html';
-                window.location.href = './mine.html';
+                // window.location.href = './mine.html';
             };
 			dialogAlert.show();
 		}
