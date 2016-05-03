@@ -18,7 +18,7 @@ define('h5-dialog-paypass', [
 	var paypass = new Dialog('paypass');
 
 	// new View('authentication');
-	var paypassStatus = judge.defaultStatus;
+	var checkTimer = null;
 	var box = paypass.box = paypass.self.find('.dialog-paypass-box'); // 大盒子
 	var input = paypass.input = $('#dialog-paypass-input'); // 输入框
 	var inputTimer = null;
@@ -36,20 +36,8 @@ define('h5-dialog-paypass', [
 	});
 	*/
 	// 点击支付执行paypass浮窗show
-	var prototypeShow = paypass.show;
-	paypass.show = function() {
-		judge.check(function(status, data) {
-			// status 状态
-			// 1. unknown	未知		不出认证页,不弹浮层
-			// 2. not		未认证	出认证页,不弹浮层
-			// 3. done 		已认证	不出认证页,弹浮层
-			// 4. lock5 lock10		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
-			// 5. notAuthentication  没实名 没设置密码 
-			paypassStatus = status;
-		});		
-		// paypassStatus = 'notAuthentication'; //模拟状态
-		console.log(paypassStatus);
-		switch (paypassStatus) {
+	var setPaypassGo = function(status, data){
+		switch (status) {
 			case 'not': //没有设置密码 
 				showPaypass();
 				break;
@@ -70,7 +58,17 @@ define('h5-dialog-paypass', [
 				break;
 			default:
 				console.log('Error: (dialog-paypass) paypassStatus 认证状态错误');
-		}
+		}			
+	}
+	
+	var prototypeShow = paypass.show;
+	paypass.show = function() {
+		clearTimeout(checkTimer);
+		checkTimer = setTimeout(function(){
+			judge.check(function(status, data) {
+				setPaypassGo(status, data);
+			});		
+		},300);
 	};
 
 	var showPaypass = function() { // paypass-view.js设置密码后3秒后执行paypassViewVM.paypass3VM.callback

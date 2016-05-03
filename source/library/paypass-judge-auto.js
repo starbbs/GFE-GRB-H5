@@ -4,7 +4,7 @@
 define('h5-paypass-judge-auto', ['h5-paypass-judge'], function(paypassJudge) {
 	paypassJudge.status = 'unknown';
 	paypassJudge.check(function(status,data) {
-		console.log(status);
+		console.log('自动认证'+status);
 		if (status === 'lock10') {
 			window.location.href = 'frozen.html?type=locked'; // 已被锁
 		}
