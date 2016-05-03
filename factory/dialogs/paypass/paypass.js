@@ -38,6 +38,17 @@ define('h5-dialog-paypass', [
 	// 点击支付执行paypass浮窗show
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
+		var paypassStatus = judge.defaultStatus;
+		
+		judge.check(function(status, data) {
+			// status 状态
+			// 1. unknown	未知		不出认证页,不弹浮层
+			// 2. not		未认证	出认证页,不弹浮层
+			// 3. done 		已认证	不出认证页,弹浮层
+			// 4. lock5 lock10		已锁定	(优先级高)不出认证页,不弹浮层,弹"知道了"浮层
+			// 5. notAuthentication  没实名 没设置密码 
+			paypassStatus = status;
+		});		
 		// paypassStatus = 'notAuthentication'; //模拟状态
 		console.log(paypassStatus);
 		switch (paypassStatus) {
