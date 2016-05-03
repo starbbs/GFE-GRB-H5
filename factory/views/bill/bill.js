@@ -98,7 +98,7 @@ define('h5-view-bill', [
 		},
 		gotoPay: function() { // 前往支付
 			if (bill.onGotoPay() === false) {
-
+				
 			} else {
 				if (vm.payType === '微信支付') {
 					console.log(weixinPayData)
