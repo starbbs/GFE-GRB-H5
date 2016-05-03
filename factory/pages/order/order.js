@@ -50,18 +50,18 @@ require([
 				// vm.rmbUse = 0;
 				vm.gopUse = vm.money / vm.gopPrice;
 				vm.gopMoney = vm.money;
-				vm.ifConfirmPay = true;
+				// vm.ifConfirmPay = true;
 			} else {
 				// vm.rmbUse = vm.money - vm.gopNum * vm.gopPrice;
 				vm.gopUse = vm.gopNum;
 				vm.gopMoney = vm.gopNum * vm.gopPrice;
-				vm.ifConfirmPay = false;
+				// vm.ifConfirmPay = false;
 			}
 		},
-		ifConfirmPay: false,
+		// ifConfirmPay: false,
 		confirmPay: function() { // 确认支付
-			if (!vm.ifConfirmPay || filters.ceilFix(vm.gopUse) > filters.floorFix(vm.gopNum)) {
-
+			// if (!vm.ifConfirmPay || filters.ceilFix(vm.gopUse) > filters.floorFix(vm.gopNum)) {
+			 if (parseFloat(filters.ceilFix(vm.gopUse)) > parseFloat(filters.floorFix(vm.gopNum))) {
 				return;
 			}
 			dialogPaypass.show();

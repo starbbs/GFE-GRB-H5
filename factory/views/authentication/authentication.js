@@ -26,14 +26,11 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 					IDcard: vm.Idcard
 				}, function(data) {
 					if (data.status == 200) {
-						$.alert('实名认证成功，2秒后跳转');
+						$.alert('实名认证成功');
 						if(!vm.callback()){
 							$('.not-authed').removeClass('on');
 							$('.authed').addClass('on');
 						}
-						setTimeout(function(){
-							window.location.href = './mine.html';
-						},2000);
 					} else {
 						console.log(data);
 						$.alert('身份证号或名字错误');
@@ -56,6 +53,13 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 			dialogAlert.show();
 		}
 	});
+
+	vm.callback = function(){
+		setTimeout(function(){
+			window.location.href = './mine.html';
+		},2000);
+		return true;
+	};
 
 	avalon.filters.realName = function(str) {
 		return '*' + str.substr(1, str.length - 1);
