@@ -14,7 +14,7 @@ define('h5-touchsliderBanner', ['touch-slide'], function(TouchSlide) {
 		endFun: $.noop,
 	};
 	touchsliderBanner.touchsliderFn = function(options) {
-		TouchSlide($.extend(this.options, options));
+		TouchSlide($.extend({},this.options, options));
 	};
 
 	return touchsliderBanner;

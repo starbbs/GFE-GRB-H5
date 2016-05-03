@@ -1,17 +1,17 @@
 @@include('../../../source/include/top.html', {"name": "phonecharge","title": "充值中心"})
 <div class="screen-r">
 	<div class="phonecharge" ms-controller="phonecharge">
-		<div class="phonecharge-slider" id="touchSlidephonecharge">
-			<ul class="phonecharge-slider-bd">
-				<li class="phonecharge-slider-bd-li" ms-repeat-img="bannerImgArr">
+		<div class="phonecharge-slider slider" id="touchSlidephonecharge">
+			<ul class="phonecharge-slider-bd slider-bd">
+				<li class="phonecharge-slider-bd-li slider-bd-li" ms-repeat-img="bannerImgArr">
 					<a ms-if-loop="img.url" ms-attr-href="img.url">
 						<img ms-attr-src="img.img" alt="" class="img-w">
 					</a>
 					<img ms-if-loop="!img.url" ms-attr-src="img.img" alt="" class="img-w">
 				</li>
 			</ul>
-			<ul class="phonecharge-slider-hd">
-				<li class="phonecharge-slider-hd-li" ms-repeat="bannerImgArr"></li>
+			<ul class="phonecharge-slider-hd slider-hd">
+				<li class="phonecharge-slider-hd-li slider-hd-li on" ms-repeat="bannerImgArr"></li>
 			</ul>			
 		</div>
 

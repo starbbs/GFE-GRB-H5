@@ -36,37 +36,7 @@ html{
 		margin-top: 10px;
 	}
 	// padding-bottom: $g-padding-bottom;
-	&-slider {
-		position: relative;
-		background: #F2F2F2; 
-		overflow: hidden;
-		background: #ffffff;
-		&-li{
-			float: left;
-			>a{
-				overflow: hidden;
-				display: block;
-			}
-		}
-		&-hd{
-			overflow:hidden;
-			position:absolute;
-			left:50%;
-			transform: translateX(-50%);
-			bottom:5px;
-			&-li{
-				width:6px;
-				height:6px;
-				border-radius:50%;
-				background-color:rgba($g-white, 0.5);
-				float:left;
-				margin-right:8px;
-				&.on {
-					background-color: $g-white;
-				}
-			} 			
-		}
-	}	
+	
 	&-body{ //选项卡
 		&-title{
 			overflow: hidden;

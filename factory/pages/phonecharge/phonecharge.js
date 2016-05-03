@@ -1,10 +1,10 @@
 // 张树垚 2016-01-09 12:54:11 创建
 // H5微信端 --- 手机充值
 require([
-	'h5-api', 'check', 'get', 'filters', 'touch-slide', 'h5-order-judge',
+	'h5-api', 'check', 'get', 'filters', 'h5-touchsliderBanner', 'h5-order-judge',
 	'h5-weixin'
 ], function(
-	api, check, get, filters, TouchSlide, orderJudge
+	api, check, get, filters, touchsliderBanner, orderJudge
 ) {
 	var gopToken = $.cookie('gopToken');
 	var main = $('.phonecharge');
@@ -423,7 +423,7 @@ require([
 		}
 	});
 
-	TouchSlide({
+	touchsliderBanner.touchsliderFn({
 		slideCell: '#touchSlide',
 		autoPlay: false,
 		mainCell: '.phonecharge-body-content-lists',
@@ -438,12 +438,9 @@ require([
 				if (val.sources.indexOf('h5') != -1) {
 					vm.bannerImgArr.push(val);
 				}
-			});
-			TouchSlide({
+			});			
+			touchsliderBanner.touchsliderFn({
 				slideCell: '#touchSlidephonecharge',
-				autoPlay: true,
-				mainCell: '.phonecharge-slider-bd',
-				titCell: '.phonecharge-slider-hd-li'
 			});
 		}
 	});
