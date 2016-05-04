@@ -2,10 +2,10 @@
 // H5微信端 --- 账单
 
 require([
-	'router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading', 'h5-view-bill', 'mydate',
+	'router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading', 'h5-view-bill', 'mydate', 'h5-order-judge',
 	'h5-weixin'
 ], function(
-	router, api, get, filters, H5bill, iscrollLoading, billView, mydate
+	router, api, get, filters, H5bill, iscrollLoading, billView, mydate, orderJudge
 ) {
 	// $.cookie('gopToken','b7af44824ea34409a494393b00f0788e'); 
 
@@ -307,6 +307,17 @@ require([
 				}
 				return true;
 			});
+		});
+	};
+
+	billView.onGotoPay = function(waitforpaymoney) {
+		orderJudge.checkRMB(waitforpaymoney, function(status, gopPrice, myGopNum) {
+			if (status == orderJudge.no) {
+				$.alert(orderJudge.tip);
+				return false;
+			} else {
+				return true;
+			}
 		});
 	};
 

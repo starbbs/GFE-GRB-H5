@@ -241,12 +241,12 @@ require([
 		button: '支付', // 按钮显示
 		buttonClick: function() {
 			// 按钮点击
-			// orderJudge.check(curprice,cbfn(状态,当前价格,我的果仁数));判断果仁数是否够支付
 			if ($(this).hasClass('disabled')) {
 				return;
 			}
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
+				//orderJudge.check(curGOPNum , cbfn);   定单检测(所用果仁数，回调函数)
 				orderJudge.check(confirmData[0].use / gopPrice[0], function(status, gopPrice, myGopNum) {
 					if (status == orderJudge.no) {
 						$.alert(orderJudge.tip);
@@ -438,7 +438,7 @@ require([
 				if (val.sources.indexOf('h5') != -1) {
 					vm.bannerImgArr.push(val);
 				}
-			});			
+			});
 			touchsliderBanner.touchsliderFn({
 				slideCell: '#touchSlidephonecharge',
 			});

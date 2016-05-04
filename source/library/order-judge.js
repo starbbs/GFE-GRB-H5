@@ -13,13 +13,13 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 			this.once(function(myGopNum, gopPrice) {
 				console.log(curGOPNum);
 				console.log(filters.ceilFix(curGOPNum));
-				var status = myGopNum > parseFloat(filters.ceilFix(curGOPNum)) ? ok : no;
+				var status = myGopNum >= parseFloat(filters.ceilFix(curGOPNum)) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
 			});
 		},
 		checkRMB: function(curRMBNum, callback) { // 以人民币数值传参
 			this.once(function(myGopNum, gopPrice) {
-				var status = myGopNum * gopPrice > parseFloat(curRMBNum) ? ok : no;
+				var status = myGopNum * gopPrice >= parseFloat(curRMBNum) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
 			});
 		},
