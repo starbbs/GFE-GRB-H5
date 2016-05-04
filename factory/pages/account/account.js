@@ -113,7 +113,7 @@ require([
 	//    phone buy gop reeund   []      list的每条数据
 	var dataAdd = function(kind, bills, item) { // 添加效果的数据
 		// console.log(item);
-		var type = H5bill.typeClass[item.type];  // phone refund buy transfer
+		var type = H5bill.typeClass[item.type]; // phone refund buy transfer
 		var bill = { // 账单
 			id: item.businessId, // id
 			img: '', // 头像
@@ -141,29 +141,29 @@ require([
 		//转帐所用数据
 		if (type === 'transfer' && item.extra) { //转帐类型  并有extra字段
 			bill.img = item.extra.photo || ''; // 转账头像
-				if (item.extra.name) { // 有名字的用户
-					bill.desc += ' - ' + filters.omit(item.extra.name); // "转出-L"  展示用    omit限制长度
-					bill.name = filters.omit(item.extra.name); // L  绑定到 data-name="L"
-				} else {
-					if (item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET') {
-						bill.desc += ' - 果仁市场';
-						bill.iconClass = 'market';
-					}
-					if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
-						bill.desc += ' - 我的钱包';
-						bill.iconClass = 'wallet';
-					}
-					if (item.extra.transferOutType === 'WALLET_CONTACT' || item.extra.transferInType === 'WALLET_CONTACT') {
-						bill.desc += ' - 未命名地址';
-					}
-					if (item.extra.transferOutType === 'GOP_CONTACT' || item.extra.transferInType === 'GOP_CONTACT') {
-						bill.desc += ' - 未命名用户';
-					}
+			if (item.extra.name) { // 有名字的用户
+				bill.desc += ' - ' + filters.omit(item.extra.name); // "转出-L"  展示用    omit限制长度
+				bill.name = filters.omit(item.extra.name); // L  绑定到 data-name="L"
+			} else {
+				if (item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET') {
+					bill.desc += ' - 果仁市场';
+					bill.iconClass = 'market';
+				}
+				if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
+					bill.desc += ' - 我的钱包';
+					bill.iconClass = 'wallet';
+				}
+				if (item.extra.transferOutType === 'WALLET_CONTACT' || item.extra.transferInType === 'WALLET_CONTACT') {
+					bill.desc += ' - 未命名地址';
+				}
+				if (item.extra.transferOutType === 'GOP_CONTACT' || item.extra.transferInType === 'GOP_CONTACT') {
+					bill.desc += ' - 未命名用户';
+				}
 			}
 		}
 		if (type === 'phone' || type === 'refund') {
 			if (item.extra && item.extra.product) {
-				item.extra.product.productDesc && (bill.desc = item.extra.product.productDesc.replace(/\-/g, ' - ')); 
+				item.extra.product.productDesc && (bill.desc = item.extra.product.productDesc.replace(/\-/g, ' - '));
 				// 运营商
 			}
 		}
@@ -196,11 +196,16 @@ require([
 				bills.push(bill);
 			}
 		} else {
+			//退款 买果仁进行走此分流
+			var filterKinds = types[kind] === 'money' ? 'fix' : 'ceilFix';
+			bill.change = numHandler(item[types[kind]], coins[kind], filterKinds); //买果仁RMB显示 退款向上取整
+			/*
 			if(types[kind]==='money'){
 				bill.change = numHandler(item[types[kind]], coins[kind], filter[kind]); //买果仁RMB显示
 			}else if(types[kind]==='gopNumber'){
 				bill.change = numHandler(item[types[kind]], coins[kind], 'ceilFix'); //退款向上取整
 			}
+			*/
 			bills.push(bill);
 		}
 	};
@@ -228,7 +233,7 @@ require([
 				case 'transfer': // 转果仁, 果仁
 					dataAdd('gop', bills, item);
 					break;
-				default: 		// 退款
+				default: // 退款
 					if (item.type === 'REFUND') {
 						if (item.money) { // 退人民币
 							console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
