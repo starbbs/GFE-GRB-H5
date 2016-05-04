@@ -85,7 +85,9 @@ define('h5-view-address-wallet', ['router', 'h5-api', 'h5-view', 'check', 'h5-al
                 walletId: walletId
             }, function(data) {
                 if (data.status == 200) {
+                    console.log(data);
                     $.alert('删除成功!');
+                    vm.nextFlag = vm.walletList.length > 1 && window.location.href.indexOf('transfer.html') != -1 ? true : false;
                     vm.walletAddress_query_click();
                 } else {
                     console.log(data);
@@ -103,7 +105,7 @@ define('h5-view-address-wallet', ['router', 'h5-api', 'h5-view', 'check', 'h5-al
 
     $(document).on('swipeLeft', '.address-wallet-item', function(ev) {
         var self = $(this).removeClass('del');
-        self.addClass(self.attr('data-top') === 'true' ? 'del' : 'top');
+        self.addClass(self.attr('data-top') === 'true' || self.index() === 0 ? 'del' : 'top');
         // return false;
     });
 
