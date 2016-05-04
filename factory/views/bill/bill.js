@@ -96,30 +96,26 @@ define('h5-view-bill', [
 				window.location.href = './home.html?from=bill';
 			}
 		},
-		gotoPay: function() { // 前往支付
-			if (bill.onGotoPay(vm.waitForPayMoney) === false) {
-				return;
-			} else {
-				if (vm.payType === '微信支付') {
-					console.log(weixinPayData)
-					weixin.pay.onSuccess = function(res) {
-						buyInHandler('BUY_IN', vm.id, {
-							forceStatus: 'SUCCESS',
-							ifFinishButton: true
-						});
-					};
-					weixin.pay.set(weixinPayData);
-					weixin.pay.work();
-				} else {
-					// console.log();
-					orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
-						if (status === orderJudge.ok) {
-							window.location.href = './order.html?from=bill&id=' + vm.id;
-						} else {
-							$.alert(orderJudge.tip);
-						}
+		gotoPay: function() { // 前往支付 买果仁和买话费
+			if (vm.payType === '微信支付') {
+				console.log(weixinPayData)
+				weixin.pay.onSuccess = function(res) {
+					buyInHandler('BUY_IN', vm.id, {
+						forceStatus: 'SUCCESS',
+						ifFinishButton: true
 					});
-				}
+				};
+				weixin.pay.set(weixinPayData);
+				weixin.pay.work();
+			} else {
+				// console.log();
+				orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
+					if (status === orderJudge.ok) {
+						window.location.href = './order.html?from=bill&id=' + vm.id;
+					} else {
+						$.alert(orderJudge.tip);
+					}
+				});
 			}
 		},
 		close: function() { // 关闭订单

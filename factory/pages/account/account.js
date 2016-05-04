@@ -310,16 +310,17 @@ require([
 		});
 	};
 
-	billView.onGotoPay = function(waitforpaymoney) {
-		orderJudge.checkRMB(waitforpaymoney, function(status, gopPrice, myGopNum) {
-			if (status == orderJudge.no) {
-				$.alert(orderJudge.tip);
-				return false;
-			} else {
-				return true;
-			}
-		});
-	};
+	// bill页面支付按钮点击事件
+	//billView.onGotoPay = function(waitforpaymoney) {
+	//	orderJudge.checkRMB(waitforpaymoney, function(status, gopPrice, myGopNum) {
+	//		if (status == orderJudge.no) {
+	//			$.alert(orderJudge.tip);
+	//			return false;
+	//		} else {
+	//			return true;
+	//		}
+	//	});
+	//};
 
 	// setTimeout(function() {
 	// 	billView.onClose(2346, '2016-04-13 17:75:04');
