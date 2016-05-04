@@ -315,6 +315,7 @@ require([
 					day.time = vmtime.substr(vmtime.indexOf(' ') + 1, 5);
 					day.bills.forEach(function(bill) {
 						bill.status = '已关闭';
+						bill.originStatus = 'CLOSE';
 					});
 					month.days.splice(index, 1);
 					vm.list[0].days.unshift(day);
