@@ -110,8 +110,10 @@ require([
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
+	//    phone buy gop reeund   []      list的每条数据
 	var dataAdd = function(kind, bills, item) { // 添加效果的数据
-		var type = H5bill.typeClass[item.type];
+		// console.log(item);
+		var type = H5bill.typeClass[item.type];  // phone refund buy transfer
 		var bill = { // 账单
 			id: item.businessId, // id
 			img: '', // 头像
@@ -136,36 +138,38 @@ require([
 			gop: 'floorFix',
 		};
 
-		if (type === 'transfer' && item.extra) { //转帐类型 并有extra字段
+		//转帐所用数据
+		if (type === 'transfer' && item.extra) { //转帐类型  并有extra字段
 			bill.img = item.extra.photo || ''; // 转账头像
-			if (item.extra.name) { // 有名字的用户
-				bill.desc += ' - ' + filters.omit(item.extra.name); // "转出-L"  展示用    omit限制长度
-				bill.name = filters.omit(item.extra.name); // L  绑定到 data-name="L"
-			} else {
-				if (item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET') {
-					bill.desc += ' - 果仁市场';
-					bill.iconClass = 'market';
-				}
-				if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
-					bill.desc += ' - 我的钱包';
-					bill.iconClass = 'wallet';
-				}
-				if (item.extra.transferOutType === 'WALLET_CONTACT' || item.extra.transferInType === 'WALLET_CONTACT') {
-					bill.desc += ' - 未命名地址';
-				}
-				if (item.extra.transferOutType === 'GOP_CONTACT' || item.extra.transferInType === 'GOP_CONTACT') {
-					bill.desc += ' - 未命名用户';
-				}
+				if (item.extra.name) { // 有名字的用户
+					bill.desc += ' - ' + filters.omit(item.extra.name); // "转出-L"  展示用    omit限制长度
+					bill.name = filters.omit(item.extra.name); // L  绑定到 data-name="L"
+				} else {
+					if (item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET') {
+						bill.desc += ' - 果仁市场';
+						bill.iconClass = 'market';
+					}
+					if (item.extra.transferOutType === 'ME_WALLET' || item.extra.transferInType === 'ME_WALLET') {
+						bill.desc += ' - 我的钱包';
+						bill.iconClass = 'wallet';
+					}
+					if (item.extra.transferOutType === 'WALLET_CONTACT' || item.extra.transferInType === 'WALLET_CONTACT') {
+						bill.desc += ' - 未命名地址';
+					}
+					if (item.extra.transferOutType === 'GOP_CONTACT' || item.extra.transferInType === 'GOP_CONTACT') {
+						bill.desc += ' - 未命名用户';
+					}
 			}
 		}
 		if (type === 'phone' || type === 'refund') {
 			if (item.extra && item.extra.product) {
-				item.extra.product.productDesc && (bill.desc = item.extra.product.productDesc.replace(/\-/g, ' - ')); // 运营商
+				item.extra.product.productDesc && (bill.desc = item.extra.product.productDesc.replace(/\-/g, ' - ')); 
+				// 运营商
 			}
 		}
 
 		if (type === 'refund') {
-			// bill.iconClass = 'refund';
+			// bill.iconClass = 'refund';   退款成功
 			bill.status = H5bill.getStatusRefund(item);
 		}
 
@@ -192,17 +196,23 @@ require([
 				bills.push(bill);
 			}
 		} else {
-			bill.change = numHandler(item[types[kind]], coins[kind], filter[kind]); // 其他果仁都是向下取整
+			if(types[kind]==='money'){
+				bill.change = numHandler(item[types[kind]], coins[kind], filter[kind]); //买果仁RMB显示
+			}else if(types[kind]==='gopNumber'){
+				bill.change = numHandler(item[types[kind]], coins[kind], 'ceilFix'); //退款向上取整
+			}
 			bills.push(bill);
 		}
 	};
-	var dataHandler = function(data) { // 时间处理同时获取交易的信息
+
+	var dataHandler = function(data) { //后台返回list数据加工处理   时间处理同时获取交易的信息
 		now = new Date();
 		// data 列表所有的数据条目
-		return data.map(function(item) { // 确定时间
+		// data.map全部完成 ==> sort全部完成 ==> reduce全部完成 ==>
+		return data.map(function(item) { // 确定时间 list每条的时间转化成 JS时间
 			item._date = mydate.parseDate(item.businessTime);
 			return item;
-		}).sort(function(item1, item2) { // 排序
+		}).sort(function(item1, item2) { // 时间排序
 			return item2._date.getTime() - item1._date.getTime();
 		}).reduce(function(result, item) { // 提取
 			var time = mydate.timeHandler(item._date); // time格式如下
@@ -218,9 +228,8 @@ require([
 				case 'transfer': // 转果仁, 果仁
 					dataAdd('gop', bills, item);
 					break;
-				default:
+				default: 		// 退款
 					if (item.type === 'REFUND') {
-						// console.log(item)
 						if (item.money) { // 退人民币
 							console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
 							type = 'none'; // 页面过滤type为none的账单
@@ -233,7 +242,7 @@ require([
 						console.log('没有处理的账单类型', item);
 					}
 			}
-			var compare = mydate.timeCompare(now, item._date); //返回 今天 昨天 前天
+			var compare = mydate.timeCompare(now, item._date); //返回 今天 昨天 前天  周一五
 			var day = {
 				id: item.businessId,
 				day: compare ? compare : ('周' + time.day2),
@@ -254,6 +263,7 @@ require([
 			return result;
 		}, []);
 	};
+	//			       123.22    <span>G</span>    floorFix||ceilFix		
 	var numHandler = function(number, unit, filter) { // 数值处理
 		return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + filters[filter](Math.abs(number));
 	};
