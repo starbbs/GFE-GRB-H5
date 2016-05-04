@@ -246,7 +246,7 @@ require([
 			}
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
-				//orderJudge.check(curGOPNum , cbfn);   定单检测(所用果仁数，回调函数)
+				//orderJudge.check(curGOPNum , cbfn(状态，果仁价格，我的果仁));   定单检测(所用果仁数，回调函数)
 				orderJudge.check(confirmData[0].use / gopPrice[0], function(status, gopPrice, myGopNum) {
 					if (status == orderJudge.no) {
 						$.alert(orderJudge.tip);
