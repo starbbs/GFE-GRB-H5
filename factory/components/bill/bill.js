@@ -9,7 +9,7 @@ define('h5-component-bill', function() {
 			money: '¥',
 			RMB: '¥',
 			gop: '<span class="iconfont icon-g"></span>',
-			GOP: '<span class="iconfont icon-g"></span>',
+			GOP: '<span class="iconfont icon-g"></span>', //退款
 		},
 		statusClass: { // 订单状态对应class名称
 			PROCESSING: 'going',
