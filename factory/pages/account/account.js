@@ -142,7 +142,7 @@ require([
 		if (type === 'transfer' && item.extra) { //转帐类型  并有extra字段
 			bill.img = item.extra.photo || ''; // 转账头像
 			if (item.extra.name) { // 有名字的用户
-				bill.desc += ' - ' + filters.omit(item.extra.name); // "转出-L"  展示用    omit限制长度
+				bill.desc += ' - ' + filters.omit(item.extra.name,10); // "转出-L"  展示用    omit限制长度
 				bill.name = filters.omit(item.extra.name); // L  绑定到 data-name="L"
 			} else {
 				if (item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET') {
