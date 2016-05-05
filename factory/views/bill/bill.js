@@ -97,6 +97,7 @@ define('h5-view-bill', [
 			}
 		},
 		gotoPay: function() { // 前往支付 买果仁和买话费
+			// 买果仁
 			if (vm.payType === '微信支付') {
 				console.log(weixinPayData)
 				weixin.pay.onSuccess = function(res) {
@@ -108,7 +109,6 @@ define('h5-view-bill', [
 				weixin.pay.set(weixinPayData);
 				weixin.pay.work();
 			} else {
-				// console.log();
 				orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
 					if (status === orderJudge.ok) {
 						window.location.href = './order.html?from=bill&id=' + vm.id;

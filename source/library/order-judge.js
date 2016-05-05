@@ -11,14 +11,17 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 		tip: '您的果仁不够，请充值',
 		checkGOP: function(curGOPNum, callback) { // 以当前所需果仁数值传参
 			this.once(function(myGopNum, gopPrice) {
-				console.log(filters.ceilFix(curGOPNum));
-				var status = myGopNum >= parseFloat(filters.ceilFix(curGOPNum)) ? ok : no;
+				console.log('所需果仁' + parseFloat(filters.ceilFix(curGOPNum)));
+				console.log('我的果仁' + parseFloat(filters.floorFix(myGopNum)));
+				var status = parseFloat(filters.floorFix(myGopNum)) >= parseFloat(filters.ceilFix(curGOPNum)) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
 			});
 		},
 		checkRMB: function(curRMBNum, callback) { // 以人民币数值传参
 			this.once(function(myGopNum, gopPrice) {
-				var status = myGopNum * gopPrice >= parseFloat(curRMBNum) ? ok : no;
+				console.log('果仁变RMB'+parseFloat(filters.floorFix(myGopNum)) * gopPrice);
+				console.log('所需RMB'+parseFloat(curRMBNum));
+				var status = parseFloat(filters.floorFix(myGopNum)) * gopPrice >= parseFloat(curRMBNum) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
 			});
 		},
