@@ -20,12 +20,14 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 		},
 		get: function() { // 获取回跳后要跳转的链接
 			var state = (get.data.state || '').trim().toLowerCase();
+			alert(state);
 			switch (state) {
 				case '': // 为空
 				case 'index': // 为首页
 				case 'state': // 为默认
 					state = 'home';
 			}
+			alert('info' ? './' + state + '.html' + getInfoDate() : './' + state + '.html');
 			return state === 'info' ? './' + state + '.html' + getInfoDate() : './' + state + '.html';
 			// return './' + state + '.html';
 		},

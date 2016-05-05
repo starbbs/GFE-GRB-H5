@@ -18,8 +18,6 @@ require([
 		$.cookie(name, get.data[name]);
 	}
 
-	console.log();
-
 	var gopToken = $.cookie('gopToken');
 
 	loginJudge.check();
