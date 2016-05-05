@@ -386,7 +386,7 @@ define('h5-view-bill', [
 			order.personId && setUser(order.personId);
 		});
 	};
-	var transferOutHandler = function(type, id, options) { // 传出
+	var transferOutHandler = function(type, id, options) { // 转出
 		api.transferQuery({
 			gopToken: gopToken,
 			transferOutId: id
