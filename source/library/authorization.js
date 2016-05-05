@@ -5,6 +5,9 @@
 define('h5-authorization', ['get', 'url'], function(get, url) {
 	// <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=http%3A%2F%2Fwww.goopal.me%2Findex2222.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">点击授权登录</a>
 	return {
+		getInfoDate: function() { // info 特有的参数
+			return '?from=' + $.cookie('from') + '&type=' + $.cookie('type') + '&id=' + $.cookie('id');
+		},
 		main: window.location.protocol + '//www.goopal.com.cn/wx/', // 回跳地址
 		set: function(path, state) { // 设置授权页地址
 			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
@@ -23,7 +26,8 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 				case 'state': // 为默认
 					state = 'home';
 			}
-			return './' + state + '.html';
+			return state === 'info' ? './' + state + '.html' + getInfoDate() : './' + state + '.html';
+			// return './' + state + '.html';
 		},
 		goGet: function() { // 进入回跳后要跳转的链接
 			return window.location.href = this.get();

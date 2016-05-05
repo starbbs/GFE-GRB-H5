@@ -11,13 +11,19 @@ require([
 
 	router.init(false);
 
+	console.log(get.data);
+
+	// 后面带的数据缓存到cookie
+	for (var name in get.data) {
+		$.cookie(name, get.data[name]);
+	}
+
+	console.log();
+
 	var gopToken = $.cookie('gopToken');
-	
-	loginJudge.check(function() {
-		
-	},function(){
-		return;
-	});
+
+	loginJudge.check();
+
 
 	var gotoHome = function(msg) {
 		$.alert(msg + '<br>即将跳转首页', function() {
