@@ -4,7 +4,7 @@
 
 
 require([
-	'h5-api', 'router', 'get', 'h5-view-bill',
+	'h5-api', 'router', 'get', 'h5-view-bill','h5-login-judge-auto',
 	'h5-weixin'
 ], function(
 	api, router, get, billView
