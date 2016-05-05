@@ -110,7 +110,7 @@ body {
 	}
 	&-icon {
 		&.transfer {
-			@include sprite($img + '/3.png', 36px);
+			@include sprite($img + '/7.png', 36px);
 		}
 		&.buy {
 			@include sprite($img + '/2.png', 36px);
