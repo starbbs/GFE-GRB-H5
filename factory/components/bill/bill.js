@@ -8,8 +8,8 @@ define('h5-component-bill', function() {
 		unit: { // 货币单位
 			money: '¥',
 			RMB: '¥',
-			gop: 'G',
-			GOP: 'G',
+			gop: '<span class="iconfont icon-g"></span>',
+			GOP: '<span class="iconfont icon-g"></span>',
 		},
 		statusClass: { // 订单状态对应class名称
 			PROCESSING: 'going',
