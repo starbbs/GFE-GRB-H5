@@ -13,7 +13,7 @@ define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'h5-aler
         setSuccess: $.noop,
         setDelSuccess: $.noop,
         address_mine_next: function() { //返回
-            if (vm.callback) {
+            if (vm.callback ) {
                 vm.callback();
             }
         },
@@ -56,7 +56,7 @@ define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'h5-aler
                     $('#address-mine-input-focusa').val('');
                     vm.setDelSuccess();
                     $(_this).parent('.address-item').removeClass('del');
-                    vm.hasStepNext = false;
+                    // vm.hasStepNext = false;
                     vm.hasMarketAddress = false;                    
                 } else {
                     console.log(data);
