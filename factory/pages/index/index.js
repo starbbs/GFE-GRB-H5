@@ -92,7 +92,7 @@ require([
 	avalon.scan(login.native, loginVM);
 
 	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		// return;
+		return;
 		setTimeout(function() {
 			authorization.go(); //跳转威信授权的地址
 		}, 100);
