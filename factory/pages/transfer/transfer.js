@@ -399,7 +399,6 @@ require([
 			transferTarget.content = cutString(val);
 		},
 		getCnyMoney: function() { //输入果仁数量监听
-			console.log(transferTarget.transferNum);
 			if (!this.value) {
 				return;
 			}
@@ -408,7 +407,8 @@ require([
 				transferTarget.notchecked = true;
 				return;
 			}
-			if (parseFloat(this.value) > parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
+
+			if (parseFloat(filters.floorFix(parseFloat(this.value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
 				$.alert('您的果仁数不足');
 				transferTarget.notchecked = true;
 				return;
@@ -424,6 +424,7 @@ require([
 		},
 		//确定转帐按钮
 		transferCommitClick: function() {
+			console.log(transferTarget.notchecked);
 			if (transferTarget.notchecked) {
 				return;
 			}
