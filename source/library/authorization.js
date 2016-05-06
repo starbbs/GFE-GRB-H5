@@ -10,6 +10,8 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 		},
 		main: window.location.protocol + '//www.goopal.com.cn/wx/', // 回跳地址
 		set: function(path, state) { // 设置授权页地址
+			alert(path);
+			alert(state);
 			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
 		},
 		go: function() { // 进入授权页
@@ -30,6 +32,7 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 			}
 			// alert('info' ? './' + state + '.html' + this.getInfoDate() : './' + state + '.html');
 			// info.html?from=wx_info&type=transferOutId&id=813
+			alert(state === 'info' ? './' + state + '.html' + this.getInfoDate() : './' + state + '.html');
 			return state === 'info' ? './' + state + '.html' + this.getInfoDate() : './' + state + '.html';
 			// return './' + state + '.html';
 		},
