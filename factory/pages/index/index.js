@@ -8,7 +8,7 @@ require([
 ], function(
 	router, api, check, get, authorization, check, View, weixin, H5Button, loginJudge
 ) {
-	alert(window.href);
+	
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id
@@ -98,10 +98,10 @@ require([
 		}, 100);
 	};
 	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号
-		setInterval(function() {
+		//setInterval(function() {
 			// window.location.href = 'frozen.html'
 			authorization.goGet();
-		}, 100);
+		//}, 300);
 	};
 	var gotoLogin = function() { // 跳转login分页
 		setTimeout(function() {
