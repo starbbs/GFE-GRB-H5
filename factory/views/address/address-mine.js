@@ -45,17 +45,19 @@ define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'h5-aler
             });
         },
         marketAddress_del_click: function() { //删除果仁市场地址 
+            var _this = this;
+            console.log(_this);
             api.marketDel({
                 gopToken: gopToken
             }, function(data) {
                 if (data.status == 200) {
                     $.alert('删除成功!');
-                    vm.hasStepNext = false;
-                    vm.hasMarketAddress = false;
                     vm.marketGopAddress = '';
-                    $('#address-mine-input').val('');
+                    $('#address-mine-input-focusa').val('');
                     vm.setDelSuccess();
-                    $(this).removeClass('del');
+                    $(_this).parent('.address-item').removeClass('del');
+                    vm.hasStepNext = false;
+                    vm.hasMarketAddress = false;                    
                 } else {
                     console.log(data);
                 }

@@ -9,8 +9,6 @@ require([
 	router, api, check, get, authorization, check, View, weixin, H5Button, loginJudge
 ) {
 
-	// $.gopToken('53767d17e0cb482a820b3b57860ae85c');
-
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id

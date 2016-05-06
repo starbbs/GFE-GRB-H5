@@ -18,14 +18,14 @@ require([
 	new View('setting-address');
 	new View('setting-feedback');
 
-/*
-	var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
-	if ($.os.ios) {
-		dbclickOrLongpress = '长按';
-	} else if ($.os.android) {
-		dbclickOrLongpress = '双击';
-	}
-*/
+	/*
+		var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
+		if ($.os.ios) {
+			dbclickOrLongpress = '长按';
+		} else if ($.os.android) {
+			dbclickOrLongpress = '双击';
+		}
+	*/
 	address_mine.vm.setSuccess = function() {
 		vm.setMarketAddressTip = '查看';
 		vm.marketGopAddress = address_mine.vm.marketGopAddress;
@@ -50,7 +50,7 @@ require([
 		nickname: '',
 		feedback: '',
 		setMarketAddressTip: '未设置', //市场地址
-		setWallet: '未设置',   // 钱包地址
+		setWallet: '未设置', // 钱包地址
 		setRealName: false, //是否实名认证标志
 		hasMarketAddress: false, //是否有果仁市场地址标志
 		setMarketAddress: false, //正在设置果仁市场地址标志
@@ -185,5 +185,5 @@ require([
 			mine.addClass('on');
 		}, 100);
 	});
-	
+
 });
