@@ -200,7 +200,6 @@ require([
 			// 果仁支付 退款 向上   买果仁获得果仁向下
 			var filterKinds = type === 'money' ? 'fix' : type === 'refund' ? 'ceilFix' : 'floorFix';
 			// 退果仁 向上取   买果仁 向下取
-			// var filterKinds = type === 'refund' ? 'ceilFix' 
 			// kind   gop  money
 			// types[kind] ==> gopNumber money
 			// item[types[kind]]  数字

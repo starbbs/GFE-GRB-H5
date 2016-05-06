@@ -18,7 +18,9 @@ require([
 
 	var gopToken = $.cookie('gopToken');
 
-	loginJudge.check();
+	loginJudge.check(function(){
+		
+	});
 
 	var gotoHome = function(msg) {
 		$.alert(msg + '<br>即将跳转首页', function() {
