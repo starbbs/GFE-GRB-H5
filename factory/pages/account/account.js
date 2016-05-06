@@ -137,11 +137,11 @@ require([
 			gop: 'floorFix',
 		};
 
-		//转帐所用数据
+		//根据类型显示不同说明字段
 		if (type === 'transfer' && item.extra) { //转帐类型  并有extra字段
 			bill.img = item.extra.photo || ''; // 转账头像
 			if (item.extra.name) { // 有名字的用户
-				bill.desc += ' - ' + filters.omit(item.extra.name,10); // "转出-L"  展示用    omit限制长度
+				bill.desc += ' - ' + filters.omit(item.extra.name, 10); // "转出-L"  展示用    omit限制长度
 				bill.name = filters.omit(item.extra.name); // L  绑定到 data-name="L"
 			} else {
 				if (item.extra.transferOutType === 'GOP_MARKET' || item.extra.transferInType === 'GOP_MARKET') {
@@ -172,6 +172,7 @@ require([
 			bill.status = H5bill.getStatusRefund(item);
 		}
 
+		//根据消费方式显示  取整方式
 		if (kind === 'all') { // RMB  果仁  支付都有
 			if (item.extra.recordList.length) {
 				item.extra.recordList.forEach(function(item) {
@@ -197,15 +198,15 @@ require([
 		} else {
 			// 果仁 或 RMB 支付之一  
 			// 果仁支付 退款 向上   买果仁获得果仁向下
-			var filterKinds = types[kind] === 'money' ? 'fix' : type === 'refund' ? 'ceilFix' : 'floorFix' ;		
+			var filterKinds = type === 'money' ? 'fix' : type === 'refund' ? 'ceilFix' : 'floorFix';
 			// 退果仁 向上取   买果仁 向下取
 			// var filterKinds = type === 'refund' ? 'ceilFix' 
-											// kind   gop  money
-											// types[kind] ==> gopNumber money
-											// item[types[kind]]  数字
-											// 数字      标识￥ G      取整方式
+			// kind   gop  money
+			// types[kind] ==> gopNumber money
+			// item[types[kind]]  数字
+			// 数字      标识￥ G      取整方式
 			bill.change = numHandler(item[types[kind]], coins[kind], filterKinds); //买果仁RMB显示 退款向上取整
-			
+
 			bills.push(bill);
 		}
 	};
