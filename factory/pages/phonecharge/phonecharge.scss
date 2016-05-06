@@ -203,7 +203,10 @@ html{
 		position: relative;
 		.text-close{
 		    float: left;
-		    margin-top: 25px;
+		    padding: 25px 10px;
+		    background-repeat: no-repeat;
+		    background-position: center;
+		    margin-right: 0px;
 		}
 		&-box {
 //			flex: 1;
@@ -216,9 +219,9 @@ html{
 //			padding-left: $g-padding + 5px;
 //			padding-right: 5px;
 			color: $g-ash;
-			width: 3em;
-			float: left;
-            margin-left: 20px;
+			width: 4em;
+			float: right;
+            margin-right: 0px;
 			text-align: center;
 			white-space: nowrap;
 		}

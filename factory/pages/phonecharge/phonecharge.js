@@ -165,14 +165,14 @@ require([
 			}, 300);
 		},
 		close: function() { // 输入框清除
-			vm.phone = '';
-			//vm.goods = [];
-			vm.goodsFlag = false;
-			//vm.flows = [];
-			vm.focusing = true;
-			vm.button = '支付';
-			confirmData = [];
-			phoneInput.val('').get(0).focus();
+			setTimeout(function(){
+				vm.phone = '';
+				vm.goodsFlag = false;
+				vm.focusing = true;
+				vm.button = '支付';
+				confirmData = [];
+				phoneInput.val('').get(0).focus();
+			},300);
 		},
 		cancel: function() {
 			vm.cancelBool = false;
