@@ -13,6 +13,49 @@ require([
 	var gopToken = $.cookie('gopToken');
 	var main = $('.home');
 
+	//我的收益  昨天 累计
+	api.getIncome({
+		gopToken: gopToken
+	}, function(data) {
+		if (data.status == '200') {
+			homeVm.totalInCome = data.data.totalIncome;
+			homeVm.yesterDayIncome = data.data.yesterdayIncome;
+		}
+	});
+	//果仁现价
+	api.price(function(data) {
+		if (data.status == '200') {
+			homeVm.gopNowPrice = data.data.price;
+		}
+	});
+
+	//获取果仁数
+	api.getGopNum({
+		gopToken: gopToken
+	}, function(data) {
+		if (data.status == 200) {
+			homeVm.myGopNum = data.data.gopNum;
+			if (homeVm.myGopNum > 0) {
+				homeVm.curIndex = 1;
+			}
+		} else {
+			console.log(data);
+		}
+	});
+
+	// 首页轮播图
+	api.static(function(data) {
+		if (data.status == 200) {
+			data.data.indexSlideAds.filter(function(val, index, arr) {
+				if (val.sources.indexOf('h5') != -1) {
+					homeVm.bannerImgArr.push(val);
+				}
+			});
+			touchsliderBanner.touchsliderFn();
+		}
+	});
+
+
 	var homeVm = avalon.define({
 		$id: 'home',
 		bannerImgArr: [],
@@ -43,50 +86,9 @@ require([
 		},
 	});
 
-	//我的收益  昨天 累计
-	api.getIncome({
-		gopToken: gopToken
-	}, function(data) {
-		if (data.status == '200') {
-			homeVm.totalInCome = data.data.totalIncome;
-			homeVm.yesterDayIncome = data.data.yesterdayIncome;
-		}
-	});
-	//果仁现价
-	api.price(function(data) {
-		if (data.status == '200') {
-			homeVm.gopNowPrice = data.data.price;
-		}
-	});
-
-	//获取果仁数
-	api.getGopNum({
-		gopToken: gopToken
-	}, function(data) {
-		if (data.status == 200) {
-			homeVm.myGopNum = data.data.gopNum;
-			if (homeVm.myGopNum > 0) {
-				homeVm.curIndex = 1;
-			}
-		} else {
-			console.log(data);
-		}
-	});
 	avalon.scan(main.get(0), homeVm);
-
-	// 首页轮播图
-	api.static(function(data) {
-		if (data.status == 200) {
-			data.data.indexSlideAds.filter(function(val, index, arr) {
-				if (val.sources.indexOf('h5') != -1) {
-					homeVm.bannerImgArr.push(val);
-				}
-			});
-			touchsliderBanner.touchsliderFn();
-		}
-	});
 
 	setTimeout(function() {
 		main.addClass('on');
-	}, 200);
+	}, 250);
 });
