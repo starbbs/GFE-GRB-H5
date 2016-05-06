@@ -110,9 +110,8 @@ require([
 
 	var now = new Date(); // 当前时间
 	var nowMonth = now.getMonth(); // 当前月份
-	//    phone buy gop reeund   []      list的每条数据
+	//                 money gop   []   list的每条数据
 	var dataAdd = function(kind, bills, item) { // 添加效果的数据
-		// console.log(item);
 		var type = H5bill.typeClass[item.type]; // phone refund buy transfer
 		var bill = { // 账单
 			id: item.businessId, // id
@@ -173,7 +172,7 @@ require([
 			bill.status = H5bill.getStatusRefund(item);
 		}
 
-		if (kind === 'all') {
+		if (kind === 'all') { // RMB  果仁  支付都有
 			if (item.extra.recordList.length) {
 				item.extra.recordList.forEach(function(item) {
 					switch (item.payType) {
@@ -196,16 +195,17 @@ require([
 				bills.push(bill);
 			}
 		} else {
-			//退款 买果仁进行走此分流
-			var filterKinds = types[kind] === 'money' ? 'fix' : 'ceilFix';
+			// 果仁 或 RMB 支付之一  
+			// 果仁支付 退款 向上   买果仁获得果仁向下
+			var filterKinds = types[kind] === 'money' ? 'fix' : type === 'refund' ? 'ceilFix' : 'floorFix' ;		
+			// 退果仁 向上取   买果仁 向下取
+			// var filterKinds = type === 'refund' ? 'ceilFix' 
+											// kind   gop  money
+											// types[kind] ==> gopNumber money
+											// item[types[kind]]  数字
+											// 数字      标识￥ G      取整方式
 			bill.change = numHandler(item[types[kind]], coins[kind], filterKinds); //买果仁RMB显示 退款向上取整
-			/*
-			if(types[kind]==='money'){
-				bill.change = numHandler(item[types[kind]], coins[kind], filter[kind]); //买果仁RMB显示
-			}else if(types[kind]==='gopNumber'){
-				bill.change = numHandler(item[types[kind]], coins[kind], 'ceilFix'); //退款向上取整
-			}
-			*/
+			
 			bills.push(bill);
 		}
 	};
