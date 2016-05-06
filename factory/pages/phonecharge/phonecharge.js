@@ -89,7 +89,7 @@ require([
 		confirmCangory: '', // 提交时商品类型  话费 流量
 		flowsworld: '', //流量充值描述文字
 		goodsFlag: true,
-		closeBool: false,
+		closeBool: true,
 		input: function() { // 手机号输入
 			// clearTimeout(focusTimer);
 			vm.closeBool = false;
