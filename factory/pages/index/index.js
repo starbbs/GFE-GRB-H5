@@ -8,7 +8,7 @@ require([
 ], function(
 	router, api, check, get, authorization, check, View, weixin, H5Button, loginJudge
 ) {
-
+	alert(window.href);
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id

@@ -34,6 +34,7 @@ require([
 	// info.html?from=wx_info&type=TRANSFER_IN&id=1111
 	// info.html?from=wx_info&type=TRANSFER_OUT&id=1111
 	var type = get.data.type.toUpperCase(); //get方法中有url.js  主要是得到地址栏的相应数据
+	alert(type);
 	//get方法返回一个json｛data:'',parse:'',stringify:'',add:''｝
 	//get.data = {from:wx_info,type:BUYIN_ORDER,id:1111}
 	switch (get.data.from) {
