@@ -198,19 +198,27 @@ html{
 		border-bottom: none;
 		padding: 0 $g-padding;
 		@include height(65px);
-		display: flex;
+//		display: flex;
 		align-items: center;
 		position: relative;
+		.text-close{
+		    float: left;
+		    margin-top: 25px;
+		}
 		&-box {
-			flex: 1;
+//			flex: 1;
 			height: 100%;
 			position: relative;
+			width: 70%;
+			float: left;
 		}
 		&-operator {
-			padding-left: $g-padding + 5px;
-			padding-right: 5px;
+//			padding-left: $g-padding + 5px;
+//			padding-right: 5px;
 			color: $g-ash;
-			width: 6em;
+			width: 3em;
+			float: left;
+            margin-left: 20px;
 			text-align: center;
 			white-space: nowrap;
 		}

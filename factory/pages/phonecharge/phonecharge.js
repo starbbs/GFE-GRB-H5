@@ -92,7 +92,11 @@ require([
 		closeBool: true,
 		input: function() { // 手机号输入
 			// clearTimeout(focusTimer);
-			vm.closeBool = false;
+			if(!vm.cancelBool){
+				vm.closeBool = true;
+			}else{
+				vm.closeBool = false;
+			}
 			clearTimeout(checkTimer);
 			checkTimer = setTimeout(function() {
 				if (check.phone(vm.phone).result) {
@@ -176,11 +180,6 @@ require([
 			vm.closeBool = true;
 			$(".phonecharge-lista-item").removeClass('cur');
 			$(".phonecharge-listb-item").removeClass('cur');
-			if (vm.phone || !check.phone(vm.phone).result) {
-				$("#phonecharge-text-input").val(curPhone);
-				vm.phone = curPhone;
-				vm.input();
-			}
 			// setTimeout(function() {
 			// 	console.log(curPhone)
 			// 	vm.phone = curPhone;
