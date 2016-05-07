@@ -245,7 +245,7 @@ require([
 					width: 0.5,
 					value: value,
 					label: {
-						text: avalon.filters.fix(max),
+						text: avalon.filters.fix(value),
 						x: -40,
 						y: 5,
 						style: {
