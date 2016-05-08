@@ -10,10 +10,12 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 		},
 		main: window.location.protocol + '//www.goopal.com.cn/wx/', // 回跳地址
 		set: function(path, state) { // 设置授权页地址
+			//alert('授权页面相应地址==='+'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect');
 			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
 		},
 		go: function() { // 进入授权页
 			// return // 注释进入授权页
+			//alert('进入授权页面');
 			setTimeout(function() {
 				window.location.href = this.set(this.main, url.basename);
 			}.bind(this), 100);
@@ -33,6 +35,7 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 			// return './' + state + '.html';
 		},
 		goGet: function() { // 进入回跳后要跳转的链接   已经授权绑定
+			//alert('gohome函数执行');
 			return window.location.href = this.get();
 		},
 	}

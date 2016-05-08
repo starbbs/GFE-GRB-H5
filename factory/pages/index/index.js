@@ -116,16 +116,19 @@ require([
 		});
 	};
 	var checkCode = function() {
+		//alert('是否有CODE==='+wxCode);
 		if (wxCode) { // 已授权
 			api.wxlogin({
 				code: wxCode
 			}, function(data) {
 				if (data.status == 200) { // code有效
+					//alert('code有效，返回TOKEN设置COOKIE，然后GOHOME 判断STATE 进入相关页面');
 					if (data.data.gopToken) { // 已绑定
 						gopToken = data.data.gopToken;
 						$.cookie('gopToken', data.data.gopToken);
 						gotoHome();
 					} else { // 未绑定
+						//alert('没有TOKEN 去注册');
 						openid = data.data.openid;
 						unionid = data.data.unionid;
 						loginVM.name = data.data.nick;
@@ -134,10 +137,12 @@ require([
 					}
 				} else { // code无效
 					// $.alert(data.msg);
+					//alert('code无效去授权');
 					gotoAuthorization();
 				}
 			});
 		} else { // 未授权
+			//alert('没有CODE未授权');
 			checkToken();
 		}
 	};
@@ -149,6 +154,6 @@ require([
 		// 	gotoLogin();
 		// }, 100);
 	};
-
+	//alert(window.location.href);
 	init();
 });
