@@ -11,10 +11,11 @@ define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authoriza
 		};
 		var gopToken = $.cookie('gopToken');
 		if (gopToken) {
-			//alert('有TOKEN 去检查TOKEN');
+			// alert('有TOKEN 去检查TOKEN');
 			api.getGopNum({
 				gopToken: gopToken
 			}, function(data) {
+				// alert('带着token验证=='+data.status);
 				if (data.status == 200) {
 					//alert('TOKEN有效');
 					success && success();
@@ -23,12 +24,12 @@ define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authoriza
 						window.location.href = './frozen.html?type=locked'
 					}, 210);
 				} else {
-					//alert('TOKEN无效 去授权');
+					// alert('TOKEN无效 去授权');
 					jumpOut();
 				}
 			});
 		} else {
-			//alert('没有TOKEN 去授权');
+			// alert('没有TOKEN 去授权');
 			jumpOut();
 		}
 	};

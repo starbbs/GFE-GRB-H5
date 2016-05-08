@@ -3,6 +3,7 @@
 
 
 define('h5-login-judge-auto', ['h5-login-judge'], function(loginJudge) {
+	// alert('自动登录检测函数');
 	loginJudge.check();
 	return loginJudge;
 });

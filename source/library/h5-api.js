@@ -29,6 +29,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 		baseUri: baseUri,
 		onSuccess: function(data, options) { // return false 阻止后续进程
 			// console.log(data, options, this.options);
+			// alert('没事别乱删数据'+data.status);
 			if (!data && !options.notGoIndex) {
 				// notGoIndex 为空时不进入首页, 在单个API中设置, 默认只要返回是空, 就跳转认证
 				goIndex();
