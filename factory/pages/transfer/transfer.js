@@ -6,7 +6,7 @@ require([
 	'router', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
 	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication', 'h5-paypass-view',
-	'h5-text', 'h5-weixin', 'h5-paypass-judge-auto'
+	'h5-text', 'h5-weixin', 'h5-paypass-judge-auto', 'h5-login-judge-auto'
 ], function(
 	router, api, View, price, get, filters, H5bill,
 	viewAddressMine, viewAddressWallet, billView,
@@ -398,7 +398,11 @@ require([
 			$(this).val(cutString(val));
 			transferTarget.content = cutString(val);
 		},
-		getCnyMoney: function() { //输入果仁数量监听
+		checkCnyMoney: function() { //输入 时候判断 果仁数量
+			 //只允许输入 数字字符
+    		$(this).val($(this).val().replace(/[^\d.]/g, ""));
+		},
+		getCnyMoney: function() { //失焦 时候判断 果仁数量
 			if (!this.value) {
 				return;
 			}

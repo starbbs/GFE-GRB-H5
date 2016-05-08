@@ -30,7 +30,7 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 				case 'state': // 为默认
 					state = 'home';
 			}
-			//alert(state === 'info' ? './' + state + '.html' + this.getInfoDate() : './' + state + '.html');
+			// alert(state === 'info' ? './' + state + '.html' + this.getInfoDate() : './' + state + '.html');
 			return state === 'info' ? './' + state + '.html' + this.getInfoDate() : './' + state + '.html';
 			// return './' + state + '.html';
 		},

@@ -21,9 +21,12 @@ require([
 
 	var finish = function() { // 最终
 		switch (get.data.from) {
-			case 'dialog':
+			case 'transfer':
 				window.location.href = './transfer.html';
 				break;
+			//case 'order':
+			//	window.location.href = './order.html';
+			//	break;				
 			default:
 				window.location.href = './mine.html';
 				break;
