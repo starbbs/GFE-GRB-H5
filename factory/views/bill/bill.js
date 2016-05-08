@@ -274,7 +274,7 @@ define('h5-view-bill', [
 			options.onRequest && options.onRequest(data);
 			data.data.WEIXIN_MP_PAY && (weixinPayData = data.data.WEIXIN_MP_PAY);
 			if (!data.data || !data.data.buyinOrder || data.status != 200) {
-				data.msg && $.alert(data.msg);
+				//data.msg && $.alert(data.msg);
 				return;
 			}
 			var order = data.data.buyinOrder; // 订单 
@@ -300,7 +300,7 @@ define('h5-view-bill', [
 			// console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.consumeOrder || data.status != 200) { //不成功
-				data.msg && $.alert(data.msg);
+				//data.msg && $.alert(data.msg);
 				return;
 			}
 			var order = data.data.consumeOrder; //定单信息 创建时间 
@@ -376,7 +376,7 @@ define('h5-view-bill', [
 			// console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferIn || data.status != 200) {
-				data.msg && $.alert(data.msg);
+				//data.msg && $.alert(data.msg);
 				return;
 			}
 			var order = data.data.transferIn;
@@ -394,7 +394,7 @@ define('h5-view-bill', [
 			// console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || !data.data.transferOut || data.status != 200) {
-				data.msg && $.alert(data.msg);
+				//data.msg && $.alert(data.msg);
 				return;
 			}
 			var order = data.data.transferOut;
@@ -414,7 +414,7 @@ define('h5-view-bill', [
 			console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || data.status != 200) {
-				data.msg && $.alert(data.msg);
+				//data.msg && $.alert(data.msg);
 				return;
 			}
 			setVM({
