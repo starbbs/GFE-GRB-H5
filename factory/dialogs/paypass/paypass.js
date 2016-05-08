@@ -4,10 +4,12 @@
 
 
 define('h5-dialog-paypass', [
-	'h5-dialog', 'check', 'h5-view', 'h5-api', 'h5-paypass-judge', 'h5-dialog-alert', 'router',
+	'h5-dialog', 'check', 'h5-view', 'h5-api', 'h5-paypass-judge', 'h5-dialog-alert', 'router', 'url',
+
 	'h5-view-authentication', 'h5-paypass-view', 'h5-paypass'
 ], function(
-	Dialog, check, View, api, judge, dialogAlert, router, authenticationVM, paypassViewVM
+	Dialog, check, View, api, judge, dialogAlert, router, url,
+	authenticationVM, paypassViewVM
 ) {
 
 	router.init(true);
@@ -36,7 +38,7 @@ define('h5-dialog-paypass', [
 	});
 	*/
 	// 点击支付执行paypass浮窗show
-	var setPaypassGo = function(status, data){
+	var setPaypassGo = function(status, data) {
 		switch (status) {
 			case 'not': //没有设置密码 
 				showPaypass();
@@ -58,18 +60,18 @@ define('h5-dialog-paypass', [
 				break;
 			default:
 				console.log('Error: (dialog-paypass) paypassStatus 认证状态错误');
-		}			
+		}
 	}
 
 	var prototypeShow = paypass.show;
 	paypass.show = function() {
 		clearTimeout(checkTimer);
-		checkTimer = setTimeout(function(){
+		checkTimer = setTimeout(function() {
 			judge.check(function(status, data) {
-				console.log(status+'支付浮窗弹出校验状态');
+				console.log(status + '支付浮窗弹出校验状态');
 				setPaypassGo(status, data);
-			});		
-		},300);
+			});
+		}, 300);
 	};
 
 	var showPaypass = function() { // paypass-view.js设置密码后3秒后执行paypassViewVM.paypass3VM.callback
@@ -110,9 +112,9 @@ define('h5-dialog-paypass', [
 	// ifShowImmediately [是否立即显示, 默认false]
 	// ifHideOthers      [是否隐藏其他浮层, 默认false]
 	// HideArr           [隐藏指定的浮层, 数组是浮层的名称集合]
-	var showDialogKnown = function(ifShowImmediately, ifHideOthers ,HideArr) { // 出"知道了"弹窗  错误5次
+	var showDialogKnown = function(ifShowImmediately, ifHideOthers, HideArr) { // 出"知道了"弹窗  错误5次
 		dialogAlert.set('输入5次错误,3小时后解锁');
-		dialogAlert.show(ifShowImmediately, ifHideOthers ,HideArr);
+		dialogAlert.show(ifShowImmediately, ifHideOthers, HideArr);
 	};
 	var gotoFrozen = function() { // 进入冻结页  错误10次
 		setInterval(function() {
@@ -130,6 +132,11 @@ define('h5-dialog-paypass', [
 			setTimeout(function() {
 				document.body.scrollTop = 0;
 			}, 500);
+		},
+		forgetPaypass: function() { //点击忘记密码
+			// alert('paypass.html?from='+url.basename);
+			// window.location.href = 'paypass.html?from=' + url.basename;
+			window.location.href = 'paypass.html?from=dialog';
 		},
 		input: function() { // 输入时
 			var value = this.value;
@@ -155,7 +162,7 @@ define('h5-dialog-paypass', [
 								paypassStatus = status;
 								if (status === 'lock5') { // 被锁5次
 									// paypass.hide();
-									showDialogKnown(false,false,['dialog-paypass']);
+									showDialogKnown(false, false, ['dialog-paypass']);
 								} else if (status === 'lock10') {
 									gotoFrozen();
 								} else {
