@@ -37,7 +37,8 @@ require([
 
 	//get方法返回一个json｛data:'',parse:'',stringify:'',add:''｝
 	//get.data = {from:wx_info,type:BUYIN_ORDER,id:1111}
-	switch (get.data.from) {
+	if(!gopToken){
+		switch (get.data.from) {
 		case 'wx_info': // 来自微信消息
 			switch (type) {
 				case 'CONSUME_ORDER': // 超时关闭消费果仁订单消息
@@ -63,5 +64,7 @@ require([
 		default:
 			gotoHome('没有收到通知');
 			break;
+		}
 	}
+	
 });
