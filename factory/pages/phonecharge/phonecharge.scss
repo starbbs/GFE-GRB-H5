@@ -208,6 +208,7 @@ html{
 		    background-repeat: no-repeat;
 		    margin-right: 0px;
 		    background-image: url($img+'/close.png')!important;
+		    background-size: cover!important;
 		}
 		&-box {
 //			flex: 1;
