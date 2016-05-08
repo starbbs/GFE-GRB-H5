@@ -149,7 +149,11 @@ require([
 
 	var init = function() {
 		router.init(true);
-		checkCode();
+		if(gopToken){
+			gotoHome();
+		}else{
+			checkCode();
+		}
 		// setTimeout(function() {
 		// 	gotoLogin();
 		// }, 100);
