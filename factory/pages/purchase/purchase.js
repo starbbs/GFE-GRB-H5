@@ -4,7 +4,7 @@
 
 require([
 	'router', 'h5-view', 'h5-price', 'h5-weixin', 'h5-api', 'check', 'filters', 'h5-view-bill',
-	'h5-text', 'h5-ident', 'h5-weixin', 'h5-keyboard', 'h5-login-judge-auto'
+	'h5-text', 'h5-ident', 'h5-weixin', 'h5-keyboard', 'h5-login-judge-auto','h5-paypass-judge-auto'
 ], function(
 	router, View, price, weixin, api, check, filters, billView
 ) {
