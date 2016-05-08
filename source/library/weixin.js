@@ -4,7 +4,14 @@
 
 define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(api, url, authorization) {
 
-	if ($.os && !$.os.phone) {
+	//if ($.os && !$.os.phone) {
+	//	authorization.go();
+	//}
+
+	var ua = navigator.userAgent.toLowerCase();
+	if(ua.match(/MicroMessenger/i)=="micromessenger") {
+		
+	} else {
 		authorization.go();
 	}
 
