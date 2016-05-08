@@ -4,11 +4,11 @@
 		<div class="wealth-head">
 			<div class="wealth-head-bg up" ms-class="down:yesterday<0"></div>
 			<div class="wealth-head-content">
-				<div class="wealth-head-line1">累计收益(<span class="font-rmb-icon">￥</span>)</div>
+				<div class="wealth-head-line1">累计收益(<span class="font-rmb-icon">¥</span>)</div>
 				<div class="wealth-head-line2">
 					<span>{{total|sign}}</span><span>{{total|abs|fix}}</span>
 				</div>
-				<div class="wealth-head-line3">昨日浮动盈亏(<span class="font-rmb-icon">￥</span>)</div>
+				<div class="wealth-head-line3">昨日浮动盈亏(<span class="font-rmb-icon">¥</span>)</div>
 				<div class="wealth-head-line4">
 					<span>{{yesterday|sign}}</span>
 					<span>{{yesterday|abs|fix}}</span>
@@ -23,11 +23,11 @@
 			</div>
 			<div class="wealth-bar-item">
 				<div class="wealth-bar-label">果仁总价值</div>
-				<div class="wealth-bar-number"><span>¥</span> <span class="wealth-bar-number-underline">{{(gopNum*price)|floorFix}}</span> </div>
+				<div class="wealth-bar-number"><span class="font-rmb-icon">¥</span> <span class="wealth-bar-number-underline">{{(gopNum*price)|floorFix}}</span> </div>
 			</div>
 		</div>
 		<div class="wealth-chart" id="touchSlide">
-			<div class="wealth-now"><span class="gray">果仁现价</span>　<span class="input bold">¥ {{price|floorFix}}</span></div>
+			<div class="wealth-now"><span class="gray">果仁现价</span>　<span class="input bold"><span class="font-rmb-icon">¥</span> {{price|floorFix}}</span></div>
 			<div class="wealth-tab">
 				<div class="wealth-tab-item">月化收益率(%)</div>
 				<div class="wealth-tab-item on">
