@@ -36,8 +36,8 @@ define('h5-paypass-judge', ['h5-api'], function(api) {
 						callback(status, data);
 					});
 				} else {
-					status = 'done';
-					if (data.data.result === 'error') {
+					status = 'done';					
+					if (data.data && data.data.result === 'error') {
 						if (data.data.times == 5) {
 							status = 'lock5';
 						} else if (data.data.times == 10) {
