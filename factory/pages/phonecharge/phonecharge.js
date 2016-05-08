@@ -171,6 +171,7 @@ require([
 				vm.focusing = true;
 				vm.button = '支付';
 				confirmData = [];
+				phoneInput.focus();
 				phoneInput.val('').get(0).focus();
 			},300);
 		},
