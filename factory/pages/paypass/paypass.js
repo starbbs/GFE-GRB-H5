@@ -3,10 +3,10 @@
 
 
 require([
-	'router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success', 'h5-dialog-alert',
-	'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin','h5-paypass-judge-auto'
+	'router', 'h5-api', 'h5-view', 'get', 'h5-dialog-success', 'h5-dialog-alert', 'url',
+	'h5-ident', 'h5-paypass', 'h5-text', 'h5-weixin', 'h5-paypass-judge-auto'
 ], function(
-	router, api, View, get, dialogSuccess, dialogAlert
+	router, api, View, get, dialogSuccess, dialogAlert, url
 ) {
 
 	router.init(true);
@@ -20,13 +20,15 @@ require([
 	var paypass = $('.paypass-page');
 
 	var finish = function() { // 最终
+		console.log(get.data.from);
+		// return;
 		switch (get.data.from) {
 			case 'transfer':
 				window.location.href = './transfer.html';
 				break;
-			//case 'order':
-			//	window.location.href = './order.html';
-			//	break;				
+			case 'order':
+				window.location.href = './order.html' + url.search;
+				break;
 			default:
 				window.location.href = './mine.html';
 				break;

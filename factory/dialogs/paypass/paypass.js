@@ -134,9 +134,13 @@ define('h5-dialog-paypass', [
 			}, 500);
 		},
 		forgetPaypass: function() { //点击忘记密码
-			// alert('paypass.html?from='+url.basename);
-			// window.location.href = 'paypass.html?from=' + url.basename;
-			window.location.href = 'paypass.html?from=dialog';
+			// console.log(url.basename); //order transfor 
+			// console.log(url.search);
+			console.log('paypass.html' + (url.basename.match(/order/ig) ? '?from=' + url.basename + url.search.replace(/\?from=phonecharge/, '') : '?from=' + url.basename));
+			// return;
+			//http://10.23.1.183/guorenbao_1.2.0/h5/build/order.html?from=order?from=order=order=order&id=3430#!/
+			window.location.href = 'paypass.html' + (url.basename.match(/order/ig) ? '?from=' + url.basename + url.search.replace(/\?from=phonecharge/, '') : '?from=' + url.basename);
+
 		},
 		input: function() { // 输入时
 			var value = this.value;
