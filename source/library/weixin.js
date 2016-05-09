@@ -7,11 +7,12 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 	//if ($.os && !$.os.phone) {
 	//	authorization.go();
 	//}
-
+	var uahref = window.location.href;
 	var ua = navigator.userAgent.toLowerCase();
-	if (ua.match(/MicroMessenger/i) == "micromessenger") {
-
+	if (ua.match(/MicroMessenger/i) == "micromessenger" || uahref.match(/from=discoveryiosapp|from=discoveryandroidapp/g)) {
+		//威信 及ios and打开
 	} else {
+		//非威信
 		authorization.go();
 	}
 
