@@ -12,7 +12,6 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 	if (ua.match(/MicroMessenger/i) == "micromessenger" || uahref.match(/from=discoveryiosapp|from=discoveryandroidapp/g)) {
 		//威信 及ios and打开
 	} else {
-		//非威信
 		authorization.go();
 	}
 
