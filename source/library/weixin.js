@@ -9,8 +9,8 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 	//}
 
 	var ua = navigator.userAgent.toLowerCase();
-	if(ua.match(/MicroMessenger/i)=="micromessenger") {
-		
+	if (ua.match(/MicroMessenger/i) == "micromessenger") {
+
 	} else {
 		authorization.go();
 	}
