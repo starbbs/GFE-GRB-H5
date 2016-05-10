@@ -148,7 +148,7 @@ require([
 			$(".phonecharge-lista-item").removeClass('cur');
 			$(".phonecharge-listb-item").removeClass('cur');
 		},
-		blur: function() { // 失去焦点
+		/*blur: function() { // 失去焦点
 			var inputVal = $("#phonecharge-text-input").val();
 			if (inputVal) {
 
@@ -159,11 +159,12 @@ require([
 			// $("#phonecharge-text-input").val(!$(this).value&& $(this).value.length ? curPhone : $(this).value ) ;
 			vm.input();
 			vm.cancelBool = false;
+			vm.closeBool = true;
 			clearTimeout(focusTimer);
 			focusTimer = setTimeout(function() {
 				vm.focusing = false;
 			}, 300);
-		},
+		},*/
 		close: function() { // 输入框清除
 			setTimeout(function(){
 				vm.phone = '';
@@ -181,6 +182,8 @@ require([
 			vm.closeBool = true;
 			$(".phonecharge-lista-item").removeClass('cur');
 			$(".phonecharge-listb-item").removeClass('cur');
+			phoneInput.blur();
+			vm.input();
 			// setTimeout(function() {
 			// 	console.log(curPhone)
 			// 	vm.phone = curPhone;
@@ -444,7 +447,26 @@ require([
 			});
 		}
 	});
-
+	//点击空白地方input失去焦点
+	$(document)[0].ontouchend = function(e){
+		e = window.event || e;
+		obj = e.srcElement?e.srcElement:e.target;
+		var className = obj.className;
+		if(className.indexOf("phonecharge-text-input") < 0 && className.indexOf("text-close") < 0){
+			var inputVal = $("#phonecharge-text-input").val();
+			if (!inputVal) {
+				$("#phonecharge-text-input").val(curPhone);
+				vm.phone = curPhone;
+			}
+//			vm.input();
+			vm.cancelBool = false;
+			vm.closeBool = true;
+			clearTimeout(focusTimer);
+			focusTimer = setTimeout(function() {
+				vm.focusing = false;
+			}, 300);
+		}
+	};
 	setTimeout(function() {
 		main.addClass('on');
 	}, 100);

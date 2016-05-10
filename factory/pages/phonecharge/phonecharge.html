@@ -36,8 +36,8 @@
 							maxlength="11" 
 							ms-duplex="phone" 
 							ms-on-input="input" 
-							ms-on-focus="focus" 
-							ms-on-blur="blur">
+							ms-on-focus="focus" >
+							<!--ms-on-blur="blur">-->
 					</div>
 					<div class="text-close" ms-class="on:(phone&&!closeBool)" ms-on-touchstart="close"></div>
 					<div class="phonecharge-text-operator" ms-visible="(phone.length < 11 || !goodsFlag) && cancelBool" ms-on-touchstart="cancel">取消</div>
