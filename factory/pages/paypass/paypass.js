@@ -20,7 +20,6 @@ require([
 	var paypass = $('.paypass-page');
 
 	var finish = function() { // 最终
-		console.log(get.data.from);
 		// return;
 		switch (get.data.from) {
 			case 'transfer':

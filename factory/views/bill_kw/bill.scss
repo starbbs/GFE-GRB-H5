@@ -5,6 +5,10 @@
 
 
 .bill {
+	.borderrudiasnone{
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
 	.underline{
 		height: 1px; 
 		background-color: $g-line;
@@ -84,16 +88,49 @@
 		line-height: 50px;
 		padding: 15px $g-padding 0;
 		margin-top: 8px;
-		margin-bottom: 24px;
-		&-left {
-			float: left;
-			color: $g-dark;
-			font-size: 14px;
-		}
-		&-right {
-			float: right;
-			color: $g-red;
-			font-size: 22px;
+		// margin-bottom: 24px;
+			&-left {
+				float: left;
+				color: $g-dark;
+				font-size: 14px;
+			}
+			&-right {
+				float: right;
+				color: $g-red;
+				font-size: 22px;
+			}
+		&-buygop{
+			position: relative;
+			@include border($g-bordercolor);
+			border-bottom-right-radius: 5px;
+			border-bottom-left-radius: 5px;			
+			@include media-retina(1){
+				border-top: none;
+			};
+			@include media-retina(2){
+				border-top: none;
+			};			
+			overflow: hidden;
+			&-float {
+				float: left;
+				width: 50%;
+				&:first-child {
+					border-right: $g-border;
+					margin-right: -1px;
+					position: relative;
+					z-index: 1;
+				}
+			}
+			&-label {
+				margin-top: 12px;
+				margin-left: $g-padding;
+				color: $g-ash;
+			}
+			&-price {
+				font: 22px $g-font-num;
+				margin-left: $g-padding;
+				margin-bottom: 18px;
+			}
 		}
 	}
 	&-get { // 获得果仁
@@ -154,6 +191,9 @@
 			}
 			&.official { // 官方
 				@include sprite($img + '/10.png');
+			}
+			&.refund-success { // 退款成功
+				@include sprite($img + '/11.png');
 			}
 		}
 		&-name {
@@ -305,11 +345,12 @@
 		}
 		&-left {
 			float: left;
-			width: 4em;
+			width: auto;
 			text-align: justify;
 			text-align-last: justify;
 		}
 		&-right {
+			height: auto;
 			float: right;
 			width: 60%;
 			text-align: right;
