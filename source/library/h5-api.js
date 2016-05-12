@@ -13,8 +13,8 @@
 define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api, authorization) {
 
 	// var baseUri = '.'; // 同域
-	var baseUri = 'http://116.213.142.89:8080'; // http测试服务器
-	// var baseUri = 'https://endpoint.goopal.com.cn'; // https正式服务器 v1.1
+	// var baseUri = 'http://116.213.142.89:8080'; // http测试服务器
+	var baseUri = '//endpoint.goopal.com.cn'; // https正式服务器 v1.1  'https://endpoint.goopal.com.cn';
 	// var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
 
 	var goIndex = function() { // 返回首页
