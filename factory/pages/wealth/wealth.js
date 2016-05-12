@@ -208,6 +208,7 @@ require([
 					return (max - min) * 0.3;
 				})(),
 				labels: {
+					x : -1,
 					formatter: function() {
 						if (flag == "annual") {
 							return this.value.toFixed(2) * 100;
