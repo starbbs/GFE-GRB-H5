@@ -207,7 +207,6 @@ require([
 					return (max - min) * 0.3;
 				})(),
 				labels: {
-					x : -1,
 					formatter: function() {
 						if (flag == "annual") {
 							return this.value.toFixed(2) * 100;
@@ -246,7 +245,7 @@ require([
 					value: value,
 					label: {
 						text: avalon.filters.fix(value),
-						x: -40,
+						x: -30,
 						y: 5,
 						style: {
 							fontSize: 11,
