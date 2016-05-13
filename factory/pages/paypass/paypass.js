@@ -18,7 +18,8 @@ require([
 
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
-
+	var cardInput = $("#paypass-authentication-card");
+	var codeInput = $("#paypass-ident-code");
 	var finish = function() { // 最终
 		// return;
 		switch (get.data.from) {
@@ -87,7 +88,7 @@ require([
 		hasRealName: true,
 		chooseUrl: '',
 		checkCodeClick: function() {
-			if (vm.identifyingCode) {
+			if (vm.identifyingCode && codeInput[0].value.length) {
 				api.phoneIdentifyingCode({
 					gopToken: gopToken,
 					identifyingCode: vm.identifyingCode
@@ -198,7 +199,7 @@ require([
 			});
 		},
 		authenticationClick: function() {
-			if (vm.Idcard.length == 18) {
+			if (vm.Idcard.length == 18 && cardInput[0].value.length) {
 				api.checkIDcard({
 					gopToken: gopToken,
 					IDcard: vm.Idcard

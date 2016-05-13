@@ -25,6 +25,16 @@ require([
 	};
 	var gopPrice = [];
 	var curPhone;
+	//获取以往手机号
+	api.phoneLastest({
+		gopToken: gopToken
+	}, function(data) {
+		if (data.status == 200) {
+			vm.list = data.data.phoneList;
+		} else {
+			console.log(data);
+		}
+	});
 	//果仁现价
 	api.price({
 		gopToken: gopToken
@@ -33,6 +43,7 @@ require([
 			gopPrice.push(data.data.price);
 		}
 	});
+	
 	//获取流量列表  联通 移动 电信
 	api.productList({
 		productType: "SHOUJILIULIANG"
@@ -402,10 +413,7 @@ require([
 
 	setTimeout(getUserPhoneCarrier, 100);
 
-	//左右滑动判断状态
-	var titles = $('.phonecharge-body-title-layer');
-
-	$('#touchSlide')[0].ontouchend = function() {
+	var slideEvent = function(){
 		vm.button = '支付';
 		for (var i = 0; i < 2; i++) {
 			if (titles.eq(i).hasClass('on') && confirmData[i]) {
@@ -414,17 +422,16 @@ require([
 				vm.confirmCangory = (i === 0 ? '话费' : '流量');
 			}
 		}
+	}
+	//左右滑动判断状态
+	var titles = $('.phonecharge-body-title-layer');
+
+	$('#touchSlide')[0].onclick = function() {
+		slideEvent();
 	};
-	//获取以往手机号
-	api.phoneLastest({
-		gopToken: gopToken
-	}, function(data) {
-		if (data.status == 200) {
-			vm.list = data.data.phoneList;
-		} else {
-			console.log(data);
-		}
-	});
+	$('#touchSlide')[0].ontouchend = function() {
+		slideEvent();
+	};
 
 	touchsliderBanner.touchsliderFn({
 		slideCell: '#touchSlide',
