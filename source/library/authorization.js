@@ -8,7 +8,7 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 		getInfoDate: function() { // info 特有的参数
 			return '?from=' + $.cookie('from') + '&type=' + $.cookie('type') + '&id=' + $.cookie('id');
 		},
-		main: window.location.protocol + '//www.goopal.com.cn/wx/', // 回跳地址
+		main: window.location.protocol + '//goopal.xiaojian.me/wx/', // 回跳地址
 		set: function(path, state) { // 设置授权页地址
 			// alert('授权页面相应地址==='+'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect');
 			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
