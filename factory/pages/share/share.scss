@@ -53,7 +53,7 @@ html {
 	&-world{
 		vertical-align: middle;
 		line-height: px(40px, 750px);
-		margin-right: px(80px, 750px);
+		margin-right: 0px;
 		display: inline-block;
 	}
 	&-btn{
@@ -65,6 +65,8 @@ html {
 		width: px(180px, 750px);
 		line-height: px(60px, 750px);
 		text-align: center;
+		float: right;
+		margin-top: px((px(142px) - px(60px, 750px))/2-8);
 	}
 }
 

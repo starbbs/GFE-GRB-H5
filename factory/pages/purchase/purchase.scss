@@ -53,10 +53,38 @@
 		&-foot {
 			color: $g-gray;
 			text-align: center;
-			@include ablw(20px);
+//			@include ablw(20px);
 			font-size: 11px;
 			line-height: 16px;
 		}
+		.text-button{
+            margin-bottom: 15%;
+        }
+        @media screen and (orientation:portrait) and (min-height: 479px) {
+            .text-button{
+                margin-bottom: 25%;
+            }
+        }
+		@media screen and (orientation:portrait) and (min-height: 567px) {
+		    .text-button{
+                margin-bottom: 30%;
+            }
+        }
+        @media screen and (orientation:portrait) and (min-height: 600px) {
+            .text-button{
+                margin-bottom: 50%;
+            }
+        }
+        @media screen and (orientation:portrait) and (min-height: 666px) {
+            .text-button{
+                margin-bottom: 60%;
+            }
+        }
+        @media screen and (orientation:portrait) and (min-height: 735px) {
+            .text-button{
+                margin-bottom:  70%;
+            }
+        }
 	}
 
 	&-order { // 订单

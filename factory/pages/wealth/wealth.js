@@ -41,8 +41,7 @@ require([
 		console.log('开始移动前，绑定的附加事件');
 	});
 	*/
-	iscrollLoading.scrollEnd = function(pageNum) {
-		console.log(' 开始获取' + pageNum);
+	iscrollLoading.scrollEnd = function() {
 		if (historyVM.loading) {
 			return;
 		}
@@ -246,7 +245,7 @@ require([
 					value: value,
 					label: {
 						text: avalon.filters.fix(value),
-						x: -40,
+						x: -30,
 						y: 5,
 						style: {
 							fontSize: 11,

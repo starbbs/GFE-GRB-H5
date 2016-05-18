@@ -97,11 +97,11 @@ require([
 			authorization.go(); //跳转威信授权的地址
 		}, 100);
 	};
-	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号
-		// setInterval(function() {
+	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号 解决安卓停留请等待
+		setInterval(function() {
 			// window.location.href = 'frozen.html'
 			authorization.goGet();
-		// }, 300);
+		}, 300);
 	};
 	var gotoLogin = function() { // 跳转login分页
 		setTimeout(function() {

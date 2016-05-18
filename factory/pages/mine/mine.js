@@ -12,7 +12,8 @@ require([
 
 	var gopToken = $.cookie('gopToken');
 	var mine = $('.mine');
-
+	var feedbackText = $(".setting-feedback-text");
+	
 	new View('setting');
 	new View('setting-about');
 	new View('setting-address');
@@ -144,7 +145,13 @@ require([
 			vm.textNum = this.value.length + '/' + (140);
 		}
 	})
-
+	//监听是否在反馈页面
+	window.onhashchange = function(){
+		var feedback_isShowing = router.view['setting-feedback'].isShowing;
+		if(!feedback_isShowing){
+			feedbackText[0].blur();
+		}
+	}
 	//初始加载用户信息
 	api.info({
 		gopToken: gopToken
