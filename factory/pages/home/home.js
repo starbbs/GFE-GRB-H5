@@ -91,4 +91,24 @@ require([
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
+
+	/*
+	es6 箭头函数
+	
+	'use strict';
+	var add = (a, b) => a + b;
+	console.log(add(1, 2)); //3
+
+	var add1 = (a, b) => {
+		return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
+	}
+	console.log(add1(1, 3)); // 4
+
+	//匿名函数
+	setTimeout(() => {
+		console.log(add1(1, 3)); // 4
+	});
+	*/
+
+	
 });
