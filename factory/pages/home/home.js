@@ -7,7 +7,7 @@ require([
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
-	// $.cookie('gopToken','d5610892684b4523a1c2547b59318e37'); //我的
+	// $.cookie('gopToken','d5610892684b4523a1c2547b59318e37'); //我的 
 	// $.cookie('gopToken','67f011561e2c4c82851d6e38f3d31c69'); //杨娟
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
