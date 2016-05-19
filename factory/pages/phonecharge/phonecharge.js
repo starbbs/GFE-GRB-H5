@@ -45,14 +45,15 @@ require([
 	});
 	
 	//获取流量列表  联通 移动 电信
-	var abc = 0;
 	var phoneJson = {
+		i : 0;
 		init:function(){
 			this.getFlowsList();
 			this.getCardsList();
 		},
-		todo:function(n){
-			if(n===2){
+		todo:function(){
+			this.i ++;
+			if(this.i === 2){
 				this.getUserPhoneCarrier();
 			}else{
 				return;
@@ -75,8 +76,7 @@ require([
 							desc: item.productDesc, // 描述
 						});
 					});
-					abc++;
-					phoneJson.todo(abc);
+					phoneJson.todo();
 				} else {
 					console.log(data);
 				}
@@ -99,8 +99,7 @@ require([
 							desc: item.productDesc, // 描述
 						});
 					});
-					abc++;
-					phoneJson.todo(abc);
+					phoneJson.todo();
 				} else {
 					console.log(data);
 				}
@@ -184,7 +183,7 @@ require([
 					getUserPhoneCarrier();
 				}
 			});
-		};	
+		}
 	};
 	
 	phoneJson.init();
@@ -442,7 +441,6 @@ require([
 
 	// getUserPhoneCarrier();
 
-	setTimeout(getUserPhoneCarrier, 100);
 
 	var slideEvent = function(){
 		vm.button = '支付';
