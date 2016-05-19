@@ -51,7 +51,6 @@ require([
 		}, function(data) {
 			if (data.status == 200) {
 				// console.log('获取流量列表');
-				alert('获取流量列表');
 				data.data.productList.forEach(function(item) {
 					var desc = JSON.parse(item.extraContent);
 					jsonflows[desc.carrier].push({
@@ -74,7 +73,6 @@ require([
 		}, function(data) {
 			if (data.status == 200) {
 				// console.log('获取话费列表');
-				alert('获取话费列表');
 				data.data.productList.forEach(function(item) {
 					var desc = JSON.parse(item.extraContent);
 					jsoncards[desc.carrier].push({
@@ -89,6 +87,15 @@ require([
 				console.log(data);
 			}
 		});
+	}
+	
+	//判断json对象是否为空 针对话费列表和流量列表
+	var isNotNull = function(jsonlist){
+		var isNull = false;
+		for(var i in jsonlist){
+			isNull = isNull || Boolean(jsonlist[i].length);
+		}
+		return isNull;
 	}
 
 	//提交时存放数据
@@ -362,68 +369,63 @@ require([
 	var getUserPhoneCarrier = function() {
 		getFlowsList();
 		getCardsList();
-		console.log(jsoncards);
-		console.log(jsonflows);
-		getUserPhone(function(data) { //获取用户手机号
-			if (data.status == 200) {
-				vm.phone = curPhone = data.data.phone;
-				 console.log(data.data.phone);
-				getUserCarrier(function(data) { // 获取手机运营商
-					if (data.status == 200) {
-						vm.carrier = data.data.carrier;
-						setFlowsWorld(data.data.carrier);
-						alert(jsoncards[data.data.carrier.substr(-2)]);
-						alert(jsonflows[data.data.carrier.substr(-2)]);
-						console.log("*"+jsoncards[data.data.carrier.substr(-2)]);
-						console.log("*"+jsonflows[data.data.carrier.substr(-2)]);
-						vm.goods = jsoncards[data.data.carrier.substr(-2)];
-						vm.flows = jsonflows[data.data.carrier.substr(-2)];
-						console.log("**"+vm.goods);
-						console.log("**"+vm.goods);
-						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
-							// 选中话费
-							if (datajson.cangory === '话费') {
-								jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
-									if (!datajson.price) {
-										return false;
-									};
-									if (item.price != datajson.price) {
-										return true;
-									} else {
-										vm.confirmId = item.id;
-										vm.confirmCangory = datajson.cangory;
-										confirmData[0] = item;
-										vm.button = '支付：' + filters.floorFix(item.use) + '元';
-										$('.phonecharge-lista-item').eq(index).addClass('cur').siblings().removeClass('cur');
-										return false;
-									}
-								});
-							} else {
-								jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
-									if (!datajson.level) {
-										return false;
-									};
-									if (item.level != datajson.level) {
-										return true;
-									} else {
-										vm.confirmId = item.id;
-										vm.confirmCangory = datajson.cangory;
-										confirmData[1] = item;
-										vm.button = '支付：' + filters.floorFix(item.use) + '元';
-										$('.phonecharge-listb-item').eq(index).addClass('cur').siblings().removeClass('cur');
-										return false;
-									}
-								});
+		if(isNotNull(jsoncards) && isNotNull(jsonflows)){
+			getUserPhone(function(data) { //获取用户手机号
+				if (data.status == 200) {
+					vm.phone = curPhone = data.data.phone;
+					getUserCarrier(function(data) { // 获取手机运营商
+						if (data.status == 200) {
+							vm.carrier = data.data.carrier;
+							setFlowsWorld(data.data.carrier);
+							vm.goods = jsoncards[data.data.carrier.substr(-2)];
+							vm.flows = jsonflows[data.data.carrier.substr(-2)];
+							if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
+								// 选中话费
+								if (datajson.cangory === '话费') {
+									jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
+										if (!datajson.price) {
+											return false;
+										};
+										if (item.price != datajson.price) {
+											return true;
+										} else {
+											vm.confirmId = item.id;
+											vm.confirmCangory = datajson.cangory;
+											confirmData[0] = item;
+											vm.button = '支付：' + filters.floorFix(item.use) + '元';
+											$('.phonecharge-lista-item').eq(index).addClass('cur').siblings().removeClass('cur');
+											return false;
+										}
+									});
+								} else {
+									jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
+										if (!datajson.level) {
+											return false;
+										};
+										if (item.level != datajson.level) {
+											return true;
+										} else {
+											vm.confirmId = item.id;
+											vm.confirmCangory = datajson.cangory;
+											confirmData[1] = item;
+											vm.button = '支付：' + filters.floorFix(item.use) + '元';
+											$('.phonecharge-listb-item').eq(index).addClass('cur').siblings().removeClass('cur');
+											return false;
+										}
+									});
+								}
 							}
+						} else {
+							getUserPhoneCarrier();
 						}
-					} else {
-						getUserPhoneCarrier();
-					}
-				});
-			} else {
-				getUserPhoneCarrier();
-			}
-		});
+					});
+				} else {
+					getUserPhoneCarrier();
+				}
+			});
+		}else{
+			getUserPhoneCarrier();
+		}
 	};
 	// getUserPhoneCarrier();
 
