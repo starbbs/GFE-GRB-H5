@@ -45,12 +45,12 @@ require([
 	});
 	
 	//获取流量列表  联通 移动 电信
-	api.productList({
+	var getFlowsList = api.productList({
 		productType: "SHOUJILIULIANG"
 	}, function(data) {
 		if (data.status == 200) {
-			 console.log('获取流量列表');
-			 alert('获取流量列表');
+			// console.log('获取流量列表');
+			alert('获取流量列表');
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
 				jsonflows[desc.carrier].push({
@@ -66,12 +66,12 @@ require([
 		}
 	});
 	//获取话费列表  联通 移动 电信
-	api.productList({
+	var getCardsList = api.productList({
 		productType: "SHOUJICHONGZHIKA"
 	}, function(data) {
 		if (data.status == 200) {
-			 console.log('获取话费列表');
-			 alert('获取话费列表');
+			// console.log('获取话费列表');
+			alert('获取话费列表');
 			data.data.productList.forEach(function(item) {
 				var desc = JSON.parse(item.extraContent);
 				jsoncards[desc.carrier].push({
@@ -356,6 +356,8 @@ require([
 		}
 	};
 	var getUserPhoneCarrier = function() {
+		getFlowsList();
+		getCardsList();
 		getUserPhone(function(data) { //获取用户手机号
 			if (data.status == 200) {
 				vm.phone = curPhone = data.data.phone;
