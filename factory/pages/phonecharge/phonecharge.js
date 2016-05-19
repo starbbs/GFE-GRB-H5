@@ -357,13 +357,17 @@ require([
 		getUserPhone(function(data) { //获取用户手机号
 			if (data.status == 200) {
 				vm.phone = curPhone = data.data.phone;
-				// console.log(data.data.phone);
+				 console.log(data.data.phone);
 				getUserCarrier(function(data) { // 获取手机运营商
 					if (data.status == 200) {
 						vm.carrier = data.data.carrier;
 						setFlowsWorld(data.data.carrier);
+						console.log("*"+jsoncards[data.data.carrier.substr(-2)]);
+						console.log("*"+jsonflows[data.data.carrier.substr(-2)]);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
 						vm.flows = jsonflows[data.data.carrier.substr(-2)];
+						console.log("**"+vm.goods);
+						console.log("**"+vm.goods);
 						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
 							// 选中话费
 							if (datajson.cangory === '话费') {
