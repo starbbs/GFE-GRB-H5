@@ -45,149 +45,48 @@ require([
 	});
 	
 	//获取流量列表  联通 移动 电信
-	var phoneJson = {
-		i : 0;
-		init:function(){
-			this.getFlowsList();
-			this.getCardsList();
-		},
-		todo:function(){
-			this.i ++;
-			if(this.i === 2){
-				this.getUserPhoneCarrier();
-			}else{
-				return;
+		api.productList({
+			productType: "SHOUJILIULIANG"
+		}, function(data) {
+			if (data.status == 200) {
+				// console.log('获取流量列表');
+				alert('获取流量列表');
+				data.data.productList.forEach(function(item) {
+					var desc = JSON.parse(item.extraContent);
+					jsonflows[desc.carrier].push({
+						id: item.id, // 商品id
+						level: desc.level, // 流量数M
+						price: desc.price, // 下划线价格
+						use: item.price, // 支付按钮价格
+						desc: item.productDesc, // 描述
+					});
+				});
+			} else {
+				console.log(data);
 			}
-		},
-		//获取流量
-		getFlowsList:function(){
-			api.productList({
-				productType: "SHOUJILIULIANG"
-			}, function(data) {
-				if (data.status == 200) {
-					// console.log('获取流量列表');
-					data.data.productList.forEach(function(item) {
-						var desc = JSON.parse(item.extraContent);
-						jsonflows[desc.carrier].push({
-							id: item.id, // 商品id
-							level: desc.level, // 流量数M
-							price: desc.price, // 下划线价格
-							use: item.price, // 支付按钮价格
-							desc: item.productDesc, // 描述
-						});
+		});
+	//获取话费列表  联通 移动 电信
+		api.productList({
+			productType: "SHOUJICHONGZHIKA"
+		}, function(data) {
+			if (data.status == 200) {
+				// console.log('获取话费列表');
+				alert('获取话费列表');
+				data.data.productList.forEach(function(item) {
+					var desc = JSON.parse(item.extraContent);
+					jsoncards[desc.carrier].push({
+						id: item.id, // 商品id
+						currency: item.currency, // 货币(RMB)
+						price: desc.price, // 下划线价格
+						use: item.price, // 支付按钮价格
+						desc: item.productDesc, // 描述
 					});
-					phoneJson.todo();
-				} else {
-					console.log(data);
-				}
-			});
-		},
-		//获取话费
-		getCardsList : function(){
-			api.productList({
-				productType: "SHOUJICHONGZHIKA"
-			}, function(data) {
-				if (data.status == 200) {
-					// console.log('获取话费列表');
-					data.data.productList.forEach(function(item) {
-						var desc = JSON.parse(item.extraContent);
-						jsoncards[desc.carrier].push({
-							id: item.id, // 商品id
-							currency: item.currency, // 货币(RMB)
-							price: desc.price, // 下划线价格
-							use: item.price, // 支付按钮价格
-							desc: item.productDesc, // 描述
-						});
-					});
-					phoneJson.todo();
-				} else {
-					console.log(data);
-				}
-			});
-		},
-		getUserPhone : function(cnfn) { //获取用户 明文 手机号码
-			api.info({
-				gopToken: gopToken
-			}, function(data) {
-				if (data.status == 200) {
-					cnfn && cnfn(data);
-				}
-			});
-		},
-		getUserCarrier : function(cnfn) { //获取用户手机运营商
-			api.phoneInfo({
-				phone: vm.phone
-			}, function(data) {
-				if (data.status == 200) {
-					cnfn && cnfn(data);
-				}
-			});
-		},
-		getUserPhoneCarrier : function() {
-			phoneJson.getUserPhone(function(data) { //获取用户手机号
-				if (data.status == 200) {
-					vm.phone = curPhone = data.data.phone;
-					phoneJson.getUserCarrier(function(data) { // 获取手机运营商
-						if (data.status == 200) {
-							vm.carrier = data.data.carrier;
-							setFlowsWorld(data.data.carrier);
-//							alert(jsoncards[data.data.carrier.substr(-2)]);
-//							alert(jsonflows[data.data.carrier.substr(-2)]);
-//							console.log("*"+jsoncards[data.data.carrier.substr(-2)]);
-//							console.log("*"+jsonflows[data.data.carrier.substr(-2)]);
-							vm.goods = jsoncards[data.data.carrier.substr(-2)];
-							vm.flows = jsonflows[data.data.carrier.substr(-2)];
-//							console.log("**"+vm.goods);
-//							console.log("**"+vm.goods);
-							if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
-								// 选中话费
-								if (datajson.cangory === '话费') {
-									jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
-										if (!datajson.price) {
-											return false;
-										};
-										if (item.price != datajson.price) {
-											return true;
-										} else {
-											vm.confirmId = item.id;
-											vm.confirmCangory = datajson.cangory;
-											confirmData[0] = item;
-											vm.button = '支付：' + filters.floorFix(item.use) + '元';
-											$('.phonecharge-lista-item').eq(index).addClass('cur').siblings().removeClass('cur');
-											return false;
-										}
-									});
-								} else {
-									jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
-										if (!datajson.level) {
-											return false;
-										};
-										if (item.level != datajson.level) {
-											return true;
-										} else {
-											vm.confirmId = item.id;
-											vm.confirmCangory = datajson.cangory;
-											confirmData[1] = item;
-											vm.button = '支付：' + filters.floorFix(item.use) + '元';
-											$('.phonecharge-listb-item').eq(index).addClass('cur').siblings().removeClass('cur');
-											return false;
-										}
-									});
-								}
-							}
-						} else {
-							getUserPhoneCarrier();
-						}
-					});
-				} else {
-					getUserPhoneCarrier();
-				}
-			});
-		}
-	};
-	
-	phoneJson.init();
-	
+				});
+			} else {
+				console.log(data);
+			}
+		});
+
 	//提交时存放数据
 	var confirmData = [];
 
@@ -416,6 +315,24 @@ require([
 		}
 	});
 
+	var getUserPhone = function(cnfn) { //获取用户 明文 手机号码
+		api.info({
+			gopToken: gopToken
+		}, function(data) {
+			if (data.status == 200) {
+				cnfn && cnfn(data);
+			}
+		});
+	};
+	var getUserCarrier = function(cnfn) { //获取用户手机运营商
+		api.phoneInfo({
+			phone: vm.phone
+		}, function(data) {
+			if (data.status == 200) {
+				cnfn && cnfn(data);
+			}
+		});
+	};
 	var href = decodeURIComponent(window.location.href);
 	var datajson = {};
 	//是否从优惠入口进来  显示流量或话费选项卡
@@ -438,9 +355,71 @@ require([
 			vm.flowsworld = '移动用户每月最后一天办理，下月生效';
 		}
 	};
-
+	var getUserPhoneCarrier = function() {
+		getUserPhone(function(data) { //获取用户手机号
+			if (data.status == 200) {
+				vm.phone = curPhone = data.data.phone;
+				 console.log(data.data.phone);
+				getUserCarrier(function(data) { // 获取手机运营商
+					if (data.status == 200) {
+						vm.carrier = data.data.carrier;
+						setFlowsWorld(data.data.carrier);
+						alert(jsoncards[data.data.carrier.substr(-2)]);
+						alert(jsonflows[data.data.carrier.substr(-2)]);
+						console.log("*"+jsoncards[data.data.carrier.substr(-2)]);
+						console.log("*"+jsonflows[data.data.carrier.substr(-2)]);
+						vm.goods = jsoncards[data.data.carrier.substr(-2)];
+						vm.flows = jsonflows[data.data.carrier.substr(-2)];
+						console.log("**"+vm.goods);
+						console.log("**"+vm.goods);
+						if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
+							// 选中话费
+							if (datajson.cangory === '话费') {
+								jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
+									if (!datajson.price) {
+										return false;
+									};
+									if (item.price != datajson.price) {
+										return true;
+									} else {
+										vm.confirmId = item.id;
+										vm.confirmCangory = datajson.cangory;
+										confirmData[0] = item;
+										vm.button = '支付：' + filters.floorFix(item.use) + '元';
+										$('.phonecharge-lista-item').eq(index).addClass('cur').siblings().removeClass('cur');
+										return false;
+									}
+								});
+							} else {
+								jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
+									if (!datajson.level) {
+										return false;
+									};
+									if (item.level != datajson.level) {
+										return true;
+									} else {
+										vm.confirmId = item.id;
+										vm.confirmCangory = datajson.cangory;
+										confirmData[1] = item;
+										vm.button = '支付：' + filters.floorFix(item.use) + '元';
+										$('.phonecharge-listb-item').eq(index).addClass('cur').siblings().removeClass('cur');
+										return false;
+									}
+								});
+							}
+						}
+					} else {
+						getUserPhoneCarrier();
+					}
+				});
+			} else {
+				getUserPhoneCarrier();
+			}
+		});
+	};
 	// getUserPhoneCarrier();
 
+	setTimeout(getUserPhoneCarrier, 100);
 
 	var slideEvent = function(){
 		vm.button = '支付';
@@ -503,11 +482,9 @@ require([
 			}, 300);
 		}
 	};
-	
 	setTimeout(function() {
 		main.addClass('on');
 	}, 100);
-	
 	avalon.scan(main.get(0), vm);
 	return;
 });
