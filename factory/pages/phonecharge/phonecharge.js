@@ -363,6 +363,7 @@ require([
 						vm.carrier = data.data.carrier;
 						setFlowsWorld(data.data.carrier);
 						alert(jsoncards[data.data.carrier.substr(-2)]);
+						alert(jsonflows[data.data.carrier.substr(-2)]);
 						console.log("*"+jsoncards[data.data.carrier.substr(-2)]);
 						console.log("*"+jsonflows[data.data.carrier.substr(-2)]);
 						vm.goods = jsoncards[data.data.carrier.substr(-2)];
