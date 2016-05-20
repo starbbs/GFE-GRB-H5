@@ -364,42 +364,54 @@ require([
 			if (vm.confirmCangory === '话费') {
 				//话费充值API
 				//orderJudge.check(curGOPNum , cbfn(状态，果仁价格，我的果仁));   定单检测(所用果仁数，回调函数)
-				api.phoneRecharge({
-					gopToken: gopToken,
-					productId: vm.confirmId,
-					phone: vm.phone
-				}, function(data) {
-					if (data.status == 200) {
-						setTimeout(function() {
-							window.location.href = get.add('order.html', {
-								// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
-								from: 'phonecharge',
-								id: data.data.consumeOrderId
-							});
-						}, 1000 / 60);
+				orderJudge.check(confirmData[0].use / gopPrice[0], function(status, gopPrice, myGopNum) {
+					if (status == orderJudge.no) {
+						$.alert(orderJudge.tip);
 					} else {
-						$.alert(data.msg);
+						api.phoneRecharge({
+							gopToken: gopToken,
+							productId: vm.confirmId,
+							phone: vm.phone
+						}, function(data) {
+							if (data.status == 200) {
+								setTimeout(function() {
+									window.location.href = get.add('order.html', {
+										// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
+										from: 'phonecharge',
+										id: data.data.consumeOrderId
+									});
+								}, 1000 / 60);
+							} else {
+								$.alert(data.msg);
+							}
+						});
 					}
 				});
 			} else {
 				//流量充值API
-				api.phoneTraffic({
-					gopToken: gopToken,
-					productId: vm.confirmId,
-					phone: vm.phone
-				}, function(data) {
-					if (data.status == 200) {
-						setTimeout(function() {
-							window.location.href = get.add('order.html', {
-								// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
-								from: 'phonecharge',
-								id: data.data.consumeOrderId
-							});
-						}, 1000 / 60);
+				orderJudge.check(confirmData[1].use / gopPrice[0], function(status, gopPrice, myGopNum) {
+					if (status == orderJudge.no) {
+						$.alert(orderJudge.tip);
 					} else {
-						$.alert(data.msg);
+						api.phoneTraffic({
+							gopToken: gopToken,
+							productId: vm.confirmId,
+							phone: vm.phone
+						}, function(data) {
+							if (data.status == 200) {
+								setTimeout(function() {
+									window.location.href = get.add('order.html', {
+										// 跳到公共订单页 build/order.html?from=phonecharge&id=1525
+										from: 'phonecharge',
+										id: data.data.consumeOrderId
+									});
+								}, 1000 / 60);
+							} else {
+								$.alert(data.msg);
+							}
+						});
 					}
-				});
+				})
 			}
 		}
 	});
