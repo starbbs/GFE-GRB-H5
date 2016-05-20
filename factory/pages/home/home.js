@@ -91,9 +91,9 @@ require([
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
-
+/*
 	'use strict';
-	/*
+	
 	//generator  return yield区别在于记忆功能
 	function* helloGenerator() {
 		yield console.log('1111');
