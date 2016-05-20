@@ -29,6 +29,7 @@ html{
 	$bordercolor:#E5E5E5;//边框颜色
 	$listborder : 1px solid $bordercolor;//充值选项列表边框
 	$img: $g-pages + '/phonecharge/images';
+	$image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
 	height: 100%;
 	@extend %fade-in;
 	.text-button{ 
@@ -57,8 +58,10 @@ html{
 //				@include sprite($img + '/hui.png', 22px, 22px);
 //				//@include atl(10px 10px);
 //				position: absolute; top: 10px; right: 50px;
-                background: url($img+'/hui.png') center right no-repeat;
-                background-size: 22px;
+                background-image: url($image+'/phonecharge-hui.jpg')!important;
+                background-position: center right;
+                background-repeat: no-repeat;
+                background-size: 22px!important;
                 padding-right: 22px;
                 display: inline-block;
                 font: 12px/2 sans-serif, Arial, Verdana;
