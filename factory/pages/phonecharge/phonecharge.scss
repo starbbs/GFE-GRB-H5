@@ -246,7 +246,7 @@ html{
 		}
 		&-input {
 			@extend %afull;
-			font: 16px/65px $g-font-num;
+			font: 16px/20px $g-font-num;
 			&.non-null {
 				font-size: 20px;
 			}
