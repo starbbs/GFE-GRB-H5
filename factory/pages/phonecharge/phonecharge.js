@@ -313,6 +313,8 @@ require([
 			vm.focusing = false;
 		},
 		listDelete: function(item, remove) { // 历史号码删除
+			e.preventDefault();
+			e.stopPropagation();
 			api.phoneDelete({
 				gopToken: gopToken,
 				phoneSet: [item]
