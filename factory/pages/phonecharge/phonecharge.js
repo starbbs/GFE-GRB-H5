@@ -324,7 +324,9 @@ require([
 				}
 			});
 		},
-		listClean: function() { // 历史号码清空
+		listClean: function(e) { // 历史号码清空
+			e.preventDefault();
+			e.stopPropagation();
 			api.phoneDelete({
 				gopToken: gopToken,
 				phoneSet: vm.list.$model
