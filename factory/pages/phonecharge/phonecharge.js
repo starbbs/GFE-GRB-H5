@@ -505,7 +505,7 @@ require([
 				$("#phonecharge-text-input").val(curPhone);
 				vm.phone = curPhone;
 			}
-			vm.input();
+//			vm.input();
 			vm.cancelBool = false;
 			vm.closeBool = true;
 			clearTimeout(focusTimer);
