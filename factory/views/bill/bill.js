@@ -178,7 +178,6 @@ define('h5-view-bill', [
 
 		type = (type + '').trim().toUpperCase();
 		options = options || {};
-
 		switch (type) {
 			case 'TRANSFER_OUT': // 转账, 转出
 				transferOutHandler('TRANSFER_OUT', id, options);
@@ -254,7 +253,8 @@ define('h5-view-bill', [
 				return item.tradeNo;
 			}).join('<br>') : order.serialNum,
 			payType: H5bill.payType[order.payType], // 支付方式
-			ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+			//ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+			ifPayButton: H5bill.payType[order.payType] == '快钱支付' ? false : waitForPay,
 			ifClose: waitForPay, // 是否显示"关闭"
 		};
 	};
