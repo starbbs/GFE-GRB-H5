@@ -324,6 +324,10 @@ require([
 				}
 			});
 			vm.phone = '';
+			vm.goodsFlag = false;
+			vm.focusing = true;
+			vm.button = '支付';
+			confirmData = [];
 		},
 		listClean: function() { // 历史号码清空
 			api.phoneDelete({
