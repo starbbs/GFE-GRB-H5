@@ -342,6 +342,10 @@
 		&-item {
 			line-height: 28px;
 			overflow: hidden;
+			.transfer-instruction{
+			    word-break: break-word;
+			    word-wrap: break-word;
+			}
 		}
 		&-left {
 			float: left;
