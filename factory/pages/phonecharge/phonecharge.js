@@ -225,6 +225,7 @@ require([
 							vm.goods = jsoncards[data.data.carrier.substr(-2)];
 							vm.goodsFlag = true;
 							vm.closeBool = true;
+							vm.focusing = false;
 							vm.flows = jsonflows[data.data.carrier.substr(-2)];
 						} else {
 							$.alert(data.msg);
