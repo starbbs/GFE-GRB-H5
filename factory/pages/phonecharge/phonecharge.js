@@ -304,7 +304,9 @@ require([
 			// }, 300);
 		},
 		list: [], // 历史充值号码列表
-		listClick: function() { // 选择历史号码
+		listClick: function(e) { // 选择历史号码
+			e.preventDefault();
+			e.stopPropagation();
 			vm.phone = this.innerHTML.replace(/ /g, '');
 			alert(this.innerHTML.replace(/ /g, ''));
 			alert(vm.phone);
@@ -486,26 +488,26 @@ require([
 		}
 	});
 	//点击空白地方input失去焦点
-//	$(document)[0].ontouchend = function(e){
-//		e = window.event || e;
-//		obj = e.srcElement?e.srcElement:e.target;
-//		var className = obj.className;
-//		if(className.indexOf("phonecharge-text-input") < 0 && className.indexOf("text-close") < 0 && className.indexOf("phonecharge-text-list") < 0){
-//			var inputVal = $("#phonecharge-text-input").val();
-//			if (!inputVal) {
-//				$("#phonecharge-text-input").val(curPhone);
-//				vm.phone = curPhone;
-//			}
-////			vm.input();
-//			vm.cancelBool = false;
-//			vm.closeBool = true;
-//			clearTimeout(focusTimer);
-//			focusTimer = setTimeout(function() {
-//				vm.focusing = false;
-//			}, 300);
-//		}
-//	};
-//	
+	$(document)[0].ontouchend = function(e){
+		e = window.event || e;
+		obj = e.srcElement?e.srcElement:e.target;
+		var className = obj.className;
+		if(className.indexOf("phonecharge-text-input") < 0 && className.indexOf("text-close") < 0 && className.indexOf("phonecharge-text-list") < 0){
+			var inputVal = $("#phonecharge-text-input").val();
+			if (!inputVal) {
+				$("#phonecharge-text-input").val(curPhone);
+				vm.phone = curPhone;
+			}
+//			vm.input();
+			vm.cancelBool = false;
+			vm.closeBool = true;
+			clearTimeout(focusTimer);
+			focusTimer = setTimeout(function() {
+				vm.focusing = false;
+			}, 300);
+		}
+	};
+	
 	setTimeout(function() {
 		main.addClass('on');
 	}, 100);
