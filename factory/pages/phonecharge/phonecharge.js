@@ -306,6 +306,8 @@ require([
 		list: [], // 历史充值号码列表
 		listClick: function() { // 选择历史号码
 			vm.phone = this.innerHTML.replace(/ /g, '');
+			alert(this.innerHTML.replace(/ /g, ''));
+			alert(vm.phone);
 			vm.input();
 			phoneJson.init();
 		},
