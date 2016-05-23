@@ -322,6 +322,7 @@ require([
 					$.alert(data.msg);
 				}
 			});
+			vm.phone = '';
 		},
 		listClean: function() { // 历史号码清空
 			api.phoneDelete({
