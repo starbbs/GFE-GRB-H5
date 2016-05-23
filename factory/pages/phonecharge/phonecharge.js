@@ -313,8 +313,6 @@ require([
 			vm.focusing = false;
 		},
 		listDelete: function(item, remove) { // 历史号码删除
-			e.preventDefault();
-			e.stopPropagation();
 			api.phoneDelete({
 				gopToken: gopToken,
 				phoneSet: [item]
@@ -325,11 +323,6 @@ require([
 					$.alert(data.msg);
 				}
 			});
-			vm.phone = '';
-			vm.goodsFlag = false;
-			vm.focusing = true;
-			vm.button = '支付';
-			confirmData = [];
 		},
 		listClean: function() { // 历史号码清空
 			api.phoneDelete({
@@ -338,6 +331,11 @@ require([
 			}, function(data) {
 				if (data.status == 200) {
 					vm.list.clear();
+					vm.phone = '';
+					vm.goodsFlag = false;
+					vm.focusing = true;
+					vm.button = '支付';
+					confirmData = [];
 				} else {
 					$.alert(data.msg);
 				}
@@ -505,7 +503,7 @@ require([
 				$("#phonecharge-text-input").val(curPhone);
 				vm.phone = curPhone;
 			}
-//			vm.input();
+			vm.input();
 			vm.cancelBool = false;
 			vm.closeBool = true;
 			clearTimeout(focusTimer);
