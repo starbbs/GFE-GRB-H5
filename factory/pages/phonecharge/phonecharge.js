@@ -307,6 +307,7 @@ require([
 		listClick: function() { // 选择历史号码
 			vm.phone = this.innerHTML.replace(/ /g, '');
 			vm.input();
+			phoneJson.init();
 		},
 		listDelete: function(item, remove) { // 历史号码删除
 			api.phoneDelete({
