@@ -309,6 +309,7 @@ require([
 			e.stopPropagation();
 			vm.phone = this.innerHTML.replace(/ /g, '');
 			vm.input();
+			vm.focusing = false;
 		},
 		listDelete: function(item, remove) { // 历史号码删除
 			api.phoneDelete({
