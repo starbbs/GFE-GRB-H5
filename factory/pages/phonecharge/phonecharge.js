@@ -308,8 +308,6 @@ require([
 			e.preventDefault();
 			e.stopPropagation();
 			vm.phone = this.innerHTML.replace(/ /g, '');
-			alert(this.innerHTML.replace(/ /g, ''));
-			alert(vm.phone);
 			vm.input();
 		},
 		listDelete: function(item, remove) { // 历史号码删除
@@ -492,7 +490,7 @@ require([
 		e = window.event || e;
 		obj = e.srcElement?e.srcElement:e.target;
 		var className = obj.className;
-		if(className.indexOf("phonecharge-text-input") < 0 && className.indexOf("text-close") < 0 && className.indexOf("phonecharge-text-list") < 0){
+		if(className.indexOf("phonecharge-text-input") < 0 && className.indexOf("text-close") < 0){
 			var inputVal = $("#phonecharge-text-input").val();
 			if (!inputVal) {
 				$("#phonecharge-text-input").val(curPhone);
