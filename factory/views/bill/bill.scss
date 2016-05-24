@@ -5,14 +5,30 @@
 
 
 .bill {
+	.view-box{
+		position: relative;
+		height: 100%;
+	}
 	.borderrudiasnone{
 		border-bottom-right-radius: 0;
 		border-bottom-left-radius: 0;
+	}
+	.pbnone{
+		padding: 0px; border: none;
 	}
 	.underline{
 		height: 1px; 
 		background-color: $g-line;
 		margin: 15px 0px;
+	}
+	.mt10px{
+		height: 8px;
+	}
+	.mb10px{
+		margin-bottom: 10px;
+	}	
+	.mt20px{
+		margin-top: 20px;
 	}
 	$img: $g-views + '/bill/images';
 
@@ -20,7 +36,8 @@
 
 	&-scroll { // 滚动
 		@extend %rw;
-		padding-bottom: $g-padding-bottom;
+		// padding-bottom: $g-padding-bottom;
+		height: 100%;
 	}
 	&-green { // 绿色
 		color: $g-green-bill;
@@ -35,6 +52,7 @@
 		color: $g-ash;
 		border-top: $g-border;
 		border-bottom: $h solid $g-background;
+		// margin-bottom: 200px;
 		&:after {
 			content: '';
 			display: block;
@@ -42,6 +60,9 @@
 			height: $h;
 			background: url('../images/purchase-1.png') repeat-x;
 			background-size: auto $h;
+		}
+		&-out{
+			height: 100%;
 		}
 	}
 	&-head { // 头部
@@ -101,15 +122,17 @@
 			}
 		&-buygop{
 			position: relative;
+			top: -3px;
+			background: #fafafa;
 			@include border($g-bordercolor);
 			border-bottom-right-radius: 5px;
 			border-bottom-left-radius: 5px;			
-			@include media-retina(1){
-				border-top: none;
-			};
-			@include media-retina(2){
-				border-top: none;
-			};			
+			//@include media-retina(1){
+			//	border-top: none;
+			//};
+			//@include media-retina(2){
+			//	border-top: none;
+			//};		
 			overflow: hidden;
 			&-float {
 				float: left;
@@ -169,6 +192,7 @@
 			background-color: $g-background;
 			margin-left: - $g-padding;
 			margin-right: - $g-padding;
+			margin-bottom: $g-padding;
 		}
 		&-img {
 			@include atr(10px, 32px);
@@ -342,10 +366,6 @@
 		&-item {
 			line-height: 28px;
 			overflow: hidden;
-			.transfer-instruction{
-			    word-break: break-all;
-			    word-wrap: break-word;
-			}
 		}
 		&-left {
 			float: left;
@@ -379,13 +399,27 @@
 			// }
 		}
 	}
-	&-more { // 更多
+	&-more { // 关闭
 		text-align: center;
 		margin-top: 30px;
+		width: 100%;
+		// box-sizing:border-box;
+		// @include abl(25px,0px);		
 	}
 	&-tip { // 底部提示
 		line-height: 1.5;
 		text-align: center;
+		width: 100%;
+		// box-sizing:border-box;
+		@include abl(20px,0px);		
 	}
+	//&-gotopay{
+	//	box-sizing:border-box;
+	//	margin:0px;
+	//	padding: 0px 15px;
+	//	width: 100%;
+	//	@include abl(110px,0px);
+	//}
+
 }
 

@@ -11,18 +11,27 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 		tip: '您的果仁不够，请充值',
 		checkGOP: function(curGOPNum, callback) { // 以当前所需果仁数值传参
 			this.once(function(myGopNum, gopPrice) {
-				console.log('所需果仁' + parseFloat(filters.ceilFix(curGOPNum)));
-				console.log('我的果仁' + parseFloat(filters.floorFix(myGopNum)));
+				// console.log('所需果仁' + parseFloat(filters.ceilFix(curGOPNum)));
+				// console.log('我的果仁' + parseFloat(filters.floorFix(myGopNum)));
 				var status = parseFloat(filters.floorFix(myGopNum)) >= parseFloat(filters.ceilFix(curGOPNum)) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
 			});
 		},
 		checkRMB: function(curRMBNum, callback) { // 以人民币数值传参
 			this.once(function(myGopNum, gopPrice) {
-				console.log('果仁变RMB'+parseFloat(filters.floorFix(myGopNum)) * gopPrice);
-				console.log('所需RMB'+parseFloat(curRMBNum));
+				console.log('果仁变RMB' + parseFloat(filters.floorFix(myGopNum)) * gopPrice);
+				console.log('所需RMB' + parseFloat(curRMBNum));
 				var status = parseFloat(filters.floorFix(myGopNum)) * gopPrice >= parseFloat(curRMBNum) ? ok : no;
 				callback && callback(status, gopPrice, myGopNum);
+			});
+		},
+		// end by kw  filters.ceilFix( 定单RMB / 果仁现价 - 优惠RMB / 果仁现价 ) <= filters.floorFix (用户果仁数量)
+		KWQ_checkRMB: function(orderRMB, orderQ, callback) {
+			var orderQ = orderQ ? typeof orderQ != 'function' ? orderQ : callback = orderQ : 0;
+			orderQ = typeof orderQ == 'function' ? 0 : orderQ;
+			this.once(function(myGopNum, gopPrice) {
+				var status = parseFloat(filters.ceilFix(orderRMB / gopPrice - orderQ / gopPrice)) <= parseFloat(filters.floorFix(myGopNum)) ? ok : no;
+				callback && callback(status, myGopNum, gopPrice);
 			});
 		},
 		once: function(callback) { // 请求一次
@@ -56,5 +65,5 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 		check: function(curGOPNum, callback) { // 默认用果仁数检查 --- 不适用于手机充值
 			this.checkGOP(curGOPNum, callback);
 		},
-	};
+	}; //end for return json
 });

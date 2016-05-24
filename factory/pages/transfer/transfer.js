@@ -5,12 +5,12 @@
 require([
 	'router', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
-	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication', 'h5-paypass-view',
-	'h5-text', 'h5-weixin', 'h5-paypass-judge-auto', 'h5-login-judge-auto'
+	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication', 'url', 'h5-dialog-confirm',
+	'h5-paypass-view', 'h5-text', 'h5-weixin', 'h5-paypass-judge-auto', 'h5-login-judge-auto'
 ], function(
 	router, api, View, price, get, filters, H5bill,
 	viewAddressMine, viewAddressWallet, billView,
-	dialogPaypass, dialogAlert, viewAuthentication
+	dialogPaypass, dialogAlert, viewAuthentication, url, dialogConfirm
 ) {
 
 	var gopToken = $.cookie('gopToken');
@@ -399,8 +399,8 @@ require([
 			transferTarget.content = cutString(val);
 		},
 		checkCnyMoney: function() { //输入 时候判断 果仁数量
-			 //只允许输入 数字字符
-    		$(this).val($(this).val().replace(/[^\d.]/g, ""));
+			//只允许输入 数字字符
+			$(this).val($(this).val().replace(/[^\d.]/g, ""));
 		},
 		getCnyMoney: function() { //失焦 时候判断 果仁数量
 			if (!this.value) {
@@ -412,11 +412,6 @@ require([
 				return;
 			}
 
-			if (parseFloat(filters.floorFix(parseFloat(this.value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
-				$.alert('您的果仁数不足');
-				transferTarget.notchecked = true;
-				return;
-			}
 			transferTarget.notchecked = false;
 			var whether_include_numrice = this.value.indexOf(".");
 			if (whether_include_numrice != -1) {
@@ -428,10 +423,23 @@ require([
 		},
 		//确定转帐按钮
 		transferCommitClick: function() {
-			console.log(transferTarget.notchecked);
+			// console.log(transferTarget.notchecked);
+			// console.log(typeof transferTarget.transferNum);
 			if (transferTarget.notchecked) {
 				return;
 			}
+			
+			if (parseFloat(filters.floorFix(parseFloat($('#address-mine-input-1')[0].value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
+
+				dialogConfirm.set('您的果仁不足是否购买？');
+				dialogConfirm.show();
+				dialogConfirm.onConfirm = function() {
+					window.location.href = 'purchase.html?from=' + url.basename;
+				};
+				return;
+			}
+
+
 			if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
 				// setTimeout(function() {
@@ -479,7 +487,7 @@ require([
 							});
 							init();
 						} else {
-							//console.log(data);
+							console.log(data);
 							$.alert(data.msg);
 						}
 					});

@@ -7,13 +7,13 @@ require([
 	'h5-api', 'get', 'router',
 	'h5-view', 'h5-view-bill',
 	'h5-price', 'h5-ident', 'h5-component-bill',
-	'h5-dialog-paypass', 'filters',
+	'h5-dialog-paypass', 'filters', 'h5-order-judge', 'h5-dialog-confirm', 'url',
 	'h5-weixin', 'h5-paypass-judge-auto'
 ], function(
 	api, get, router,
 	View, billView,
 	price, H5Ident, H5Bill,
-	dialogPaypass, filters
+	dialogPaypass, filters, orderJudge, dialogConfirm, url
 ) {
 
 	router.init();
@@ -33,6 +33,7 @@ require([
 		gopIfUse: true, // 使用果仁数
 		gopUse: 0, // 使用多少果仁
 		orderCode: '',
+		couponRmbNum: 0, //优惠券RMB
 		/*
 		gopClick: function() { // 果仁点击
 			vm.gopIfUse = !vm.gopIfUse;
@@ -60,41 +61,49 @@ require([
 		},
 		// ifConfirmPay: false,
 		confirmPay: function() { // 确认支付
-			// if (!vm.ifConfirmPay || filters.ceilFix(vm.gopUse) > filters.floorFix(vm.gopNum)) {
-			 if (parseFloat(filters.ceilFix(vm.gopUse)) > parseFloat(filters.floorFix(vm.gopNum))) {
-				return;
-			}
-			dialogPaypass.show();
-			//支付浮层消失的回调
-			dialogPaypass.vm.callback = function(value) {
-				// 支付密码校验成功
-				api.pay({
-					gopToken: gopToken, // token
-					useGop: vm.gopIfUse, // 是否使用果仁
-					consumeOrderId: get.data.id, // 订单id
-					// identifyingCode: identInput.val(), // 短信验证码
-					// bankCardId: vm.bankid, // 银行卡id  4-11去除银行卡支付后可随便写ID
-					bankCardId: 12,
-					payPassword: value, // 支付密码
-					bill99ValidCode: '803585',
-					bill99token: '1330872'
-				}, function(data) {
-					if (data.status == 200) {
-						router.to('/bill');
-						console.log(vm);
-						billView.set('PAY', get.data.id, {
-							// forceStatus: 'PROCESSING',
-							ifFinishButton: true,
-							waitForPayMoney: '', // 取消等待支付
-							orderMoney: vm.gopMoney, // 加入订单金额
-							// ifTip: true,
-							tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
+			// 确认支付   orderJudge.KWQ_checkRMB(定单所有RMB数 , 优惠券RMB数(可以不传) , 回调函数)
+			orderJudge.KWQ_checkRMB(filters.fix(vm.money), function(status, gopPrice, myGopNum) {
+				// status = 'gopNumNo';
+				if (status == 'gopNumOk') {
+					dialogPaypass.show();
+					//支付浮层消失的回调
+					dialogPaypass.vm.callback = function(value) {
+						// 支付密码校验成功
+						api.pay({
+							gopToken: gopToken, // token
+							useGop: vm.gopIfUse, // 是否使用果仁
+							consumeOrderId: get.data.id, // 订单id
+							// identifyingCode: identInput.val(), // 短信验证码
+							// bankCardId: vm.bankid, // 银行卡id  4-11去除银行卡支付后可随便写ID
+							bankCardId: 12,
+							payPassword: value, // 支付密码
+							bill99ValidCode: '803585',
+							bill99token: '1330872'
+						}, function(data) {
+							if (data.status == 200) {
+								router.to('/bill');
+								console.log(vm);
+								billView.set('PAY', get.data.id, {
+									// forceStatus: 'PROCESSING',
+									ifFinishButton: true,
+									waitForPayMoney: '', // 取消等待支付
+									orderMoney: vm.gopMoney, // 加入订单金额
+									// ifTip: true,
+									tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
+								});
+							} else {
+								$.alert(data.msg);
+							}
 						});
-					} else {
-						$.alert(data.msg);
-					}
-				});
-			};
+					};
+				} else {
+					dialogConfirm.set('您的果仁不足是否购买？');
+					dialogConfirm.show();
+					dialogConfirm.onConfirm = function() {
+						window.location.href = 'purchase.html?from=' + url.basename + '&id=' + get.data.id;
+					};
+				}
+			});
 		}
 	});
 
