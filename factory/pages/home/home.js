@@ -91,47 +91,47 @@ require([
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
-	/*
-		'use strict';
-		
-		//generator  return yield区别在于记忆功能
-		function* helloGenerator() {
-			yield console.log('1111');
-			yield console.log('2222');
-			yield console.log('3333');
-			yield console.log('4444');
-			yield console.log('5555');
-			yield console.log('6666');
-			yield console.log('7777');
-			yield console.log('8888');
-			yield console.log('9999');
-			yield console.log('0000');
-			return console.log('循环完成');
-		};
-		// helloGenerator GEN函数执行返回遍历接口对象
-		var Gfn = helloGenerator();
-		// console.log(Gfn);
-		for (let i = 0; i < 11; i++) {
-			Gfn.next();
-		}
+/*
+	'use strict';
+	
+	//generator  return yield区别在于记忆功能
+	function* helloGenerator() {
+		yield console.log('1111');
+		yield console.log('2222');
+		yield console.log('3333');
+		yield console.log('4444');
+		yield console.log('5555');
+		yield console.log('6666');
+		yield console.log('7777');
+		yield console.log('8888');
+		yield console.log('9999');
+		yield console.log('0000');
+		return console.log('循环完成');
+	};
+	// helloGenerator GEN函数执行返回遍历接口对象
+	var Gfn = helloGenerator();
+	// console.log(Gfn);
+	for (let i = 0; i < 11; i++) {
+		Gfn.next();
+	}
 
-		for (let val of helloGenerator()) { //for of可执行具有itnerator接口对象
-			console.log('for of执行===' + val);
-		}
+	for (let val of helloGenerator()) { //for of可执行具有itnerator接口对象
+		console.log('for of执行===' + val);
+	}
 
-		//==================generator 遍历接口
-		const flat = function*(arr) {
-			for (let i = 0; i < arr.length; i++) {
-				typeof arr[i] != 'number' ? yield * flat(arr[i]) : yield arr[i];
-			}
-		};
-		let arr = [
-			[1, 2, 3, 3, 3, 3, 3, 3, 3], 4, 5, 6, [7, 8, 9]
-		];
-		for (let val of flat(arr)) {
-			console.log(val);
+	//==================generator 遍历接口
+	const flat = function*(arr) {
+		for (let i = 0; i < arr.length; i++) {
+			typeof arr[i] != 'number' ? yield * flat(arr[i]) : yield arr[i];
 		}
-		*/
+	};
+	let arr = [
+		[1, 2, 3, 3, 3, 3, 3, 3, 3], 4, 5, 6, [7, 8, 9]
+	];
+	for (let val of flat(arr)) {
+		console.log(val);
+	}
+	*/
 
 
 	// promise实例 3   先检测token  再取果仁数  再取果仁现价  最后 算总RMB
@@ -175,70 +175,70 @@ require([
 
 
 
-	//promise 实例4  瞎写
-	/*
-	var creatPromiseOBJ = function(cbfn) {
-		return new Promise(function(resolve, resject) {
-			cbfn && cbfn(resolve);
-		});
-	};
-
-	//果仁现价
-	var getPrice = function(resolve) {
-		api.price(function(data) {
-			if (data.status == '200') {
-				console.log(data.data.price);
-				resolve(data.data.price);
-			}
-		});
-	};
-
-	creatPromiseOBJ(getPrice).then(function(price) {
-		console.log('果仁现价' + price);
-	}).catch(function(err) {
-		console.log(err);
-	});
-	*/
-
-
-	/*	
-		'use strict';
-		// promise实例 1
-		var promise = [1,2,3,4,5].map((id)=>{
-			var op = new Promise(function(reslove,reject){
-				reslove('promist-----'+id);
-			})
-			return op;
-		});
-
-		Promise.all(promise).then((text)=>{
-			console.log(text);
-		}).catch((errwhy)=>{
-			console.log('有错误'+errwhy)
-		});
-
-		// promise实例 2
-		var p = Promise.resolve('hello');  // 等价于 var p = new Promise((resolve,reject)=>resolve('hello'));
-		
-
-		
-
-
-		es6 箭头函数   add ([x,y]) => {return x+y;};
-			var add = (a, b) => a + b;
-			var valFN = (val) => console.log(val);		
-			console.log(add(1, 2)); //3
-
-			var add1 = (a, b) => {
-				return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
-			}
-			console.log(add1(1, 3)); // 4
-
-			//匿名函数
-			setTimeout(() => {
-				console.log(add1(1, 3)); // 4
+		//promise 实例4  瞎写
+		/*
+		var creatPromiseOBJ = function(cbfn) {
+			return new Promise(function(resolve, resject) {
+				cbfn && cbfn(resolve);
 			});
+		};
+
+		//果仁现价
+		var getPrice = function(resolve) {
+			api.price(function(data) {
+				if (data.status == '200') {
+					console.log(data.data.price);
+					resolve(data.data.price);
+				}
+			});
+		};
+
+		creatPromiseOBJ(getPrice).then(function(price) {
+			console.log('果仁现价' + price);
+		}).catch(function(err) {
+			console.log(err);
+		});
 		*/
+
+
+		/*	
+			'use strict';
+			// promise实例 1
+			var promise = [1,2,3,4,5].map((id)=>{
+				var op = new Promise(function(reslove,reject){
+					reslove('promist-----'+id);
+				})
+				return op;
+			});
+
+			Promise.all(promise).then((text)=>{
+				console.log(text);
+			}).catch((errwhy)=>{
+				console.log('有错误'+errwhy)
+			});
+
+			// promise实例 2
+			var p = Promise.resolve('hello');  // 等价于 var p = new Promise((resolve,reject)=>resolve('hello'));
+			
+
+			
+
+
+			es6 箭头函数   add ([x,y]) => {return x+y;};
+				var add = (a, b) => a + b;
+				var valFN = (val) => console.log(val);		
+				console.log(add(1, 2)); //3
+
+				var add1 = (a, b) => {
+					return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
+				}
+				console.log(add1(1, 3)); // 4
+
+				//匿名函数
+				setTimeout(() => {
+					console.log(add1(1, 3)); // 4
+				});
+			*/
 
 
 });
