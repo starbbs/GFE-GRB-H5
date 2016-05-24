@@ -9,7 +9,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 	//}
 	var uahref = window.location.href;
 	var ua = navigator.userAgent.toLowerCase();
-	if (ua.match(/MicroMessenger/i) == "micromessenger" || uahref.match(/from=discovery|about-us|agreement/g)) {
+	if (ua.match(/MicroMessenger/i) == "micromessenger" || uahref.match(/discovery|about-us|agreement/g)) {
 		//威信 及ios and打开
 	} else {
 		authorization.go();

@@ -204,11 +204,19 @@ require([
 					text: ''
 				},
 				tickInterval: (function() {
-					if((max - min) < 0.4){
+					if((max - min) < 0.02){
+						return (max - min) * 0.8;
+					}else if((max - min) < 0.4){
 						return (max - min) * 0.5;
 					}else{
 						return (max - min) * 0.3;
-					}
+					}					
+					
+					//if((max - min) < 0.4){
+					//	return (max - min) * 0.5;
+					//}else{
+					//	return (max - min) * 0.3;
+					//}
 				})(),
 				labels: {
 					formatter: function() {
