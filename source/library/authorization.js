@@ -13,7 +13,7 @@ define('h5-authorization', ['get', 'url'], function(get, url) {
 		set: function(path, state) { // 设置授权页地址
 			// alert('授权页面相应地址==='+'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect');
 			//测试环境wxe91980c4944999fe  正式环境wx55923db8dfb94e44
-			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
+			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe91980c4944999fe&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
 		},
 		go: function() { // 进入授权页
 			// return // 注释进入授权页
