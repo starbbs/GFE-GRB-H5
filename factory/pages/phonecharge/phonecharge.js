@@ -2,7 +2,7 @@
 // H5微信端 --- 手机充值
 require([
 	'h5-api', 'check', 'get', 'filters', 'h5-touchsliderBanner', 'h5-order-judge',
-	'h5-weixin'
+	'h5-weixin','h5-login-judge-auto'
 ], function(
 	api, check, get, filters, touchsliderBanner, orderJudge
 ) {
