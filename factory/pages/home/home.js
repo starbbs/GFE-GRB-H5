@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'h5-login-judge-auto',
+	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner',
 	'filters',
 ], function(
 	router, api, price, weixin, touchsliderBanner
