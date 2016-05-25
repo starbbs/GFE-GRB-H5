@@ -34,6 +34,7 @@ require([
 		gopUse: 0, // 使用多少果仁
 		orderCode: '',
 		couponRmbNum: 0, //优惠券RMB
+		moneyUse : 0,//实付金额
 		/*
 		gopClick: function() { // 果仁点击
 			vm.gopIfUse = !vm.gopIfUse;
@@ -139,6 +140,7 @@ require([
 					var order = data.data.consumeOrder; // 订单信息
 					var product = data.data.product; // 产品信息
 					var record = data.data.recordList; // 付款记录
+					var availableVoucher = data.data.availableVoucher; //最大可用代金券
 					if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
 						// 打开页面
 						router.to('/');
@@ -152,6 +154,8 @@ require([
 						vm.gopNum = data.data.gopNum;
 						vm.productRealPrice = JSON.parse(product.extraContent).price;
 						vm.orderCode = order.orderCode;
+						vm.couponRmbNum = availableVoucher?availableVoucher.voucherName:"无可用现金抵扣券";
+						vm.moneyUse = vm.couponRmbNum === "无可用现金抵扣券"?vm.money:(vm.money - availableVoucher.voucherAmount);
 						vm.gopExchange();
 						// 银行卡相关
 						/*

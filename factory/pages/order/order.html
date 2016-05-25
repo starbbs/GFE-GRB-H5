@@ -66,16 +66,14 @@
 			<div class="order-head-use-coupon">
 				<div class="order-head-label">
 					选择卡券
-					<span>5元现金抵扣券</span>
-					<!-- 无可用现金抵扣券时 class为no-coupon-->
-					<!--<span class="no-coupon">无可用现金抵扣券</span>-->
+					<span ms-class="no-coupon:couponRmbNum==='无可用现金抵扣券'">{{couponRmbNum}}</span>
 				</div>
 				<div class="order-head-use-coupon-arrow"></div>
 			</div>
 			<div class="order-head-use-line"></div>
 			<div class="order-head-use-coupon">
 				<div class="order-head-label">实付金额(<icon>¥</icon>)</div>
-				<div class="order-head-use-money">93.00</div>
+				<div class="order-head-use-money">{{moneyUse|fix}}</div>
 			</div>
 		</div>
 		<div class="order-head-use">
