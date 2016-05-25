@@ -1,8 +1,8 @@
 ﻿@charset "utf-8";
 
 .coupons-detail{
-  width:100%;
-  .header-top{
-
-  }
+	@extend .view-style;
+	width:100%;
+		.header-top{
+  		}
 }

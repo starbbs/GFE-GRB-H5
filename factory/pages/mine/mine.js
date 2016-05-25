@@ -5,7 +5,7 @@ require([
 	'router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-login-judge','h5-view-coupon',
 	'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin', 'filters'
 ], function(
-	router, api, View, check, address_mine, address_wallet, loginJudge,coupon
+	router, api, View, check, address_mine, address_wallet, loginJudge, ViewCoupon
 ) {
 
 	router.init(true);
@@ -18,6 +18,8 @@ require([
 	new View('setting-about');
 	new View('setting-address');
 	new View('setting-feedback');
+	new View('coupon-detail');
+
 
 	/*
 		var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
@@ -41,6 +43,10 @@ require([
 		//address_mine.vm.marketGopAddress = '';
 		vm.marketGopAddress = '';
 	};
+
+
+	ViewCoupon
+
 
 	var vm = avalon.define({
 		$id: 'mine',
@@ -109,7 +115,7 @@ require([
 			});
 		},
 		myCoupon_click:function(){
-			alert("show coupons ！");
+			router.go('/coupon-detail');
 		},
 		address_back_click: function() { //返回
 			router.go('/');
