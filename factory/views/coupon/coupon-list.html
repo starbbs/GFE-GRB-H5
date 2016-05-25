@@ -1,6 +1,8 @@
-<div class="coupon-list" ms-constroller="coupon">
-	<ul class="available">
-		<li class="coupon-list-li" ms-on-click="itemClick">
+
+<div class="coupon-list" ms-controller="coupon">
+	<ul>
+		<li class="coupon-list-li" ms-on-click="itemClick" ms-repeat-item="listAva" ms-attr-id="item.id">
+
 			<div class="coupon-list-li-left">
 				<icon>¥</icon>10
 			</div>
@@ -25,4 +27,14 @@
 			</div>
 		</li>
 	</ul>
+	<ul>
+		<li class="coupon-list-li" ms-on-click="itemClick" ms-repeat-item="listExp" ms-attr-id="item.id">
+			<div class="coupon-list-li-left">
+				<icon>¥</icon>10
+			</div>
+			<div class="coupon-list-li-right">
+				
+			</div>
+		</li>
+	</ul>	
 </div>

@@ -320,5 +320,8 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 	// 85.微信端微信注册用户
 	api.regist('wxregister', '/login/wx/wxregister');
 
+	//86.优惠券列表接口
+	api.regist('myVoucherList', '/voucher/myVoucherList');
+
 	return api;
 });
