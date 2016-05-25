@@ -19,7 +19,7 @@ require([
 	new View('setting-address');
 	new View('setting-feedback');
 	new View('coupon-detail');
-
+	
 
 	/*
 		var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
@@ -45,7 +45,6 @@ require([
 	};
 
 
-	ViewCoupon
 
 
 	var vm = avalon.define({
