@@ -322,6 +322,8 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 
 	//86.优惠券列表接口
 	api.regist('myVoucherList', '/voucher/myVoucherList');
+	//87 .判断用户登录密码状态的接口
+	api.regist('checkLoginPasswordStatus', '/security/checkLoginPasswordStatus');
 
 	return api;
 });
