@@ -2,10 +2,10 @@
 // H5微信端 --- 我的
 
 require([
-	'router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-login-judge',
+	'router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet', 'h5-login-judge','h5-view-coupon',
 	'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin', 'filters'
 ], function(
-	router, api, View, check, address_mine, address_wallet, loginJudge
+	router, api, View, check, address_mine, address_wallet, loginJudge,coupon
 ) {
 
 	router.init(true);
@@ -107,7 +107,9 @@ require([
 					console.log(data);
 				}
 			});
-
+		},
+		myCoupon_click:function(){
+			alert("show coupons ！");
 		},
 		address_back_click: function() { //返回
 			router.go('/');
