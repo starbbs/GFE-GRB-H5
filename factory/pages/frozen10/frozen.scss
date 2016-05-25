@@ -6,11 +6,12 @@
 
 @import '../../../source/scss/main';
 
-$img: $g-pages + '/frozen/images';
+$img: $g-pages + '/frozen10/images';
 
 html {
-	background: url($img + '/_bg.png') #3f49a3;
-	background-size: cover;
+	// background: url($img + '/_bg.png') #3f49a3;
+	// background-size: cover;
+	// background-color: #ccc;
 }
 
 .frozen{
@@ -20,19 +21,24 @@ html {
 	&-sorry{
 		text-align: center;
 		&-img{
-			@include sprite($img + '/sorry.png' , 134px , 144px);
+			@include sprite($img + '/sorry.png' , 112px , 170px);
 			display: inline-block;
 		}
 	}
 	&-world{
+		&-big{
+			font-size: 16px;
+			color: #666666;
+		}
 		text-align: center;
+		color: #999;
 		line-height: px(70px, 750px);
 	}
 	&-phone{
 		margin-top: px(290px, 750px);
 		line-height: px(100px, 750px);
 		text-align: center;
-		border: 1px solid #ffffff;
+		background-color: $g-blue;
 	}
 }
 

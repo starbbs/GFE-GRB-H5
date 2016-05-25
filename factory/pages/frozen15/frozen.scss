@@ -1,0 +1,44 @@
+﻿@charset 'utf-8';
+
+// 张树垚 2015-12-20 11:22:45 创建
+// H5微信端 --- 个人首页
+
+
+@import '../../../source/scss/main';
+
+$img: $g-pages + '/frozen10/images';
+
+html {
+	// background: url($img + '/_bg.png') #3f49a3;
+	// background-size: cover;
+	// background-color: #ccc;
+}
+
+.frozen{
+	margin-top: px(120px, 750px);
+	padding: 72px;
+	color: #ffffff;
+	&-sorry{
+		text-align: center;
+		&-img{
+			@include sprite($img + '/sorry.png' , 112px , 170px);
+			display: inline-block;
+		}
+	}
+	&-world{
+		&-big{
+			font-size: 16px;
+			color: #666666;
+		}
+		text-align: center;
+		color: #999;
+		line-height: px(70px, 750px);
+	}
+	&-phone{
+		margin-top: px(290px, 750px);
+		line-height: px(100px, 750px);
+		text-align: center;
+		background-color: $g-blue;
+	}
+}
+

@@ -2,13 +2,13 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner',
+	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'h5-login-judge-auto',
 	'filters',
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
-	// $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //我的 
-	// $.cookie('gopToken','67f011561e2c4c82851d6e38f3d31c69'); //杨娟
+	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //我的 
+	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var main = $('.home');
@@ -91,9 +91,18 @@ require([
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
-/*
+
 	'use strict';
+	//字符串模板
+	/**/
+	var name = 'kingswei',time = '111111';
+	console.log(`我是${name},出生时间是${time}`);
+	console.log(`字符串模板${(function(){ return '---可以放函数---'})()}`);
 	
+
+
+
+	/*
 	//generator  return yield区别在于记忆功能
 	function* helloGenerator() {
 		yield console.log('1111');
@@ -174,71 +183,44 @@ require([
 	*/
 
 
+	/*	
+	'use strict';
+	// promise实例 1
+	var promise = [1,2,3,4,5].map((id)=>{
+		var op = new Promise(function(reslove,reject){
+			reslove('promist-----'+id);
+		})
+		return op;
+	});
 
-		//promise 实例4  瞎写
-		/*
-		var creatPromiseOBJ = function(cbfn) {
-			return new Promise(function(resolve, resject) {
-				cbfn && cbfn(resolve);
-			});
-		};
+	Promise.all(promise).then((text)=>{
+		console.log(text);
+	}).catch((errwhy)=>{
+		console.log('有错误'+errwhy)
+	});
 
-		//果仁现价
-		var getPrice = function(resolve) {
-			api.price(function(data) {
-				if (data.status == '200') {
-					console.log(data.data.price);
-					resolve(data.data.price);
-				}
-			});
-		};
+	// promise实例 2
+	var p = Promise.resolve('hello');  // 等价于 var p = new Promise((resolve,reject)=>resolve('hello'));
+	
 
-		creatPromiseOBJ(getPrice).then(function(price) {
-			console.log('果仁现价' + price);
-		}).catch(function(err) {
-			console.log(err);
+	
+
+
+	es6 箭头函数   add ([x,y]) => {return x+y;};
+		var add = (a, b) => a + b;
+		var valFN = (val) => console.log(val);		
+		console.log(add(1, 2)); //3
+
+		var add1 = (a, b) => {
+			return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
+		}
+		console.log(add1(1, 3)); // 4
+
+		//匿名函数
+		setTimeout(() => {
+			console.log(add1(1, 3)); // 4
 		});
-		*/
-
-
-		/*	
-			'use strict';
-			// promise实例 1
-			var promise = [1,2,3,4,5].map((id)=>{
-				var op = new Promise(function(reslove,reject){
-					reslove('promist-----'+id);
-				})
-				return op;
-			});
-
-			Promise.all(promise).then((text)=>{
-				console.log(text);
-			}).catch((errwhy)=>{
-				console.log('有错误'+errwhy)
-			});
-
-			// promise实例 2
-			var p = Promise.resolve('hello');  // 等价于 var p = new Promise((resolve,reject)=>resolve('hello'));
-			
-
-			
-
-
-			es6 箭头函数   add ([x,y]) => {return x+y;};
-				var add = (a, b) => a + b;
-				var valFN = (val) => console.log(val);		
-				console.log(add(1, 2)); //3
-
-				var add1 = (a, b) => {
-					return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
-				}
-				console.log(add1(1, 3)); // 4
-
-				//匿名函数
-				setTimeout(() => {
-					console.log(add1(1, 3)); // 4
-				});
-			*/
+	*/
 
 
 });
