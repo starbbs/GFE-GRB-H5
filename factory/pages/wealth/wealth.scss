@@ -21,7 +21,8 @@ html {
 	
 	@extend %rw;
 	@extend %fade-in;
-	padding-bottom: $g-padding-bottom;
+//	padding-bottom: $g-padding-bottom;
+	padding-bottom: 10px;
 
 	&-head {
 		@extend %rw;
