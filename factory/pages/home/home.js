@@ -7,8 +7,9 @@ require([
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
-	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //我的 
-	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟 sdf
+	// $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //小妮 
+	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟 有问题的
+	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰 
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var main = $('.home');
