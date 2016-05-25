@@ -1,40 +1,31 @@
 
 <div class="coupon-list" ms-controller="coupon">
+	<!--可用-->
 	<ul>
 		<li class="coupon-list-li" ms-on-click="itemClick" ms-repeat-item="listAva" ms-attr-id="item.id">
-
 			<div class="coupon-list-li-left">
-				<icon>¥</icon>10
+				<icon>¥</icon>{{item.voucherAmount}}
 			</div>
 			<img src="./images/coupon-bg-middle.png" class="coupon-list-li-middle"/>
 			<div class="coupon-list-li-right">
-				<span class="coupon-list-li-right-title">现金抵扣券</span>
-				<span class="coupon-list-li-right-time">有效时间：2016-06-01至2016-06-30</span>
+				<span class="coupon-list-li-right-title">{{item.voucherName}}</span>
+				<span class="coupon-list-li-right-time">有效时间：{{item.startTime}}至{{item.endTime}}</span>
 				<img src="./images/coupon-coupon.png" />
 			</div>
 		</li>
 	</ul>
+	<!--不可用-->
 	<ul class="disabled">
-		<li class="coupon-list-li" ms-on-click="itemClick">
+		<li class="coupon-list-li" ms-on-click="itemClick" ms-repeat-item="listExp" ms-attr-id="item.id">
 			<div class="coupon-list-li-left">
-				<icon>¥</icon>10
+				<icon>¥</icon>{{item.voucherAmount}}
 			</div>
 			<img src="./images/coupon-bg-middle-grey.png" class="coupon-list-li-middle"/>
 			<div class="coupon-list-li-right">
-				<span class="coupon-list-li-right-title">现金抵扣券</span>
-				<span class="coupon-list-li-right-time">有效时间：2016-06-01至2016-06-30</span>
+				<span class="coupon-list-li-right-title">{{item.voucherName}}</span>
+				<span class="coupon-list-li-right-time">有效时间：{{item.startTime}}至{{item.endTime}}</span>
 				<img src="./images/coupon-passhalf.png" />
 			</div>
 		</li>
 	</ul>
-	<ul>
-		<li class="coupon-list-li" ms-on-click="itemClick" ms-repeat-item="listExp" ms-attr-id="item.id">
-			<div class="coupon-list-li-left">
-				<icon>¥</icon>10
-			</div>
-			<div class="coupon-list-li-right">
-				
-			</div>
-		</li>
-	</ul>	
 </div>

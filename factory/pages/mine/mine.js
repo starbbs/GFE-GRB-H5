@@ -19,16 +19,13 @@ require([
 	new View('setting-about');
 	new View('setting-address');
 	new View('setting-feedback');
-	var couponListView = new View('coupon-list');
-	var couponDetailView = new View('coupon-detail');
-
 
 	ViewCoupon.listVM.itemClick = function(){
 		router.go('/coupon-detail');
 		// couponListView.hide();
 	};
-	couponListView.on('hide',function(){
-		
+	ViewCoupon.on('hide',function(){
+
 	});
 
 	/*

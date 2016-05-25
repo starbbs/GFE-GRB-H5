@@ -6,8 +6,9 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var gopToken = $.cookie('gopToken');
 	var couponID = get.data.id;
 
-	//返回VM的集合
-	var coupon = {};
+	var couponListView = new View('coupon-list');
+	var couponDetailView = new View('coupon-detail');
+
 
 	var mainList = $('.coupon-list');
 	var mainDetail = $('.coupon-detail');
@@ -61,28 +62,29 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		'voucherStatus': 'EXPIRE'
 	}];
 
-	var set = function(type){
-		switch(type){
+	var set = couponListView.set = function(type) {
+		switch (type) {
 			case 'mine':
-			mineHandler();
-			break;
+				mineHandler();
+				break;
 			case 'order':
-			orderHandler();
+				orderHandler();
+				break;
 		};
 	};
 
 	//我的券列表处理
-	var mineHandler = function(){
+	var mineHandler = function() {
 
 	};
 
 	//定单券列表处理
-	var orderHandler = function(){
-		
+	var orderHandler = function() {
+
 	};
 
 	//列表VM
-	var couponListVM = coupon.listVM = avalon.define({
+	var couponListVM = couponListView.listVM = avalon.define({
 		$id: 'coupon',
 		listAva: Qlist.available,
 		listExp: Qlist.exp,
@@ -107,6 +109,6 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	//详情VM
 
 
-	return coupon;
+	return couponListView;  // 返回的是VIEW的对象  所有方法也在这个对象上面
 
 });
