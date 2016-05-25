@@ -2,7 +2,7 @@
 // H5微信端 --- view-bill 账单详情分页
 /**
  * [set 设置账单详情]
- * @Author   张树垚
+ * @Author   魏冰冰
  * @DateTime 2016-03-09
  * @param    {[string]}       		type					[账单类型]
  * @param    {[string|number]}		id						[账单ID]
