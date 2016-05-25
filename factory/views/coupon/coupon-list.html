@@ -1,11 +1,27 @@
-<div class="coupon-list">
-	<ul>
-		<li class="coupon-list-li">
+<div class="coupon-list" ms-constroller="coupon">
+	<ul class="available">
+		<li class="coupon-list-li" ms-on-click="itemClick">
 			<div class="coupon-list-li-left">
 				<icon>¥</icon>10
 			</div>
+			<img src="./images/coupon-bg-middle.png" class="coupon-list-li-middle"/>
 			<div class="coupon-list-li-right">
-				
+				<span class="coupon-list-li-right-title">现金抵扣券</span>
+				<span class="coupon-list-li-right-time">有效时间：2016-06-01至2016-06-30</span>
+				<img src="./images/coupon-coupon.png" />
+			</div>
+		</li>
+	</ul>
+	<ul class="disabled">
+		<li class="coupon-list-li" ms-on-click="itemClick">
+			<div class="coupon-list-li-left">
+				<icon>¥</icon>10
+			</div>
+			<img src="./images/coupon-bg-middle-grey.png" class="coupon-list-li-middle"/>
+			<div class="coupon-list-li-right">
+				<span class="coupon-list-li-right-title">现金抵扣券</span>
+				<span class="coupon-list-li-right-time">有效时间：2016-06-01至2016-06-30</span>
+				<img src="./images/coupon-passhalf.png" />
 			</div>
 		</li>
 	</ul>
