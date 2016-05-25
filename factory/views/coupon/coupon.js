@@ -7,7 +7,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var couponID = get.data.id;
 
 	var couponListView = new View('coupon-list');
-	var couponDetailView = new View('coupon-detail');
+	var couponDetailView = null; //= new View('coupon-detail');
 
 	var mainList = $('.coupon-list');
 	var mainDetail = $('.coupon-detail');
@@ -72,69 +72,64 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		};
 	};
 
-	//我的券列表处理
+
+	// 设置列表VB
+	var setListVM = function(){
+		couponListView.VM = avalon.define({
+			$id: 'couponList',
+			listAva: Qlist.available,
+			listExp: Qlist.exp,
+			itemClick: function(ev) {
+				couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev);
+			},
+			onHideFn: $.noop,
+		});
+	};
+
+	//设置账单详情VM
+	var setDetailVM = function(){
+		var couponDetailJSON = {
+			vouchername: '',
+			starttime: '',
+			endtime: '',
+			voucherstatus: '',
+		};
+		couponDetailView.VM = avalon.define($.extend({
+			$id: 'couponDetail',
+		}, couponDetailJSON));
+		//列表消失
+		couponListView.on('show',function(){
+			$.extend(couponDetailView.VM, couponDetailJSON);
+		});		
+	};
+
+	//我的   券列表处理
 	var mineHandler = function() {
-
+		couponDetailView = new View('coupon-detail');
+		setListVM();
+		setDetailVM();
 	};
 
-	//定单券列表处理
+	//定单  券列表处理
 	var orderHandler = function() {
-
+		setListVM();
 	};
 
-	//列表VM
-	couponListView.VM = avalon.define({
-		$id: 'couponList',
-		listAva: Qlist.available,
-		listExp: Qlist.exp,
-		itemClick: function(ev) {
-			couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev);
-			//couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev, function(data) {
-			//	console.log(data);
-			//	$.extend(couponDetailView.VM, data);
-			//	console.log(couponDetailView.VM);
-			//	router.go('/coupon-detail');
-			//});
-		},
-		onHideFn: $.noop,
-	});
-	//详情VM
-	var couponDetailJSON = {
-		vouchername: '',
-		starttime: '',
-		endtime: '',
-		voucherstatus: '',
-	};
-	couponDetailView.VM = avalon.define($.extend({
-		$id: 'couponDetail',
-	}, couponDetailJSON));
 
-	console.log(couponDetailView.VM);
-
-	//路由选择数据处理
-	if (url.filename.match(/mine.html/g)) {
-		console.log('我的');
-		set('mine');
-	} else if (url.filename.match(/order.html/g)) {
-		set('order');
-		console.log('定单');
-	}
 
 
 
 	avalon.scan();
 
-	//couponDetailView.on('hide', function() {
-	//	$.extend(couponDetailView.VM, couponDetailJSON);
-	//	console.log(couponDetailView.VM);
-	//});
+	//路由选择数据处理
+	if (url.filename.match(/mine.html/g)) {
+		set('mine');
+	} else if (url.filename.match(/order.html/g)) {
+		console.log('定单');
+	}
 
-	couponListView.on('show',function(){
-		$.extend(couponDetailView.VM, couponDetailJSON);
-	});
-
+	//返回的JSON
 	var couponJSON = {};
-
 	return $.extend(couponJSON, {
 		set: set,
 		couponListView: couponListView,
