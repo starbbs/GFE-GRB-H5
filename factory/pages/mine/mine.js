@@ -23,11 +23,12 @@ require([
 	console.log(CouponJSON);
 
 	//列表点击事件
-	CouponJSON.couponListView.VM.onHideFn = function(ev,cbfn) {
+	CouponJSON.couponListView.VM.onHideFn = function(ev) {
 		var target = $(ev.target).closest('.coupon-list-li');
 		if (target.length) {
 			var json = target.get(0).dataset;
-			cbfn(json);
+			$.extend(CouponJSON.couponDetailView.VM, json);
+			router.go('/coupon-detail');
 		}
 		// $.extend(CouponJSON.couponDetailView.VM, json);
 		// couponListView.hide();

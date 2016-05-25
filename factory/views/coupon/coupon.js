@@ -88,23 +88,26 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		listAva: Qlist.available,
 		listExp: Qlist.exp,
 		itemClick: function(ev) {
-			couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev, function(data) {
-				$.extend(couponDetailView.VM.$model, data);
-				router.go('/coupon-detail');
-			});
+			couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev);
+			//couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev, function(data) {
+			//	console.log(data);
+			//	$.extend(couponDetailView.VM, data);
+			//	console.log(couponDetailView.VM);
+			//	router.go('/coupon-detail');
+			//});
 		},
 		onHideFn: $.noop,
 	});
 	//详情VM
 	var couponDetailJSON = {
-		voucherName: '',
-		startTime: '',
-		endTime: '',
-		voucherStatus: '',
+		vouchername: '',
+		starttime: '',
+		endtime: '',
+		voucherstatus: '',
 	};
-	var detailsVM = couponDetailView.VM = avalon.define({
+	couponDetailView.VM = avalon.define($.extend({
 		$id: 'couponDetail',
-	});
+	}, couponDetailJSON));
 
 	console.log(couponDetailView.VM);
 
@@ -119,7 +122,8 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 
 
 
-	avalon.scan(mainList.get(0), couponListView.VM);
+	avalon.scan();
+
 
 
 	var couponJSON = {};
