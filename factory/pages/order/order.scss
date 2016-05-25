@@ -53,11 +53,12 @@ body {
 			}
 		}
 		&-use {
-			@include height(48px);
-			background-color: #fafafa;
+//			@include height(48px);
+            line-height: 48px;
+			background-color: #ffffff;
 			border-bottom: $g-border;
 			padding: 0 $g-padding;
-			margin-bottom: 10px;
+			margin-top: 10px;
 			&-guo {
 				float: left;
 				font-size: 14px;
@@ -73,6 +74,35 @@ body {
 					color: $g-blue;
 				}
 			}
+			&-coupon{
+			    .order-head-use-money{
+			        color: #ff4238;
+			    }
+			    &-arrow{
+			        @include sprite($img + '/arrow.png', 9px, 15px);
+                    margin-right: $g-padding;
+                    float: right;
+                    margin-top: 17px;
+			    }
+			}
+			&-coupon:after{
+                content: "."; 
+                display: block;
+                height: 0; 
+                clear: both; 
+                visibility: hidden;
+            }
+            &-line{
+                border-bottom: $g-border;
+                width: 120%;
+            }
+		}
+		&-use:after{
+		   content: "."; 
+           display: block;
+           height: 0; 
+           clear: both; 
+           visibility: hidden; 
 		}
 		&-pay {
 			@include height(52px);
@@ -95,6 +125,19 @@ body {
 		&-label {
 			float: left;
 			font-size: 14px;
+			icon {
+			    font-family: helvetica;
+			};
+			span{
+			   display: inline-block;
+			   width: 93px;
+			   @include height(20px);
+			   text-align: center;
+			   color: #6888d9;
+			   border: 1px solid #6888d9;
+			   border-radius: 5px;
+			   font-size: 12px;
+			}
 		}
 		&-num {
 			float: right;
