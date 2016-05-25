@@ -6,7 +6,7 @@ require([
 	'url',
 	'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin', 'filters'
 ], function(
-	router, api, View, check, address_mine, address_wallet, loginJudge, ViewCoupon, url
+	router, api, View, check, address_mine, address_wallet, loginJudge, CouponJSON, url
 ) {
 
 	router.init(true);
@@ -20,13 +20,29 @@ require([
 	new View('setting-address');
 	new View('setting-feedback');
 
-	ViewCoupon.listVM.itemClick = function(){
-		router.go('/coupon-detail');
+	console.log(CouponJSON);
+
+	//列表点击事件
+	CouponJSON.couponListView.VM.onHideFn = function(ev,cbfn) {
+		var target = $(ev.target).closest('.coupon-list-li');
+		if (target.length) {
+			var json = target.get(0).dataset;
+			cbfn(json);
+		}
+		// $.extend(CouponJSON.couponDetailView.VM, json);
 		// couponListView.hide();
 	};
-	ViewCoupon.on('hide',function(){
 
-	});
+	//详情
+	// CouponJSON.couponDetailView.VM
+
+	//ViewCoupon.listVM.itemClick = function(){
+	//	router.go('/coupon-detail');
+	//	// couponListView.hide();
+	//};
+	//ViewCoupon.on('hide',function(){
+	//
+	//});
 
 	/*
 		var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器

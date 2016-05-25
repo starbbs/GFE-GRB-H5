@@ -9,7 +9,6 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var couponListView = new View('coupon-list');
 	var couponDetailView = new View('coupon-detail');
 
-
 	var mainList = $('.coupon-list');
 	var mainDetail = $('.coupon-detail');
 
@@ -62,7 +61,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		'voucherStatus': 'EXPIRE'
 	}];
 
-	var set = couponListView.set = function(type) {
+	var set = function(type) {
 		switch (type) {
 			case 'mine':
 				mineHandler();
@@ -84,14 +83,30 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	};
 
 	//列表VM
-	var couponListVM = couponListView.listVM = avalon.define({
-		$id: 'coupon',
+	couponListView.VM = avalon.define({
+		$id: 'couponList',
 		listAva: Qlist.available,
 		listExp: Qlist.exp,
-		itemClick: $.noop,
+		itemClick: function(ev) {
+			couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev, function(data) {
+				$.extend(couponDetailView.VM.$model, data);
+				router.go('/coupon-detail');
+			});
+		},
+		onHideFn: $.noop,
+	});
+	//详情VM
+	var couponDetailJSON = {
+		voucherName: '',
+		startTime: '',
+		endTime: '',
+		voucherStatus: '',
+	};
+	var detailsVM = couponDetailView.VM = avalon.define({
+		$id: 'couponDetail',
 	});
 
-
+	console.log(couponDetailView.VM);
 
 	//路由选择数据处理
 	if (url.filename.match(/mine.html/g)) {
@@ -104,11 +119,15 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 
 
 
-	avalon.scan(mainList.get(0), couponListVM);
-
-	//详情VM
+	avalon.scan(mainList.get(0), couponListView.VM);
 
 
-	return couponListView;  // 返回的是VIEW的对象  所有方法也在这个对象上面
+	var couponJSON = {};
+
+	return $.extend(couponJSON, {
+		set: set,
+		couponListView: couponListView,
+		couponDetailView: couponDetailView,
+	}); // 返回的是VIEW的对象  所有方法也在这个对象上面
 
 });

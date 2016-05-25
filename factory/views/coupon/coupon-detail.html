@@ -1,8 +1,8 @@
-<div class="coupon-detail">
+<div class="coupon-detail" ms-controller="couponDetail">
     <header class="header-top">
-        <h2>5元现金折扣券</h2>
-        <p class="limit-time">有效日期：2016-06-01至2016-06-30</p>
-        <img src="./images/coupon-passed.png" alt="">
+        <h2>{{voucherName}}</h2>
+        <p class="limit-time">有效日期：{{startTime}}至{{endTime}}</p>
+        <img ms-if="voucherStatus=='AVAILABLE'" src="./images/coupon-passed.png" alt="">
     </header>
     <div class="details">
         <h3>使用规则</h3>
