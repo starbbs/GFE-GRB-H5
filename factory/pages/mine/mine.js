@@ -19,9 +19,7 @@ require([
 	new View('setting-about');
 	new View('setting-address');
 	new View('setting-feedback');
-
-	console.log(CouponJSON);
-
+	
 	//列表点击事件
 	CouponJSON.couponListView.VM.onHideFn = function(ev) {
 		var target = $(ev.target).closest('.coupon-list-li');

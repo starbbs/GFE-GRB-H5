@@ -32,13 +32,13 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		'voucherStatus': 'AVAILABLE'
 	}, {
 		'id': '2',
-		'voucherName': '5元代金券',
+		'voucherName': '55元代金券',
 		'voucherType': 'AMOUNT',
 		'currencyType': 'RMB',
 		'startTime': '2016-5-24',
 		'endTime': '2016-6-24',
-		'voucherAmount': '5',
-		'voucherStatus': 'EXPIRE'
+		'voucherAmount': '55',
+		'voucherStatus': 'AVAILABLE'
 	}];
 
 	Qlist.exp = [{ //不可用
@@ -49,15 +49,15 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		'startTime': '2016-5-24',
 		'endTime': '2016-6-24',
 		'voucherAmount': '10',
-		'voucherStatus': 'AVAILABLE'
+		'voucherStatus': 'EXPIRE'
 	}, {
 		'id': '2',
-		'voucherName': '10元代金券',
+		'voucherName': '1010元代金券',
 		'voucherType': 'AMOUNT',
 		'currencyType': 'RMB',
 		'startTime': '2016-5-24',
 		'endTime': '2016-6-24',
-		'voucherAmount': '10',
+		'voucherAmount': '1010',
 		'voucherStatus': 'EXPIRE'
 	}];
 
@@ -124,7 +124,14 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 
 	avalon.scan();
 
+	//couponDetailView.on('hide', function() {
+	//	$.extend(couponDetailView.VM, couponDetailJSON);
+	//	console.log(couponDetailView.VM);
+	//});
 
+	couponListView.on('show',function(){
+		$.extend(couponDetailView.VM, couponDetailJSON);
+	});
 
 	var couponJSON = {};
 

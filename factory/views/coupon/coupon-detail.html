@@ -2,7 +2,7 @@
     <header class="header-top">
         <h2>{{vouchername}}</h2>
         <p class="limit-time">有效日期：{{starttime}}至{{endtime}}</p>
-        <img ms-if="voucherstatus=='AVAILABLE'" src="./images/coupon-passed.png" alt="">
+        <img ms-visible="voucherstatus!='AVAILABLE'" src="./images/coupon-passed.png" alt="">
     </header>
     <div class="details">
         <h3>使用规则</h3>
