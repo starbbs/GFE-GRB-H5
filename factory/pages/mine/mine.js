@@ -19,7 +19,7 @@ require([
 	new View('setting-address');
 	new View('setting-feedback');
 	new View('coupon-detail');
-	
+	new View('coupon-list');
 
 	/*
 		var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
@@ -114,7 +114,8 @@ require([
 			});
 		},
 		myCoupon_click:function(){
-			router.go('/coupon-detail');
+			//router.go('/coupon-detail');
+			router.go('/coupon-list');
 		},
 		address_back_click: function() { //返回
 			router.go('/');

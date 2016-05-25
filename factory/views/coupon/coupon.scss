@@ -1,4 +1,5 @@
 ﻿@charset "utf-8";
+@import '../../../source/scss/main';
 .coupon-detail{
   @extend .view-style;
   background: #f2f2f2;
@@ -43,4 +44,36 @@
       }
     }
   }
+}
+
+.coupon-list{
+    @extend .view-style;
+    $img: $g-views + '/coupon/images';
+    $image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
+    ul{
+        width: 90%;
+        margin: 0 auto;
+    }
+    &-li{
+        width: 100%;
+        height: 100px;
+        background: url($image+'/coupon-bg.png');
+        background-size: cover;
+        margin-top: 30px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        -webkit-border-bottom-left-radius: 10px;
+        -webkit-border-bottom-right-radius: 10px;
+        &-left{
+            font-size: 44px;
+            line-height: 100px;
+            color: $g-white;
+            margin-left: 8%;
+            icon{
+                font-family: helvetica;
+                font-size: 16px;
+                margin-left: 3%;
+            }
+        }
+    }
 }
