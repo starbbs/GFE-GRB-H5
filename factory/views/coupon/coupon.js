@@ -115,17 +115,13 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		setListVM();
 	};
 
-
-
-
-
 	avalon.scan();
 
 	//路由选择数据处理
 	if (url.filename.match(/mine.html/g)) {
 		set('mine');
 	} else if (url.filename.match(/order.html/g)) {
-		console.log('定单');
+		set('order');
 	}
 
 	//返回的JSON
