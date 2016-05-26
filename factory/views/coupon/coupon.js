@@ -13,54 +13,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var mainList = $('.coupon-list');
 	var mainDetail = $('.coupon-detail');
 
-	//获取优惠券list
-	api.myVoucherList({
-		gopToken: gopToken,
-	}, function(data) {
 
-	});
-
-	//优惠券过滤
-	var Qlist = {};
-	Qlist.available = [{ //可用
-		'id': '1',
-		'voucherName': '5元代金券',
-		'voucherType': 'AMOUNT',
-		'currencyType': 'RMB',
-		'startTime': '2016-5-24',
-		'endTime': '2016-6-24',
-		'voucherAmount': '5',
-		'voucherStatus': 'AVAILABLE'
-	}, {
-		'id': '2',
-		'voucherName': '55元代金券',
-		'voucherType': 'AMOUNT',
-		'currencyType': 'RMB',
-		'startTime': '2016-5-24',
-		'endTime': '2016-6-24',
-		'voucherAmount': '55',
-		'voucherStatus': 'AVAILABLE'
-	}];
-
-	Qlist.exp = [{ //不可用
-		'id': '1',
-		'voucherName': '10元代金券',
-		'voucherType': 'AMOUNT',
-		'currencyType': 'RMB',
-		'startTime': '2016-5-24',
-		'endTime': '2016-6-24',
-		'voucherAmount': '10',
-		'voucherStatus': 'EXPIRE'
-	}, {
-		'id': '2',
-		'voucherName': '1010元代金券',
-		'voucherType': 'AMOUNT',
-		'currencyType': 'RMB',
-		'startTime': '2016-5-24',
-		'endTime': '2016-6-24',
-		'voucherAmount': '1010',
-		'voucherStatus': 'EXPIRE'
-	}];
 
 	var set = function(type) {
 		switch (type) {
@@ -120,6 +73,32 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	};
 
 	avalon.scan();
+
+	//优惠券过滤
+	var Qlist = {};
+	Qlist.available = []; //可用
+
+	Qlist.exp = []; //不可用
+	
+	//获取优惠券list
+	api.myVoucherList({
+		gopToken: gopToken,
+	}, function(data) {
+		var voucherList = data.data.voucherList;
+		voucherList.forEach(function(item,index,array){
+			var nowTime = new Date().getTime();
+			var itemStartTime = new Date(item.startTime).getTime();
+			var itemEndTime =  new Date(item.endTime).getTime();
+			if(nowTime > itemEndTime){
+				Qlist.exp.push(item);
+			}else if(nowTime < itemStartTime){
+				Qlist.available.push(item);
+			}else{
+				Qlist.available.push(item);
+			}
+		});
+	});
+
 
 	//路由选择数据处理
 	if (url.filename.match(/mine.html/g)) {
