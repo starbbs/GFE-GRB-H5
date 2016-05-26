@@ -13,7 +13,7 @@ require([
 	api, get, router,
 	View, billView,
 	price, H5Ident, H5Bill,
-	dialogPaypass, filters, orderJudge, dialogConfirm, url, ViewCoupon
+	dialogPaypass, filters, orderJudge, dialogConfirm, url, CouponJSON
 ) {
 
 	router.init();

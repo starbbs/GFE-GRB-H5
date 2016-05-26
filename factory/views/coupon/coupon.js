@@ -80,19 +80,20 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 			listAva: Qlist.available,
 			listExp: Qlist.exp,
 			itemClick: function(ev) {
-				couponListView.VM.onHideFn && couponListView.VM.onHideFn(ev);
+				couponListView.VM.onClickFn && couponListView.VM.onClickFn(ev);
 			},
-			onHideFn: $.noop,
+			onClickFn: $.noop,
 		});
 	};
 
-	//设置账单详情VM
+	//设置详情VM
 	var setDetailVM = function(){
 		var couponDetailJSON = {
 			vouchername: '',
 			starttime: '',
 			endtime: '',
 			voucherstatus: '',
+			voucheramount:''
 		};
 		couponDetailView.VM = avalon.define($.extend({
 			$id: 'couponDetail',

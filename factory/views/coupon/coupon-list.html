@@ -3,7 +3,7 @@
 	<!--可用-->
 	<ul>
 		<li class="coupon-list-li" ms-repeat-item="listAva" 
-			ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus">
+			ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus" ms-data-voucherStatus="item.voucherAmount">
 			<div class="coupon-list-li-left">
 				<icon>¥</icon>{{item.voucherAmount}}
 			</div>
@@ -17,7 +17,7 @@
 	</ul>
 	<!--不可用-->
 	<ul class="disabled">
-		<li class="coupon-list-li" ms-repeat-item="listExp" ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus">
+		<li class="coupon-list-li" ms-repeat-item="listExp" ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus" ms-data-voucherStatus="item.voucherAmount">
 			<div class="coupon-list-li-left">
 				<icon>¥</icon>{{item.voucherAmount}}
 			</div>
