@@ -44,6 +44,8 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
         arr.forEach(function(item,index,array){
             var itemStartTime = new Date(item.startTime).getTime();
             var itemEndTime =  new Date(item.endTime).getTime();
+            item.startTime = item.startTime.substr(0,10);
+            item.endTime = item.endTime.substr(0,10);
             if(nowTime > itemEndTime){
                 item.voucherStatus = 'EXPIRE';
                 disuse.push(item);
