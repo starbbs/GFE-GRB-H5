@@ -20,6 +20,8 @@ require([
 	new View('setting-address');
 	new View('setting-feedback');
 
+
+
 	//列表点击事件
 	CouponJSON.couponListView.VM.onClickFn = function(ev) {
 		var target = $(ev.target).closest('.coupon-list-li');
@@ -28,10 +30,7 @@ require([
 			$.extend(CouponJSON.couponDetailView.VM, json);
 			router.go('/coupon-detail');
 		}
-		// $.extend(CouponJSON.couponDetailView.VM, json);
-		// couponListView.hide();
 	};
-
 	/*
 		var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
 		if ($.os.ios) {
