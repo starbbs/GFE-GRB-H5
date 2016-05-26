@@ -8,12 +8,12 @@ require([
 	'h5-view', 'h5-view-bill',
 	'h5-price', 'h5-ident', 'h5-component-bill',
 	'h5-dialog-paypass', 'filters', 'h5-order-judge', 'h5-dialog-confirm', 'url', 'h5-view-coupon',
-	'h5-weixin', 'h5-paypass-judge-auto'
+	'h5-weixin', 'h5-paypass-judge-auto', 'h5-login-judge-auto'
 ], function(
 	api, get, router,
 	View, billView,
 	price, H5Ident, H5Bill,
-	dialogPaypass, filters, orderJudge, dialogConfirm, url, ViewCoupon
+	dialogPaypass, filters, orderJudge, dialogConfirm, url, CouponJSON
 ) {
 
 	router.init(true);

@@ -7,11 +7,39 @@ require([
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
-	// $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //小妮 
+	 // $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //小妮
 	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟 有问题的
-	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰 
+	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
+	/**
+	 * 检查用户的登录密码，如果已经错误了十次了那直接进入frozen页面，如果ok的话进入home页面。
+	 * @param _gopToken
+	 * @returns {boolean}
+	 */
+	var checkPassword = function(_gopToken){
+		if(!_gopToken){
+			gotoHome();
+		}
+		api.checkLoginPasswordStatus({"gopToken":_gopToken},function(data){
+			if(data.status == 200){
+				if(data.data.result=="success"){
+					//do nothing
+				}else if(data.data.times==10){
+					setTimeout(function() {
+						window.location.href = './frozen10.html?type=locked'
+					}, 210);
+				}else if(data.data.times==15){
+					setTimeout(function() {
+						window.location.href = './frozen15.html?type=locked'
+					}, 210);
+				}
+			}
+		})
+	}
+	if(gopToken){
+		checkPassword(gopToken);
+	}
 	var main = $('.home');
 
 	//我的收益  昨天 累计

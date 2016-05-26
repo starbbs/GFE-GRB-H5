@@ -4,7 +4,7 @@
 
 require([
     'router', 'h5-view', 'h5-api', 'h5-dialog-alert',
-    'h5-paypass', 'h5-text', 'cookie', 'h5-weixin'
+    'h5-paypass', 'h5-text', 'cookie', 'h5-weixin','h5-login-judge-auto'
 ], function(
     router, View, api, dialogAlert
 ) {
