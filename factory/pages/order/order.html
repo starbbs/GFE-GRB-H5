@@ -63,10 +63,10 @@
 		</div>
 		-->
 		<div class="order-head-use">
-			<div class="order-head-use-coupon">
+			<div class="order-head-use-coupon" ms-click="couponClick">
 				<div class="order-head-label">
 					选择卡券
-					<span ms-class="no-coupon:couponRmbNum==='无可用现金抵扣券'">{{couponRmbNum}}</span>
+					<span ms-class="no-coupon:couponRmbName==='无可用现金抵扣券'">{{couponRmbName}}</span>
 				</div>
 				<div class="order-head-use-coupon-arrow"></div>
 			</div>
@@ -86,7 +86,7 @@
 			<div class="order-head-use-guo"><i class="iconfont icon-g"></i></div>
 			<!--<div class="order-head-use-guo"><i class="iconfont icon-g"></i> {{gopUse|floorFix}}</div>
 			<div class="order-head-use-money">- {{gopMoney|floorFix}}</div>-->
-			<div class="order-head-use-money">- {{gopUse|ceilFix}}</div>
+			<div class="order-head-use-money">- {{gopUse|floorFix}}</div>
 		</div>
 
 
