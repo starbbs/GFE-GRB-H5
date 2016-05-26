@@ -95,8 +95,8 @@ require([
 									ifFinishButton: true,
 									waitForPayMoney: '', // 取消等待支付
 									orderMoney: vm.gopMoney, // 加入订单金额
-									// ifTip: true,
-									tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
+									ifTip: true,
+//									tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
 								});
 							} else {
 								$.alert(data.msg);
@@ -126,7 +126,7 @@ require([
 			vm.couponRmbNum = json.voucheramount;
 			vm.gopExchange();
 			if(json.voucherstatus === 'AVAILABLE'){
-				router.to('/');
+				router.go('/');
 			}
 		}
 	};

@@ -414,8 +414,9 @@
 		line-height: 1.5;
 		text-align: center;
 		width: 100%;
+		margin: 15px 0px;
 		// box-sizing:border-box;
-		@include abl(20px,0px);		
+		//@include abl(20px,0px);		
 	}
 	//&-gotopay{
 	//	box-sizing:border-box;

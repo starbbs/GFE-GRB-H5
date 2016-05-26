@@ -164,6 +164,9 @@ define('h5-view-bill', [
 		gotoPay: function() {
 			gotoPayOrder(billPhoneVM);
 		},
+		finish:function(){
+			window.location.href='./home.html';
+		},
 	}, phoneJSON));
 
 	var consumeHandler = function(type, id, options) { // 消费 话费流量 step1
