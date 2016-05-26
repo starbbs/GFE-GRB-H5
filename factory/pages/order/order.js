@@ -34,7 +34,7 @@ require([
 		gopUse: 0, // 使用多少果仁
 		orderCode: '',
 		couponRmbNum: 0, //优惠券RMB
-		vouchername: '',//优惠券名称
+		couponRmbName: '',//优惠券名称
 		moneyUse : 0,//实付金额
 		/*
 		gopClick: function() { // 果仁点击
@@ -49,13 +49,15 @@ require([
 		gopMoney: 0, //所用果仁折合人民币
 		gopExchange: function() { // 换算gopMoney
 			//vm.gopNum 小数点后为数据库返回的六位小数
+			console.log(vm.gopPrice);
 			if (vm.gopNum * vm.gopPrice >= vm.money) { // 够支付
 				// vm.rmbUse = 0;
-				if(vm.vouchername === "无可用现金抵扣券"){   //没有优惠券
+				if(vm.couponRmbName === "无可用现金抵扣券"){   //没有优惠券
 					vm.gopUse = vm.money / vm.gopPrice;
 					vm.gopMoney = vm.money;
 				}else{
-					vm.gopUse = vm.money / vm.gopPrice - vm.couponRmbNum / vm.gopPrice ;
+					var gopUse = vm.money / vm.gopPrice - vm.couponRmbNum / vm.gopPrice;
+					vm.gopUse =  gopUse <=0 ? 0 : gopUse;
 				}
 				// vm.ifConfirmPay = true;
 			} else {
@@ -120,13 +122,14 @@ require([
 		var target = $(ev.target).closest('.coupon-list-li');
 		if (target.length) {
 			var json = target.get(0).dataset;
-			console.log(json);
-			$.extend(vm, json);
-			console.log(vm);
-			router.to('/');
+			vm.couponRmbName = json.voucherstatus === 'AVAILABLE'?json.vouchername:'无可用现金抵扣券';
+			vm.moneyUse = (vm.money - json.voucheramount) <= 0? 0 : (vm.money - json.voucheramount);
+			vm.couponRmbNum = json.voucheramount;
+			vm.gopExchange();
+			if(json.voucherstatus === 'AVAILABLE'){
+				router.to('/');
+			}
 		}
-		// $.extend(CouponJSON.couponDetailView.VM, json);
-		// couponListView.hide();
 	};
 	/*
 	var bankSelect = function(bank) { // 处理当前显示
@@ -174,9 +177,9 @@ require([
 						vm.gopNum = data.data.gopNum;
 						vm.productRealPrice = JSON.parse(product.extraContent).price;
 						vm.orderCode = order.orderCode;
-						vm.vouchername = availableVoucher?availableVoucher.voucherName:"无可用现金抵扣券";
+						vm.couponRmbName = availableVoucher?availableVoucher.couponRmbName:"无可用现金抵扣券";
 						vm.couponRmbNum = availableVoucher?availableVoucher.voucherAmount : 0;
-						vm.moneyUse = vm.vouchername === "无可用现金抵扣券"?vm.money:(vm.money - availableVoucher.voucherAmount);
+						vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券"?vm.money:(vm.money - availableVoucher.voucherAmount);
 						vm.gopExchange();
 						// 银行卡相关
 						/*
