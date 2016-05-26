@@ -41,10 +41,10 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var mineHandler = function(arr) {
 		//详情消失 重新渲染数据
 		//数据处理函数
-		$.extend(couponListView.VM, {
-			listAva: arr,
-			listExp: arr,
-		})
+		//$.extend(couponListView.VM, {
+		//	listAva: arr,
+		//	listExp: arr,
+		//})
 		couponListView.on('show', function() {
 			$.extend(couponDetailView.VM, couponDetailJSON);
 		});

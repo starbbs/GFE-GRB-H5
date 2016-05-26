@@ -2,7 +2,8 @@
 <div class="coupon-list scroll" ms-controller="couponList"  ms-on-click="itemClick($event)">
 	<!--可用-->
 	<div class="coupon-list-none" ms-visible="!listAva.length || !listExp">
-		<img class="coupon-list-none-img" src="./images/nonecoupon.png"/>
+		<img class="coupon-list-none-img" src="./images/coupon-nonecoupon.png"/>
+		<p class="coupon-list-none-word">您目前还没有优惠券~</p>
 	</div>
 	<ul>
 		<li class="coupon-list-li" ms-repeat-item="listAva" 
