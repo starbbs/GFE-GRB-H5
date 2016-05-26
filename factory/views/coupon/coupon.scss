@@ -54,8 +54,14 @@
         text-align: center;
         position: relative;
         &-img{
-            @include atl(40px,50%);
+            @include atl(50px,50%);
             transform:translateX(-50%);
+        }
+        &-word{
+            font-size: 14px;
+            color: #b3b3b3;
+             @include atl(270px,50%);
+            transform:translateX(-50%);          
         }
     }
     ul{
