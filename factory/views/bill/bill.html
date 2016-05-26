@@ -151,6 +151,7 @@
 					</div>
 					<!--进行中  已支付-->	
 					<div class="bill-pay mb10px" ms-visible="status==='CLOSE'||status==='SUCCESS'||(status==='PROCESSING'&&!waitForPay)"><!--已支付进行中  关闭  成功 专用-->
+						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>
 						<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
 							订单金额(¥)
 						</div>
@@ -251,7 +252,7 @@
 					<!--已付款进行  流程下来  有完成按钮-->
 					<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
 					<div class="bill-tip" ms-visible="ifTip">
-						<!--{{tip|html}}-->预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询
+						<!--{{tip|html}}-->预计10分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询
 						<a ms-visible="status!=='SUCCESS'" class="a-blue" href="tel:400-184-9696">
 							400-184-9696
 						</a>
@@ -369,6 +370,10 @@
 						<div class="bill-detail-left">商品信息</div>
 						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'||type==='REFUND'">{{productDesc}}</div>
 					</div>
+					<div class="bill-detail-item" ms-visible="voucherName">
+						<div class="bill-detail-left">退回卡券</div>
+						<div class="bill-detail-right blue">{{voucherName}}</div>
+					</div>					
 					<div class="bill-detail-item" ms-visible="submitTime&&(status==='FAILURE'||status==='CLOSE')">
 						<div class="bill-detail-left">提交时间</div>
 						<div class="bill-detail-right" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='CLOSE'">{{submitTime}}</div>

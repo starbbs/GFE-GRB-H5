@@ -32,17 +32,6 @@ require([
 		// couponListView.hide();
 	};
 
-	//详情
-	// CouponJSON.couponDetailView.VM
-
-	//ViewCoupon.listVM.itemClick = function(){
-	//	router.go('/coupon-detail');
-	//	// couponListView.hide();
-	//};
-	//ViewCoupon.on('hide',function(){
-	//
-	//});
-
 	/*
 		var dbclickOrLongpress = '长按'; //安卓为长按, ios为双击, 在zepto的$.os对象中可判断浏览器
 		if ($.os.ios) {

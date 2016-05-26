@@ -50,6 +50,14 @@
     @extend .view-style;
     $img: $g-views + '/coupon/images';
     $image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
+    &-none{
+        text-align: center;
+        position: relative;
+        &-img{
+            @include atl(40px,50%);
+            transform:translateX(-50%);
+        }
+    }
     ul{
         width: 95%;
         margin: 0 auto;

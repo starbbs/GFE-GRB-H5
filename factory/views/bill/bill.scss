@@ -34,6 +34,10 @@
 
 	@extend .view-style;
 
+	.AMOUNT5{
+		@include sprite($img + '/AMOUNT5.png', 112px,78px);	
+	}
+
 	&-scroll { // 滚动
 		@extend %rw;
 		// padding-bottom: $g-padding-bottom;
@@ -420,6 +424,9 @@
 	//	width: 100%;
 	//	@include abl(110px,0px);
 	//}
-
+	&-coupon{
+		@include atl(50px,180px);
+		// display: inline-block;
+	}
 }
 
