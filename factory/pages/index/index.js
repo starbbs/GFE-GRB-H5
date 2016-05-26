@@ -135,9 +135,18 @@ require([
 						loginVM.image = data.data.img;
 						gotoLogin();
 					}
-				} else { // code无效
-					// $.alert(data.msg);
-					// alert('code无效去授权');
+
+				} else if(data.status==312){ //如果用户的密码被锁定那么跳转到锁定页面
+					if(data.lockTimes==15){ //15次跳转到永远锁定页面
+						setTimeout(function() {
+							window.location.href = './frozen15.html?type=locked'
+						}, 210);
+					}else { //跳转到锁定页面
+						setTimeout(function() {
+							window.location.href = './frozen10.html?type=locked'
+						}, 210);
+					}
+				}else{
 					gotoAuthorization();
 				}
 			});

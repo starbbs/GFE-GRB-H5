@@ -2,7 +2,7 @@
 // H5微信端 --- 安全中心
 require([
 	'router', 'h5-api', 'h5-view', 'h5-view-authentication', 'h5-dialog-success','h5-paypass-view','h5-paypass-judge',
-	'h5-paypass', 'h5-weixin', 
+	'h5-paypass', 'h5-weixin', 'h5-login-judge-auto'
 ], function(
 	router, api, View, viewAuthen, dialogSuccess, paypassView, paypassJudge
 ) {
