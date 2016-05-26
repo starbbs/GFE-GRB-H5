@@ -6,7 +6,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var gopToken = $.cookie('gopToken');
 	var couponID = get.data.id;
 
-	var couponListView = new View('coupon-list');
+	var couponListView = null; //new View('coupon-list');
 	var couponDetailView = null; //= new View('coupon-detail');
 
 	var mainList = $('.coupon-list');
@@ -74,7 +74,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 
 
 	// 设置列表VB
-	var setListVM = function(){
+	var setListVM = function() {
 		couponListView.VM = avalon.define({
 			$id: 'couponList',
 			listAva: Qlist.available,
@@ -87,25 +87,22 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	};
 
 	//设置详情VM
-	var setDetailVM = function(){
+	var setDetailVM = function() {
 		var couponDetailJSON = {
 			vouchername: '',
 			starttime: '',
 			endtime: '',
 			voucherstatus: '',
-			voucheramount:''
+			voucheramount: ''
 		};
 		couponDetailView.VM = avalon.define($.extend({
 			$id: 'couponDetail',
 		}, couponDetailJSON));
-		//列表消失
-		couponListView.on('show',function(){
-			$.extend(couponDetailView.VM, couponDetailJSON);
-		});		
 	};
 
 	//我的   券列表处理
 	var mineHandler = function() {
+		couponListView = new View('coupon-list');
 		couponDetailView = new View('coupon-detail');
 		setListVM();
 		setDetailVM();
@@ -113,7 +110,12 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 
 	//定单  券列表处理
 	var orderHandler = function() {
+		couponListView = new View('coupon-list');
 		setListVM();
+		//列表消失
+		couponListView.on('show', function() {
+			$.extend(couponDetailView.VM, couponDetailJSON);
+		});
 	};
 
 	avalon.scan();
