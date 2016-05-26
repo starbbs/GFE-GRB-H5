@@ -124,24 +124,6 @@ define('h5-view-bill', [
 		}
 	};
 
-	/*
-	"billVoucher" : { //交易完成
-		“voucherName”:”5元代金券”,
-		“voucherType”:”AMOUNT”,
-		“currencyType”:”RMB”,
-		“voucherAmount”:”5”
-		“discount”:”0.1” //折扣
-	},
-	"availableVoucher" : { //效果进行时返回最大优惠券
-		“id”:”1”,
-		“voucherName”:”5元代金券”,
-		“voucherType”:”AMOUNT”,
-		“currencyType”:”RMB”,
-		“voucherAmount”:”5”
-		“discount”:”0.1”
-	}
-	*/
-
 	//===话费
 	var phoneJSON = {
 		id: '', // 账单ID
@@ -250,7 +232,7 @@ define('h5-view-bill', [
 				return item.tradeNo;
 			}).join('<br>') : order.serialNum,
 			payType: H5bill.payType[order.payType], // 支付方式
-			voucherClassName: vouch.voucherType + vouch.voucherAmount, //优惠券所用类名
+			voucherClassName: vouch ? vouch.voucherType + vouch.voucherAmount : '', //优惠券所用类名
 			// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			// ifClose: waitForPay, // 是否显示"关闭"
 		};
