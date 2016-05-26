@@ -6,8 +6,9 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var gopToken = $.cookie('gopToken');
 	var couponID = get.data.id;
 
-	var couponListView = null; //new View('coupon-list');
-	var couponDetailView = null; //= new View('coupon-detail');
+	var couponListView = {}; //new View('coupon-list');
+	var couponDetailView = {}; //= new View('coupon-detail');
+	var couponDetailJSON = {};
 
 	var mainList = $('.coupon-list');
 	var mainDetail = $('.coupon-detail');
@@ -88,7 +89,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 
 	//设置详情VM
 	var setDetailVM = function() {
-		var couponDetailJSON = {
+		couponDetailJSON = {
 			vouchername: '',
 			starttime: '',
 			endtime: '',
