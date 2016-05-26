@@ -49,6 +49,7 @@ require([
 		gopMoney: 0, //所用果仁折合人民币
 		gopExchange: function() { // 换算gopMoney
 			//vm.gopNum 小数点后为数据库返回的六位小数
+			console.log(vm.gopPrice);
 			if (vm.gopNum * vm.gopPrice >= vm.money) { // 够支付
 				// vm.rmbUse = 0;
 				if(vm.couponRmbName === "无可用现金抵扣券"){   //没有优惠券
@@ -163,7 +164,6 @@ require([
 					var product = data.data.product; // 产品信息
 					var record = data.data.recordList; // 付款记录
 					var availableVoucher = data.data.availableVoucher; //最大可用代金券
-					
 					if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
 						// 打开页面
 						router.to('/');
@@ -177,7 +177,7 @@ require([
 						vm.gopNum = data.data.gopNum;
 						vm.productRealPrice = JSON.parse(product.extraContent).price;
 						vm.orderCode = order.orderCode;
-						vm.couponRmbName = availableVoucher?availableVoucher.voucherName:"无可用现金抵扣券";
+						vm.couponRmbName = availableVoucher?availableVoucher.couponRmbName:"无可用现金抵扣券";
 						vm.couponRmbNum = availableVoucher?availableVoucher.voucherAmount : 0;
 						vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券"?vm.money:(vm.money - availableVoucher.voucherAmount);
 						vm.gopExchange();
