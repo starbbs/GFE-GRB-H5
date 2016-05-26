@@ -124,6 +124,24 @@ define('h5-view-bill', [
 		}
 	};
 
+	/*
+	"billVoucher" : { //交易完成
+		“voucherName”:”5元代金券”,
+		“voucherType”:”AMOUNT”,
+		“currencyType”:”RMB”,
+		“voucherAmount”:”5”
+		“discount”:”0.1” //折扣
+	},
+	"availableVoucher" : { //效果进行时返回最大优惠券
+		“id”:”1”,
+		“voucherName”:”5元代金券”,
+		“voucherType”:”AMOUNT”,
+		“currencyType”:”RMB”,
+		“voucherAmount”:”5”
+		“discount”:”0.1”
+	}
+	*/
+
 	//===话费
 	var phoneJSON = {
 		id: '', // 账单ID
@@ -140,6 +158,8 @@ define('h5-view-bill', [
 		bankCangory: '', // 银行卡类型
 		bankName: '', //银行卡名称
 		productDesc: '', // 商品信息
+		voucherClassName: '', //优惠券class名字
+
 		orderTime: '', // 交易时间
 		closeTime: '', // 关闭时间
 		// submitTime: '', // 提交时间
@@ -174,17 +194,21 @@ define('h5-view-bill', [
 				//data.msg && $.alert(data.msg);
 				return;
 			}
+
 			var order = data.data.consumeOrder; //定单信息 创建时间 
-			var list = data.data.recordList; //流水号 创建时间 支付果仁
+			var list = data.data.recordList; //流水号 创建时间 支付果仁  付款还会产生的
 			var product = data.data.product; // 商品信息 流量 话费 面额
 			var extra = data.data.extra; //银行卡
+			var vouch = data.data.billVoucher; // 交易成功  的优惠券
+			var vouchMax = data.data.availableVoucher; //进行中返回最大面额优惠券
+
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
 			list.forEach(function(item) {
 				item.payMoney && (payMoney = item.payMoney);
 				item.payGop && (payGop = item.payGop);
 			});
-			$.extend(billPhoneVM, phoneHandler(type, id, order, waitForPay, list, product, extra), {
+			$.extend(billPhoneVM, phoneHandler(type, id, order, waitForPay, list, product, extra, vouch), {
 				payMoney: payMoney, // 支付金额
 				payGop: payGop, // 支付果仁数
 				failReason: order.status === 'FAILURE' ? data.data.trade && data.data.trade.result ? data.data.trade.result : list[0].payResult : '', //失败原因				
@@ -199,7 +223,7 @@ define('h5-view-bill', [
 		});
 	};
 
-	var phoneHandler = function(type, id, order, waitForPay, list, product, extra) { //话费流量 数据处理 step2
+	var phoneHandler = function(type, id, order, waitForPay, list, product, extra, vouch) { //话费流量 数据处理 step2
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
@@ -226,6 +250,7 @@ define('h5-view-bill', [
 				return item.tradeNo;
 			}).join('<br>') : order.serialNum,
 			payType: H5bill.payType[order.payType], // 支付方式
+			voucherClassName: vouch.voucherType + vouch.voucherAmount, //优惠券所用类名
 			// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			// ifClose: waitForPay, // 是否显示"关闭"
 		};
@@ -239,6 +264,7 @@ define('h5-view-bill', [
 		headClass: '', // 头部样式名
 		headContent: '', // 头部内容
 		refundNum: '', // 退款数目
+		voucherName: '', //退款优惠券名称
 		refundWord: '', // 退款状态说明
 		productDesc: '', // 商品信息
 		transferTime: '', // 到账时间
@@ -270,6 +296,7 @@ define('h5-view-bill', [
 				refundNum: data.data.payGop || data.data.payMoney, // 退款数目
 				refundWord: H5bill.getRefundWord(data.data), // 退款状态说明
 				productDesc: data.data.orderDesc, // 商品信息
+				voucherName: data.data.voucherName ? data.data.voucherName : '', //退款优惠券内容
 				transferTime: data.data.updateTime, // 到账时间
 				submitTime: data.data.createTime, // 提交时间
 				orderCode: data.data.orderCode, // 订单号

@@ -17,7 +17,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	api.myVoucherList({
 		gopToken: gopToken,
 	}, function(data) {
-
+		
 	});
 
 	//优惠券过滤
