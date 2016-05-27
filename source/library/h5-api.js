@@ -10,10 +10,10 @@
  * 	1.编号顺序和文档一致,方便查找和对应
  * 	2.使用文档为v1.2.0
  */
-define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api, authorization) {
+define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], function(Api, authorization, alert, cookie, config) {
 
 	// var baseUri = '.'; // 同域
-	var baseUri = '//goopal.xiaojian.me'; // http测试服务器
+	var baseUri = config.baseUri; // http测试服务器
 	// var baseUri = 'http://116.213.142.89:8080'; // http测试服务器
 	// var baseUri = '//endpoint.goopal.com.cn'; // https正式服务器 v1.1
 	// var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
