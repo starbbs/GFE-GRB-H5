@@ -179,7 +179,7 @@ require([
 						vm.gopNum = data.data.gopNum;
 						vm.productRealPrice = JSON.parse(product.extraContent).price;
 						vm.orderCode = order.orderCode;
-						vm.couponRmbName = availableVoucher?availableVoucher.couponRmbName:"无可用现金抵扣券";
+						vm.couponRmbName = availableVoucher?availableVoucher.voucherName:"无可用现金抵扣券";
 						vm.couponRmbNum = availableVoucher?availableVoucher.voucherAmount : 0;
 						vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券"?vm.money:(vm.money - availableVoucher.voucherAmount);
 						vm.voucherId = availableVoucher?availableVoucher.id : '';
