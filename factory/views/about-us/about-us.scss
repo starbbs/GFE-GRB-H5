@@ -8,6 +8,7 @@
 .about-us {
 
 	$img: $g-views + '/about-us/images';
+    @extend %scroll; //平滑滚动
 
 	@extend .view-style;
 	font-size: 11px;

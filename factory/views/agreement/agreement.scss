@@ -8,6 +8,7 @@
 .agreement {
 
 	$img: $g-views + '/agreement/images';
+    @extend %scroll; //平滑滚动
 
 	@extend .view-style;
 	line-height: 16px;
