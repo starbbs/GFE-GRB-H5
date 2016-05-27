@@ -3,10 +3,10 @@
 
 
 require([
-	'router', 'h5-view', 'h5-price', 'h5-weixin', 'h5-api', 'check', 'filters', 'h5-view-bill',
-	'h5-text', 'h5-ident', 'h5-weixin', 'h5-keyboard', 'h5-login-judge-auto','h5-paypass-judge-auto'
+	'router', 'h5-view', 'h5-price', 'h5-weixin', 'h5-api', 'check', 'filters', 'h5-view-bill', 'url', 'get',
+	'h5-text', 'h5-ident', 'h5-weixin', 'h5-keyboard', 'h5-login-judge-auto', 'h5-paypass-judge-auto'
 ], function(
-	router, View, price, weixin, api, check, filters, billView
+	router, View, price, weixin, api, check, filters, billView, url, get
 ) {
 
 	router.init(true);
@@ -16,7 +16,9 @@ require([
 	var viewOrder = new View('purchase-order');
 
 	var main = $('.purchase');
-
+	//if (url.search) {
+	//	window.location.href = get.data.from + '.html' + (get.data.id ? '?id=' + get.data.id : '');
+	//}	
 	// dialogAlert.set('请输入1-3000整数!');
 	// dialogAlert.onAlert();
 	var vm = avalon.define({ // 主页面
@@ -44,7 +46,11 @@ require([
 					forceStatus: 'SUCCESS',
 					ifFinishButton: true
 				});
-				router.to('/bill');
+				if (url.search) {
+					window.location.href = get.data.from + '.html' + (get.data.id ? '?id=' + get.data.id : '');
+				} else {
+					router.to('/bill');
+				}
 			};
 			weixin.pay.onCreate = function(data) {
 				var order = data.data.buyinOrder;
@@ -90,6 +96,13 @@ require([
 		orderMoney: 0, // 订单金额
 		click: function() { // 下一步
 			weixin.pay.work();
+			weixin.pay.onComplete = function() {
+				if (url.search) {
+					window.location.href = get.data.from + '.html' + (get.data.id ? '?id=' + get.data.id : '');
+				}else{
+					window.location.href = 'home.html';
+				}
+			};
 		},
 	});
 	var setOrderNum = function() {

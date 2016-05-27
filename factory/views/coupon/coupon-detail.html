@@ -1,0 +1,24 @@
+<div class="coupon-detail" ms-controller="couponDetail">
+    <header class="header-top">
+        <h2>{{vouchername}}</h2>
+        <p class="limit-time">有效日期：{{starttime}}至{{endtime}}</p>
+        <img ms-visible="voucherstatus!='AVAILABLE'" src="./images/coupon-passed.png" alt="">
+    </header>
+    <div class="details">
+        <h3>使用规则</h3>
+        <article>
+            <p>1. 不限订单金额；</p>
+            <p>2. 限使用果仁支付时使用；</p>
+            <p>3. 限有效期内使用；</p>
+        </article>
+        <h3>使用说明</h3>
+        <article>
+            <p>1. 使用时请注意券是否过期，下单时在“我的卡券”页中点击相关券即可抵扣金额；</p>
+            <p>2. 抵扣券每次只能使用一张，不找零不兑换不转赠；</p>
+            <p>3. 成功下单后抵扣券即作废，退款后将抵扣券将退回至您的账户中；</p>
+            <p>4. 用户不得利用抵扣券进行售卖、兑换或其它盈利性活动，一经发现，果仁宝有权采取临时或永久禁用等措施，并通过法律途径追究该用户的法律责任；</p>
+            <p>5. 抵扣券的最终解释权归果仁宝所有；</p>
+            <p>6. 如用户对抵扣券使用规则有任何疑问或需要任何帮助，请及时与果仁宝联系，联系电话：400-184-9696。</p>
+        </article>
+    </div>
+</div>

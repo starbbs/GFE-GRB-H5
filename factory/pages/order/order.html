@@ -18,18 +18,10 @@
 					<div class="fr">{{orderCode}}</div>
 				</div>
 			</div>
-			<div class="order-head-use">
-			<!--
-			<div class="order-head-use" ms-class="on:gopIfUse&&gopNum" ms-click="gopClick">
 			
-				<div class="order-head-radio"></div>
-			-->
-				<div class="order-head-label">使用果仁</div>
-				<div class="order-head-use-guo"><i class="iconfont icon-g"></i></div>
-				<!--<div class="order-head-use-guo"><i class="iconfont icon-g"></i> {{gopUse|floorFix}}</div>
-				<div class="order-head-use-money">- {{gopMoney|floorFix}}</div>-->
-				<div class="order-head-use-money">- {{gopUse|ceilFix}}</div>
-			</div>
+
+
+
 			<!--
 			<div class="order-head-pay">
 				<div class="order-head-label">人民币支付</div>
@@ -37,7 +29,9 @@
 			</div>
 			-->
 		</div>
+		<!--
 		<div class="order-head-tip">根据订单结算时的果仁价格,支付相应数量的果仁</div>
+		-->
 		<!--
 		<div class="order-box">
 			<div class="text-tip-top">请选择银行卡</div>
@@ -68,6 +62,34 @@
 			</div>
 		</div>
 		-->
+		<div class="order-head-use">
+			<div class="order-head-use-coupon" ms-click="couponClick">
+				<div class="order-head-label">
+					选择卡券
+					<span ms-class="no-coupon:couponRmbName==='无可用现金抵扣券'">{{couponRmbName}}</span>
+				</div>
+				<div class="order-head-use-coupon-arrow"></div>
+			</div>
+			<div class="order-head-use-line" ms-visible="couponRmbNum"></div>
+			<div class="order-head-use-coupon" ms-visible="couponRmbNum">
+				<div class="order-head-label">实付金额(<icon>¥</icon>)</div>
+				<div class="order-head-use-money">{{moneyUse|fix}}</div>
+			</div>
+		</div>
+		<div class="order-head-use">
+			<!--
+			<div class="order-head-use" ms-class="on:gopIfUse&&gopNum" ms-click="gopClick">
+			
+				<div class="order-head-radio"></div>
+			-->
+			<div class="order-head-label">支付果仁</div>
+			<div class="order-head-use-guo"><i class="iconfont icon-g"></i></div>
+			<!--<div class="order-head-use-guo"><i class="iconfont icon-g"></i> {{gopUse|floorFix}}</div>
+			<div class="order-head-use-money">- {{gopMoney|floorFix}}</div>-->
+			<div class="order-head-use-money">- {{gopUse|ceilFix}}</div>
+		</div>
+
+
 		<div class="order-button"><span class="button" ms-class="disabled:!ifConfirmPay" ms-on-click="confirmPay">确认支付</span></div>
 	</div>
 	<div class="view">
@@ -75,6 +97,7 @@
 
 		@@include('../../views/authentication/authentication.html')
 
+		@@include('../../views/coupon/coupon-list.html')
 		<!--设置密码的步骤-->
 		@@include('../../views/paypass/paypass-view-2set.html')
 		@@include('../../views/paypass/paypass-view-3set.html')	

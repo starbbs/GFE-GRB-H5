@@ -52,6 +52,12 @@
 				<div class="mine-item-tip" ms-class-1="green:setWallet==='查看'" ms-class-2="silver:setWallet==='未设置'||!setWallet">{{setWallet}}</div>
 				<div class="mine-item-arrow"></div>
 			</div>
+			<div class="mine-item" ms-click="myCoupon_click">
+				<div class="mine-icon-9"></div>
+				<div class="mine-item-name">我的卡券</div>
+				<div class="mine-item-tip green">查看</div>
+				<div class="mine-item-arrow"></div>
+			</div>
 		</div>
 		<div class="mine-block">
 			<a href="security.html" class="mine-item">
@@ -71,6 +77,9 @@
 	<div class="view">
 		@@include('../../views/address/address-mine.html')
 		@@include('../../views/address/address-wallet.html')
+		<!--优惠券-->
+		@@include('../../views/coupon/coupon-detail.html')
+		@@include('../../views/coupon/coupon-list.html')
 		<!-- 设置 -->
 		@@include('../../views/setting/setting.html')
 		@@include('../../views/setting/setting-about.html')

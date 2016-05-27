@@ -3,7 +3,7 @@
 
 require([
 	'router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading', 'h5-view-bill', 'mydate', 'h5-order-judge',
-	'h5-weixin'
+	'h5-weixin','h5-login-judge-auto'
 ], function(
 	router, api, get, filters, H5bill, iscrollLoading, billView, mydate, orderJudge
 ) {
