@@ -97,7 +97,7 @@ require([
 									ifFinishButton: true,
 									waitForPayMoney: '', // 取消等待支付
 									orderMoney: vm.gopMoney, // 加入订单金额
-									ifTip: true,
+									//ifTip: true,
 //									tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
 								});
 							} else {
@@ -123,12 +123,12 @@ require([
 		var target = $(ev.target).closest('.coupon-list-li');
 		if (target.length) {
 			var json = target.get(0).dataset;
-			vm.couponRmbName = json.voucherstatus === 'AVAILABLE'?json.vouchername:'无可用现金抵扣券';
-			vm.moneyUse = (vm.money - json.voucheramount) <= 0? 0 : (vm.money - json.voucheramount);
-			vm.couponRmbNum = json.voucheramount;
-			vm.voucherId = json.voucherid;
-			vm.gopExchange();
 			if(json.voucherstatus === 'AVAILABLE'){
+				vm.couponRmbName = json.voucherstatus === 'AVAILABLE'?json.vouchername:'无可用现金抵扣券';
+				vm.moneyUse = (vm.money - json.voucheramount) <= 0? 0 : (vm.money - json.voucheramount);
+				vm.couponRmbNum = json.voucheramount;
+				vm.voucherId = json.voucherid;
+				vm.gopExchange();
 				router.go('/');
 			}
 		}
