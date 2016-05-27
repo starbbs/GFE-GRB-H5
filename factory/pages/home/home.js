@@ -17,9 +17,6 @@ require([
 	 * @returns {boolean}
 	 */
 	var checkPassword = function(_gopToken) {
-		if (!_gopToken) {
-			gotoHome();
-		}
 		api.checkLoginPasswordStatus({
 			"gopToken": _gopToken
 		}, function(data) {
