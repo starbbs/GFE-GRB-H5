@@ -151,10 +151,10 @@
 					</div>
 					<!--进行中  已支付-->	
 					<div class="bill-pay mb10px" ms-visible="status==='CLOSE'||status==='SUCCESS'||(status==='PROCESSING'&&!waitForPay)"><!--已支付进行中  关闭  成功 专用-->
-						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>
 						<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
 							订单金额(¥)
 						</div>
+						<span class="bill-coupon AMOUNT5" ms-class-1="{{voucherClassName}}"></span>						
 						<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
 						<!--
 						<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
