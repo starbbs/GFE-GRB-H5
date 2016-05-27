@@ -4,7 +4,9 @@
 // 张树垚 2015-12-20 11:48:05 创建
 // H5微信端 --- components-nav
 
-
+.view-nav{
+	opacity: 0;
+}
 .nav {
 	$img: $g-components + '/nav/images';
 	$names: 'home' 'discovery' 'mine';

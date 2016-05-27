@@ -13,6 +13,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 	var _reset = router.view._reset = function() { // 重置, 隐藏所有
 		mainHide();
 	};
+	var oNav = $('.nav');
 	router.onRoot = function() { // 开始执行2次, 之后返回执行1次
 		for (var i = 0; i < _list.length; i++) {
 			// console.log(_list[i], router.view[_list[i]], router.view[_list[i]].isShowing)
@@ -114,6 +115,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		this[stackMaker('show')].length && this[stackMaker('show')].forEach(function(callback) {
 			callback.call(this);
 		}.bind(this));
+		oNav.addClass('view-nav');
 	};
 	View.prototype.hide = function(ifHideImmediately, ifHideOthers) {
 		if (!this.isShowing) { return; }
@@ -136,6 +138,7 @@ define('h5-view', ['router', 'h5-alert'], function(router) {
 		this[stackMaker('hide')].length && this[stackMaker('hide')].forEach(function(callback) {
 			callback.call(this);
 		}.bind(this));
+		oNav.removeClass('view-nav');
 	};
 	View.prototype.on = function(name, callback) {
 		this[stackMaker(name)].push(callback);
