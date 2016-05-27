@@ -186,7 +186,6 @@ define('h5-view-bill', [
 			var product = data.data.product; // 商品信息 流量 话费 面额
 			var extra = data.data.extra; //银行卡
 			var vouch = data.data.billVoucher; // 交易成功  的优惠券
-			var vouchMax = data.data.availableVoucher; //进行中返回最大面额优惠券
 
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
