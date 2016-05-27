@@ -126,7 +126,7 @@ require([
 			vm.couponRmbName = json.voucherstatus === 'AVAILABLE'?json.vouchername:'无可用现金抵扣券';
 			vm.moneyUse = (vm.money - json.voucheramount) <= 0? 0 : (vm.money - json.voucheramount);
 			vm.couponRmbNum = json.voucheramount;
-			vm.voucherId = json.voucherId;
+			vm.voucherId = json.voucherid;
 			vm.gopExchange();
 			if(json.voucherstatus === 'AVAILABLE'){
 				router.go('/');
