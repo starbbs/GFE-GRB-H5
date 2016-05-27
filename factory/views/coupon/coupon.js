@@ -5,7 +5,8 @@
 define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixin'], function(api, router, get, url, View) {
 	var gopToken = $.cookie('gopToken');
 
-	var Qlist = []; //优惠券存放的数组
+	var canuse = [];  //可用优惠券数组
+	var disuse = [];  //不可用优惠券数组
 	var couponListView = new View('coupon-list');
 	var couponDetailView = new View('coupon-detail');
 	var couponDetailJSON = { //清空详情的数据
@@ -13,7 +14,8 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		starttime: '',
 		endtime: '',
 		voucherstatus: '',
-		voucheramount: ''
+		voucheramount: '',
+		voucherid: ''
 	};
 
 	var mainList = $('.coupon-list');
@@ -36,15 +38,47 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	}, couponDetailJSON));
 
 	avalon.scan();
+	
+    var dataHandler = function(arr,type){
+    	var nowTime = new Date().getTime();
+        arr.forEach(function(item,index,array){
+            var itemStartTime = new Date(item.startTime).getTime();
+            var itemEndTime =  new Date(item.endTime).getTime();
+            item.startTime = item.startTime.substr(0,10);
+            item.endTime = item.endTime.substr(0,10);
+            if(nowTime > itemEndTime){
+                item.voucherStatus = 'EXPIRE';
+                disuse.push(item);
+            }else{
+                item.voucherStatus = 'AVAILABLE';
+                canuse.push(item);
+            }
+        });
+        if(type === 'order'){
+            canuse.forEach(function(item,index,array){
+                var itemStartTime = new Date(item.startTime).getTime();
+                var itemEndTime =  new Date(item.endTime).getTime();
+                if(nowTime < itemStartTime){
+                    item.voucherStatus = 'EXPIRE';
+                    disuse.push(item);
+                    canuse.splice(index,1,'');
+                }
+            });
+            canuse = canuse.filter(function(item,index,array){
+                return item != '';
+            });
+        }
+    }
 
 	//我的   券列表处理
 	var mineHandler = function(arr) {
 		//详情消失 重新渲染数据
 		//数据处理函数
-		//$.extend(couponListView.VM, {
-		//	listAva: arr,
-		//	listExp: arr,
-		//})
+		dataHandler(arr,'mine');
+        $.extend(couponListView.VM,{
+            listAva:canuse,
+            listExp:disuse    
+        })
 		couponListView.on('show', function() {
 			$.extend(couponDetailView.VM, couponDetailJSON);
 		});
@@ -53,10 +87,12 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	//定单  券列表处理
 	var orderHandler = function(arr) {
 		//数据处理函数
-		//$.extend(couponListView.VM,{
-		//	listAva:可用数组,
-		//	listExp:不可用数组，	
-		//})
+		dataHandler(arr,'order');
+        $.extend(couponListView.VM,{
+            listAva:canuse,
+            listExp:disuse    
+        })
+
 	};
 
 

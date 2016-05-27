@@ -36,6 +36,7 @@ require([
 		couponRmbNum: 0, //优惠券RMB
 		couponRmbName: '',//优惠券名称
 		moneyUse : 0,//实付金额
+		voucherId : '', //优惠券id
 		/*
 		gopClick: function() { // 果仁点击
 			vm.gopIfUse = !vm.gopIfUse;
@@ -86,7 +87,8 @@ require([
 							bankCardId: 12,
 							payPassword: value, // 支付密码
 							bill99ValidCode: '803585',
-							bill99token: '1330872'
+							bill99token: '1330872',
+							voucherId: vm.voucherId
 						}, function(data) {
 							if (data.status == 200) {
 								router.to('/bill');
@@ -125,6 +127,7 @@ require([
 			vm.couponRmbName = json.voucherstatus === 'AVAILABLE'?json.vouchername:'无可用现金抵扣券';
 			vm.moneyUse = (vm.money - json.voucheramount) <= 0? 0 : (vm.money - json.voucheramount);
 			vm.couponRmbNum = json.voucheramount;
+			vm.voucherId = json.voucherId;
 			vm.gopExchange();
 			if(json.voucherstatus === 'AVAILABLE'){
 				router.go('/');
@@ -180,6 +183,7 @@ require([
 						vm.couponRmbName = availableVoucher?availableVoucher.couponRmbName:"无可用现金抵扣券";
 						vm.couponRmbNum = availableVoucher?availableVoucher.voucherAmount : 0;
 						vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券"?vm.money:(vm.money - availableVoucher.voucherAmount);
+						vm.voucherId = availableVoucher?availableVoucher.id : '';
 						vm.gopExchange();
 						// 银行卡相关
 						/*
