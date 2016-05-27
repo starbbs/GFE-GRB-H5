@@ -8,8 +8,7 @@ require([
 	router, api, price, weixin, touchsliderBanner
 ) {
 	// $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //小妮
-	// $.cookie('gopToken', 'fc7c154d9c82426ca64931bfe2bcf406'); //东霖  卡券有数据
-	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟 有问题的
+	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //东林
 	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
@@ -18,27 +17,29 @@ require([
 	 * @param _gopToken
 	 * @returns {boolean}
 	 */
-	var checkPassword = function(_gopToken){
-		if(!_gopToken){
+	var checkPassword = function(_gopToken) {
+		if (!_gopToken) {
 			gotoHome();
 		}
-		api.checkLoginPasswordStatus({"gopToken":_gopToken},function(data){
-			if(data.status == 200){
-				if(data.data.result=="success"){
+		api.checkLoginPasswordStatus({
+			"gopToken": _gopToken
+		}, function(data) {
+			if (data.status == 200) {
+				if (data.data.result == "success") {
 					//do nothing
-				}else if(data.data.times==10){
+				} else if (data.data.times == 10) {
 					setTimeout(function() {
 						window.location.href = './frozen10.html?type=locked'
 					}, 210);
-				}else if(data.data.times==15){
+				} else if (data.data.times == 15) {
 					setTimeout(function() {
 						window.location.href = './frozen15.html?type=locked'
 					}, 210);
 				}
 			}
 		})
-	}
-	if(gopToken){
+	};
+	if (gopToken) {
 		checkPassword(gopToken);
 	}
 	var main = $('.home');
@@ -122,14 +123,16 @@ require([
 		main.addClass('on');
 	}, 250);
 
+
+/*
 	'use strict';
 	//字符串模板
-	/**/
-	var name = 'kingswei',time = '111111';
+	
+	var name = 'kingswei',
+		time = '111111';
 	console.log(`我是${name},出生时间是${time}`);
 	console.log(`字符串模板${(function(){ return '---可以放函数---'})()}`);
-	
-
+*/
 
 
 	/*
