@@ -2,8 +2,7 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'h5-login-judge-auto',
-	'filters',
+	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'filters',
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
@@ -124,15 +123,15 @@ require([
 	}, 250);
 
 
-/*
-	'use strict';
-	//字符串模板
-	
-	var name = 'kingswei',
-		time = '111111';
-	console.log(`我是${name},出生时间是${time}`);
-	console.log(`字符串模板${(function(){ return '---可以放函数---'})()}`);
-*/
+	/*
+		'use strict';
+		//字符串模板
+		
+		var name = 'kingswei',
+			time = '111111';
+		console.log(`我是${name},出生时间是${time}`);
+		console.log(`字符串模板${(function(){ return '---可以放函数---'})()}`);
+	*/
 
 
 	/*
