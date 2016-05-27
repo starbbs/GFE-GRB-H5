@@ -141,6 +141,7 @@ define('h5-view-bill', [
 		bankName: '', //银行卡名称
 		productDesc: '', // 商品信息
 		voucherClassName: '', //优惠券class名字
+		voucherNum: '', //优惠券金额
 
 		orderTime: '', // 交易时间
 		closeTime: '', // 关闭时间
@@ -164,8 +165,8 @@ define('h5-view-bill', [
 		gotoPay: function() {
 			gotoPayOrder(billPhoneVM);
 		},
-		finish:function(){
-			window.location.href='./home.html';
+		finish: function() {
+			window.location.href = './home.html';
 		},
 	}, phoneJSON));
 
@@ -235,7 +236,8 @@ define('h5-view-bill', [
 				return item.tradeNo;
 			}).join('<br>') : order.serialNum,
 			payType: H5bill.payType[order.payType], // 支付方式
-			voucherClassName: vouch ? vouch.voucherType + vouch.voucherAmount : '', //优惠券所用类名
+			voucherClassName: (order.status === 'PROCESSING' || order.status === 'SUCCESS') && vouch ? vouch.voucherType + vouch.voucherAmount : '', //优惠券所用类名
+			voucherNum: order.status === 'FAILURE' && vouch ? vouch.voucherName : '', //优惠券金额
 			// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			// ifClose: waitForPay, // 是否显示"关闭"
 		};
@@ -281,7 +283,7 @@ define('h5-view-bill', [
 				refundNum: data.data.payGop || data.data.payMoney, // 退款数目
 				refundWord: H5bill.getRefundWord(data.data), // 退款状态说明
 				productDesc: data.data.orderDesc, // 商品信息
-				voucherName: data.data.voucherName ? data.data.voucherName : '', //退款优惠券内容
+				voucherName: data.data.billVoucher ? data.data.billVoucher.voucherName : '', //退款优惠券内容
 				transferTime: data.data.updateTime, // 到账时间
 				submitTime: data.data.createTime, // 提交时间
 				orderCode: data.data.orderCode, // 订单号
