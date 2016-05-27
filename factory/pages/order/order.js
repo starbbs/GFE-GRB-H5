@@ -50,7 +50,6 @@ require([
 		gopMoney: 0, //所用果仁折合人民币
 		gopExchange: function() { // 换算gopMoney
 			//vm.gopNum 小数点后为数据库返回的六位小数
-			console.log(vm.gopPrice);
 			if (vm.gopNum * vm.gopPrice >= vm.money) { // 够支付
 				// vm.rmbUse = 0;
 				if(vm.couponRmbName === "无可用现金抵扣券"){   //没有优惠券
