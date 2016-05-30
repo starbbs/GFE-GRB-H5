@@ -2,7 +2,7 @@
 // H5微信端 --- 微信授权链接
 
 
-define('h5-authorization', ['get', 'url','h5-config'], function(get, url,config) {
+define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, config) {
 	// <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=http%3A%2F%2Fwww.goopal.me%2Findex2222.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">点击授权登录</a>
 	return {
 		getInfoDate: function() { // info 特有的参数
@@ -12,9 +12,12 @@ define('h5-authorization', ['get', 'url','h5-config'], function(get, url,config)
 		set: function(path, state) { // 设置授权页地址
 			// alert('授权页面相应地址==='+'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx55923db8dfb94e44&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect');
 			//测试环境wxe91980c4944999fe  正式环境wx55923db8dfb94e44
-			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+config.appid+'&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
+			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
 		},
 		go: function() { // 进入授权页
+			if (config.appid == 'wxe91980c4944999fe') {
+				return;
+			}
 			// return // 注释进入授权页
 			// alert('进入授权页面');
 			setTimeout(function() {
