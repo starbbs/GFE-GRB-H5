@@ -10,7 +10,10 @@ require([
 ) {
 
 	router.init(true);
-
+	
+	//控制屏幕高度在nav之上，达到滚动条美观的目的
+	$(".screen-r").height($(window).height() - $(".nav").height());
+	
 	var gopToken = $.cookie('gopToken');
 	var mine = $('.mine');
 	var feedbackText = $(".setting-feedback-text");
