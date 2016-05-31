@@ -113,7 +113,7 @@ define('h5-dialog-paypass', [
 	// ifHideOthers      [是否隐藏其他浮层, 默认false]
 	// HideArr           [隐藏指定的浮层, 数组是浮层的名称集合]
 	var showDialogKnown = function(ifShowImmediately, ifHideOthers, HideArr) { // 出"知道了"弹窗  错误5次
-		dialogAlert.set('输入5次错误,3小时后解锁');
+		dialogAlert.set('您的果仁宝账户支付密码错误次数累计已达5次，为了您的账户安全，暂时关闭您的支付功能3小时。若非本人操作，请及时联系果仁宝客服<a href="tel:400-184-9696">400-184-9696</a>');
 		dialogAlert.show(ifShowImmediately, ifHideOthers, HideArr);
 	};
 	var gotoFrozen = function() { // 进入冻结页  错误10次
