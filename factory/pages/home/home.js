@@ -9,6 +9,7 @@ require([
 	// $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //小妮
 	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //东林
 	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
+	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //徐停
 	router.init(true);
 	//控制屏幕高度在nav之上，达到滚动条美观的目的
 	$(".screen-r").height($(window).height() - $(".nav").height());

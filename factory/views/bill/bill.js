@@ -279,7 +279,7 @@ define('h5-view-bill', [
 				status: data.data.status, // 订单状态
 				headClass: H5bill.statusClass[data.data.status], // 头部样式名
 				headContent: H5bill.getStatusRefund(data.data, true), // 头部内容
-				refundNum: data.data.payGop || data.data.payMoney, // 退款数目
+				refundNum: data.data.payGop == 0 ? '0.' + data.data.payGop : data.data.payGop || data.data.payMoney, // 退款数目
 				refundWord: H5bill.getRefundWord(data.data), // 退款状态说明
 				productDesc: data.data.orderDesc, // 商品信息
 				voucherName: data.data.billVoucher ? data.data.billVoucher.voucherName : '', //退款优惠券内容
