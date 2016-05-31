@@ -8,7 +8,6 @@ require([
 ], function(
 	router, api, View, get, dialogSuccess, dialogAlert, url
 ) {
-
 	router.init(true);
 
 	dialogAlert.set('输入5次错误,3小时后解锁');
@@ -65,9 +64,32 @@ require([
 	new View('paypass-protection-2');
 	new View('paypass-authentication');
 	new View('paypass-ident');
-	new View('paypass-view-1');
-	new View('paypass-view-2');
-	new View('paypass-view-3');
+
+	var payPassViewArr = [];
+
+	//Array.of(new View('paypass-view-1'), new View('paypass-view-2'), new View('paypass-view-3'));
+
+	payPassViewArr.push(new View('paypass-view-1'));
+	payPassViewArr.push(new View('paypass-view-2'));
+	payPassViewArr.push(new View('paypass-view-3'));
+
+	//var paypassViewShowFn = function(index) {
+	//	$('#paypass-' + index).focus();
+	//};
+	//var paypassViewHideFn = function(index) {
+	//	$('#paypass-' + index).blur();
+	//};
+
+	//payPassViewArr.forEach(function(objView, index, arr) {
+	//	objView.on('show', function() {
+	//		paypassViewShowFn(index);
+	//	}.bind(objView));
+//
+	//	//objView.on('hide', function() {
+	//	//	paypassViewHideFn(index);
+	//	//}.bind(objView));
+	//});
+//
 
 	var vm = avalon.define({
 		$id: 'paypass',
