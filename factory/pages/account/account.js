@@ -221,8 +221,8 @@ require([
 		}).sort(function(item1, item2) { // 时间排序
 			return item2._date.getTime() - item1._date.getTime();
 		}).reduce(function(result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
-			console.log(item);			
-			console.log(result);
+			// console.log(item);			
+			// console.log(result);
 			var time = mydate.timeHandler(item._date); 
 			//{	date: 31,		//日
 			//	day: 2,			//周几
