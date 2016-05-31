@@ -383,6 +383,8 @@
 			width: 60%;
 			text-align: right;
 			overflow: hidden;
+			word-break: break-all;
+			word-wrap: break-word;
 			&-pl{
 				float: left;
 			}

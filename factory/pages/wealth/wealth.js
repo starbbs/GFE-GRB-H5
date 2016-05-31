@@ -204,24 +204,18 @@ require([
 					text: ''
 				},
 				tickInterval: (function() {
-					if((max - min) < 0.02){
-						return (max - min) * 0.8;
-					}else if((max - min) < 0.4){
-						return (max - min) * 0.5;
+					if((max - min) <= 0.01){
+						return (max - min) * 10000000 * 0.8 / 10000000;
+					}else if((max - min) < 0.08){
+						return (max - min) * 10000000 * 0.5 / 10000000;
 					}else{
-						return (max - min) * 0.3;
+						return (max - min) * 10000000 * 0.3 / 10000000;
 					}				
-					
-					//if((max - min) < 0.4){
-					//	return (max - min) * 0.5;
-					//}else{
-					//	return (max - min) * 0.3;
-					//}
 				})(),
 				labels: {
 					formatter: function() {
 						if (flag == "annual") {
-							return this.value.toFixed(2) * 100;
+							return this.value.toFixed(2) * 1000000 * 100 /1000000;
 						} else {
 							return this.value.toFixed(2);
 						}
