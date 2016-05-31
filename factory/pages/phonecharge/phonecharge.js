@@ -444,9 +444,12 @@ require([
 	//设置 流量的描述
 	var setFlowsWorld = function(carrier) {
 		if (carrier.indexOf('联通') > 0) {
+			vm.flowsworld = '';
 			// vm.flowsworld = '同面值每月限充5次，不同面值产品可叠加1次';
 		} else if (carrier.indexOf('移动') > 0) {
 			vm.flowsworld = '移动用户每月最后一天办理，下月生效';
+		} else {
+			vm.flowsworld = '';
 		}
 	};
 
