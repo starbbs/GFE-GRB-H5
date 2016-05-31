@@ -21,9 +21,9 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 			//}
 			// return // 注释进入授权页
 			// alert('进入授权页面');
-			setTimeout(function() {
+			// setTimeout(function() {
 				window.location.href = this.set(this.main, url.basename);
-			}.bind(this), 100);
+			// }.bind(this), 100);
 		},
 		get: function() { // 获取回跳后要跳转的链接
 			var state = (get.data.state || '').trim().toLowerCase();

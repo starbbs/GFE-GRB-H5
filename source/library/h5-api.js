@@ -11,7 +11,7 @@
  * 	2.使用文档为v1.2.0
  */
 define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], function(Api, authorization, alert, cookie, config) {
-
+	
 	// var baseUri = '.'; // 同域
 	var baseUri = config.baseUri; // http测试服务器
 	
@@ -322,7 +322,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], 
 	api.regist('myVoucherList', '/voucher/myVoucherList');
 
 	//87 .判断用户登录密码状态的接口
-	api.regist('checkLoginPasswordStatus', '/security/checkLoginPasswordStatus');
+	api.regist('checkLoginPasswordStatus', '/security/checkLoginPasswordStatus', {
+		asyn: true
+	});
 
 	return api;
 });
