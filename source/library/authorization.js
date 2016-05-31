@@ -15,9 +15,10 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
 		},
 		go: function() { // 进入授权页
-			if (config.appid == 'wxe91980c4944999fe') {
-				return;
-			}
+			// 注释进入授权页
+			//if (config.appid == 'wxe91980c4944999fe') {
+			//	return;
+			//}
 			// return // 注释进入授权页
 			// alert('进入授权页面');
 			setTimeout(function() {
