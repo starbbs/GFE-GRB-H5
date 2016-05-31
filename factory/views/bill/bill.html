@@ -155,7 +155,7 @@
 							订单金额(¥)
 						</div>
 						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>						
-						<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
+						<div class="bill-num" ms-class-1="dark:status!='CLOSE'">-{{orderMoney|abs|fix}}</div>
 						<!--
 						<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 							<div class="bill-pay-item" ms-visible="payMoney">
