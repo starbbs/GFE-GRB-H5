@@ -39,13 +39,21 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 
 	avalon.scan();
 	
+	//日期处理，结束日期展示时需要提前一天
+	var getPreDay = function(str){
+		var strDate = new Date(str.replace(/-/g,"/"));  //字符串转日期
+		var newDate = new Date(strDate - 24*60*60*1000); //日期减一天操作
+		var newDateStr = newDate.getFullYear()+"-"+(newDate.getMonth()+1)+"-"+newDate.getDate(); //获取新的日期
+		return newDateStr;
+	}
+	
     var dataHandler = function(arr,type){
     	var nowTime = new Date().getTime();
         arr.forEach(function(item,index,array){
             var itemStartTime = new Date(item.startTime.replace(/-/g,"/")).getTime();
             var itemEndTime =  new Date(item.endTime.replace(/-/g,"/")).getTime();
             item.startTime = item.startTime.substr(0,10);
-            item.endTime = item.endTime.substr(0,10);
+            item.endTime = getPreDay(item.endTime.substr(0,10));  //对当前结束时间进行建议减一天的操作
             if(nowTime > itemEndTime){
                 item.voucherStatus = 'EXPIRE';
                 disuse.push(item);
