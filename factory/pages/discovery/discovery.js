@@ -7,7 +7,8 @@ require([
 	router, api, price, TouchSlide, View
 ) {
 	var gopToken = $.cookie('gopToken');
-
+	//控制屏幕高度在nav之上，达到滚动条美观的目的
+	$(".screen-r").height($(window).height() - $(".nav").height());
 	new View('discovery-temp');
 	new View('discovery-temp-1');
 	new View('discovery-temp-2');
@@ -52,12 +53,10 @@ require([
 		for (var i = 0; i < iosUrlArr.length; i++) {
 			$('.urlarr')[i].href = encodeURIComponent(iosUrlArr[i]);
 		}
-		main.find(".discovery-subject").last().css("margin-bottom","0px");
 	}else if(UA.indexOf('from=discoveryandroidapp') > 0){
 		for (var i = 0; i < androidUrlArr.length; i++) {
 			$('.urlarr')[i].href = androidUrlArr[i];
 		}
-		main.find(".discovery-subject").last().css("margin-bottom","0px");
 	} else {
 		for (var i = 0; i < h5UrlArr.length; i++) {
 			$('.urlarr')[i].href = h5UrlArr[i];
