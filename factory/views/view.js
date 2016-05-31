@@ -149,7 +149,7 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 		}
 		this[stackMaker('hide')].length && this[stackMaker('hide')].forEach(function(callback) {
 			callback.call(this);
-			alert('hide');
+			// alert('hide');
 		}.bind(this));
 	};
 	View.prototype.on = function(name, callback) {

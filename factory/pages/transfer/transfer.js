@@ -22,6 +22,19 @@ require([
 
 	router.init(true);
 
+	//市场添加回调 return true用于下一步按钮是否可用
+	viewAddressMine.vm.setSuccess = function() {
+		return true;
+	};
+	//市场删除回调
+	viewAddressMine.vm.setDelSuccess = function() {
+		return false;
+	};
+	//删除添加钱包地址后回调
+	viewAddressWallet.vm.setSuccess = function(walletListLength) {
+		return walletListLength > 0 ? true : false;
+	};
+
 	var vm = avalon.define({
 		$id: 'transfer',
 		hasWallet: false,
@@ -115,7 +128,7 @@ require([
 				router.go('/transfer-target');
 			} else {
 				//跳转到设置果仁市场
-				viewAddressMine.vm.hasStepNext = true;
+				viewAddressMine.vm.hasStepNext = false;
 				viewAddressMine.vm.callback = function() {
 					api.info({
 						gopToken: gopToken
@@ -428,7 +441,7 @@ require([
 			if (transferTarget.notchecked) {
 				return;
 			}
-			
+
 			if (parseFloat(filters.floorFix(parseFloat($('#address-mine-input-1')[0].value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
 
 				dialogConfirm.set('您的果仁不足是否购买？');

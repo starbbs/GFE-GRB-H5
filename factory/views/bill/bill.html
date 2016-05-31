@@ -155,7 +155,7 @@
 							订单金额(¥)
 						</div>
 						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>						
-						<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
+						<div class="bill-num" ms-class-1="dark:status!='CLOSE'">-{{orderMoney|abs|fix}}</div>
 						<!--
 						<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 							<div class="bill-pay-item" ms-visible="payMoney">
@@ -394,7 +394,7 @@
 						<div class="bill-detail-right ash">{{serialNum|html}}</div>
 					</div>
 				</div>
-				<div class="bill-tip" ms-visible="status==='FAILURE'">退款失败可能由多种原因造成，详情可咨询果仁宝客服<a class="a-blue" href="tel:400-184-9696">400-184-9696</a></div>
+				<div class="bill-tip" ms-visible="status==='FAILURE'">退款失败可能由多种原因造成，详情可咨询果仁宝客服 <br/> <a class="a-blue" href="tel:400-184-9696">400-184-9696</a></div>
 			</div>
 		</div>
 
