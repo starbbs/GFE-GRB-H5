@@ -15,8 +15,9 @@ html {
 	background: url($img + '/bg.png') #3f49a3;
 	background-size: cover;
 }
+
 .share{
-	margin-top: px(120px, 750px);
+	margin-top: 25%;
 	padding: 72px;
 	color: #ffffff;
 	&-er{
