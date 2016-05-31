@@ -6,12 +6,11 @@ require([
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
-	// $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //小妮
-	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //东林
+	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //小妮
+	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟    
+	// $.cookie('gopToken','fc7c154d9c82426ca64931bfe2bcf406'); //东霖
 	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
 	router.init(true);
-	//控制屏幕高度在nav之上，达到滚动条美观的目的
-	$(".screen-r").height($(window).height() - $(".nav").height());
 	var gopToken = $.cookie('gopToken');
 	/**
 	 * 检查用户的登录密码，如果已经错误了十次了那直接进入frozen页面，如果ok的话进入home页面。
