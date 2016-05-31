@@ -10,6 +10,7 @@ require([
 	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟    
 	// $.cookie('gopToken','fc7c154d9c82426ca64931bfe2bcf406'); //东霖
 	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
+	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //徐停
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	/**

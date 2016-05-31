@@ -3,7 +3,7 @@
 
 require([
 	'router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading', 'h5-view-bill', 'mydate', 'h5-order-judge',
-	'h5-weixin','h5-login-judge-auto'
+	'h5-weixin', 'h5-login-judge-auto'
 ], function(
 	router, api, get, filters, H5bill, iscrollLoading, billView, mydate, orderJudge
 ) {
@@ -210,7 +210,8 @@ require([
 		}
 	};
 
-	var dataHandler = function(data) { //后台返回list数据加工处理   时间处理同时获取交易的信息
+	// =========================  step 1
+	var dataHandler = function(data) { //后台返回list数据加工处理   时间处理同时获取交易的信息   
 		now = new Date();
 		// data 列表所有的数据条目
 		// data.map全部完成 ==> sort全部完成 ==> reduce全部完成 ==>
@@ -219,8 +220,22 @@ require([
 			return item;
 		}).sort(function(item1, item2) { // 时间排序
 			return item2._date.getTime() - item1._date.getTime();
-		}).reduce(function(result, item) { // 提取
-			var time = mydate.timeHandler(item._date); // time格式如下
+		}).reduce(function(result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
+			console.log(item);			
+			console.log(result);
+			var time = mydate.timeHandler(item._date); 
+			//{	date: 31,		//日
+			//	day: 2,			//周几
+			//	day2: "二"		
+			//	hour: 11,		//时
+			//	hour2: "11"
+			//	minute: 51, 	//分
+			//	minute2: "51"
+			//	month: 4 ,		//月份
+			//	month2: 5 ,
+			//	month3: "五",
+			//	second: 56,		//秒
+			//	year: 2016		//年   }
 			var type = H5bill.typeClass[item.type];
 			var bills = [];
 			switch (type) { // 账单类型
@@ -238,7 +253,7 @@ require([
 						if (item.money) { // 退人民币
 							console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
 							type = 'none'; // 页面过滤type为none的账单
-						} else if (item.gopNumber) {
+						} else if (item.gopNumber >= 0) {
 							dataAdd('gop', bills, item);
 						} else {
 							console.log('Error: (account) 退款错误,没有人民币和果仁', item);
@@ -256,9 +271,11 @@ require([
 				originType: item.type,
 				bills: bills,
 			};
-			if (result.length > 0 && result[result.length - 1].month2 === time.month2) { // 和上个月相同
+
+			if (result.length > 0 && result[result.length - 1].month2 === time.month2) { // 不是本月的
 				result[result.length - 1].days.push(day);
-			} else { // 没有这个月份, 创建
+				console.log(111);
+			} else { // 本个月份
 				result.push({
 					month: nowMonth === time.month ? '本月' : (time.month2 + '月'),
 					month2: time.month2,
