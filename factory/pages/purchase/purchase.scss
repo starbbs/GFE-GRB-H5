@@ -49,13 +49,6 @@
 		}
 		&-text {
 			border-bottom: $g-border;
-			.text-close:after{
-			    content: '';
-                display: block;
-                padding: 15px;
-                margin-left: -7.5px;
-                margin-top: -7.5px;
-            }
 		}
 		&-foot {
 			color: $g-gray;
