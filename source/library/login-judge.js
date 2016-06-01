@@ -29,6 +29,8 @@ define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authoriza
 					}else{
 						jumpOut();
 					}
+				}else if(data.status==313){
+					success && success();
 				}else{
 					jumpOut();
 				}

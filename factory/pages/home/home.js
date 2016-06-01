@@ -11,6 +11,8 @@ require([
 	// $.cookie('gopToken','fc7c154d9c82426ca64931bfe2bcf406'); //东霖
 	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
 	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //徐停
+	//  $.cookie('gopToken', '1332f5bda22640db9e1f49583f5bb884'); //李鹏
+
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	/**
@@ -43,6 +45,40 @@ require([
 	var main = $('.home');
 
 	//我的收益  昨天 累计
+
+
+
+	var homeVm = avalon.define({
+		$id: 'home',
+		bannerImgArr: [],
+		myGopNum: 0, //果仁数
+		gopNowPrice: 0, //果仁现价
+		totalInCome: 0, //累计收益
+		yesterDayIncome: 0, //昨天收益
+		curIndex: 0,
+		gopToken: gopToken ? true : false,
+		//预计年化收益
+		toggleBtnFn: function() { //切换样式Fn
+			var $this = $(this);
+			console.log(homeVm.curIndex);
+			if (this.className.indexOf('up') != -1) {
+				homeVm.curIndex = 2;
+				$this.removeClass('up').addClass('down');
+			} else {
+				$this.removeClass('down').addClass('up');
+				homeVm.curIndex = 1;
+			}
+		},
+		gotophonecharge: function(ev) {
+			var target = $(ev.target).closest('.home-phonebills');
+			if (!target.length) {
+				return;
+			}
+			window.location.href = target.get(0).dataset.href;
+		},
+	});
+
+	avalon.scan(main.get(0), homeVm);
 	api.getIncome({
 		gopToken: gopToken
 	}, function(data) {
@@ -83,40 +119,6 @@ require([
 			touchsliderBanner.touchsliderFn();
 		}
 	});
-
-
-	var homeVm = avalon.define({
-		$id: 'home',
-		bannerImgArr: [],
-		myGopNum: 0, //果仁数
-		gopNowPrice: 0, //果仁现价
-		totalInCome: 0, //累计收益
-		yesterDayIncome: 0, //昨天收益
-		curIndex: 0,
-		gopToken: gopToken ? true : false,
-		//预计年化收益
-		toggleBtnFn: function() { //切换样式Fn
-			var $this = $(this);
-			console.log(homeVm.curIndex);
-			if (this.className.indexOf('up') != -1) {
-				homeVm.curIndex = 2;
-				$this.removeClass('up').addClass('down');
-			} else {
-				$this.removeClass('down').addClass('up');
-				homeVm.curIndex = 1;
-			}
-		},
-		gotophonecharge: function(ev) {
-			var target = $(ev.target).closest('.home-phonebills');
-			if (!target.length) {
-				return;
-			}
-			window.location.href = target.get(0).dataset.href;
-		},
-	});
-
-	avalon.scan(main.get(0), homeVm);
-
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
