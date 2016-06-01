@@ -54,6 +54,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
             var itemEndTime =  new Date(item.endTime.replace(/-/g,"/")).getTime();
             item.startTime = item.startTime.substr(0,10);
             item.endTime = getPreDay(item.endTime.substr(0,10));  //对当前结束时间进行建议减一天的操作
+            item.disuse = false;
             if(nowTime > itemEndTime){
                 item.voucherStatus = 'EXPIRE';
                 disuse.push(item);
@@ -67,6 +68,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
                 var itemStartTime = new Date(item.startTime).getTime();
                 var itemEndTime =  new Date(item.endTime).getTime();
                 if(nowTime < itemStartTime){
+                	item.disuse = true;
                     item.voucherStatus = 'EXPIRE';
                     disuse.push(item);
                     canuse.splice(index,1,'');
