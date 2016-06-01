@@ -7,7 +7,7 @@
 define('h5-config', function() {
 	//测试环境参数配置
 	var paramConfig = {
-		baseUri : '//goopal.xiaojian.me',
+		baseUri : '//172.16.33.3:18080',
 		main : '//www.xiaojian.me/wx/',
 		appid : 'wxe91980c4944999fe'
 	}
