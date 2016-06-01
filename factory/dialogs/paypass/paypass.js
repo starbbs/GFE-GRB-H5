@@ -134,7 +134,7 @@ define('h5-dialog-paypass', [
 			}, 500);
 		},
 		forgetPaypass: function() { //点击忘记密码
-			window.location.href = 'paypass.html' + (url.basename.match(/order/ig) ? '?from=' + url.basename + url.search.replace(/\?from=phonecharge/, '') : '?from=' + url.basename);
+			window.location.href = 'paypass.html' + (url.basename.match(/order/ig) ? '?from=' + url.basename + url.search.replace(/(\?from=phonecharge)|(\?from=bill)/, '') : '?from=' + url.basename);
 
 		},
 		input: function() { // 输入时
