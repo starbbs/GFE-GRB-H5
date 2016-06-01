@@ -150,8 +150,8 @@ require([
 					}
 
 				}else{
-					alert(data.status+"  "+data.msg);
-					// gotoAuthorization();
+					//alert(data.status+"  "+data.msg);
+					 gotoAuthorization();
 				}
 			});
 		} else { // 未授权
