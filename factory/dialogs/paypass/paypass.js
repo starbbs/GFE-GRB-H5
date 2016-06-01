@@ -128,7 +128,8 @@ define('h5-dialog-paypass', [
 				return 'paypass.html?from=order' + url.search.replace(/(\?from=phonecharge)|(\?from=bill)/, '');
 				break;
 			case 'transfer':
-				return 'paypass.html?from=transfer&hash=' + window.location.hash.replace(/\#\!/,''); //match(/\#\!\/\w+\-\w+/ig)[0];
+				return 'paypass.html?from=transfer&hash=' + window.location.hash.replace(/\#\!/,''); 
+				//match(/\#\!\/\w+\-\w+/ig)[0];
 				break;
 			default:
 				return 'paypass.html?from=mine';
@@ -149,8 +150,6 @@ define('h5-dialog-paypass', [
 		},
 		forgetPaypass: function() { //点击忘记密码
 			window.location.href = winHrefFn(url.basename);
-			// window.location.href = 'paypass.html' + (url.basename.match(/order/ig) ? '?from=' + url.basename + url.search.replace(/(\?from=phonecharge)|(\?from=bill)/, '') : '?from=' + url.basename);
-
 		},
 		input: function() { // 输入时
 			var value = this.value;
