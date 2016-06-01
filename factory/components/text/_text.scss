@@ -63,6 +63,9 @@
 			opacity: 1;
 		}
 		margin-right: 5px;
+		&:after{
+		    @extend %close;
+		}
 		/*
 		&:after{
 			
