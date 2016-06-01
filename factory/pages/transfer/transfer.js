@@ -3,21 +3,21 @@
 
 
 require([
-	'router', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
+	'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
-	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication', 'url', 'h5-dialog-confirm',
+	'h5-dialog-paypass', 'h5-dialog-alert', 'h5-view-authentication', 'url', 'h5-dialog-confirm', 'router',
 	'h5-paypass-view', 'h5-text', 'h5-weixin', 'h5-paypass-judge-auto', 'h5-login-judge-auto'
 ], function(
-	router, api, View, price, get, filters, H5bill,
+	api, View, price, get, filters, H5bill,
 	viewAddressMine, viewAddressWallet, billView,
-	dialogPaypass, dialogAlert, viewAuthentication, url, dialogConfirm
+	dialogPaypass, dialogAlert, viewAuthentication, url, dialogConfirm, router
 ) {
 
 	var gopToken = $.cookie('gopToken');
 	var transfer = $('.transfer');
 
-	var transferNewView = new View('transfer-new');
-	var transferContactsView = new View('transfer-contacts');
+	//var transferNewView = new View('transfer-new');
+	//var transferContactsView = new View('transfer-contacts');
 	var transferTargetView = new View('transfer-target');
 
 	router.init();
@@ -35,6 +35,8 @@ require([
 		return walletListLength > 0 ? true : false;
 	};
 
+
+	// 转帐首页面
 	var vm = avalon.define({
 		$id: 'transfer',
 		hasWallet: false,
@@ -71,6 +73,7 @@ require([
 						nowData.serviceFee = '0.01';
 						$.extend(transferTarget, nowData);
 						targetInit(vm.transferOutType);
+						dialogPaypass.vm.cangory = vm.transferOutType;
 						router.go('/transfer-target');
 					} else {
 						console.log(data);
@@ -103,6 +106,7 @@ require([
 							nowData.serviceFee = '0.01';
 							$.extend(transferTarget, nowData);
 							//targetInit(vm.transferOutType);
+							dialogPaypass.vm.cangory = vm.transferOutType;						
 							targetInit('new_walletaddress_nextstep');
 							router.go('/transfer-target');
 						} else {
@@ -125,6 +129,7 @@ require([
 				transferTarget.isMarket = true;
 				transferTarget.serviceFee = '0.01';
 				targetInit(vm.transferOutType);
+				dialogPaypass.vm.cangory = vm.transferOutType;
 				router.go('/transfer-target');
 			} else {
 				//跳转到设置果仁市场
@@ -143,6 +148,7 @@ require([
 								transferTarget.isMarket = true;
 								transferTarget.serviceFee = '0.01';
 								targetInit(vm.transferOutType);
+								dialogPaypass.vm.cangory = vm.transferOutType;
 								router.go('/transfer-target');
 							}
 						} else {
@@ -456,6 +462,7 @@ require([
 			if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 				//密码输入框显示 AJAX密码确认后 设置回调函数
 				// setTimeout(function() {
+				dialogPaypass.vm.cangory = vm.transferOutType;
 				dialogPaypass.show();
 				// }, 300)
 				//支付浮层  密码确认后回调
@@ -595,6 +602,7 @@ require([
 		});
 	};
 
+	//初始化 检测有无  钱包地址   市场地址
 	var init = function() {
 		api.info({
 			gopToken: gopToken
@@ -620,9 +628,25 @@ require([
 			} else {
 				console.log(data);
 			}
-		});
+		})		
 		refresh_list();
 	};
+	var getCangory = function(){
+		console.log(get.data.cangory);
+		if (get.data.cangory) {
+			switch (get.data.cangory) {
+				case 'ME_WALLET':
+					targetInit('ME_WALLET');
+					break;
+				case 'GOP_MARKET':
+					targetInit('GOP_MARKET');
+					break;
+			}
+		}else{
+			router.go('/');
+			console.log('转帐选项页');
+		}		
+	};	
 	var refresh_list = function() {
 		api.transferRecent({
 			gopToken: gopToken
@@ -651,6 +675,9 @@ require([
 	});
 
 	init();
+
+	getCangory();
+
 
 	setTimeout(function() {
 		if (get.data.from === 'contacts') { // 来自联系人, 后期分离出公用页面

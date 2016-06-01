@@ -15,6 +15,11 @@ require([
 		dialogAlert.show();
 	};
 
+	$(document).click(function() {
+		//window.location.href = './transfer.html?cangory=' + get.data.cangory + '&hash=' + get.data.hash;		
+		window.location.href = './transfer.html?cangory=' + get.data.cangory + '#!' + get.data.hash;
+	})
+
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
 	var cardInput = $("#paypass-authentication-card");

@@ -4,14 +4,11 @@
 
 
 define('h5-paypass-view', [
-	'h5-api', 'router',
-	'h5-view','h5-dialog-success'
+	'h5-api', 'h5-view', 'router', 'h5-dialog-success'
 ], function(
-	api, router,
-	View,dialogSuccess
+	api, View, router,
+	dialogSuccess
 ) {
-	router.init(true);
-
 	var view2 = $('.paypass-view-2set');
 	var view3 = $('.paypass-view-3set');
 	var gopToken = $.cookie('gopToken');
