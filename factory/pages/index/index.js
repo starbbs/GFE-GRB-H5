@@ -148,8 +148,10 @@ require([
 							window.location.href = './frozen10.html?type=locked'
 						}, 210);
 					}
+
 				}else{
-					gotoAuthorization();
+					alert(data.status+"  "+data.msg);
+					// gotoAuthorization();
 				}
 			});
 		} else { // 未授权
