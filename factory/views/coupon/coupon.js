@@ -126,7 +126,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		if (data.status == 200) {
 			set(data.data.voucherList);
 		} else {
-			$.alert(data.msg);
+			// $.alert(data.msg);
 		}
 	});
 
