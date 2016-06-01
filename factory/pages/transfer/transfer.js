@@ -12,15 +12,14 @@ require([
 	viewAddressMine, viewAddressWallet, billView,
 	dialogPaypass, dialogAlert, viewAuthentication, url, dialogConfirm
 ) {
-
 	var gopToken = $.cookie('gopToken');
 	var transfer = $('.transfer');
 
 	var transferNewView = new View('transfer-new');
 	var transferContactsView = new View('transfer-contacts');
 	var transferTargetView = new View('transfer-target');
-
-	router.init(true);
+	
+	router.init();
 
 	//市场添加回调 return true用于下一步按钮是否可用
 	viewAddressMine.vm.setSuccess = function() {
