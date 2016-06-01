@@ -16,7 +16,9 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 	}
 
 	var gopToken = $.cookie('gopToken');
-	var base = 'www.goopal.com.cn/wx'; // 地址
+	// var base = 'www.goopal.com.cn/wx'; // 地址
+
+	var base = 'www.xiaojian.me/wx'; // 地址
 	var weixin = {
 		// 参数
 		appId: null,
@@ -26,7 +28,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 		// 分享
 		title: '果仁宝',
 		desc: '果仁宝，一站式理财消费新平台',
-		link: window.location.protocol + '//' + base + '/index.html',
+		link: window.location.protocol + '//' + base + '/home.html',
 		imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
 		type: '',
 		dataUrl: '',
