@@ -43,6 +43,6 @@ define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authoriza
 		}
 	};
 	return {
-		check: check,
+		check: check
 	};
 });
