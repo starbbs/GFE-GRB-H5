@@ -12,7 +12,6 @@ define('h5-dialog-paypass', [
 	authenticationVM, paypassViewVM
 ) {
 
-	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	// new View('paypass-view-1');
 	new View('paypass-view-2set');
@@ -128,7 +127,7 @@ define('h5-dialog-paypass', [
 				return 'paypass.html?from=order' + url.search.replace(/(\?from=phonecharge)|(\?from=bill)/, '');
 				break;
 			case 'transfer':
-				return 'paypass.html?from=transfer&hash=' + window.location.hash.replace(/\#\!/,''); 
+				return 'paypass.html?from=transfer' + '&cangory=' + vm.cangory + '&hash=' + window.location.hash.replace(/\#\!/, '');
 				//match(/\#\!\/\w+\-\w+/ig)[0];
 				break;
 			default:

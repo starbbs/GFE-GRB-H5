@@ -23,7 +23,7 @@ require([
 		// return;
 		switch (get.data.from) {
 			case 'transfer':
-				window.location.href = './transfer.html#!' + get.data.hash;
+				window.location.href = './transfer.html?cangory=' + get.data.cangory;
 				break;
 			case 'order':
 				window.location.href = './order.html' + url.search;
