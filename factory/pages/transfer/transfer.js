@@ -495,11 +495,12 @@ require([
 							};
 							if (transferTarget.phone) {
 								nowData.phone = transferTarget.phone;
-							}
-							router.to('/bill');
+							};
+							alert();
 							billView.set('TRANSFER_OUT', data.data.transferOutId, {
 								ifReturnHome: true
 							});
+							router.go('/bill');
 							init();
 						} else {
 							console.log(data);
