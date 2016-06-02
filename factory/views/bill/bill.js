@@ -229,7 +229,7 @@ define('h5-view-bill', [
 			bankCangory: extra.bankcard ? extra.bankcard.cardType.indexOf('SAVINGS') != -1 ? '储蓄卡' : '信用卡' : '', //银行类型
 			bankName: extra.bankcard ? extra.bankcard.bankName : '', //银行名称
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
-			orderMoney: order.status === 'PROCESSING' ? '' : order.orderMoney, // 订单金额
+			orderMoney: order.orderMoney ? order.orderMoney : '', // 订单金额
 			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
 			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
 			// createTime: order.updateTime ? '' : order.createTime, // 创建时间
@@ -327,7 +327,7 @@ define('h5-view-bill', [
 
 	var billTransferVM = avalon.define($.extend({ // 转帐的VM 
 		$id: 'billTransfer',
-		returnHome: function(){
+		returnHome: function() {
 			window.location.href = './home.html';
 		},
 	}, transferJSON));

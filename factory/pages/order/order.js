@@ -9,11 +9,11 @@ require([
     'h5-price', 'h5-ident', 'h5-component-bill',
     'h5-dialog-paypass', 'filters', 'h5-order-judge', 'h5-dialog-confirm', 'url', 'h5-view-coupon',
     'h5-weixin', 'h5-paypass-judge-auto'
-], function (loginJudge, api, get, router,
-             View, billView,
-             price, H5Ident, H5Bill,
-             dialogPaypass, filters, orderJudge, dialogConfirm, url, CouponJSON) {
-    loginJudge.check(function () {
+], function(loginJudge, api, get, router,
+    View, billView,
+    price, H5Ident, H5Bill,
+    dialogPaypass, filters, orderJudge, dialogConfirm, url, CouponJSON) {
+    loginJudge.check(function() {
         //do notheing
         router.init(true);
 
@@ -33,8 +33,8 @@ require([
             gopUse: 0, // 使用多少果仁
             orderCode: '',
             couponRmbNum: 0, //优惠券RMB
-            couponRmbName: '',//优惠券名称
-            moneyUse: 0,//实付金额
+            couponRmbName: '', //优惠券名称
+            moneyUse: 0, //实付金额
             voucherId: '', //优惠券id
             /*
              gopClick: function() { // 果仁点击
@@ -47,11 +47,11 @@ require([
              },
              */
             gopMoney: 0, //所用果仁折合人民币
-            gopExchange: function () { // 换算gopMoney
+            gopExchange: function() { // 换算gopMoney
                 //vm.gopNum 小数点后为数据库返回的六位小数
                 if (vm.gopNum * vm.gopPrice >= vm.money) { // 够支付
                     // vm.rmbUse = 0;
-                    if (vm.couponRmbName === "无可用现金抵扣券") {   //没有优惠券
+                    if (vm.couponRmbName === "无可用现金抵扣券") { //没有优惠券
                         vm.gopUse = vm.money / vm.gopPrice;
                         vm.gopMoney = vm.money;
                     } else {
@@ -67,14 +67,14 @@ require([
                 }
             },
             // ifConfirmPay: false,
-            confirmPay: function () { // 确认支付
+            confirmPay: function() { // 确认支付
                 // 确认支付   orderJudge.KWQ_checkRMB(定单所有RMB数 , 优惠券RMB数(可以不传) , 回调函数)
-                orderJudge.KWQ_checkRMB(filters.fix(vm.money), function (status, gopPrice, myGopNum) {
+                orderJudge.KWQ_checkRMB(filters.fix(vm.money), function(status, gopPrice, myGopNum) {
                     // status = 'gopNumNo';
                     if (status == 'gopNumOk') {
                         dialogPaypass.show();
                         //支付浮层消失的回调
-                        dialogPaypass.vm.callback = function (value) {
+                        dialogPaypass.vm.callback = function(value) {
                             // 支付密码校验成功
                             api.pay({
                                 gopToken: gopToken, // token
@@ -87,7 +87,7 @@ require([
                                 bill99ValidCode: '803585',
                                 bill99token: '1330872',
                                 voucherId: vm.voucherId
-                            }, function (data) {
+                            }, function(data) {
                                 if (data.status == 200) {
                                     router.to('/bill');
                                     console.log(vm);
@@ -95,9 +95,9 @@ require([
                                         // forceStatus: 'PROCESSING',
                                         ifFinishButton: true,
                                         waitForPayMoney: '', // 取消等待支付
-                                        orderMoney: vm.gopMoney, // 加入订单金额
+                                        //orderMoney: vm.gopMoney, // 加入订单金额
                                         //ifTip: true,
-//									tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
+                                        //tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
                                     });
                                 } else {
                                     $.alert(data.msg);
@@ -107,18 +107,18 @@ require([
                     } else {
                         dialogConfirm.set('您的果仁不足是否购买？');
                         dialogConfirm.show();
-                        dialogConfirm.onConfirm = function () {
+                        dialogConfirm.onConfirm = function() {
                             window.location.href = 'purchase.html?from=' + url.basename + '&id=' + get.data.id;
                         };
                     }
                 });
             },
-            couponClick: function () {
+            couponClick: function() {
                 router.go('/coupon-list');
             }
         });
         //列表点击事件
-        CouponJSON.couponListView.VM.onClickFn = function (ev) {
+        CouponJSON.couponListView.VM.onClickFn = function(ev) {
             var target = $(ev.target).closest('.coupon-list-li');
             if (target.length) {
                 var json = target.get(0).dataset;
@@ -159,7 +159,7 @@ require([
         // 进入页面
         if (get.data.id) { // 有订单ID, 跳转订单详情
             billView.set('PAY', get.data.id, {
-                onRequest: function (data) {
+                onRequest: function(data) {
                     if (data.status == 200) {
                         var order = data.data.consumeOrder; // 订单信息
                         var product = data.data.product; // 产品信息
@@ -168,7 +168,7 @@ require([
                         if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
                             // 打开页面
                             router.to('/');
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 main.addClass('on');
                             }, 100);
                             // 刷新数据
@@ -180,7 +180,7 @@ require([
                             vm.orderCode = order.orderCode;
                             vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
                             vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
-                            vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount);
+                            vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
                             vm.voucherId = availableVoucher ? availableVoucher.id : '';
                             vm.gopExchange();
                             // 银行卡相关
@@ -206,7 +206,7 @@ require([
                              };
                              }
                              */
-                            price.onChange = price.onFirstChange = function (next) {
+                            price.onChange = price.onFirstChange = function(next) {
                                 vm.gopPrice = next;
                                 vm.gopExchange();
                             };
@@ -224,11 +224,11 @@ require([
         }
 
         document.title = {
-                phonecharge: '订单-手机充值', // 来自手机充值
-                loverelay: '订单-爱心接力', // 来自爱心接力
-            }[get.data.from] || '果仁宝-订单'; // 未知来源
+            phonecharge: '订单-手机充值', // 来自手机充值
+            loverelay: '订单-爱心接力', // 来自爱心接力
+        }[get.data.from] || '果仁宝-订单'; // 未知来源
 
-        billView.onFinish = function () { // 返回首页点击时露底问题
+        billView.onFinish = function() { // 返回首页点击时露底问题
             main.hide();
         };
 

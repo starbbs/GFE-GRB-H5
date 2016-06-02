@@ -273,7 +273,6 @@ require([
 
                 if (result.length > 0 && result[result.length - 1].month2 === time.month2) { // 不是本月的
                     result[result.length - 1].days.push(day);
-                    console.log(111);
                 } else { // 本个月份
                     result.push({
                         month: nowMonth === time.month ? '本月' : (time.month2 + '月'),
