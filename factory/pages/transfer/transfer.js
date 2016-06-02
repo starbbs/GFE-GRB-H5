@@ -383,7 +383,7 @@ require([
 		},
 	});
 	*/
-
+	var isOutLength = true;
 	var transferTarget = avalon.define({ // 转帐输入金额的部分
 		$id: 'transfer-target',
 		address: '',
@@ -411,11 +411,8 @@ require([
 		},
 		transferDesInputBlur: function() {
 			//$('.view').css('top','0px');
-		},
-		transferDesInputOnInput: function() {
 			var val = $(this).val();
-			$(this).val(cutString(val));
-			transferTarget.content = cutString(val);
+			isOutLength = cutString(val);
 		},
 		checkCnyMoney: function() { //输入 时候判断 果仁数量
 			//只允许输入 数字字符
@@ -447,7 +444,10 @@ require([
 			if (transferTarget.notchecked) {
 				return;
 			}
-
+			
+			if(isOutLength){
+				return;
+			}
 			if (parseFloat(filters.floorFix(parseFloat($('#address-mine-input-1')[0].value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
 
 				dialogConfirm.set('您的果仁不足是否购买？');
@@ -542,9 +542,10 @@ require([
 		var len = s.length;
 		var codeLen = mbStringLength(s);
 		if (codeLen > 40) {
-			return cutString(s.substring(0, len - 1));
+			$.alert("转账说明不能多于10个字");
+			return true;
 		} else {
-			return s;
+			return false;
 		}
 	}
 	var dataHandler = function(data) {
