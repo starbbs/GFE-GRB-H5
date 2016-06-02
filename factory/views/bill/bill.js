@@ -124,6 +124,10 @@ define('h5-view-bill', [
 		}
 	};
 
+	var goHome = function() {
+		window.location.href = './home.html';
+	};
+
 	//===话费
 	var phoneJSON = {
 		id: '', // 账单ID
@@ -314,6 +318,7 @@ define('h5-view-bill', [
 		poundage: 0, // 转果仁--手续费
 		transferDesc: '', // 转果仁--转账说明
 
+		ifReturnHome: false, //返回首页
 		failReason: '', // 失败原因
 		submitTime: '', // 提交时间
 		// orderCode: '', // 订单号
@@ -322,6 +327,9 @@ define('h5-view-bill', [
 
 	var billTransferVM = avalon.define($.extend({ // 转帐的VM 
 		$id: 'billTransfer',
+		returnHome: function(){
+			window.location.href = './home.html';
+		},
 	}, transferJSON));
 
 	var transferOutHandler = function(type, id, options) { // 转出帐单  step 1

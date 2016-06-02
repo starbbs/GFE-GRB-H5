@@ -3,9 +3,9 @@
 require([
     'h5-login-judge', 'h5-api', 'check', 'get', 'filters', 'h5-touchsliderBanner', 'h5-order-judge',
     'h5-weixin'
-], function (loginJudge, api, check, get, filters, touchsliderBanner, orderJudge) {
+], function(loginJudge, api, check, get, filters, touchsliderBanner, orderJudge) {
     //进入页面之前先进行检查,如果还未登录则进入授权页面,成功后继续加载页面
-    loginJudge.check(function () {
+    loginJudge.check(function() {
         var gopToken = $.cookie('gopToken');
         var main = $('.phonecharge');
         var phoneInput = $('#phonecharge-text-input');
@@ -28,7 +28,7 @@ require([
         //获取以往手机号
         api.phoneLastest({
             gopToken: gopToken
-        }, function (data) {
+        }, function(data) {
             if (data.status == 200) {
                 vm.list = data.data.phoneList;
             } else {
@@ -38,7 +38,7 @@ require([
         //果仁现价
         api.price({
             gopToken: gopToken
-        }, function (data) {
+        }, function(data) {
             if (data.status == '200') {
                 gopPrice.push(data.data.price);
             }
@@ -47,11 +47,11 @@ require([
         //获取流量列表  联通 移动 电信
         var phoneJson = {
             i: 0,
-            init: function () {
+            init: function() {
                 this.getFlowsList();
                 this.getCardsList();
             },
-            todo: function () {
+            todo: function() {
                 this.i++;
                 if (this.i === 2) {
                     this.getUserPhoneCarrier();
@@ -60,13 +60,13 @@ require([
                 }
             },
             //获取流量
-            getFlowsList: function () {
+            getFlowsList: function() {
                 api.productList({
                     productType: "SHOUJILIULIANG"
-                }, function (data) {
+                }, function(data) {
                     if (data.status == 200) {
                         // console.log('获取流量列表');
-                        data.data.productList.forEach(function (item) {
+                        data.data.productList.forEach(function(item) {
                             var desc = JSON.parse(item.extraContent);
                             jsonflows[desc.carrier].push({
                                 id: item.id, // 商品id
@@ -83,13 +83,13 @@ require([
                 });
             },
             //获取话费
-            getCardsList: function () {
+            getCardsList: function() {
                 api.productList({
                     productType: "SHOUJICHONGZHIKA"
-                }, function (data) {
+                }, function(data) {
                     if (data.status == 200) {
                         // console.log('获取话费列表');
-                        data.data.productList.forEach(function (item) {
+                        data.data.productList.forEach(function(item) {
                             var desc = JSON.parse(item.extraContent);
                             jsoncards[desc.carrier].push({
                                 id: item.id, // 商品id
@@ -105,48 +105,41 @@ require([
                     }
                 });
             },
-            getUserPhone: function (cnfn) { //获取用户 明文 手机号码
+            getUserPhone: function(cnfn) { //获取用户 明文 手机号码
                 api.info({
                     gopToken: gopToken
-                }, function (data) {
+                }, function(data) {
                     if (data.status == 200) {
                         cnfn && cnfn(data);
                     }
                 });
             },
-            getUserCarrier: function (cnfn) { //获取用户手机运营商
+            getUserCarrier: function(cnfn) { //获取用户手机运营商
                 api.phoneInfo({
                     phone: vm.phone
-                }, function (data) {
+                }, function(data) {
                     if (data.status == 200) {
                         cnfn && cnfn(data);
                     }
                 });
             },
-            getUserPhoneCarrier: function () {
-                phoneJson.getUserPhone(function (data) { //获取用户手机号
+            getUserPhoneCarrier: function() {
+                phoneJson.getUserPhone(function(data) { //获取用户手机号
                     if (data.status == 200) {
                         vm.phone = curPhone = data.data.phone;
-                        phoneJson.getUserCarrier(function (data) { // 获取手机运营商
+                        phoneJson.getUserCarrier(function(data) { // 获取手机运营商
                             if (data.status == 200) {
                                 vm.carrier = data.data.carrier;
                                 setFlowsWorld(data.data.carrier);
-//							alert(jsoncards[data.data.carrier.substr(-2)]);
-//							alert(jsonflows[data.data.carrier.substr(-2)]);
-//							console.log("*"+jsoncards[data.data.carrier.substr(-2)]);
-//							console.log("*"+jsonflows[data.data.carrier.substr(-2)]);
                                 vm.goods = jsoncards[data.data.carrier.substr(-2)];
                                 vm.flows = jsonflows[data.data.carrier.substr(-2)];
-//							console.log("**"+vm.goods);
-//							console.log("**"+vm.goods);
                                 if (data.data.carrier.indexOf(datajson.carrier) != -1) { //是优惠的运营商
                                     // 选中话费
                                     if (datajson.cangory === '话费') {
-                                        jsoncards[data.data.carrier.substr(-2)].every(function (item, index) {
+                                        jsoncards[data.data.carrier.substr(-2)].every(function(item, index) {
                                             if (!datajson.price) {
                                                 return false;
-                                            }
-                                            ;
+                                            };
                                             if (item.price != datajson.price) {
                                                 return true;
                                             } else {
@@ -159,11 +152,10 @@ require([
                                             }
                                         });
                                     } else {
-                                        jsonflows[data.data.carrier.substr(-2)].every(function (item, index) {
+                                        jsonflows[data.data.carrier.substr(-2)].every(function(item, index) {
                                             if (!datajson.level) {
                                                 return false;
-                                            }
-                                            ;
+                                            };
                                             if (item.level != datajson.level) {
                                                 return true;
                                             } else {
@@ -185,7 +177,7 @@ require([
                         getUserPhoneCarrier();
                     }
                 });
-            }
+            },
         };
 
         phoneJson.init();
@@ -206,7 +198,7 @@ require([
             flowsworld: '', //流量充值描述文字
             goodsFlag: true,
             closeBool: true,
-            input: function () { // 手机号输入
+            input: function() { // 手机号输入
                 // clearTimeout(focusTimer);
                 if (!vm.cancelBool) {
                     vm.closeBool = true;
@@ -214,11 +206,11 @@ require([
                     vm.closeBool = false;
                 }
                 clearTimeout(checkTimer);
-                checkTimer = setTimeout(function () {
+                checkTimer = setTimeout(function() {
                     if (check.phone(vm.phone).result) {
                         api.phoneInfo({
                             phone: vm.phone
-                        }, function (data) {
+                        }, function(data) {
                             if (data.status == 200) {
                                 phoneInput[0].blur();
                                 curPhone = vm.phone;
@@ -251,7 +243,7 @@ require([
                 }, 500);
             },
             focusing: false, // 焦点在输入框
-            focus: function () { // 获取焦点
+            focus: function() { // 获取焦点
                 vm.cancelBool = true;
                 vm.focusing = true;
                 vm.closeBool = true;
@@ -282,8 +274,8 @@ require([
              vm.focusing = false;
              }, 300);
              },*/
-            close: function () { // 输入框清除
-                setTimeout(function () {
+            close: function() { // 输入框清除
+                setTimeout(function() {
                     vm.phone = '';
                     vm.goodsFlag = false;
                     vm.focusing = true;
@@ -293,7 +285,7 @@ require([
                     phoneInput.val('').get(0).focus();
                 }, 300);
             },
-            cancel: function () {
+            cancel: function() {
                 vm.cancelBool = false;
                 vm.focusing = false;
                 vm.closeBool = true;
@@ -301,24 +293,20 @@ require([
                 $(".phonecharge-listb-item").removeClass('cur');
                 phoneInput.blur();
                 vm.input();
-                // setTimeout(function() {
-                // 	console.log(curPhone)
-                // 	vm.phone = curPhone;
-                // }, 300);
             },
             list: [], // 历史充值号码列表
-            listClick: function (e) { // 选择历史号码
+            listClick: function(e) { // 选择历史号码
                 e.preventDefault();
                 e.stopPropagation();
                 vm.phone = this.innerHTML.replace(/ /g, '');
                 vm.input();
                 vm.focusing = false;
             },
-            listDelete: function (item, remove) { // 历史号码删除
+            listDelete: function(item, remove) { // 历史号码删除
                 api.phoneDelete({
                     gopToken: gopToken,
                     phoneSet: [item]
-                }, function (data) {
+                }, function(data) {
                     if (data.status == 200) {
                         remove();
                     } else {
@@ -326,13 +314,13 @@ require([
                     }
                 });
             },
-            listClean: function (e) { // 历史号码清空
+            listClean: function(e) { // 历史号码清空
                 e.preventDefault();
                 e.stopPropagation();
                 api.phoneDelete({
                     gopToken: gopToken,
                     phoneSet: vm.list.$model
-                }, function (data) {
+                }, function(data) {
                     if (data.status == 200) {
                         vm.list.clear();
                         vm.phone = '';
@@ -346,7 +334,7 @@ require([
                 });
             },
             goods: [], // 话费列表
-            goodsClick: function (ev) { // 支付点击
+            goodsClick: function(ev) { // 支付点击
                 var item = $(ev.target).closest('.phonecharge-lista-item');
                 if (item.length && vm.goodsFlag) {
                     item.addClass('cur').siblings().removeClass('cur');
@@ -358,7 +346,7 @@ require([
                 }
             },
             flows: [], // 流量列表
-            flowsClick: function (ev) {
+            flowsClick: function(ev) {
                 var item = $(ev.target).closest('.phonecharge-listb-item');
                 if (item.length && vm.goodsFlag) {
                     item.addClass('cur').siblings().removeClass('cur');
@@ -369,25 +357,19 @@ require([
                 }
             },
             button: '支付', // 按钮显示
-            buttonClick: function () {
+            buttonClick: function() {
                 // 按钮点击
                 if ($(this).hasClass('disabled')) {
                     return;
                 }
                 if (vm.confirmCangory === '话费') {
-                    //话费充值API
-                    //orderJudge.check(curGOPNum , cbfn(状态，果仁价格，我的果仁));   定单检测(所用果仁数，回调函数)
-//				orderJudge.check(confirmData[0].use / gopPrice[0], function(status, gopPrice, myGopNum) {
-//					if (status == orderJudge.no) {
-//						$.alert(orderJudge.tip);
-//					} else {
                     api.phoneRecharge({
                         gopToken: gopToken,
                         productId: vm.confirmId,
                         phone: vm.phone
-                    }, function (data) {
+                    }, function(data) {
                         if (data.status == 200) {
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 window.location.href = get.add('order.html', {
                                     // 跳到公共订单页 build/order.html?from=phonecharge&id=1525
                                     from: 'phonecharge',
@@ -398,21 +380,14 @@ require([
                             $.alert(data.msg);
                         }
                     });
-//					}
-//				});
                 } else {
-                    //流量充值API
-//				orderJudge.check(confirmData[1].use / gopPrice[0], function(status, gopPrice, myGopNum) {
-//					if (status == orderJudge.no) {
-//						$.alert(orderJudge.tip);
-//					} else {
                     api.phoneTraffic({
                         gopToken: gopToken,
                         productId: vm.confirmId,
                         phone: vm.phone
-                    }, function (data) {
+                    }, function(data) {
                         if (data.status == 200) {
-                            setTimeout(function () {
+                            setTimeout(function() {
                                 window.location.href = get.add('order.html', {
                                     // 跳到公共订单页 build/order.html?from=phonecharge&id=1525
                                     from: 'phonecharge',
@@ -423,8 +398,6 @@ require([
                             $.alert(data.msg);
                         }
                     });
-//					}
-//				})
                 }
             }
         });
@@ -433,7 +406,7 @@ require([
         var datajson = {};
         //是否从优惠入口进来  显示流量或话费选项卡
         if (href.indexOf('from=home') > -1) {
-            href.substring(href.indexOf('from=home')).split('&').forEach(function (item) {
+            href.substring(href.indexOf('from=home')).split('&').forEach(function(item) {
                 var itemarr = item.split('=');
                 datajson[itemarr[0]] = itemarr[1];
             });
@@ -444,7 +417,7 @@ require([
             }
         }
         //设置 流量的描述
-        var setFlowsWorld = function (carrier) {
+        var setFlowsWorld = function(carrier) {
             if (carrier.indexOf('联通') > 0) {
                 vm.flowsworld = '';
                 // vm.flowsworld = '同面值每月限充5次，不同面值产品可叠加1次';
@@ -454,27 +427,23 @@ require([
                 vm.flowsworld = '';
             }
         };
-
-        // getUserPhoneCarrier();
-
-
-        var slideEvent = function () {
+        var slideEvent = function() {
             vm.button = '支付';
             for (var i = 0; i < 2; i++) {
                 if (titles.eq(i).hasClass('on') && confirmData[i]) {
-                    vm.button = '支付：' + filters.floorFix(confirmData[i].use) + '元';
+                    vm.button = '支付：' + filters.fix(confirmData[i].use) + '元';
                     vm.confirmId = confirmData[i].id;
                     vm.confirmCangory = (i === 0 ? '话费' : '流量');
                 }
             }
-        }
+        };
         //左右滑动判断状态
         var titles = $('.phonecharge-body-title-layer');
 
-        $('#touchSlide')[0].onclick = function () {
+        $('#touchSlide')[0].onclick = function() {
             slideEvent();
         };
-        $('#touchSlide')[0].ontouchend = function () {
+        $('#touchSlide')[0].ontouchend = function() {
             slideEvent();
         };
 
@@ -487,9 +456,9 @@ require([
             effect: 'left',
         });
         // 轮播图
-        api.static(function (data) {
+        api.static(function(data) {
             if (data.status == 200) {
-                data.data.consumeSlideAds.filter(function (val, index, arr) {
+                data.data.consumeSlideAds.filter(function(val, index, arr) {
                     if (val.sources.indexOf('h5') != -1) {
                         vm.bannerImgArr.push(val);
                     }
@@ -500,7 +469,7 @@ require([
             }
         });
         //点击空白地方input失去焦点
-        $(document)[0].ontouchend = function (e) {
+        $(document)[0].ontouchend = function(e) {
             e = window.event || e;
             obj = e.srcElement ? e.srcElement : e.target;
             var className = obj.className;
@@ -510,17 +479,16 @@ require([
                     $("#phonecharge-text-input").val(curPhone);
                     vm.phone = curPhone;
                 }
-//			vm.input();
                 vm.cancelBool = false;
                 vm.closeBool = true;
                 clearTimeout(focusTimer);
-                focusTimer = setTimeout(function () {
+                focusTimer = setTimeout(function() {
                     vm.focusing = false;
                 }, 300);
             }
         };
 
-        setTimeout(function () {
+        setTimeout(function() {
             main.addClass('on');
         }, 100);
 
