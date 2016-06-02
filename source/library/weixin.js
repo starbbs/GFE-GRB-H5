@@ -25,7 +25,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 		signature: null,
 		// 分享
 		title: '果仁宝',
-		desc: '果仁宝，一站式理财消费新平台',
+		desc: '果仁宝，具有理财属性的一站式消费新平台',
 		link: window.location.protocol + '//' + base + '/index.html',
 		imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
 		type: '',
@@ -56,6 +56,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 			if (arguments.length === 0 || type === 'all' || type === 'timeline') { // 分享到朋友圈
 				wx.onMenuShareTimeline($.extend({
 					title: weixin.title, // 分享标题
+					desc: weixin.desc, // 分享描述
 					link: weixin.link, // 分享链接
 					imgUrl: weixin.imgUrl, // 分享图标
 					success: function(){
