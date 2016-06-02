@@ -1,147 +1,76 @@
 ﻿@charset "utf-8";
 @import '../../../source/scss/main';
-.coupon-detail{
-  @extend .view-style;
-  background: #f2f2f2;
-  width:100%;
-
-  .header-top{
-    width: 90%;
-    margin: 0px auto;
-    padding:10px 0px 20px;
-    position: relative;
-    border-bottom: 1px solid #cccccc;
-    h2{
-      font-size: 22px;
-      line-height: 40px;
-      color: #343434;
-    }
-    p{
-      line-height: 18px;
-      font-size: 12px;
-      color: #b2b2b2
-    }
-    img{
-      height: 60px;
-      position: absolute;
-      top:15px;
-      right:10px;
-    }
-  }
-  .details{
-    width: 90%;
-    margin: 10px auto ;
-    h3{
-      font-size: 14px;
-      line-height: 50px;
-      color: #676767;
-    }
-    article{
-      p{
-        line-height: 22px;
-        font-size: 12px;
-        color: #b2b2b2;
-        text-indent:18px;
-      }
-    }
-  }
-}
-
-.coupon-list{
-    @extend .view-style;
-    $img: $g-views + '/coupon/images';
-    $image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
-    &-none{
-        text-align: center;
-        position: relative;
-        &-img{
-            @include atl(50px,50%);
-            transform:translateX(-50%);
-        }
-        &-word{
-            font-size: 14px;
-            color: #b3b3b3;
-             @include atl(270px,50%);
-            transform:translateX(-50%);          
+.activity{
+    $image: $g-img;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: url($image+'/activity-bg.jpg') center center no-repeat;
+    &-top-nanner{
+        img{
+            width: 100%;
+            margin-top: 20px;
         }
     }
-    ul{
-        width: 95%;
+    &-login{
+        width: 85%;
         margin: 0 auto;
-    }
-    &-li{
-        width: 100%;
-        height: 100px;
-        margin-top: 30px;
-
-        div{
-            float: left;
-        }
-
-        &-left{
-            width: 27%;
-            font-size: 44px;
-            line-height: 100px;
-            color: $g-white;
-            background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;
-            border-bottom-left-radius: 5px;
-            text-align: center;
-            position: relative;
-            icon{
-                font-family: helvetica;
-                font-size: 16px;
-                position: absolute;
-                left: 10%;
-                top: 25px;
-            }
-        }
-        &-middle{
-            float: left;
-            width: 3.5%;
-            height: 100px;
-            margin-left: -1px;
-        }
-        &-right{
-            width: 68.5%;
-            height: 100%;
-            background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;
-            border-bottom-right-radius: 5px;
-            margin-left: -1px;
-            position: relative;
-            &-title{
-                display: block;
-                font-size: 19px;
-                color: $g-white;
-                margin-left: 5%;
-                margin-top: 5%;
-            }
-            &-time{
-                font-size: 12px;
-                color: $g-white;
-                margin-left: 5%;
-                margin-top: 2%;
-                background: url($image+'/coupon-timeline.png') center bottom no-repeat;
-                background-size: contain;
-                padding-bottom: 5px;
-            }
-            img{
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                width: 42px;
+        border: 1px solid #fff;
+        border-radius: 32px;
+        margin-top: -30px;
+        background: rgba(255,255,255,0.1);
+        &-main{
+            padding: 27px;
+            &-item{
+                position: relative;
+                margin-bottom: 15px;
+                .text-input{
+                    width: 100%;
+                    height: 45px;
+                    line-height: 45px;
+                    border-radius: 23px;
+                    border: none;
+                    outline: none;
+                    background: #fff;
+                    padding-left: 20px;
+                }
+                button{
+                    background: #ffb40d!important;
+                    color: #fff;
+                    font-size: 24px;
+                    text-align: center;
+                    padding-left: 0px!important;
+                    margin-top: 27px;
+                }
+                &-btn{
+                    display: block;
+                    background: #cfcfcf;
+                    color: #fff;
+                    width: 111px;
+                    height: 45px;
+                    line-height: 45px;
+                    text-align: center;
+                    border-radius: 23px;
+                    font-size: 15px;
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                }
             }
         }
     }
-    .disabled{
-        .coupon-list-li-left{
-            background: url($image+'/coupon-bg-icon-grey.png') #dfdfdf center top repeat-x;
-        }
-        .coupon-list-li-right{
-            background: url($image+'/coupon-bg-icon-grey.png') #dfdfdf center top repeat-x;
-            img{
-                top: 0px;
-                right: 0px;
-            }
+    &-get-desc{
+        width: 85%;
+        margin: 0 auto;
+        color: #fff;
+        margin-top: 35px;
+        margin-bottom: 70px;
+        font-size: 11px;
+    }
+    &-bottom-info{
+        img{
+            width: 100%;
+            margin-bottom: 10px;
         }
     }
 }

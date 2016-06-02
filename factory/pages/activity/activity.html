@@ -1,43 +1,29 @@
+@@include('../../../source/include/top.html', {"name": "activity"})
 <div class="activity" ms-controller="activityController">
-    <div class="activity-top-nanner"></div>
-    <div class="activity-login">
-        <div class="activity-login-scroll">
-            <div class="activity-login-main">
-                <div class="block-item">
-                    <input
-                            id="activity-login-mobile"
-                            name="activity-login-mobile"
-                            class="text-input"
-                            type="tel"
-                            autocomplete="off"
-                            placeholder="请输入手机号"
-                            maxlength="11"
-                            data-text="close"
-                            ms-duplex="mobile"
-                    >
-                </div>
-                <div class="block-item">
-                    <input
-                            id="activity-login-code"
-                            name="activity-login-code"
-                            class="text-input"
-                            type="tel"
-                            autocomplete="off"
-                            placeholder=""
-                            maxlength="6"
-                            data-text="close"
-                            ms-duplex="code"
-                    >
-                    <div class="text-close" ms-click="getCode()">获取验证码</div>
-                </div>
-            </div>
-            <div class="text-button"><span class="button" data-button="loading(验证中...)"
-                                           ms-on-touchstart="getCoupons">立即领取</span>
-            </div>
-        </div>
-    </div>
-    <div class="activity-bottom-info">
-        这是底部信息
-
-    </div>
+	<div class="activity-top-nanner">
+		<img src="./images/activity-banner.png" />
+	</div>
+	<div class="activity-login">
+		<div class="activity-login-scroll">
+			<div class="activity-login-main">
+				<div class="activity-login-main-item">
+					<input id="activity-login-mobile" name="activity-login-mobile" class="text-input" type="tel" autocomplete="off" placeholder="请输入手机号" maxlength="11" data-text="close" ms-duplex="mobile">
+				</div>
+				<div class="activity-login-main-item">
+					<input id="activity-login-code" name="activity-login-code" class="text-input" type="tel" autocomplete="off" placeholder="验证码" maxlength="6" data-text="close" ms-duplex="code">
+					<span class="activity-login-main-item-btn">获取验证码</span>
+				</div>
+				<div class="activity-login-main-item">
+					<button class="text-input" data-button="loading(验证中...)" ms-on-touchstart="getCoupons">领取</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="activity-get-desc">
+		*120元话费抵扣券限于6月6日-6月30日期间领取(数量有限)，每月限用一张抵扣券，可在果仁宝平台充话费与流量。
+	</div>
+	<div class="activity-bottom-info">
+		<img src="./images/activity-footer.png" />
+	</div>
 </div>
+@@include('../../../source/include/bottom.html', {"name": "activity"})
