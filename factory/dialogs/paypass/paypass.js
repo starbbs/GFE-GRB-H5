@@ -12,7 +12,6 @@ define('h5-dialog-paypass', [
 	authenticationVM, paypassViewVM
 ) {
 
-	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	// new View('paypass-view-1');
 	new View('paypass-view-2set');
@@ -122,8 +121,24 @@ define('h5-dialog-paypass', [
 		}, 100);
 	};
 
+	var winHrefFn = function(pageName) {
+		switch (pageName) {
+			case 'order':
+				return 'paypass.html?from=order' + url.search.replace(/(\?from=phonecharge)|(\?from=bill)/, '');
+				break;
+			case 'transfer':
+				return 'paypass.html?from=transfer' + '&cangory=' + vm.cangory + '&hash=' + window.location.hash.replace(/\#\!/, '');
+				//match(/\#\!\/\w+\-\w+/ig)[0];
+				break;
+			default:
+				return 'paypass.html?from=mine';
+				break;
+		}
+
+	};
 	var vm = paypass.vm = avalon.define({
 		$id: 'dialog-paypass',
+		cangory: '', //专为转帐设置
 		close: function() {
 			paypass.hide();
 		},
@@ -134,8 +149,7 @@ define('h5-dialog-paypass', [
 			}, 500);
 		},
 		forgetPaypass: function() { //点击忘记密码
-			window.location.href = 'paypass.html' + (url.basename.match(/order/ig) ? '?from=' + url.basename + url.search.replace(/(\?from=phonecharge)|(\?from=bill)/, '') : '?from=' + url.basename);
-
+			window.location.href = winHrefFn(url.basename);
 		},
 		input: function() { // 输入时
 			var value = this.value;

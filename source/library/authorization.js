@@ -23,7 +23,14 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 			// alert('进入授权页面');
 			// setTimeout(function() {
 			// }.bind(this), 100);
-			window.location.href = this.set(this.main, url.basename);
+			var stateObj = { foo: "bar" };
+			for(var i=0;i<10;i++){
+				history.pushState(stateObj, "page "+i, "./home.html");
+			}
+			setTimeout(function(){
+				window.location.href = this.set(this.main, url.basename);
+			}.bind(this),100);
+
 			
 		},
 		get: function() { // 获取回跳后要跳转的链接

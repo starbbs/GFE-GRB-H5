@@ -15,6 +15,11 @@ require([
 		dialogAlert.show();
 	};
 
+	$(document).click(function() {
+		//window.location.href = './transfer.html?cangory=' + get.data.cangory + '&hash=' + get.data.hash;		
+		window.location.href = './transfer.html?cangory=' + get.data.cangory + '#!' + get.data.hash;
+	})
+
 	var gopToken = $.cookie('gopToken');
 	var paypass = $('.paypass-page');
 	var cardInput = $("#paypass-authentication-card");
@@ -23,7 +28,7 @@ require([
 		// return;
 		switch (get.data.from) {
 			case 'transfer':
-				window.location.href = './transfer.html';
+				window.location.href = './transfer.html#!' + get.data.hash;
 				break;
 			case 'order':
 				window.location.href = './order.html' + url.search;
@@ -84,12 +89,12 @@ require([
 	//	objView.on('show', function() {
 	//		paypassViewShowFn(index);
 	//	}.bind(objView));
-//
+	//
 	//	//objView.on('hide', function() {
 	//	//	paypassViewHideFn(index);
 	//	//}.bind(objView));
 	//});
-//
+	//
 
 	var vm = avalon.define({
 		$id: 'paypass',
