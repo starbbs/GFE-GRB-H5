@@ -410,16 +410,9 @@ require([
 		transferDesInputFocus: function() {
 			//$('.view').css('top','-100px');
 		},
-		transferDesInputBlur: function() {
-			//$('.view').css('top','0px');
-			var val = $(this).val();
-			isOutLength = cutString(val);
-		},
 		checkCnyMoney: function() { //输入 时候判断 果仁数量
 			//只允许输入 数字字符
 			$(this).val($(this).val().replace(/[^\d.]/g, ""));
-		},
-		getCnyMoney: function() { //失焦 时候判断 果仁数量
 			if (!this.value) {
 				return;
 			}
@@ -445,7 +438,8 @@ require([
 			if (transferTarget.notchecked) {
 				return;
 			}
-			
+			var val = transferTarget.content;
+			isOutLength = cutString(val);
 			if(isOutLength){
 				return;
 			}
