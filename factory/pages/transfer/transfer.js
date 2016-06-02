@@ -36,6 +36,7 @@ require([
 	};
 
 
+
 	// 转帐首页面
 	var vm = avalon.define({
 		$id: 'transfer',
