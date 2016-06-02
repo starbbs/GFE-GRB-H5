@@ -16,8 +16,7 @@ require([
 	};
 
 	$(document).click(function() {
-		//window.location.href = './transfer.html?cangory=' + get.data.cangory + '&hash=' + get.data.hash;		
-		window.location.href = './transfer.html?cangory=' + get.data.cangory + '#!' + get.data.hash;
+		window.location.href = './transfer.html?cangory=' + get.data.cangory;
 	})
 
 	var gopToken = $.cookie('gopToken');

@@ -138,7 +138,6 @@ define('h5-dialog-paypass', [
 	};
 	var vm = paypass.vm = avalon.define({
 		$id: 'dialog-paypass',
-		cangory: '', //专为转帐设置
 		close: function() {
 			paypass.hide();
 		},

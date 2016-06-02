@@ -106,7 +106,7 @@ require([
 							nowData.serviceFee = '0.01';
 							$.extend(transferTarget, nowData);
 							//targetInit(vm.transferOutType);
-							dialogPaypass.vm.cangory = vm.transferOutType;						
+							dialogPaypass.vm.cangory = vm.transferOutType;
 							targetInit('new_walletaddress_nextstep');
 							router.go('/transfer-target');
 						} else {
@@ -628,10 +628,10 @@ require([
 			} else {
 				console.log(data);
 			}
-		})		
+		})
 		refresh_list();
 	};
-	var getCangory = function(){
+	var getCangory = function() {
 		console.log(get.data.cangory);
 		if (get.data.cangory) {
 			switch (get.data.cangory) {
@@ -642,11 +642,14 @@ require([
 					targetInit('GOP_MARKET');
 					break;
 			}
-		}else{
+			router.go('/transfer-target');
+		} else {
 			router.go('/');
 			console.log('转帐选项页');
-		}		
-	};	
+		}
+		dialogPaypass.vm.cangory = vm.transferOutType;
+
+	};
 	var refresh_list = function() {
 		api.transferRecent({
 			gopToken: gopToken
@@ -676,9 +679,6 @@ require([
 
 	init();
 
-	getCangory();
-
-
 	setTimeout(function() {
 		if (get.data.from === 'contacts') { // 来自联系人, 后期分离出公用页面
 			api.contactInfo({
@@ -705,5 +705,6 @@ require([
 		} else {
 			transfer.addClass('on');
 		}
+		getCangory();
 	}, 100);
 });
