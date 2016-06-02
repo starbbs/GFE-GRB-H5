@@ -2,6 +2,11 @@
 @import '../../../source/scss/main';
 .activity{
     $image: $g-img;
+    $img: $g-pages + '/activity/images';
+    $grey:#cfcfcf;
+    $dark-grey:#b8b8b8;
+    $orange:#ffb40d;
+    $dark-orange:#d2940b;
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -35,16 +40,17 @@
                     padding-left: 20px;
                 }
                 button{
-                    background: #ffb40d!important;
+                    background: $orange!important;
                     color: #fff;
                     font-size: 24px;
                     text-align: center;
                     padding-left: 0px!important;
                     margin-top: 27px;
+                    box-shadow: 0 5px 0px $dark-orange;
                 }
                 &-btn{
                     display: block;
-                    background: #cfcfcf;
+                    background: $grey;
                     color: #fff;
                     width: 111px;
                     height: 45px;
@@ -52,9 +58,23 @@
                     text-align: center;
                     border-radius: 23px;
                     font-size: 15px;
+                    box-shadow: 0 5px 0px $dark-grey;
                     position: absolute;
                     right: 0px;
-                    top: 0px;
+                    top: -4px;
+                }
+                &-dot{
+                    position: absolute;
+                }
+                .top{
+                    top: 5px;
+                    left: 5px;
+                   @include sprite($img + '/top-dot.png', 40px, 24px);
+                }
+                .bottom{
+                    right: 5px;
+                    bottom: 5px;
+                    @include sprite($img + '/bottom-dot.png', 42px, 20px);; 
                 }
             }
         }
