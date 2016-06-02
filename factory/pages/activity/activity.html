@@ -1,0 +1,43 @@
+<div class="activity" ms-controller="activityController">
+    <div class="activity-top-nanner"></div>
+    <div class="activity-login">
+        <div class="activity-login-scroll">
+            <div class="activity-login-main">
+                <div class="block-item">
+                    <input
+                            id="activity-login-mobile"
+                            name="activity-login-mobile"
+                            class="text-input"
+                            type="tel"
+                            autocomplete="off"
+                            placeholder="请输入手机号"
+                            maxlength="11"
+                            data-text="close"
+                            ms-duplex="mobile"
+                    >
+                </div>
+                <div class="block-item">
+                    <input
+                            id="activity-login-code"
+                            name="activity-login-code"
+                            class="text-input"
+                            type="tel"
+                            autocomplete="off"
+                            placeholder=""
+                            maxlength="6"
+                            data-text="close"
+                            ms-duplex="code"
+                    >
+                    <div class="text-close" ms-click="getCode()">获取验证码</div>
+                </div>
+            </div>
+            <div class="text-button"><span class="button" data-button="loading(验证中...)"
+                                           ms-on-touchstart="getCoupons">立即领取</span>
+            </div>
+        </div>
+    </div>
+    <div class="activity-bottom-info">
+        这是底部信息
+
+    </div>
+</div>
