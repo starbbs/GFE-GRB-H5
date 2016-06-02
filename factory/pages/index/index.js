@@ -105,6 +105,10 @@ require([
 	};
 	var gotoLogin = function() { // 跳转login分页
 		setTimeout(function() {
+			var stateObj = { foo: "bar" };
+			for(var i=0;i<10;i++){
+				history.pushState(stateObj, "homepage"+i, "./home.html");
+			}
 			router.to('/index-login');
 			document.title = '绑定手机号';
 		}, 100);
@@ -121,7 +125,6 @@ require([
 			api.wxlogin({
 				code: wxCode
 			}, function(data) {
-				console.log(data);
 				if (data.status == 200) { // code有效
 					// alert('code有效，返回TOKEN设置COOKIE，然后GOHOME 判断STATE 进入相关页面');
 					if (data.data.gopToken) { // 已绑定
