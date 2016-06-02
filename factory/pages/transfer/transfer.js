@@ -496,7 +496,6 @@ require([
 							if (transferTarget.phone) {
 								nowData.phone = transferTarget.phone;
 							};
-							alert();
 							billView.set('TRANSFER_OUT', data.data.transferOutId, {
 								ifReturnHome: true
 							});
