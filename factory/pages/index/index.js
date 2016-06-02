@@ -8,7 +8,6 @@ require([
 ], function(
 	router, api, check, get, authorization, View, weixin, H5Button, loginJudge
 ) {
-	
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id
@@ -122,6 +121,7 @@ require([
 			api.wxlogin({
 				code: wxCode
 			}, function(data) {
+				console.log(data);
 				if (data.status == 200) { // code有效
 					// alert('code有效，返回TOKEN设置COOKIE，然后GOHOME 判断STATE 进入相关页面');
 					if (data.data.gopToken) { // 已绑定

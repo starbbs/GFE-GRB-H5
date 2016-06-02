@@ -4,9 +4,7 @@
 
 define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authorization) {
 	var check = function(success, error) {
-		alert(4444);
 		var jumpOut = function() {
-			alert(222);
 			if (!(error && error() === false)) {
 				authorization.go();
 				return false;
