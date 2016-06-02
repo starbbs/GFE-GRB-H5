@@ -231,6 +231,7 @@ require([
                         // vm.goods = [];
                         // vm.flows = [];
                         vm.carrier = '';
+                        vm.button = '支付';
                         if (vm.phone.length === 11) {
                             $.alert("手机号码不正确");
                             $(this).blur();
@@ -250,12 +251,16 @@ require([
                 if (vm.phone == curPhone || check.phone(vm.phone).result || vm.phone.length == 11) {
                     vm.phone = '';
                     phoneInput.val('');
+                    vm.button = '支付';
                 }
                 vm.carrier = '';
                 clearTimeout(focusTimer);
                 vm.goodsFlag = false;
                 $(".phonecharge-lista-item").removeClass('cur');
+                confirmData[0]=null;
+
                 $(".phonecharge-listb-item").removeClass('cur');
+                confirmData[1]=null;
             },
             /*blur: function() { // 失去焦点
              var inputVal = $("#phonecharge-text-input").val();
@@ -289,8 +294,11 @@ require([
                 vm.cancelBool = false;
                 vm.focusing = false;
                 vm.closeBool = true;
+                vm.button = '支付';
                 $(".phonecharge-lista-item").removeClass('cur');
                 $(".phonecharge-listb-item").removeClass('cur');
+                confirmData[0]=null;
+                confirmData[1]=null;
                 phoneInput.blur();
                 vm.input();
             },
