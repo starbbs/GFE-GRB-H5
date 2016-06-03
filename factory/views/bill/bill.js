@@ -385,7 +385,6 @@ define('h5-view-bill', [
 			transferIcon: H5bill.transferClass[order.type], // 转果仁--头像图标
 			transferName: H5bill.transferType[order.type], // 转果仁--名字
 			transferAddress: (order.transferAddress || order.address) ? filters.address(order.transferAddress || order.address) : defaultAddress, // 转果仁--地址
-			//transferAddress: (order.transferAddress || order.address) ? filters.address(order.transferAddress || order.address) : defaultAddress, // 转果仁--地址
 			transferImg: '', //设置头像
 			transferStage: H5bill.transferStage[order.status], // 转果仁--进度阶段
 			transferTime: order.transferTime, // 转果仁--到账时间
@@ -408,10 +407,19 @@ define('h5-view-bill', [
 			if (data.status == 200) {
 				setOne(billTransferVM, 'transferName', data.data.remark || data.data.nick || (data.data.contactType === 'WALLET_CONTACT' ? '未命名地址' : '未命名用户'));
 				setOne(billTransferVM, 'transferImg', data.data.photo || '');
-				setOne(billTransferVM, 'transferAddress', data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone));
-				// setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || defaultAddress);
+				setOne(billTransferVM, 'transferAddress', setUserAddress(data));
+				//setOne(billTransferVM, 'transferAddress', data.data.nick ? (data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone)) : (filters.address(data.data.address) || defaultAddress));
 			}
 		});
+	};
+	var setUserAddress = function(data) {
+		console.log(data.data.contactType);
+		if (data.data.contactType == 'GOP_CONTACT') { //果仁宝联系人  手机号
+			return filters.phone(data.data.phone);
+		} else if (data.data.contactType == 'WALLET_CONTACT') { //地址
+			return data.data.address ? filters.address(data.data.address) : defaultAddress;
+		}
+		return
 	};
 	var setOne = function(vm, key, value) { // 设置一个vm属性
 		vm[key] !== value && (vm[key] = value);

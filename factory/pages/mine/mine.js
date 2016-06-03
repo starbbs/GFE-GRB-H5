@@ -10,7 +10,7 @@ require([
 ) {
 	//进入我的页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing
 	loginJudge.check(function() {
-		router.init(true);
+		router.init();
 		var gopToken = $.cookie('gopToken');
 		var mine = $('.mine');
 		var feedbackText = $(".setting-feedback-text");

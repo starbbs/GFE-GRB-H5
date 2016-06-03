@@ -93,7 +93,7 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 			return alert(name + '已被添加到view上!');
 		}
 		_list.push(name);
-		router.view[name] = this;
+		router.view[name] = this;  //router.view[name] = this;
 
 		// 定义
 		this.name = name;

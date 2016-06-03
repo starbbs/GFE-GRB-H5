@@ -325,6 +325,11 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], 
 	api.regist('checkLoginPasswordStatus', '/security/checkLoginPasswordStatus', {
 		asyn: true
 	});
+	//88 . 验证手机号与微信号的绑定
+	api.regist('checkPhoneAndWxAcount', '/login/checkPhoneAndWxAcount');
+
+	//88 . 验证手机号与微信号的绑定
+	api.regist('getVoucher', '/voucher/getVoucher');
 
 	return api;
 });

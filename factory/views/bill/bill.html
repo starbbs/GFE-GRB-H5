@@ -280,8 +280,11 @@
 						</div>
 						<div class="bill-target-right">
 							<!-- <div class="bill-target-name">{{transferName|omit}}</div> -->
-							<div class="bill-target-name" ms-class-1="mt20px:transferName==='果小萌'">{{transferName|omit(10)}}<span ms-visible="transferName==='果小萌'" class="green">[官方]</span></div>
-							<div class="bill-target-address">{{transferAddress}}</div>
+							<div class="bill-target-name" ms-class-1="mt20px:transferName==='果小萌'">
+								{{transferName|omit(10)}}
+								<span ms-visible="transferName==='果小萌'" class="green">[官方]</span>
+							</div>
+							<div class="bill-target-address" ms-visible="transferName!='果小萌'">{{transferAddress}}</div>
 						</div>
 						<div class="bill-target-bottom"></div>
 					</div>
