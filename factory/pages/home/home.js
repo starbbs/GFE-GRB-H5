@@ -12,6 +12,7 @@ require([
 	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
 	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //徐停
 	//  $.cookie('gopToken', '1332f5bda22640db9e1f49583f5bb884'); //李鹏
+	 // $.cookie('gopToken', '7ed37109ecf44a2ea18f1b410693a54a'); //王源
 
 	router.init(true);
 	var gopToken = $.cookie('gopToken');

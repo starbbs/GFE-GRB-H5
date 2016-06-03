@@ -407,8 +407,11 @@ define('h5-view-bill', [
 			if (data.status == 200) {
 				setOne(billTransferVM, 'transferName', data.data.remark || data.data.nick || (data.data.contactType === 'WALLET_CONTACT' ? '未命名地址' : '未命名用户'));
 				setOne(billTransferVM, 'transferImg', data.data.photo || '');
+				alert(data.data.nick ? (data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone)) : (filters.address(data.data.address) || defaultAddress));
 				//setOne(billTransferVM, 'transferAddress', data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone));
-				setOne('transferAddress', data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone) || filters.address(data.data.address) || defaultAddress);
+				setOne(billTransferVM, 'transferAddress', data.data.nick ? (data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone)) : (filters.address(data.data.address) || defaultAddress));
+
+				// data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone) || filters.address(data.data.address) || defaultAddress);
 			}
 		});
 	};
