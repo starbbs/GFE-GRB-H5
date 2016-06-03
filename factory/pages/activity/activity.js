@@ -144,7 +144,7 @@ require([
                 return false;
             }
             //校验验证码是否正确
-            var redirectUrl = config.main + "activity.html";
+            var redirectUrl =window.location.protocol+ config.main + "activity.html";
             api.identifyingCode({phone: activityVM.mobile, identifyingCode: activityVM.mobilecode}, function (data) {
                 if (data.status == 200) {
                     //校验成功。
