@@ -81,11 +81,6 @@
 	}
 }
 
-//滚动条到NAV上
-.nav-top{
-	height: calc(100% - 61px);
-}
-
 .border-none {
 	@include border-none('both');
 }
