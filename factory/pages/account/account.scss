@@ -17,7 +17,15 @@ body {
 	background-color: $g-background;
 }
 
-
+// 分页显示时对应其主盒子的显示样式
+.account.main-show{
+	opacity: 1;
+	display: block;
+}
+.account.main-hide{
+	display: block;
+	opacity: 0;
+}
 .account {
 	$img: $g-pages + '/account/images';
 	@extend %afull;

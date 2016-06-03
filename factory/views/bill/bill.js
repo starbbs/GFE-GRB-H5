@@ -407,9 +407,19 @@ define('h5-view-bill', [
 			if (data.status == 200) {
 				setOne(billTransferVM, 'transferName', data.data.remark || data.data.nick || (data.data.contactType === 'WALLET_CONTACT' ? '未命名地址' : '未命名用户'));
 				setOne(billTransferVM, 'transferImg', data.data.photo || '');
-				setOne(billTransferVM, 'transferAddress', data.data.nick ? (data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone)) : (filters.address(data.data.address) || defaultAddress));
+				setOne(billTransferVM, 'transferAddress', setUserAddress(data));
+				//setOne(billTransferVM, 'transferAddress', data.data.nick ? (data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone)) : (filters.address(data.data.address) || defaultAddress));
 			}
 		});
+	};
+	var setUserAddress = function(data) {
+		console.log(data.data.contactType);
+		if (data.data.contactType == 'GOP_CONTACT') { //果仁宝联系人  手机号
+			return filters.phone(data.data.phone);
+		} else if (data.data.contactType == 'WALLET_CONTACT') { //地址
+			return data.data.address ? filters.address(data.data.address) : defaultAddress;
+		}
+		return
 	};
 	var setOne = function(vm, key, value) { // 设置一个vm属性
 		vm[key] !== value && (vm[key] = value);
