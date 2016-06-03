@@ -385,7 +385,6 @@ define('h5-view-bill', [
 			transferIcon: H5bill.transferClass[order.type], // 转果仁--头像图标
 			transferName: H5bill.transferType[order.type], // 转果仁--名字
 			transferAddress: (order.transferAddress || order.address) ? filters.address(order.transferAddress || order.address) : defaultAddress, // 转果仁--地址
-			//transferAddress: (order.transferAddress || order.address) ? filters.address(order.transferAddress || order.address) : defaultAddress, // 转果仁--地址
 			transferImg: '', //设置头像
 			transferStage: H5bill.transferStage[order.status], // 转果仁--进度阶段
 			transferTime: order.transferTime, // 转果仁--到账时间
@@ -408,8 +407,8 @@ define('h5-view-bill', [
 			if (data.status == 200) {
 				setOne(billTransferVM, 'transferName', data.data.remark || data.data.nick || (data.data.contactType === 'WALLET_CONTACT' ? '未命名地址' : '未命名用户'));
 				setOne(billTransferVM, 'transferImg', data.data.photo || '');
-				setOne(billTransferVM, 'transferAddress', data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone));
-				// setOne('transferAddress', filters.phone(data.data.phone) || filters.address(data.data.address) || defaultAddress);
+				//setOne(billTransferVM, 'transferAddress', data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone));
+				setOne('transferAddress', data.data.nick === '果小萌' ? '' : filters.phone(data.data.phone) || filters.address(data.data.address) || defaultAddress);
 			}
 		});
 	};
