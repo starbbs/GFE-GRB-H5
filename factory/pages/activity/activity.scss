@@ -68,13 +68,13 @@
                 }
                 .top{
                     top: 5px;
-                    left: 5px;
-                   @include sprite($img + '/top-dot.png', 40px, 24px);
+                    left: 10px;
+                   @include sprite($img + '/top-dot.png', 20px, 12px);
                 }
                 .bottom{
-                    right: 5px;
+                    right: 10px;
                     bottom: 5px;
-                    @include sprite($img + '/bottom-dot.png', 42px, 20px);; 
+                    @include sprite($img + '/bottom-dot.png', 21px, 10px);; 
                 }
             }
         }
@@ -90,7 +90,7 @@
     &-bottom-info{
         img{
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
     }
 }
