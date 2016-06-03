@@ -69,7 +69,7 @@ require([
     function getAndGotoCouponlistPage(_gopToken) {
         api.getVoucher({
             "gopToken": _gopToken,
-            "voucherTemplateIdList": [1, 2, 3]
+            "activityId": 1
         }, function (voucherData) {
             var stateObj = { foo: "bar" };
             for(var i=0;i<10;i++){
