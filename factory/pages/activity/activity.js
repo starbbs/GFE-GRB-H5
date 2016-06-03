@@ -1,28 +1,26 @@
 // 高二军  创建
 // H5微信端 --- view-coupon 优惠券分页
 require([
-    'router', 'h5-api', 'check', 'get', "url", 'h5-check', 'h5-alert', 'h5-config', 'h5-md5'
-], function (router, api, check, get, url, h5check, h5alert, config, md5) {
-    // todo alert 提示需要修改
+    'router', 'h5-view', 'h5-api', 'check', 'get', "url", 'check', 'h5-alert', 'h5-config', 'h5-md5'
+], function (router, View, api, check, get, url, h5check, alert, config, md5) {
+    var acvitityRegisteredPage = new View('activity-registered');
     router.init(true);
     var activity = {};
     var loginData = {
-        mobile: get.data.mobile,
-        phonecode: get.data.phonecode,
-        sign: get.data.sign,
+        mobile: $.cookie('mobile'),
+        phonecode: $.cookie('phonecode'),
+        sign: $.cookie('sign'),
         code: get.data.code
     }
-    function getAndGotoCouponlistPage(_gopToken){
-        api.getVoucher({
-            "gopToken": _gopToken,
-            "voucherTemplateIdList": [1, 2, 3]
-        }, function (voucherData) {
-            //todo 跳转到优惠券列表。。 待完善
-            location.href = "./mine.html#!"
-        })
+    var gotoTipPage = function () {
+        router.to('activity-registered');
     }
     //判断url是否有数据,如果是授权完成以后的页面,则进行登录等逻辑
     if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign)) {
+        //清除数据
+        $.cookie('mobile', "");
+        $.cookie('phonecode', "");
+        $.cookie('sign', "");
         //说明是从认证页面跳转过来的
         api.wxlogin({
             code: loginData.code
@@ -35,38 +33,48 @@ require([
                     $.cookie('gopToken', gopToken);
                 }
                 api.checkPhoneAndWxAcount({phone: loginData.mobile, unionId: unionid}, function (checkedata) {
-                    if(checkedata.PhoneBoundAnyWx){
+                    if (checkedata.PhoneBoundAnyWx) {
                         if (checkedata.WxBoundPhone) { //微信和
                             getAndGotoCouponlistPage(gopToken);
-                        }else{
-                            //todo. 进入错误提示页面 查看下产品文档。。还没做
-
+                        } else {
+                            gotoTipPage();
                         }
-                    }else if(checkedata.WxBoundAnyPhone){
-                        //todo. 进入错误提示页面 查看下产品文档。。还没做
-                    }else{
+                    } else if (checkedata.WxBoundAnyPhone) {
+                        gotoTipPage();
+                    } else {
                         //注册用户
                         api.wxregister({
                             phone: loginData.mobile,
                             identifyingCode: loginData.phonecode,
                             openId: openid,
-                        }, function(registData) {
+                        }, function (registData) {
                             if (registData.status == 200) {
                                 var gopToken = registData.data.gopToken;
                                 $.cookie('gopToken', gopToken);
                                 getAndGotoCouponlistPage(gopToken);
                             } else {
-                                //todo. 错误处理 待定
-                                // $.alert(data.msg);
+                                alert(data.msg);
                             }
                         });
                     }
                 })
+            } else {
+                alert("领取失败~");
             }
 
         });
         return false;
     }
+    //请求发优惠券,成功之后进入优惠券列表页面
+    function getAndGotoCouponlistPage(_gopToken) {
+        api.getVoucher({
+            "gopToken": _gopToken,
+            "voucherTemplateIdList": [1, 2, 3]
+        }, function (voucherData) {
+            location.href = "./mine.html#!/coupon-list"
+        })
+    }
+
     function checkeSign(_mobile, _code, _sign) {
         return signData(_mobile, _code) === _sign;
     }
@@ -100,13 +108,12 @@ require([
             }
             api.sendCode({phone: activityVM.mobile}, function (data) {
                 if (data.status == 200) {
-                    alert("发送成功,请查收~");
-                    //todo 切换样式
+                    alert("发送成功,请查收");
                     activityVM.verify_secs = 60;
-                    $("#getcode_btn").html("<span id='verify_timer_phonenum' >60</span>秒后重新获取");
+                    $("#getcode_btn").removeClass("activity-login-main-item-btn-active").html("<span id='verify_timer_phonenum' >60</span>秒后重新获取");
                     activityVM.phonenum_verifyTimer();
                 } else {
-                    alert("发送失败")
+                    alert("短信发送失败")
                 }
             })
         },
@@ -120,7 +127,12 @@ require([
          * @returns {*}
          */
         checkePhone: function () {
-            activityVM.phoneStatus = h5check.phone($("#activity-login-mobile"));
+            activityVM.phoneStatus = h5check.phone(activityVM.mobile).result;
+            if (activityVM.phoneStatus && activityVM.verify_secs == 60) {
+                $("#getcode_btn").addClass("activity-login-main-item-btn-active")
+            } else if (!activityVM.phoneStatus) {
+                $("#getcode_btn").removeClass("activity-login-main-item-btn-active")
+            }
         },
         /**
          * 点击马上领取的function
@@ -132,13 +144,19 @@ require([
                 return false;
             }
             //校验验证码是否正确
-            var redirectUrl = config.main + "activity.html?mobile=" + activityVM.mobile + "&phonecode=" + activityVM.mobilecode + "&sign=" + signData(activityVM.mobile, activityVM.mobilecode);
+            var redirectUrl = config.main + "activity.html";
             api.identifyingCode({phone: activityVM.mobile, identifyingCode: activityVM.mobilecode}, function (data) {
                 if (data.status == 200) {
                     //校验成功。
                     //跳转到微信授权页面
-                    // console.log(getWechatAuthUrl(redirectUrl));
+                    //将参数写到cookie中
+                    $.cookie('mobile', activityVM.mobile);
+                    $.cookie('phonecode', activityVM.mobilecode);
+                    $.cookie('sign', signData(activityVM.mobile, activityVM.mobilecode));
                     window.location.href = getWechatAuthUrl(redirectUrl)
+                } else {
+                    alert("您的验证码输入有误");
+                    return false;
                 }
             })
 
@@ -151,11 +169,17 @@ require([
             }, 1000);
             if (activityVM.verify_secs == 0) {
                 clearTimeout(activityVM.verifyTimer);
-                $("#getcode_btn").html("获取验证码");
-                //todo 切换样式
+                $("#getcode_btn").html("获取验证码").addClass("activity-login-main-item-btn-active");
                 activityVM.verify_secs = 60;
             }
         }
     });
+    //定义 提示页面的vm
+    var tipPageVM = avalon.define({
+        $id: 'activityRegistered',
+        tipInfo: "您已注册了果仁宝账号",
+        tipInfo2: "登录果仁宝直接去领取吧"
+    })
     avalon.scan($(".activity")[0], activityVM);
+    avalon.scan($(".activity-registered")[0], activityVM);
 });

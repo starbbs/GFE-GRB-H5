@@ -1,5 +1,20 @@
 ﻿@charset "utf-8";
 @import '../../../source/scss/main';
+@import '../../views/view';
+
+@import '../../dialogs/dialog';
+@import '../../dialogs/confirm/confirm';
+@import '../../dialogs/success/success';
+@import '../../dialogs/paypass/paypass';
+@import '../../dialogs/alert/alert';
+
+.block{
+    background: none;
+    margin-top:0 ;
+}
+.block:first-child {
+    margin-top: 0px;
+}
 .activity{
     $image: $g-img;
     $img: $g-pages + '/activity/images';
@@ -45,7 +60,7 @@
                     background: #fff;
                     padding-left: 25px;
                 }
-                button{
+                button {
                     background: $orange!important;
                     color: #fff;
                     font-size: 24px;
@@ -68,6 +83,10 @@
                     position: absolute;
                     right: 0px;
                     top: -4px;
+                }
+                &-btn-active{
+                    background: $orange;
+                    box-shadow: 0 5px 0px $dark-orange;
                 }
                 &-dot{
                     position: absolute;
@@ -101,8 +120,8 @@
         }
     }
     &-registered{
-        margin-top: px(120px, 750px);
-        padding: 72px;
+        @extend .view-style;
+        padding-top: px(120px, 750px);
         color: #ffffff;
         &-sorry{
             text-align: center;
