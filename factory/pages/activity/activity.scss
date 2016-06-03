@@ -93,4 +93,27 @@
             margin-bottom: 30px;
         }
     }
+    &-registered{
+        margin-top: px(120px, 750px);
+        padding: 72px;
+        color: #ffffff;
+        &-sorry{
+            text-align: center;
+            &-img{
+                @include sprite($img + '/registered.png' , 110px , 169px);
+                display: inline-block;
+            }
+        }
+        &-world{
+            &-big{
+                font-size: 18px;
+            }
+            &-small{
+                font-size: 16px;
+            }
+            text-align: center;
+            color: #333333;
+            line-height: px(70px, 750px);
+        }
+    }
 }
