@@ -10,11 +10,14 @@
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    background: url($image+'/activity-bg.jpg') center center no-repeat;
-    &-top-nanner{
+    background: url($image+'/activity-bg.jpg') #3bb4fe center center no-repeat;
+    &-top-banner{
         img{
             width: 100%;
             margin-top: 20px;
+        }
+        &-static{
+            margin-top: -27%!important;
         }
     }
     &-login{
@@ -29,6 +32,9 @@
             &-item{
                 position: relative;
                 margin-bottom: 15px;
+                &:nth-child(1){
+                    margin-top: 13px;
+                }
                 .text-input{
                     width: 100%;
                     height: 45px;
@@ -37,7 +43,7 @@
                     border: none;
                     outline: none;
                     background: #fff;
-                    padding-left: 20px;
+                    padding-left: 25px;
                 }
                 button{
                     background: $orange!important;
@@ -88,9 +94,10 @@
         font-size: 11px;
     }
     &-bottom-info{
+        padding-bottom: 60px;
         img{
-            width: 100%;
-            margin-bottom: 30px;
+            width: 90%;
+            margin-left: 5%;
         }
     }
     &-registered{
