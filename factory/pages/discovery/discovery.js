@@ -51,16 +51,19 @@ require([
 		for (var i = 0; i < iosUrlArr.length; i++) {
 			$('.urlarr')[i].href = encodeURIComponent(iosUrlArr[i]);
 		}
+		main.find(".discovery-subject").last().css("margin-bottom","0px");
 	}else if(UA.indexOf('from=discoveryandroidapp') > 0){
 		for (var i = 0; i < androidUrlArr.length; i++) {
 			$('.urlarr')[i].href = androidUrlArr[i];
 		}
+		main.find(".discovery-subject").last().css("margin-bottom","0px");
 	} else {
 		for (var i = 0; i < h5UrlArr.length; i++) {
 			$('.urlarr')[i].href = h5UrlArr[i];
 		}
 		nav.addClass('navon');		
 	}
+	
 	var vm = avalon.define({
 		$id: 'discovery',
 		defaultIndex: 0,
