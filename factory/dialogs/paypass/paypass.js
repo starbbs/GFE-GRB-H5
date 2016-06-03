@@ -188,12 +188,9 @@ define('h5-dialog-paypass', [
 		},
 	});
 
-	paypass.on('show', function() { // 显示时输入框自动获取焦点
-		input.get(0).focus();
-		setTimeout(function() {
-			input.get(0).focus();
-		}, 300);
-	});
+//	paypass.on('show', function() { // 显示时输入框自动获取焦点
+//		input.get(0).focus();
+//	});
 	paypass.on('hide', function() { // 清除input的value并失焦
 		input.val('').get(0).blur();
 		input.get(0).paypassClear();
