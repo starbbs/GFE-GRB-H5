@@ -1,4 +1,5 @@
 // 余效俭 2016-01-11 17:26:56 创建
+// 魏冰冰 2016-06-01          修改
 // H5微信端 --- 我的
 define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'url', 'h5-alert', 'h5-text'],
     function(router, api, View, check, url) {
