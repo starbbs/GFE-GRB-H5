@@ -105,12 +105,12 @@ require([
 	};
 	var gotoLogin = function() { // 跳转login分页
 		setTimeout(function() {
+			router.to('/index-login');
+			document.title = '绑定手机号';
 			var stateObj = { foo: "bar" };
 			for(var i=0;i<10;i++){
 				history.pushState(stateObj, "homepage"+i, "./home.html");
 			}
-			router.to('/index-login');
-			document.title = '绑定手机号';
 		}, 100);
 	};
 
