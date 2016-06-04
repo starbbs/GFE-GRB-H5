@@ -62,6 +62,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 					link: weixin.link, // 分享链接
 					imgUrl: weixin.imgUrl, // 分享图标
 					success: function(){
+						alert('朋友圈');
 						$.alert('分享成功');
 					},
 					cancel: function(){
@@ -78,6 +79,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 					type: weixin.type, // 分享类型,music、video或link，不填默认为link
 					dataUrl: weixin.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
 					success: function(){
+						alert('朋友');
 						$.alert('分享成功');
 					},
 					cancel: function(){
