@@ -61,7 +61,7 @@ require([
                     // vm.ifConfirmPay = true;
                 } else {
                     // vm.rmbUse = vm.money - vm.gopNum * vm.gopPrice;
-                    vm.gopUse = vm.gopNum;
+                    vm.gopUse = vm.money / vm.gopPrice - vm.couponRmbNum / vm.gopPrice;
                     vm.gopMoney = vm.gopNum * vm.gopPrice;
                     // vm.ifConfirmPay = false;
                 }
@@ -108,7 +108,9 @@ require([
                         dialogConfirm.set('您的果仁不足是否购买？');
                         dialogConfirm.show();
                         dialogConfirm.onConfirm = function() {
-                            window.location.href = 'purchase.html?from=' + url.basename + '&id=' + get.data.id;
+                        	window.localStorage.setItem('from',url.basename);
+                        	window.localStorage.setItem('id',get.data.id);
+                            window.location.href = 'purchase.html#!/';
                         };
                     }
                 });

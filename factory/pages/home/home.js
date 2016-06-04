@@ -15,6 +15,10 @@ require([
 	 // $.cookie('gopToken', '7ed37109ecf44a2ea18f1b410693a54a'); //王源
 
 	router.init(true);
+	//清除订单过去买果仁的存入内容
+	window.localStorage.removeItem("from");
+    window.localStorage.removeItem("id");
+                
 	var gopToken = $.cookie('gopToken');
 	/**
 	 * 检查用户的登录密码，如果已经错误了十次了那直接进入frozen页面，如果ok的话进入home页面。
