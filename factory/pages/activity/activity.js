@@ -167,6 +167,9 @@ require([
         }, function (voucherData) {
             if (voucherData.status == 399) {
                 alert("来的太晚了,优惠券已经发完了~")
+                setTimeout(function () {
+                    location.href = "./home.html"
+                }, 1000);
                 return false;
             } else {
                 var stateObj = {foo: "bar"};
