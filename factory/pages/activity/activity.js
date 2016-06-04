@@ -32,7 +32,7 @@ require([
                 if (gopToken) { // 已绑定
                     $.cookie('gopToken', gopToken);
                 }
-                api.checkPhoneAndWxAcount({phone: loginData.mobile, unionId: unionid}, function (checkedata) {
+                api.checkPhoneAndWxAcount({"phone": loginData.mobile,"unionId": unionid}, function (checkedata) {
                     if (checkedata.PhoneBoundAnyWx) {
                         if (checkedata.WxBoundPhone) { //微信和
                             getAndGotoCouponlistPage(gopToken);
@@ -69,9 +69,16 @@ require([
     function getAndGotoCouponlistPage(_gopToken) {
         api.getVoucher({
             "gopToken": _gopToken,
-            "voucherTemplateIdList": [1, 2, 3]
+            "activityId": 1
         }, function (voucherData) {
-            location.href = "./mine.html#!/coupon-list"
+            var stateObj = { foo: "bar" };
+            for(var i=0;i<10;i++){
+                history.pushState(stateObj, "page "+i, "./mine.html");
+            }
+            setTimeout(function(){
+                location.href = "./mine.html#!/coupon-list"
+            },200);
+
         })
     }
 
