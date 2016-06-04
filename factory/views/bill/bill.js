@@ -189,7 +189,7 @@ define('h5-view-bill', [
 			var list = data.data.recordList; //流水号 创建时间 支付果仁  付款还会产生的
 			var product = data.data.product; // 商品信息 流量 话费 面额
 			var extra = data.data.extra; //银行卡
-			var vouch = data.data.billVoucher; // 交易成功  的优惠券
+			var vouch = data.data.billVoucher || data.data.availableVoucher; // 交易成功的优惠券   进行中
 
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
@@ -209,6 +209,7 @@ define('h5-view-bill', [
 				// ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
 				// tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
 			}, options);
+			options.onRendered && options.onRendered(billPhoneVM); 			
 		});
 	};
 
@@ -292,7 +293,7 @@ define('h5-view-bill', [
 				orderCode: data.data.orderCode, // 订单号
 				serialNum: data.data.serialNum, // 流水号
 			}, options);
-
+			options.onRendered && options.onRendered(billRefundVM); 
 		});
 	};
 
@@ -346,6 +347,7 @@ define('h5-view-bill', [
 				transferSign: '-',
 			}, options);
 			order.personId && setUser(order.personId);
+			options.onRendered && options.onRendered(billTransferVM); 			
 		});
 	};
 
@@ -363,6 +365,7 @@ define('h5-view-bill', [
 				transferSign: '+',
 			}, options);
 			order.personId && setUser(order.personId);
+			options.onRendered && options.onRendered(billTransferVM); 			
 		});
 	};
 
@@ -507,7 +510,7 @@ define('h5-view-bill', [
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			$.extend(billBuyGopVM, buyGopHandler(type, id, order, list, waitForPay), options);
-			// options.onRendered && options.onRendered(billBuyGopVM); 
+			options.onRendered && options.onRendered(billBuyGopVM); 
 		});
 	};
 
