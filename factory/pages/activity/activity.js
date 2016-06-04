@@ -73,14 +73,18 @@ require([
                 }
                 countEvnet("wechatLoginSucceed");
                 api.checkPhoneAndWxAcount({"phone": loginData.mobile,"unionId": unionid}, function (checkedata) {
+                    console.log(checkedata);
                     if (checkedata.phoneBoundAnyWx) {
                         if (checkedata.wxBoundPhone) { //微信和
                             getAndGotoCouponlistPage(gopToken);
+                            return false;
                         } else {
                             gotoTipPage();
+                            return false;
                         }
                     } else if (checkedata.wxBoundAnyPhone) {
                         gotoTipPage();
+                        return false;
                     } else {
                         //注册用户
                         api.wxregister({
