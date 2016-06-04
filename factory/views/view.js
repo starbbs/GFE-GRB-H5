@@ -6,7 +6,7 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 	// 存在问题:
 	// 1.缺少进入页面首次路由的触发判断
 	// 2.判断分页顺序, 由dom结构判断而不是实例, 之后由分页顺序来显示隐藏
-	window.onhashchange = function(){
+	window.onhashchange = function() {
 		$('input').blur();
 	};
 	router.view = {};
@@ -34,8 +34,8 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 			});
 		});
 	};
-	router.get('/', ['all'], router.onRoot);
-	router.get('/:name', [_list], function(name) { //显示
+	router.get('/', ['all'], router.onRoot); //路由监听隐藏 及初始化
+	router.get('/:name', [_list], function(name) { //路由监听显示
 		if (name in router.view) {
 			router.view[name].show();
 			oNav.addClass('view-nav');
@@ -43,9 +43,10 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 		}
 	});
 
+	//=====================================================
 	var time = 10; // 运动时间, 使用的定时器, 没有绑定transitionEnd/animationEnd
 	var main = $('.view');
-	var removeAllClass = function() {
+	var removeAllClass = function() { //VIEW消失时候回调
 		_list.forEach(function(name) {
 			var view = router.view[name];
 			view.self.removeClass('show show-immediately hide hide-immediately');
@@ -72,7 +73,7 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 	var refreshList = [];
 	var refreshTimer = null;
 	var refresh = function() {
-		main.children().each(function(i, item) { // main.children()  html节点
+		main.children().each(function(i, item) { // main.children()  html节点  添加index
 			var name = item.className.split(' ')[0];
 			refreshList[i] = name;
 			if (name in router.view) {
@@ -93,7 +94,7 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 			return alert(name + '已被添加到view上!');
 		}
 		_list.push(name);
-		router.view[name] = this;  //router.view[name] = this;
+		router.view[name] = this; //router.view[name] = this;
 
 		// 定义
 		this.name = name;
@@ -155,6 +156,5 @@ define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {
 	View.prototype.on = function(name, callback) {
 		this[stackMaker(name)].push(callback);
 	};
-
 	return View;
 });

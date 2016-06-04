@@ -295,7 +295,9 @@ require([
 	});
 
 	if(window.location.href.match(/from=order|from=transfer|/)){
-		router.go('/paypass-choose');
+		setTimeout(function(){
+			router.go('/paypass-choose');
+		},200)
 	}
 
 	//身份证认证				
