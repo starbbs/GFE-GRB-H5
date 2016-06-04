@@ -49,6 +49,15 @@ require([
         getAndGotoCouponlistPage(currgopToken);
         return false;
     }
+
+    //定义提示页面的vm
+    var tipPageVM = avalon.define({
+        $id: 'activityRegistered',
+        tipInfo: "您已注册了果仁宝账号",
+        tipInfo2: "登录果仁宝直接去领取吧"
+    })
+
+    avalon.scan($(".activity-registered")[0], activityVM);
     //进入的提示页面
     function gotoTipPage() {
         router.to('activity-registered');
@@ -73,14 +82,17 @@ require([
                 }
                 countEvnet("wechatLoginSucceed");
                 api.checkPhoneAndWxAcount({"phone": loginData.mobile,"unionId": unionid}, function (checkedata) {
-                    if (checkedata.PhoneBoundAnyWx) {
-                        if (checkedata.WxBoundPhone) { //微信和
+                    if (checkedata.data.phoneBoundAnyWx) {
+                        if (checkedata.data.wxBoundPhone) { //微信和
                             getAndGotoCouponlistPage(gopToken);
+                            return false;
                         } else {
                             gotoTipPage();
+                            return false;
                         }
-                    } else if (checkedata.WxBoundAnyPhone) {
+                    } else if (checkedata.data.wxBoundAnyPhone) {
                         gotoTipPage();
+                        return false;
                     } else {
                         //注册用户
                         api.wxregister({
@@ -217,7 +229,11 @@ require([
         inputPhone: function () {
             activityVM.checkePhone();
         },
-
+        inputCode:function(){
+            if(activityVM.mobilecode.length==6){
+                $("#activity-login-code").blur();
+            }
+        },
         /**
          * 检查手机号码输入是否正确
          * @returns {*}
@@ -227,8 +243,12 @@ require([
             if (activityVM.phoneStatus && activityVM.verify_secs == 60) {
                 $("#getcode_btn").addClass("activity-login-main-item-btn-active")
                 countEvnet("inputedCorrectPhone");
+                $("#activity-login-mobile").blur();
             } else if (!activityVM.phoneStatus) {
                 $("#getcode_btn").removeClass("activity-login-main-item-btn-active")
+                if(activityVM.mobile.length==11){
+                    alert("手机号码输入错误!");
+                }
             }
         },
         /**
@@ -276,13 +296,6 @@ require([
             }
         }
     });
-
-    //定义提示页面的vm
-    var tipPageVM = avalon.define({
-        $id: 'activityRegistered',
-        tipInfo: "您已注册了果仁宝账号",
-        tipInfo2: "登录果仁宝直接去领取吧"
-    })
     avalon.scan($(".activity")[0], activityVM);
-    avalon.scan($(".activity-registered")[0], activityVM);
+
 });
