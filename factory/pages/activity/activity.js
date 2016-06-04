@@ -12,6 +12,11 @@ require([
         sign: $.cookie('sign'),
         code: get.data.code
     }
+    var currgopToken = $.cookie("gopToken");
+    if(currgopToken){
+        getAndGotoCouponlistPage(currgopToken);
+        return false;
+    }
     var gotoTipPage = function () {
         router.to('activity-registered');
     }
@@ -65,6 +70,7 @@ require([
         });
         return false;
     }
+    
     //请求发优惠券,成功之后进入优惠券列表页面
     function getAndGotoCouponlistPage(_gopToken) {
         api.getVoucher({
@@ -73,7 +79,7 @@ require([
         }, function (voucherData) {
             var stateObj = { foo: "bar" };
             for(var i=0;i<10;i++){
-                history.pushState(stateObj, "page "+i, "./mine.html");
+                history.pushState(stateObj, "page "+i, "./home.html");
             }
             setTimeout(function(){
                 location.href = "./mine.html#!/coupon-list"
