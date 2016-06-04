@@ -61,7 +61,7 @@ require([
                     // vm.ifConfirmPay = true;
                 } else {
                     // vm.rmbUse = vm.money - vm.gopNum * vm.gopPrice;
-                    vm.gopUse = vm.gopNum;
+                    vm.gopUse = vm.money / vm.gopPrice - vm.couponRmbNum / vm.gopPrice;
                     vm.gopMoney = vm.gopNum * vm.gopPrice;
                     // vm.ifConfirmPay = false;
                 }

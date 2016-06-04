@@ -477,7 +477,7 @@ require([
             }
         });
         //点击空白地方input失去焦点
-        $(document)[0].ontouchend = function(e) {
+        $(document)[0].onclick = function(e) {
             e = window.event || e;
             obj = e.srcElement ? e.srcElement : e.target;
             var className = obj.className;
