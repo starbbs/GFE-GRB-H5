@@ -49,6 +49,15 @@ require([
         getAndGotoCouponlistPage(currgopToken);
         return false;
     }
+
+    //定义提示页面的vm
+    var tipPageVM = avalon.define({
+        $id: 'activityRegistered',
+        tipInfo: "您已注册了果仁宝账号",
+        tipInfo2: "登录果仁宝直接去领取吧"
+    })
+
+    avalon.scan($(".activity-registered")[0], activityVM);
     //进入的提示页面
     function gotoTipPage() {
         router.to('activity-registered');
@@ -279,13 +288,6 @@ require([
             }
         }
     });
-
-    //定义提示页面的vm
-    var tipPageVM = avalon.define({
-        $id: 'activityRegistered',
-        tipInfo: "您已注册了果仁宝账号",
-        tipInfo2: "登录果仁宝直接去领取吧"
-    })
     avalon.scan($(".activity")[0], activityVM);
-    avalon.scan($(".activity-registered")[0], activityVM);
+
 });
