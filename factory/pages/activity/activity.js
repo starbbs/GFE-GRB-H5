@@ -1,19 +1,37 @@
 // 高二军  创建
 // H5微信端 --- view-coupon 优惠券分页
 require([
-    'router', 'h5-view', 'h5-api', 'check', 'get', "url", 'check', 'h5-alert', 'h5-config', 'h5-md5'
-], function (router, View, api, check, get, url, h5check, alert, config, md5) {
+    'router', 'h5-view', 'h5-api', 'check', 'get', "url",'h5-alert', 'h5-config', 'h5-md5'
+], function (router, View, api, check, get, url, alert, config, md5) {
     var acvitityRegisteredPage = new View('activity-registered');
     router.init(true);
+    
+    //扩展 api 
+    api.countEvent = function(params,callBack,errorCallBack){
+       $.ajax({
+           url:config.countAPIDomain+"/event/upload",
+           data:JSON.stringify(params),
+           type: 'post',
+           dataType: 'json',
+           timeout:30000,
+           success: function(data) {
+               callBack.call(this,data);
+               return false;
+           },
+           error:function(data){
+               errorCallBack && errorCallBack(data);
+           }
+       })
+    };
     var activity = {};
     var loginData = {
         mobile: $.cookie('mobile'),
         phonecode: $.cookie('phonecode'),
         sign: $.cookie('sign'),
         code: get.data.code
-    }
+    };
     //待注册用户进入页面的时候生成唯一的key
-    (function(){
+    function initUserUniqueKey(){
         var randomStr ="abcdefghigkigklmopqrstuvwxyz0123456789!@#$";
         //生成一个 10位的字符串key
         var result = [];
@@ -23,7 +41,8 @@ require([
             result.push(randomStr.split("")[index]);
         }
         $.cookie("eventUniqueKey",result.join(""));
-    })()
+    }
+    initUserUniqueKey();
     //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
     var currgopToken = $.cookie("gopToken");
     if(currgopToken){
@@ -104,8 +123,8 @@ require([
             }
         }
         api.countEvent(parmas,function(data){
-            console.log(data);
-        })
+            // console.log(data);
+        });
     }
     countEvnet("enterInPage");
     /**
@@ -204,7 +223,7 @@ require([
          * @returns {*}
          */
         checkePhone: function () {
-            activityVM.phoneStatus = h5check.phone(activityVM.mobile).result;
+            activityVM.phoneStatus = check.phone(activityVM.mobile).result;
             if (activityVM.phoneStatus && activityVM.verify_secs == 60) {
                 $("#getcode_btn").addClass("activity-login-main-item-btn-active")
                 countEvnet("inputedCorrectPhone");

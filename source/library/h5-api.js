@@ -331,9 +331,5 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], 
 	//89 . 验证手机号与微信号的绑定
 	api.regist('getVoucher', '/voucher/getVoucher');
 
-	//90 .统计接口,统计活动过程中用户的操作
-	api.regist('countEvent', '/event/upload');
-
-
 	return api;
 });

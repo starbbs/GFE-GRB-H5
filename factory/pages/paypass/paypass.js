@@ -294,10 +294,10 @@ require([
 		vm.hasProtected = data.status == 200 ? true : false;
 	});
 
-	if(window.location.href.match(/from=order|from=transfer|/)){
+	if(window.location.href.match(/from=order|from=transfer/)){
 		setTimeout(function(){
-			router.go('/paypass-choose');
-		},200)
+			router.to('/paypass-choose');
+		},100)
 	}
 
 	//身份证认证				
