@@ -229,7 +229,11 @@ require([
         inputPhone: function () {
             activityVM.checkePhone();
         },
-
+        inputCode:function(){
+            if(activityVM.mobilecode.length==6){
+                $(".activity-top-banner").click();
+            }
+        },
         /**
          * 检查手机号码输入是否正确
          * @returns {*}
@@ -239,8 +243,12 @@ require([
             if (activityVM.phoneStatus && activityVM.verify_secs == 60) {
                 $("#getcode_btn").addClass("activity-login-main-item-btn-active")
                 countEvnet("inputedCorrectPhone");
+                $(".activity-top-banner").click();
             } else if (!activityVM.phoneStatus) {
                 $("#getcode_btn").removeClass("activity-login-main-item-btn-active")
+                if(activityVM.mobile.length==11){
+                    alert("手机号码输入错误!");
+                }
             }
         },
         /**
