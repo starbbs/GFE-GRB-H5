@@ -294,6 +294,10 @@ require([
 		vm.hasProtected = data.status == 200 ? true : false;
 	});
 
+	if(window.location.href.match(/from=order|from=transfer|/)){
+		router.go('/paypass-choose');
+	}
+
 	//身份证认证				
 	api.info({
 		gopToken: gopToken
