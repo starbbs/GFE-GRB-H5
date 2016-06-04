@@ -111,6 +111,7 @@ require([
 			for(var i=0;i<10;i++){
 				history.pushState(stateObj, "homepage"+i, "./home.html");
 			}
+			history.pushState(stateObj, "homepage11", "./index.html");
 		}, 100);
 	};
 
