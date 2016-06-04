@@ -231,7 +231,7 @@ require([
         },
         inputCode:function(){
             if(activityVM.mobilecode.length==6){
-                $(".activity-top-banner").click();
+                $("#activity-login-code").blur();
             }
         },
         /**
@@ -243,7 +243,7 @@ require([
             if (activityVM.phoneStatus && activityVM.verify_secs == 60) {
                 $("#getcode_btn").addClass("activity-login-main-item-btn-active")
                 countEvnet("inputedCorrectPhone");
-                $(".activity-top-banner").click();
+                $("#activity-login-mobile").blur();
             } else if (!activityVM.phoneStatus) {
                 $("#getcode_btn").removeClass("activity-login-main-item-btn-active")
                 if(activityVM.mobile.length==11){
