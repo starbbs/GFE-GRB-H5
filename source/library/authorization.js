@@ -25,7 +25,7 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 			// }.bind(this), 100);
 			var stateObj = { foo: "bar" };
 			for(var i=0;i<10;i++){
-				history.pushState(stateObj, "page "+i, "./home.html");
+				history.pushState(stateObj, "page " + i, "./home.html");
 			}
 			setTimeout(function(){
 				window.location.href = this.set(this.main, url.basename);
