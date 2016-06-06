@@ -2,11 +2,15 @@
 // H5微信端 --- view-coupon 优惠券分页
 require([
     'router', 'h5-view', 'h5-weixin', 'h5-api', 'check', 'get', "url", 'h5-alert', 'h5-config', 'h5-md5'
-], function (router, View, weixin, api, check, get, url, alert, config, md5) {
+], function (router, View, weixin, api, check, get, url, h5alert, config, md5) {
     var acvitityRegisteredPage = new View('activity-registered');
     // weixin.setShare("all",{});
     router.init(true);
-
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
     //扩展 api 
     api.countEvent = function (params, callBack, errorCallBack) {
         $.ajax({
@@ -45,11 +49,10 @@ require([
     }
 
     initUserUniqueKey();
-    var wxShare = get.data.iswxShare  ;
-
+    var isFromWxShare = getQueryString("grbsev");
     //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
     var currgopToken = $.cookie("gopToken");
-    if (currgopToken && wxShare!="yes" ) {
+    if (currgopToken && "yes"!=isFromWxShare ) {
         getAndGotoCouponlistPage(currgopToken);
         return false;
     }
@@ -71,9 +74,9 @@ require([
             location.href = "./home.html";
         }, 1000)
     }
-
     //判断url是否有数据,如果是授权完成以后的页面,则进行登录等逻辑
-    if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign)) {
+    if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign) && "yes"!=isFromWxShare ) {
+
         //清除数据
         $.cookie('mobile', "");
         $.cookie('phonecode', "");
@@ -118,18 +121,18 @@ require([
                                     getAndGotoCouponlistPage(gopToken);
                                 } else {
                                     countEvnet("registerUserError");
-                                    alert(data.msg);
+                                    h5alert(data.msg);
                                     gotoHome();
                                 }
                             });
                         }
                     }else{
-                        alert("领取失败~");
+                        h5alert("领取失败~");
                         gotoHome();
                     }
                 })
             } else {
-                alert("领取失败~");
+                h5alert("领取失败~");
                 gotoHome();
             }
         });
@@ -168,7 +171,7 @@ require([
             "activityId": 1
         }, function (voucherData) {
             if (voucherData.status == 399) {
-                alert("来的太晚了,优惠券已经发完了~")
+                h5alert("来的太晚了,优惠券已经发完了~")
                 setTimeout(function () {
                     location.href = "./home.html"
                 }, 1000);
@@ -236,18 +239,18 @@ require([
                 return false;
             }
             if (!activityVM.phoneStatus) {
-                alert("手机号码输入错误");
+                h5alert("手机号码输入错误");
                 return false;
             }
             countEvnet("getMobileCode");
             api.sendCode({phone: activityVM.mobile}, function (data) {
                 if (data.status == 200) {
-                    alert("发送成功,请查收");
+                    h5alert("发送成功,请查收");
                     activityVM.verify_secs = 60;
                     $("#getcode_btn").removeClass("activity-login-main-item-btn-active").html("<span id='verify_timer_phonenum' >60</span>秒后重新获取");
                     activityVM.phonenum_verifyTimer();
                 } else {
-                    alert("短信发送失败")
+                    h5alert("短信发送失败")
                 }
             })
         },
@@ -273,7 +276,7 @@ require([
             } else if (!activityVM.phoneStatus) {
                 $("#getcode_btn").removeClass("activity-login-main-item-btn-active")
                 if (activityVM.mobile.length == 11) {
-                    alert("手机号码输入错误!");
+                    h5alert("手机号码输入错误!");
                 }
             }
         },
@@ -283,7 +286,7 @@ require([
          */
         getCoupons: function () { // 按钮
             if ($.trim(activityVM.mobile) == "" || $.trim(activityVM.mobilecode) == "") {
-                alert("您的输入有误");
+                h5alert("您的输入有误");
                 return false;
             }
             countEvnet("clickGetCouponsBtn");
@@ -303,7 +306,7 @@ require([
                     }, 200)
                 } else {
                     countEvnet("errorInputPhoneOrCode");
-                    alert("您的验证码输入有误");
+                    h5alert("您的验证码输入有误");
                     return false;
                 }
             })
