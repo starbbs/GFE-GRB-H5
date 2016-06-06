@@ -73,7 +73,7 @@ require([
     }
 
     //判断url是否有数据,如果是授权完成以后的页面,则进行登录等逻辑
-    if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign)) {
+    if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign) && wxShare!="yes" ) {
         //清除数据
         $.cookie('mobile', "");
         $.cookie('phonecode', "");
