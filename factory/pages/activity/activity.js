@@ -50,7 +50,6 @@ require([
 
     initUserUniqueKey();
     var isFromWxShare = getQueryString("grbsev");
-    alert(isFromWxShare);
     //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
     var currgopToken = $.cookie("gopToken");
     if (currgopToken && "yes"!=isFromWxShare ) {
