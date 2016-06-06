@@ -39,6 +39,7 @@ require([
                 var list = data.data.list;
                 if (data.status == 200) {
                     page = list.length < size ? 0 : page + 1; // 是否停止请求
+                    // vm.list = dataHandler(originList = originList.concat(list));
                     vm.list = dataHandler(originList = originList.concat(list));
                     !main.hasClass('on') && setTimeout(function() {
                         main.addClass('on');
@@ -218,9 +219,10 @@ require([
             return data.map(function(item) { // 确定时间 list每条的时间转化成 JS时间
                 item._date = mydate.parseDate(item.businessTime);
                 return item;
-            }).sort(function(item1, item2) { // 时间排序
-                return item2._date.getTime() - item1._date.getTime();
-            }).reduce(function(result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
+            })//.sort(function(item1, item2) { // 时间排序
+              //  return item2._date.getTime() - item1._date.getTime();
+            //})
+            .reduce(function(result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
                 // console.log(item);
                 // console.log(result);
                 var time = mydate.timeHandler(item._date);
