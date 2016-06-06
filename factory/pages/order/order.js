@@ -69,8 +69,9 @@ require([
             },
             // ifConfirmPay: false,
             confirmPay: function() { // 确认支付
+            	alert(vm.gopNum);
                 // 确认支付   orderJudge.KWQ_checkRMB(定单所有RMB数 , 优惠券RMB数(可以不传) , 回调函数)
-                orderJudge.KWQ_checkRMB(filters.fix(vm.money), function(status, gopPrice, myGopNum) {
+                orderJudge.KWQ_checkRMB(filters.fix(vm.money),vm.couponRmbNum, function(status, gopPrice, myGopNum) {
                     // status = 'gopNumNo';
                     if (status == 'gopNumOk') {
                         dialogPaypass.show();
