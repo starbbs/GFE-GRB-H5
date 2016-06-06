@@ -115,13 +115,13 @@ define('h5-view-bill', [
 			weixin.pay.set(weixinPayData);
 			weixin.pay.work();
 		} else {
-			orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
-				if (status === orderJudge.ok) {
+			//orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
+			//	if (status === orderJudge.ok) {
 					window.location.href = './order.html?from=bill&id=' + vm.id;
-				} else {
-					$.alert(orderJudge.tip);
-				}
-			});
+			//	} else {
+			//		$.alert(orderJudge.tip);
+			//	}
+			// });
 		}
 	};
 
