@@ -38,9 +38,9 @@ require([
 			loginVM[attr] = '';
 		},
 		click: function() { // 按钮
-
 			// console.log(H5Button.filter(this));
-			var self = $(this);
+			var self = $('.button').eq(0);
+			console.log(self);
 			if (self.hasClass('disabled')) {
 				return $.alert('正在校验中, 请稍后');
 			}
@@ -169,8 +169,8 @@ require([
 			checkToken();
 		}
 	};
-	router.go('/index-login');
-	return;
+	//router.go('/index-login');
+	//return;
 	var init = function() {
 		router.init(true);
 		if (gopToken) {
