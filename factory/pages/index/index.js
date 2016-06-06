@@ -27,7 +27,12 @@ require([
 		mobile: '', // 手机号
 		code: '', // 验证码
 		blur: function() {
-			loginVM.tipIsShow = !loginVM.tipIsShow;
+			loginVM.tipIsShow = false;
+			// alert('blur    '+loginVM.tipIsShow);
+		},
+		focus:function(){
+			loginVM.tipIsShow = true;
+			// alert('focus    '+loginVM.tipIsShow);	
 		},
 		close: function(attr) { // 关闭按钮
 			loginVM[attr] = '';
@@ -164,8 +169,8 @@ require([
 			checkToken();
 		}
 	};
-	// router.go('/index-login');
-	// return;
+	router.go('/index-login');
+	return;
 	var init = function() {
 		router.init(true);
 		if (gopToken) {

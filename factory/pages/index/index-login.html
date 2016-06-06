@@ -19,6 +19,7 @@
 							data-text="close"
 							ms-duplex="mobile"
 							ms-on-blur="blur"
+							ms-on-focus="focus"
 							>
 						</div>
 						<div class="text-close" ms-click="close('mobile')"></div>
@@ -38,6 +39,8 @@
 							maxlength="6"
 							data-text="close"
 							ms-duplex="code"
+							ms-on-blur="blur"
+							ms-on-focus="focus"
 							>
 						</div>
 						<div class="text-close" ms-click="close('code')"></div>
@@ -46,8 +49,8 @@
 				</div>
 			</div>
 			<div class="text-button">
-				<span class="button tip" ms-visible="tipIsShow">开启果仁世界</span>
-				<span class="button" data-button="loading(验证中...)" ms-on-touchstart="click" ms-visible="!tipIsShow">开启果仁世界</span>
+				<span class="button" data-button="loading(验证中...)" ms-on-touchstart="click">开启果仁世界</span>
+				<span class="button tip" ms-visible="tipIsShow" ms-on-touchstart="click">开启1果仁世界</span>				
 			</div>
 		</div>
 		<div class="text-bottom" data-keyboard="hide(index-login-mobile)|hide(index-login-code)">轻点开启果仁世界<br>即表示您已阅读并接受《<a class="gray" href="#!/agreement">果仁宝服务协议</a>》</div>
