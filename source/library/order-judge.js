@@ -30,9 +30,7 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 			var orderQ = orderQ ? typeof orderQ != 'function' ? orderQ : callback = orderQ : 0;
 			orderQ = typeof orderQ == 'function' ? 0 : orderQ;
 			this.once(function(myGopNum, gopPrice) {
-				alert(orderRMB+"***"+gopPrice+"***"+orderQ+"***"+myGopNum);
 				var status = parseFloat(filters.ceilFix(orderRMB / gopPrice - orderQ / gopPrice)) <= parseFloat(filters.floorFix(myGopNum)) ? ok : no;
-				alert(status)
 				callback && callback(status, myGopNum, gopPrice);
 			});
 		},

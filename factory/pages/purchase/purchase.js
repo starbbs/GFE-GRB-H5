@@ -46,7 +46,6 @@ require([
                         forceStatus: 'SUCCESS',
                         ifFinishButton: true
                     });
-                    alert(from);
                     if (from) {
                         window.location.href = from + '.html' + (id ? '?id=' + id : '');
                     } else {
