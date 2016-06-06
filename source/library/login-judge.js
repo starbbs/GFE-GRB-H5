@@ -7,33 +7,42 @@ define('h5-login-judge', ['h5-api', 'h5-authorization'], function(api, authoriza
 		var jumpOut = function() {
 			if (!(error && error() === false)) {
 				authorization.go();
+				return false;
 			}
 		};
 		var gopToken = $.cookie('gopToken');
 		if (gopToken) {
 			// alert('有TOKEN 去检查TOKEN');
-			api.getGopNum({
-				gopToken: gopToken
-			}, function(data) {
-				// alert('带着token验证=='+data.status);
-				if (data.status == 200) {
-					//alert('TOKEN有效');
+			//检查
+			api.checkLoginPasswordStatus({"gopToken":gopToken},function(data){
+				if(data.status == 200){
+					if(data.data.result=="success"){
+						success && success();
+					}else if(data.data.times==10){
+						// setTimeout(function() {
+							window.location.href = './frozen10.html?type=locked'
+						// }, 210);
+					}else if(data.data.times==15){
+						// setTimeout(function() {
+							window.location.href = './frozen15.html?type=locked'
+						// }, 210);
+					}else if(data.data.times<15){
+						success && success();
+					}else{
+						jumpOut();
+					}
+				}else if(data.status==313){
 					success && success();
-				} else if (data.status == 300) { //增加如果用户锁定进冻结页面
-					setTimeout(function() {
-						window.location.href = './frozen.html?type=locked'
-					}, 210);
-				} else {
-					// alert('TOKEN无效 去授权');
+				}else{
 					jumpOut();
 				}
-			});
+			})
 		} else {
 			// alert('没有TOKEN 去授权');
 			jumpOut();
 		}
 	};
 	return {
-		check: check,
+		check: check
 	};
 });

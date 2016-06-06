@@ -8,4 +8,9 @@
 	&-view, &-choose, &-ident, &-protection, &-authentication {
 		@extend .view-style;
 	}
+	&-ident{
+	    .text-label{
+	        width: 50px;
+	    }
+	}
 }

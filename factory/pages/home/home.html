@@ -83,6 +83,7 @@
 					<a ms-if-loop="img.url" ms-attr-href="img.url">
 						<img ms-attr-src="img.img" alt="" class="img-w">
 					</a>
+					<!--循环完了再给值   防止赋值时候还没HTML结构-->
 					<img ms-if-loop="!img.url" ms-attr-src="img.img" alt="" class="img-w">
 				</li>
 			</ul>

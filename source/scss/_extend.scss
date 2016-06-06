@@ -20,11 +20,17 @@
 	}
 }
 
-
 %click { // 点击范围扩大, 用于:after中
 	content: '';
 	display: block;
 	@include atlwh(-100%, -100%, 300%, 300%);
+}
+%close{  //close点击时扩大范围
+    content: '';
+    display: block;
+    padding: 15px;
+    margin-left: -7.5px;
+    margin-top: -7.5px;
 }
 
 

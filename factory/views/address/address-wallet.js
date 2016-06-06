@@ -9,7 +9,8 @@ define('h5-view-address-wallet', ['router', 'h5-api', 'h5-view', 'check', 'h5-al
         nextFlag: false, //下一步按钮
         walletList: [], //钱包地址列表
         walletAddress: '', //添加的钱包地址
-        walletAddress_add_show: false, //是否显示添加钱包地址		
+        walletAddress_add_show: false, //是否显示添加钱包地址
+        setSuccess: $.noop, //设置钱包的回调函数
         address_wallet_next: function() { //返回
             if (vm.callback) {
                 vm.callback();
@@ -29,6 +30,7 @@ define('h5-view-address-wallet', ['router', 'h5-api', 'h5-view', 'check', 'h5-al
                             vm.walletList.push(item);
                         }
                     }
+                    vm.nextFlag = vm.setSuccess && vm.setSuccess(vm.walletList.length);
                 } else {
                     console.log(data);
                 }

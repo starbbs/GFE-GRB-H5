@@ -6,19 +6,22 @@ define('h5-keyboard', ['bind'], function(Bind) {
 
 	var keyboard = new Bind('keyboard');
 	var keyboardHideTimer = null;
+	// var keyboardShowTimer = null;
 	keyboard.setHandles({
 		hide: function(id) { // 写法: data-keyboard="hide(contacts-search-input)" (id不用带引号)
 			var self = $(this);
 			var input = $('#' + id)
 				.on('focus', function() {
 					clearTimeout(keyboardHideTimer);
-					self.hide();
+					// keyboardShowTimer = setTimeout(function(){
+						self.hide();
+					// },500);
 				})
 				.on('blur', function() {
 					clearTimeout(keyboardHideTimer);
 					keyboardHideTimer = setTimeout(function() {
 						self.show();
-					}, 333);
+					}, 600);
 				})
 		},
 	});

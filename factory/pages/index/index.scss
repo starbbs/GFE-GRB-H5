@@ -8,7 +8,15 @@
 @import '../../views/view';
 @import '../../views/agreement/agreement';
 
-
+.text-button{
+	margin-top: 27px;
+	position: relative;
+	height: 43px;
+	& .button{
+		position: absolute;
+		width: 100%;
+	}
+}
 .block{
 	border-top: none;
 }
@@ -16,10 +24,8 @@
 	border-left: none;
 }
 
-.index {
-
+.index {	
 	$img: $g-pages + '/index/images';
-
 	text-align: center;
 	padding: $g-padding-bottom 0;
 	font-weight: bold;
@@ -29,10 +35,12 @@
 		@extend .view-style;
 		background: #fff;
 		&-scroll {
-			padding-bottom: 400px;
+			height: 100%;
+			overflow: hidden;
+			// padding-bottom: 400px;
 		}
 		&-picture {
-			margin: 40px auto 0;
+			margin: 25px auto 0;
 			@include square(85px);
 			border-radius: 50%;
 			border: 1px solid $g-white;
@@ -51,7 +59,10 @@
 			color: $g-dark;
 		}
 		&-main {
-			margin-top: 48px;
+			margin-top: 25px;
+			.text-label{
+			    width: 80px;
+			}
 		}
 	}
 }

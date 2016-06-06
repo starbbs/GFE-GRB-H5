@@ -9,7 +9,8 @@ require([
 	api, router, get, billView, loginJudge
 ) {
 
-	router.init(false);
+	router.init();
+	
 	// 后面带的数据缓存到cookie
 	for (var name in get.data) {
 		$.cookie(name, get.data[name]);

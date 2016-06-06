@@ -61,6 +61,12 @@
 		-->
 	</div>
 	<div class="view">
+		<!-- 转账 -->
+		@@include('./transfer-target.html')		
+		<!-- 地址 联系人和新目标 
+		@@include('./transfer-contacts.html')
+		@@include('./transfer-new.html')
+		-->
 		<!-- 实名认证 -->
 		@@include('../../views/authentication/authentication.html')	
 		<!--设置密码的步骤-->
@@ -70,11 +76,6 @@
 		@@include('../../views/address/address-mine.html')
 		<!-- 钱包地址设置-->
 		@@include('../../views/address/address-wallet.html')
-		<!-- 地址 联系人和新目标 -->
-		@@include('./transfer-contacts.html')
-		@@include('./transfer-new.html')
-		<!-- 转账 -->
-		@@include('./transfer-target.html')
 		<!-- 账单 -->
 		@@include('../../views/bill/bill.html')
 
@@ -83,6 +84,7 @@
 	<div class="dialog">
 		@@include('../../dialogs/success/success.html')
 		@@include('../../dialogs/alert/alert.html')
+		@@include('../../dialogs/confirm/confirm.html')				
 		@@include('../../dialogs/paypass/paypass.html')
 	</div>
 </div>

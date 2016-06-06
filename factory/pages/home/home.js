@@ -2,18 +2,88 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'h5-login-judge-auto',
-	'filters',
+	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'filters',
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
-	// $.cookie('gopToken', 'f9e8c2d6f87b40aead8c4a7d921d5c00'); //我的 
-	// $.cookie('gopToken','67f011561e2c4c82851d6e38f3d31c69'); //杨娟
+	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //小妮
+	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟    
+	// $.cookie('gopToken','fc7c154d9c82426ca64931bfe2bcf406'); //东霖
+	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
+	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //徐停
+	//  $.cookie('gopToken', '1332f5bda22640db9e1f49583f5bb884'); //李鹏
+	 // $.cookie('gopToken', '7ed37109ecf44a2ea18f1b410693a54a'); //王源
+
 	router.init(true);
+	//清除订单过去买果仁的存入内容
+	window.localStorage.removeItem("from");
+    window.localStorage.removeItem("id");
+                
 	var gopToken = $.cookie('gopToken');
+	/**
+	 * 检查用户的登录密码，如果已经错误了十次了那直接进入frozen页面，如果ok的话进入home页面。
+	 * @param _gopToken
+	 * @returns {boolean}
+	 */
+	var checkPassword = function(_gopToken) {
+		api.checkLoginPasswordStatus({
+			"gopToken": _gopToken
+		}, function(data) {
+			if (data.status == 200) {
+				if (data.data.result == "success") {
+					//do nothing
+				} else if (data.data.times == 10) {
+					setTimeout(function() {
+						window.location.href = './frozen10.html?type=locked'
+					}, 210);
+				} else if (data.data.times == 15) {
+					setTimeout(function() {
+						window.location.href = './frozen15.html?type=locked'
+					}, 210);
+				}
+			}
+		})
+	};
+	if (gopToken) {
+		checkPassword(gopToken);
+	}
 	var main = $('.home');
 
 	//我的收益  昨天 累计
+
+
+
+	var homeVm = avalon.define({
+		$id: 'home',
+		bannerImgArr: [],
+		myGopNum: 0, //果仁数
+		gopNowPrice: 0, //果仁现价
+		totalInCome: 0, //累计收益
+		yesterDayIncome: 0, //昨天收益
+		curIndex: 0,
+		gopToken: gopToken ? true : false,
+		//预计年化收益
+		toggleBtnFn: function() { //切换样式Fn
+			var $this = $(this);
+			console.log(homeVm.curIndex);
+			if (this.className.indexOf('up') != -1) {
+				homeVm.curIndex = 2;
+				$this.removeClass('up').addClass('down');
+			} else {
+				$this.removeClass('down').addClass('up');
+				homeVm.curIndex = 1;
+			}
+		},
+		gotophonecharge: function(ev) {
+			var target = $(ev.target).closest('.home-phonebills');
+			if (!target.length) {
+				return;
+			}
+			window.location.href = target.get(0).dataset.href;
+		},
+	});
+
+	avalon.scan(main.get(0), homeVm);
 	api.getIncome({
 		gopToken: gopToken
 	}, function(data) {
@@ -54,46 +124,23 @@ require([
 			touchsliderBanner.touchsliderFn();
 		}
 	});
-
-
-	var homeVm = avalon.define({
-		$id: 'home',
-		bannerImgArr: [],
-		myGopNum: 0, //果仁数
-		gopNowPrice: 0, //果仁现价
-		totalInCome: 0, //累计收益
-		yesterDayIncome: 0, //昨天收益
-		curIndex: 0,
-		gopToken: gopToken ? true : false,
-		//预计年化收益
-		toggleBtnFn: function() { //切换样式Fn
-			var $this = $(this);
-			console.log(homeVm.curIndex);
-			if (this.className.indexOf('up') != -1) {
-				homeVm.curIndex = 2;
-				$this.removeClass('up').addClass('down');
-			} else {
-				$this.removeClass('down').addClass('up');
-				homeVm.curIndex = 1;
-			}
-		},
-		gotophonecharge: function(ev) {
-			var target = $(ev.target).closest('.home-phonebills');
-			if (!target.length) {
-				return;
-			}
-			window.location.href = target.get(0).dataset.href;
-		},
-	});
-
-	avalon.scan(main.get(0), homeVm);
-
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
-/*
-	'use strict';
-	
+
+
+	/*
+		'use strict';
+		//字符串模板
+		
+		var name = 'kingswei',
+			time = '111111';
+		console.log(`我是${name},出生时间是${time}`);
+		console.log(`字符串模板${(function(){ return '---可以放函数---'})()}`);
+	*/
+
+
+	/*
 	//generator  return yield区别在于记忆功能
 	function* helloGenerator() {
 		yield console.log('1111');
@@ -174,71 +221,44 @@ require([
 	*/
 
 
+	/*	
+	'use strict';
+	// promise实例 1
+	var promise = [1,2,3,4,5].map((id)=>{
+		var op = new Promise(function(reslove,reject){
+			reslove('promist-----'+id);
+		})
+		return op;
+	});
 
-		//promise 实例4  瞎写
-		/*
-		var creatPromiseOBJ = function(cbfn) {
-			return new Promise(function(resolve, resject) {
-				cbfn && cbfn(resolve);
-			});
-		};
+	Promise.all(promise).then((text)=>{
+		console.log(text);
+	}).catch((errwhy)=>{
+		console.log('有错误'+errwhy)
+	});
 
-		//果仁现价
-		var getPrice = function(resolve) {
-			api.price(function(data) {
-				if (data.status == '200') {
-					console.log(data.data.price);
-					resolve(data.data.price);
-				}
-			});
-		};
+	// promise实例 2
+	var p = Promise.resolve('hello');  // 等价于 var p = new Promise((resolve,reject)=>resolve('hello'));
+	
 
-		creatPromiseOBJ(getPrice).then(function(price) {
-			console.log('果仁现价' + price);
-		}).catch(function(err) {
-			console.log(err);
+	
+
+
+	es6 箭头函数   add ([x,y]) => {return x+y;};
+		var add = (a, b) => a + b;
+		var valFN = (val) => console.log(val);		
+		console.log(add(1, 2)); //3
+
+		var add1 = (a, b) => {
+			return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
+		}
+		console.log(add1(1, 3)); // 4
+
+		//匿名函数
+		setTimeout(() => {
+			console.log(add1(1, 3)); // 4
 		});
-		*/
-
-
-		/*	
-			'use strict';
-			// promise实例 1
-			var promise = [1,2,3,4,5].map((id)=>{
-				var op = new Promise(function(reslove,reject){
-					reslove('promist-----'+id);
-				})
-				return op;
-			});
-
-			Promise.all(promise).then((text)=>{
-				console.log(text);
-			}).catch((errwhy)=>{
-				console.log('有错误'+errwhy)
-			});
-
-			// promise实例 2
-			var p = Promise.resolve('hello');  // 等价于 var p = new Promise((resolve,reject)=>resolve('hello'));
-			
-
-			
-
-
-			es6 箭头函数   add ([x,y]) => {return x+y;};
-				var add = (a, b) => a + b;
-				var valFN = (val) => console.log(val);		
-				console.log(add(1, 2)); //3
-
-				var add1 = (a, b) => {
-					return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
-				}
-				console.log(add1(1, 3)); // 4
-
-				//匿名函数
-				setTimeout(() => {
-					console.log(add1(1, 3)); // 4
-				});
-			*/
+	*/
 
 
 });

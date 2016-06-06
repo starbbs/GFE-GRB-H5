@@ -12,7 +12,6 @@ define('h5-dialog-paypass', [
 	authenticationVM, paypassViewVM
 ) {
 
-	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	// new View('paypass-view-1');
 	new View('paypass-view-2set');
@@ -113,7 +112,7 @@ define('h5-dialog-paypass', [
 	// ifHideOthers      [是否隐藏其他浮层, 默认false]
 	// HideArr           [隐藏指定的浮层, 数组是浮层的名称集合]
 	var showDialogKnown = function(ifShowImmediately, ifHideOthers, HideArr) { // 出"知道了"弹窗  错误5次
-		dialogAlert.set('输入5次错误,3小时后解锁');
+		dialogAlert.set('您的支付密码错误次数累计已达5次，为了您的账户安全，暂时关闭您的支付功能3小时。若非本人操作，请及时联系果仁宝客服 <br/> <a href="tel:400-184-9696" class="blue">400-184-9696</a>');
 		dialogAlert.show(ifShowImmediately, ifHideOthers, HideArr);
 	};
 	var gotoFrozen = function() { // 进入冻结页  错误10次
@@ -122,6 +121,21 @@ define('h5-dialog-paypass', [
 		}, 100);
 	};
 
+	var winHrefFn = function(pageName) {
+		switch (pageName) {
+			case 'order':
+				return 'paypass.html?from=order' + url.search.replace(/(\?from=phonecharge)|(\?from=bill)/, '');
+				break;
+			case 'transfer':
+				return 'paypass.html?from=transfer' + '&cangory=' + vm.cangory + '&hash=' + window.location.hash.replace(/\#\!/, '');
+				//match(/\#\!\/\w+\-\w+/ig)[0];
+				break;
+			default:
+				return 'paypass.html?from=mine';
+				break;
+		}
+
+	};
 	var vm = paypass.vm = avalon.define({
 		$id: 'dialog-paypass',
 		close: function() {
@@ -134,8 +148,7 @@ define('h5-dialog-paypass', [
 			}, 500);
 		},
 		forgetPaypass: function() { //点击忘记密码
-			window.location.href = 'paypass.html' + (url.basename.match(/order/ig) ? '?from=' + url.basename + url.search.replace(/\?from=phonecharge/, '') : '?from=' + url.basename);
-
+			window.location.href = winHrefFn(url.basename);
 		},
 		input: function() { // 输入时
 			var value = this.value;
@@ -175,12 +188,9 @@ define('h5-dialog-paypass', [
 		},
 	});
 
-	paypass.on('show', function() { // 显示时输入框自动获取焦点
-		input.get(0).focus();
-		setTimeout(function() {
-			input.get(0).focus();
-		}, 300);
-	});
+//	paypass.on('show', function() { // 显示时输入框自动获取焦点
+//		input.get(0).focus();
+//	});
 	paypass.on('hide', function() { // 清除input的value并失焦
 		input.val('').get(0).blur();
 		input.get(0).paypassClear();

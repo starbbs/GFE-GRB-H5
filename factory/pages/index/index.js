@@ -8,7 +8,8 @@ require([
 ], function(
 	router, api, check, get, authorization, View, weixin, H5Button, loginJudge
 ) {
-	
+
+	router.init();
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id
@@ -22,15 +23,25 @@ require([
 		$id: 'index-login',
 		name: '您好', // 微信昵称
 		image: './images/picture.png', // 微信头像
+		tipIsShow: false,
 		mobile: '', // 手机号
 		code: '', // 验证码
+		blur: function() {
+			loginVM.tipIsShow = false;
+			// alert('blur    '+loginVM.tipIsShow);
+		},
+		focus: function() {
+			loginVM.tipIsShow = true;
+			// alert('focus    '+loginVM.tipIsShow);	
+		},
 		close: function(attr) { // 关闭按钮
 			loginVM[attr] = '';
 		},
 		click: function() { // 按钮
-
 			// console.log(H5Button.filter(this));
-			var self = $(this);
+			var self = $('.button').eq(0).click();
+			var _this = $('.button')[0];
+			console.log(self);
 			if (self.hasClass('disabled')) {
 				return $.alert('正在校验中, 请稍后');
 			}
@@ -47,7 +58,7 @@ require([
 				return $.alert(codeCheck.message);
 			}
 
-			var load = this.__loading;
+			var load = _this.__loading;
 			load.work();
 			api.identifyingCode({
 				phone: mobile,
@@ -87,7 +98,7 @@ require([
 		},
 	});
 	login.on('show', function() {
-		login.self.get(0).scrollTop = 0; // 显示时滚回最上面
+		// login.self.get(0).scrollTop = 0; // 显示时滚回最上面
 	});
 	avalon.scan(login.native, loginVM);
 
@@ -97,7 +108,8 @@ require([
 			authorization.go(); //跳转威信授权的地址
 		}, 100);
 	};
-	var gotoHome = function() { // 跳转home页面, 已授权, 已绑定账号 解决安卓停留请等待
+	var gotoHome = function() {
+		// 跳转home页面, 已授权, 已绑定账号 解决安卓停留请等待,
 		setInterval(function() {
 			// window.location.href = 'frozen.html'
 			authorization.goGet();
@@ -115,6 +127,7 @@ require([
 			gotoHome();
 		});
 	};
+
 	var checkCode = function() {
 		// alert('是否有CODE==='+wxCode);
 		if (wxCode) { // 已授权
@@ -135,9 +148,20 @@ require([
 						loginVM.image = data.data.img;
 						gotoLogin();
 					}
-				} else { // code无效
-					// $.alert(data.msg);
-					// alert('code无效去授权');
+
+				} else if (data.status == 312) { //如果用户的密码被锁定那么跳转到锁定页面
+					if (data.lockTimes == 15) { //15次跳转到永远锁定页面
+						setTimeout(function() {
+							window.location.href = './frozen15.html?type=locked'
+						}, 210);
+					} else { //跳转到锁定页面
+						setTimeout(function() {
+							window.location.href = './frozen10.html?type=locked'
+						}, 210);
+					}
+
+				} else {
+					//alert(data.status+"  "+data.msg);
 					gotoAuthorization();
 				}
 			});
@@ -146,12 +170,13 @@ require([
 			checkToken();
 		}
 	};
-
+	//router.go('/index-login');
+	//return;
 	var init = function() {
 		router.init(true);
-		if(gopToken){
+		if (gopToken) {
 			gotoHome();
-		}else{
+		} else {
 			checkCode();
 		}
 		// setTimeout(function() {

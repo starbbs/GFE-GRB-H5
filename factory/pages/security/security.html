@@ -8,6 +8,13 @@
 					{{authenticationed?'已认证':'未认证'}}</div>
 				<div class="block-arrow"></div>
 			</a>
+			<a href="javascript:;" class="block-item" ms-on-click="paypassSet">
+				<div class="block-label">支付密码</div>
+				<div ms-class-1="green:getPassWorld" ms-class-2="silver:!getPassWorld">
+					{{getPassWorld?'修改':'未设置'}}
+				</div>
+				<div class="block-arrow"></div>
+			</a>			
 			<a class="block-item" ms-click="protect_click">
 				<div class="block-label">密保问题</div>
 				<div ms-class-1="green:setProtected" ms-class-2="silver:!setProtected">
@@ -25,13 +32,6 @@
 			<!--
 			<a ms-attr-href="{{getPassWorld ?  './paypass.html' : '#!/paypass-view-2'}}" class="block-item">
 			-->
-			<a href="javascript:;" class="block-item" ms-on-click="paypassSet">
-				<div class="block-label">支付密码</div>
-				<div ms-class-1="green:getPassWorld" ms-class-2="silver:!getPassWorld">
-					{{getPassWorld?'修改':'未设置'}}
-				</div>
-				<div class="block-arrow"></div>
-			</a>
 		</div>
 	</div>
 	<div class="view">

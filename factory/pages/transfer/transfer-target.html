@@ -1,88 +1,85 @@
 <div class="transfer-target scroll" ms-controller="transfer-target">
-	<div class="transfer-target-scroll">
-		<!--头部-->
-		<div class="transfer-target-head my-wallet">
-			<div class="transfer-icon-2-big"></div>
-			<div class="transfer-target-head-name">我的钱包</div>
+	<!--头部-->
+	<div class="transfer-target-head my-wallet">
+		<div class="transfer-icon-2-big"></div>
+		<div class="transfer-target-head-name">我的钱包</div>
+		<div class="transfer-target-head-address">{{address|address}}</div>
+	</div>
+	<div class="transfer-target-head gop-market">
+		<div class="transfer-icon-3-big"></div>
+		<div class="transfer-target-head-name">果仁市场</div>
+		<div class="transfer-target-head-address">{{address|address}}</div>
+	</div>
+	<!--联系人头像及姓名-->
+	<!--
+	<div class="transfer-target-head phone-address">
+			<div class="transfer-target-head-img"><img ms-attr-src="photo" alt="" class="img-f"></div>
+			<div class="transfer-target-head-name">{{name}}</div>
+			<div class="transfer-target-head-address">{{phone|phone}}</div>
+	</div>
+	-->
+	<!--钱包地址-->
+	<!--
+	<div class="transfer-target-head wallet-address">
+			<div class="transfer-icon-5-big"></div>
+			<div class="transfer-target-head-name">{{name}}</div>
 			<div class="transfer-target-head-address">{{address|address}}</div>
+	</div>
+	-->
+	<!--数量转帐金额  钱包和果仁联系人-->
+	<!--钱包-->
+	<div class="transfer-target-box wallet">
+		<div class="transfer-target-box-title">转出数量
+			<div class="transfer-target-box-fee">手续费 <span class="iconfont icon-g"></span> {{serviceFee}}</div>
 		</div>
-		<div class="transfer-target-head gop-market">
-			<div class="transfer-icon-3-big"></div>
-			<div class="transfer-target-head-name">果仁市场</div>
-			<div class="transfer-target-head-address">{{address|address}}</div>
+		<div class="transfer-target-box-line">
+			<div class="text">
+				<span class="font-label iconfont icon-g"></span>
+				<div class="text-box">
+					<input
+					id="address-mine-input-1"
+					name="address-mine-input-1"
+					class="text-input"
+					autocomplete="off"
+					ms-attr-placeholder="现可用果仁{{gopNum}}"
+					type="number"
+					maxlength="10"
+					data-text='close|two'
+					ms-on-input="checkCnyMoney"
+					ms-duplex="transferNum">
+				</div>
+				<div class="text-close"></div>
+			</div>
 		</div>
-		<!--联系人头像及姓名-->
-		<!--
-		<div class="transfer-target-head phone-address">
-				<div class="transfer-target-head-img"><img ms-attr-src="photo" alt="" class="img-f"></div>
-				<div class="transfer-target-head-name">{{name}}</div>
-				<div class="transfer-target-head-address">{{phone|phone}}</div>
-		</div>
-		-->
-		<!--钱包地址-->
-		<!--
-		<div class="transfer-target-head wallet-address">
-				<div class="transfer-icon-5-big"></div>
-				<div class="transfer-target-head-name">{{name}}</div>
-				<div class="transfer-target-head-address">{{address|address}}</div>
-		</div>
-		-->
-		<!--数量转帐金额  钱包和果仁联系人-->
-		<!--钱包-->
-		<div class="transfer-target-box wallet">
+		<!-- <div class="transfer-target-box-tip" ms-visible="!isMarket">手续费 G 0.01</div> -->
+		<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
+	</div>
+	<!--果仁-->
+	<!--
+	<div class="transfer-target-box gop">
 			<div class="transfer-target-box-title">转出数量
-				<div class="transfer-target-box-fee">手续费 <span class="iconfont icon-g"></span> {{serviceFee}}</div>
+					<div class="transfer-target-box-fee">手续费 <span class="iconfont icon-g"></span> {{serviceFee}}</div>
 			</div>
 			<div class="transfer-target-box-line">
-				<div class="text">
-					<span class="font-label iconfont icon-g"></span>
-					<div class="text-box">
-						<input
-						id="address-mine-input-1"
-						name="address-mine-input-1"
-						class="text-input"
-						autocomplete="off"
-						ms-attr-placeholder="现可用果仁{{gopNum}}"
-						type="number"
-						maxlength="10"
-						data-text='close|two'
-						ms-on-input="checkCnyMoney"
-						ms-on-blur="getCnyMoney"
-						ms-duplex="transferNum">
-					</div>
-					<div class="text-close"></div>
+					<div class="text">
+							<span class="font-label iconfont icon-g"></span>
+							<div class="text-box">
+									<input id="address-mine-input-2" name="address-mine-input-2" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{gopNum}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum"></div>
+								<div class="text-close"></div>
+						</div>
 				</div>
-			</div>
-			<!-- <div class="transfer-target-box-tip" ms-visible="!isMarket">手续费 G 0.01</div> -->
-			<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
+				<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
 		</div>
-		<!--果仁-->
-		<!--
-		<div class="transfer-target-box gop">
-				<div class="transfer-target-box-title">转出数量
-						<div class="transfer-target-box-fee">手续费 <span class="iconfont icon-g"></span> {{serviceFee}}</div>
-				</div>
-				<div class="transfer-target-box-line">
-						<div class="text">
-								<span class="font-label iconfont icon-g"></span>
-								<div class="text-box">
-										<input id="address-mine-input-2" name="address-mine-input-2" class="text-input" autocomplete="off" ms-attr-placeholder="现可用果仁{{gopNum}}" type="number" maxlength="10" data-text='close' ms-on-input="getCnyMoney" ms-duplex="transferNum"></div>
-									<div class="text-close"></div>
-							</div>
-					</div>
-					<div class="transfer-target-box-tip">约合RMB {{cnyMoney|fix}}</div>
+		-->
+		<!--转帐说明-->
+		<div class="transfer-target-detail">
+			<div class="text">
+				<div class="text-label">转账说明</div>
+				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" type="text" data-text='close' ms-duplex="content" ms-on-focus="transferDesInputFocus"></div>
+				<div class="text-close"></div>
 			</div>
-			-->
-			<!--转帐说明-->
-			<div class="transfer-target-detail">
-				<div class="text">
-					<div class="text-label">转账说明</div>
-					<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" type="text" data-text='close' ms-duplex="content" ms-on-keyup="transferDesInputOnInput" ms-on-focus="transferDesInputFocus" ms-on-blur="transferDesInputBlur"></div>
-					<div class="text-close"></div>
-				</div>
-			</div>
-			<div class="text-button">
-				<span class="button" ms-class="disabled:notchecked" ms-click="transferCommitClick">转账</span>
-			</div>
+		</div>
+		<div class="text-button">
+			<span class="button" ms-class="disabled:notchecked" ms-click="transferCommitClick">转账</span>
 		</div>
 	</div>

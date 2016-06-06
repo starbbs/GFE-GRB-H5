@@ -10,13 +10,11 @@
  * 	1.编号顺序和文档一致,方便查找和对应
  * 	2.使用文档为v1.2.0
  */
-define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api, authorization) {
-
+define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], function(Api, authorization, alert, cookie, config) {
+	
 	// var baseUri = '.'; // 同域
-	//var baseUri = '//goopal.xiaojian.me'; // http测试服务器
-	// var baseUri = 'http://116.213.142.89:8080'; // http测试服务器
-		 var baseUri = '//endpoint.goopal.com.cn'; // https正式服务器 v1.1
-	// var baseUri = 'https://www.yuxiaojian.cn'; // https测试服务器
+	var baseUri = config.baseUri; // http测试服务器
+	
 
 	var goIndex = function() { // 返回首页
 		authorization.go();
@@ -77,7 +75,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 	});
 
 	// 8.我的果仁数
-	api.regist('getGopNum', '/wealth/getGopNum',{
+	api.regist('getGopNum', '/wealth/getGopNum', {
 		asyn: true
 	});
 
@@ -319,6 +317,19 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie'], function(Api
 
 	// 85.微信端微信注册用户
 	api.regist('wxregister', '/login/wx/wxregister');
+
+	//86.优惠券列表接口
+	api.regist('myVoucherList', '/voucher/myVoucherList');
+
+	//87 .判断用户登录密码状态的接口
+	api.regist('checkLoginPasswordStatus', '/security/checkLoginPasswordStatus', {
+		asyn: true
+	});
+	//88 . 验证手机号与微信号的绑定
+	api.regist('checkPhoneAndWxAcount', '/login/checkPhoneAndWxAcount');
+
+	//89 . 验证手机号与微信号的绑定
+	api.regist('getVoucher', '/voucher/getVoucher');
 
 	return api;
 });

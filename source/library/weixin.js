@@ -16,7 +16,9 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 	}
 
 	var gopToken = $.cookie('gopToken');
-	var base = 'www.goopal.com.cn/wx'; // 地址
+	// var base = 'www.goopal.com.cn/wx'; // 地址
+
+	var base = 'www.xiaojian.me/wx'; // 地址
 	var weixin = {
 		// 参数
 		appId: null,
@@ -24,18 +26,19 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 		nonceStr: null,
 		signature: null,
 		// 分享
-		title: '果仁宝',
-		desc: '果仁宝，一站式理财消费新平台',
-		link: window.location.protocol + '//' + base + '/index.html',
-		imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
+		title: '我刚刚抢到120元话费，人人有，限时送，小伙伴们快来~',
+		desc: '嗨聊模式开启啦，120元话费、流量任性充！关注“果仁宝”服务号还有更多惊喜哦~',
+		link: window.location.protocol + '//' + base + '/activity.html?grbsev=yes&',
+		// imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
+		imgUrl: window.location.protocol + '//' + base + '/images/eventshare.png',
 		type: '',
 		dataUrl: '',
-		success: function() { // 用户确认分享后执行的回调函数
-			$.alert('分享成功');
-		},
-		cancel: function() { // 用户取消分享后执行的回调函数
-			$.alert('分享取消');
-		},
+//		success: function() { // 用户确认分享后执行的回调函数
+//			$.alert('分享成功');
+//		},
+//		cancel: function() { // 用户取消分享后执行的回调函数
+//			$.alert('分享取消');
+//		},
 		/**
 		 * [setShare 设置微信分享]
 		 * @Author   张树垚
@@ -56,10 +59,15 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 			if (arguments.length === 0 || type === 'all' || type === 'timeline') { // 分享到朋友圈
 				wx.onMenuShareTimeline($.extend({
 					title: weixin.title, // 分享标题
+					desc: weixin.desc, // 分享描述
 					link: weixin.link, // 分享链接
 					imgUrl: weixin.imgUrl, // 分享图标
-					success: weixin.success,
-					cancel: weixin.cancel,
+					success: function(){
+						$.alert('分享成功');
+					},
+					cancel: function(){
+						$.alert('分享取消');
+					},
 				}, options));
 			}
 			if (arguments.length === 0 || type === 'all' || type === 'appMessage') {
@@ -70,8 +78,12 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 					imgUrl: weixin.imgUrl, // 分享图标
 					type: weixin.type, // 分享类型,music、video或link，不填默认为link
 					dataUrl: weixin.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
-					success: weixin.success,
-					cancel: weixin.cancel,
+					success: function(){
+//						$.alert('分享成功');
+					},
+					cancel: function(){
+						$.alert('分享取消');
+					},
 				}, options));
 			}
 		},

@@ -1,4 +1,5 @@
 // 张树垚 2015-12-30 16:55:15 创建
+// 魏冰冰 2016-05-01          修改
 // H5微信端 --- 支付密码重置
 
 
@@ -8,7 +9,6 @@ require([
 ], function(
 	router, api, View, get, dialogSuccess, dialogAlert, url
 ) {
-
 	router.init(true);
 
 	dialogAlert.set('输入5次错误,3小时后解锁');
@@ -24,7 +24,7 @@ require([
 		// return;
 		switch (get.data.from) {
 			case 'transfer':
-				window.location.href = './transfer.html';
+				window.location.href = './transfer.html?cangory=' + get.data.cangory;
 				break;
 			case 'order':
 				window.location.href = './order.html' + url.search;
@@ -65,9 +65,32 @@ require([
 	new View('paypass-protection-2');
 	new View('paypass-authentication');
 	new View('paypass-ident');
-	new View('paypass-view-1');
-	new View('paypass-view-2');
-	new View('paypass-view-3');
+
+	var payPassViewArr = [];
+
+	//Array.of(new View('paypass-view-1'), new View('paypass-view-2'), new View('paypass-view-3'));
+
+	payPassViewArr.push(new View('paypass-view-1'));
+	payPassViewArr.push(new View('paypass-view-2'));
+	payPassViewArr.push(new View('paypass-view-3'));
+
+	//var paypassViewShowFn = function(index) {
+	//	$('#paypass-' + index).focus();
+	//};
+	//var paypassViewHideFn = function(index) {
+	//	$('#paypass-' + index).blur();
+	//};
+
+	//payPassViewArr.forEach(function(objView, index, arr) {
+	//	objView.on('show', function() {
+	//		paypassViewShowFn(index);
+	//	}.bind(objView));
+	//
+	//	//objView.on('hide', function() {
+	//	//	paypassViewHideFn(index);
+	//	//}.bind(objView));
+	//});
+	//
 
 	var vm = avalon.define({
 		$id: 'paypass',
@@ -271,6 +294,12 @@ require([
 		//vm.hasProtected = data.status == 200;
 		vm.hasProtected = data.status == 200 ? true : false;
 	});
+
+	if(window.location.href.match(/from=order|from=transfer/)){
+		setTimeout(function(){
+			router.to('/paypass-choose');
+		},100)
+	}
 
 	//身份证认证				
 	api.info({
