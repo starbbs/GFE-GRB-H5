@@ -171,7 +171,7 @@ require([
             "activityId": 1
         }, function (voucherData) {
             if (voucherData.status == 399) {
-                h5alert("来的太晚了,优惠券已经发完了~")
+                h5alert("话费已被抢完了，下次早点来~")
                 setTimeout(function () {
                     location.href = "./home.html"
                 }, 1000);
@@ -249,8 +249,10 @@ require([
                     activityVM.verify_secs = 60;
                     $("#getcode_btn").removeClass("activity-login-main-item-btn-active").html("<span id='verify_timer_phonenum' >60</span>秒后重新获取");
                     activityVM.phonenum_verifyTimer();
-                } else {
-                    h5alert("短信发送失败")
+                } else if(data.status == 400) {
+                    h5alert(data.msg);
+                }else{
+                    h5alert("验证码发送失败");
                 }
             })
         },
