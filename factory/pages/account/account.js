@@ -217,74 +217,74 @@ require([
             // data 列表所有的数据条目
             // data.map全部完成 ==> sort全部完成 ==> reduce全部完成 ==>
             return data.map(function(item) { // 确定时间 list每条的时间转化成 JS时间
-                item._date = mydate.parseDate(item.businessTime);
-                return item;
-            })//.sort(function(item1, item2) { // 时间排序
-              //  return item2._date.getTime() - item1._date.getTime();
-            //})
-            .reduce(function(result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
-                // console.log(item);
-                // console.log(result);
-                var time = mydate.timeHandler(item._date);
-                //{	date: 31,		//日
-                //	day: 2,			//周几
-                //	day2: "二"
-                //	hour: 11,		//时
-                //	hour2: "11"
-                //	minute: 51, 	//分
-                //	minute2: "51"
-                //	month: 4 ,		//月份
-                //	month2: 5 ,
-                //	month3: "五",
-                //	second: 56,		//秒
-                //	year: 2016		//年   }
-                var type = H5bill.typeClass[item.type];
-                var bills = [];
-                switch (type) { // 账单类型
-                    case 'phone': // 消费果仁, 果仁+人民币
-                        dataAdd('all', bills, item);
-                        break;
-                    case 'buy': // 买果仁, 人民币
-                        dataAdd('money', bills, item);
-                        break;
-                    case 'transfer': // 转果仁, 果仁
-                        dataAdd('gop', bills, item);
-                        break;
-                    default: // 退款
-                        if (item.type === 'REFUND') {
-                            if (item.money) { // 退人民币
-                                console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
-                                type = 'none'; // 页面过滤type为none的账单
-                            } else if (item.gopNumber >= 0) {
-                                dataAdd('gop', bills, item);
+                    item._date = mydate.parseDate(item.businessTime);
+                    return item;
+                }) //.sort(function(item1, item2) { // 时间排序
+                //  return item2._date.getTime() - item1._date.getTime();
+                //})
+                .reduce(function(result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
+                    // console.log(item);
+                    // console.log(result);
+                    var time = mydate.timeHandler(item._date);
+                    //{	date: 31,		//日
+                    //	day: 2,			//周几
+                    //	day2: "二"
+                    //	hour: 11,		//时
+                    //	hour2: "11"
+                    //	minute: 51, 	//分
+                    //	minute2: "51"
+                    //	month: 4 ,		//月份
+                    //	month2: 5 ,
+                    //	month3: "五",
+                    //	second: 56,		//秒
+                    //	year: 2016		//年   }
+                    var type = H5bill.typeClass[item.type];
+                    var bills = [];
+                    switch (type) { // 账单类型
+                        case 'phone': // 消费果仁, 果仁+人民币
+                            dataAdd('all', bills, item);
+                            break;
+                        case 'buy': // 买果仁, 人民币
+                            dataAdd('money', bills, item);
+                            break;
+                        case 'transfer': // 转果仁, 果仁
+                            dataAdd('gop', bills, item);
+                            break;
+                        default: // 退款
+                            if (item.type === 'REFUND') {
+                                if (item.money) { // 退人民币
+                                    console.log('Warning: (account) 退人民币,在微信中被过滤掉', item);
+                                    type = 'none'; // 页面过滤type为none的账单
+                                } else if (item.gopNumber >= 0) {
+                                    dataAdd('gop', bills, item);
+                                } else {
+                                    console.log('Error: (account) 退款错误,没有人民币和果仁', item);
+                                }
                             } else {
-                                console.log('Error: (account) 退款错误,没有人民币和果仁', item);
+                                console.log('没有处理的账单类型', item);
                             }
-                        } else {
-                            console.log('没有处理的账单类型', item);
-                        }
-                }
-                var compare = mydate.timeCompare(now, item._date); //返回 今天 昨天 前天  周一五
-                var day = {
-                    id: item.businessId,
-                    day: compare ? compare : ('周' + time.day2),
-                    time: compare ? (time.hour2 + ':' + time.minute2) : (time.month2 + '-' + time.date),
-                    type: type,
-                    originType: item.type,
-                    bills: bills,
-                };
+                    }
+                    var compare = mydate.timeCompare(now, item._date); //返回 今天 昨天 前天  周一五
+                    var day = {
+                        id: item.businessId,
+                        day: compare ? compare : ('周' + time.day2),
+                        time: compare ? (time.hour2 + ':' + time.minute2) : (time.month2 + '-' + time.date),
+                        type: type,
+                        originType: item.type,
+                        bills: bills,
+                    };
 
-                if (result.length > 0 && result[result.length - 1].month2 === time.month2) { // 不是本月的
-                    result[result.length - 1].days.push(day);
-                } else { // 本个月份
-                    result.push({
-                        month: nowMonth === time.month ? '本月' : (time.month2 + '月'),
-                        month2: time.month2,
-                        days: [day]
-                    });
-                }
-                return result;
-            }, []);
+                    if (result.length > 0 && result[result.length - 1].month2 === time.month2) { // 不是本月的
+                        result[result.length - 1].days.push(day);
+                    } else { // 本个月份
+                        result.push({
+                            month: nowMonth === time.month ? '本月' : (time.month2 + '月'),
+                            month2: time.month2,
+                            days: [day]
+                        });
+                    }
+                    return result;
+                }, []);
         };
         //			       123.22    <span>G</span>    floorFix||ceilFix
         var numHandler = function(number, unit, filter) { // 数值处理
@@ -311,10 +311,23 @@ require([
                     var options = {};
                     data.name && (options.transferName = data.name);
                     data.img && (options.transferImg = data.img);
+                    options.onRendered = function(vms) {
+                        vm.list.forEach(function(listitem) {
+                            listitem.days.forEach(function(daysitem) {
+                                if (daysitem.id == data.id) {
+                                    setTimeout(function() {
+                                        daysitem.bills[0].status = vms.headContent.replace(/\(.+/g, '');
+                                        daysitem.bills[0].originStatus = vms.status;
+                                    }, 400);
+                                    return false;
+                                }
+                            });
+                        });
+                    };
                     billView.set(data.type, data.id, options);
-                    setTimeout(function(){
-                        router.go('/bill');                       
-                    },400);
+                    setTimeout(function() {
+                        router.go('/bill');
+                    }, 400);
                 }
             }
         });
