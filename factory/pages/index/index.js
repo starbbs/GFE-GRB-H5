@@ -30,7 +30,7 @@ require([
 			loginVM.tipIsShow = false;
 			// alert('blur    '+loginVM.tipIsShow);
 		},
-		focus:function(){
+		focus: function() {
 			loginVM.tipIsShow = true;
 			// alert('focus    '+loginVM.tipIsShow);	
 		},
@@ -39,7 +39,8 @@ require([
 		},
 		click: function() { // 按钮
 			// console.log(H5Button.filter(this));
-			var self = $('.button').eq(0);
+			var self = $('.button').eq(0).click();
+			var _this = $('.button')[0];
 			console.log(self);
 			if (self.hasClass('disabled')) {
 				return $.alert('正在校验中, 请稍后');
@@ -57,7 +58,7 @@ require([
 				return $.alert(codeCheck.message);
 			}
 
-			var load = this.__loading;
+			var load = _this.__loading;
 			load.work();
 			api.identifyingCode({
 				phone: mobile,
@@ -169,8 +170,8 @@ require([
 			checkToken();
 		}
 	};
-	//router.go('/index-login');
-	//return;
+	// router.go('/index-login');
+	// return;
 	var init = function() {
 		router.init(true);
 		if (gopToken) {
