@@ -9,7 +9,7 @@ require([
 	router, api, check, get, authorization, View, weixin, H5Button, loginJudge
 ) {
 
-	router.init(true);
+	router.init();
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id
@@ -23,8 +23,12 @@ require([
 		$id: 'index-login',
 		name: '您好', // 微信昵称
 		image: './images/picture.png', // 微信头像
+		tipIsShow: false,
 		mobile: '', // 手机号
 		code: '', // 验证码
+		blur: function() {
+			loginVM.tipIsShow = !loginVM.tipIsShow;
+		},
 		close: function(attr) { // 关闭按钮
 			loginVM[attr] = '';
 		},
@@ -88,7 +92,7 @@ require([
 		},
 	});
 	login.on('show', function() {
-		login.self.get(0).scrollTop = 0; // 显示时滚回最上面
+		// login.self.get(0).scrollTop = 0; // 显示时滚回最上面
 	});
 	avalon.scan(login.native, loginVM);
 
@@ -139,20 +143,20 @@ require([
 						gotoLogin();
 					}
 
-				} else if(data.status==312){ //如果用户的密码被锁定那么跳转到锁定页面
-					if(data.lockTimes==15){ //15次跳转到永远锁定页面
+				} else if (data.status == 312) { //如果用户的密码被锁定那么跳转到锁定页面
+					if (data.lockTimes == 15) { //15次跳转到永远锁定页面
 						setTimeout(function() {
 							window.location.href = './frozen15.html?type=locked'
 						}, 210);
-					}else { //跳转到锁定页面
+					} else { //跳转到锁定页面
 						setTimeout(function() {
 							window.location.href = './frozen10.html?type=locked'
 						}, 210);
 					}
 
-				}else{
+				} else {
 					//alert(data.status+"  "+data.msg);
-					 gotoAuthorization();
+					gotoAuthorization();
 				}
 			});
 		} else { // 未授权
@@ -160,13 +164,13 @@ require([
 			checkToken();
 		}
 	};
-	// router.go('/index-login');
-	// return;
+	router.go('/index-login');
+	return;
 	var init = function() {
 		router.init(true);
-		if(gopToken){
+		if (gopToken) {
 			gotoHome();
-		}else{
+		} else {
 			checkCode();
 		}
 		// setTimeout(function() {
