@@ -50,12 +50,7 @@ require([
 
     initUserUniqueKey();
     var isFromWxShare = getQueryString("grbsev");
-    //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
-    var currgopToken = $.cookie("gopToken");
-    if (currgopToken && "yes"!=isFromWxShare ) {
-        getAndGotoCouponlistPage(currgopToken);
-        return false;
-    }
+
 
     //定义提示页面的vm
     var tipPageVM = avalon.define({
@@ -138,7 +133,12 @@ require([
         });
         return false;
     }
-
+    //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
+    var currgopToken = $.cookie("gopToken");
+    if (currgopToken && "yes"!=isFromWxShare ) {
+        getAndGotoCouponlistPage(currgopToken);
+        return false;
+    }
 
     function countEvnet(_eventType) {
         var token = $.cookie("gopToken");
