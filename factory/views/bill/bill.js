@@ -35,7 +35,7 @@ define('h5-view-bill', [
 
 	var set = function(type, id, options) { // 账单分流
 		type = (type + '').trim().toUpperCase();
-		console.log(type);
+		// console.log(type);
 		options = options || {};
 		switch (type) {
 			case 'BUYIN_ORDER': // 买入, 消息
