@@ -6,7 +6,11 @@ require([
     var acvitityRegisteredPage = new View('activity-registered');
     // weixin.setShare("all",{});
     router.init(true);
-
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
     //扩展 api 
     api.countEvent = function (params, callBack, errorCallBack) {
         $.ajax({
@@ -45,8 +49,7 @@ require([
     }
 
     initUserUniqueKey();
-    var wxShare = get.data.iswxShare  ;
-
+    var wxShare = getQueryString("iswxShare");
     //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
     var currgopToken = $.cookie("gopToken");
     if (currgopToken && wxShare!="yes" ) {
@@ -71,7 +74,6 @@ require([
             location.href = "./home.html";
         }, 1000)
     }
-
     //判断url是否有数据,如果是授权完成以后的页面,则进行登录等逻辑
     if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign) && wxShare!="yes" ) {
         //清除数据
