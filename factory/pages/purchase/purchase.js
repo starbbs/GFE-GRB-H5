@@ -46,6 +46,7 @@ require([
                         forceStatus: 'SUCCESS',
                         ifFinishButton: true
                     });
+                    alert(from);
                     if (from) {
                         window.location.href = from + '.html' + (id ? '?id=' + id : '');
                     } else {
@@ -58,7 +59,8 @@ require([
                     vmOrder.id = order.id;
                     setOrderNum();
                     setTimeout(function () {
-                        router.go('/purchase-order');
+//                      router.go('/purchase-order');
+                        router.to('/purchase-order');
                         getPrice();
                     }, 100);
                 };
