@@ -53,6 +53,7 @@
     &-none{
         text-align: center;
         position: relative;
+        display: none;
         &-img{
             @include atl(50px,50%);
             transform:translateX(-50%);
