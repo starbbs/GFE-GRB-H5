@@ -7,7 +7,19 @@
 
 @import '../../views/view';
 @import '../../views/agreement/agreement';
+.text-button{
+	margin-top: 27px;
+	position: relative;
+	height: 43px;
+	& .button{
+		position: absolute;
+		width: 100%;
+	}
+}
 
+.tip{
+	display: none;
+}
 
 .block{
 	border-top: none;
@@ -15,9 +27,7 @@
 .text-ident{
 	border-left: none;
 }
-.screen-r{
-	height: 100%;
-}
+
 .index {
 	
 	$img: $g-pages + '/index/images';
@@ -28,7 +38,6 @@
 
 	&-login {
 		@extend .view-style;
-		position: relative;
 		background: #fff;
 		&-scroll {
 			height: 100%;
@@ -36,7 +45,7 @@
 			// padding-bottom: 400px;
 		}
 		&-picture {
-			margin: 40px auto 0;
+			margin: 25px auto 0;
 			@include square(85px);
 			border-radius: 50%;
 			border: 1px solid $g-white;
@@ -55,7 +64,7 @@
 			color: $g-dark;
 		}
 		&-main {
-			margin-top: 48px;
+			margin-top: 25px;
 			.text-label{
 			    width: 80px;
 			}

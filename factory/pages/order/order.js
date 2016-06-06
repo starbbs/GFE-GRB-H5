@@ -109,15 +109,15 @@ require([
                         dialogConfirm.set('您的果仁不足是否购买？');
                         dialogConfirm.show();
                         dialogConfirm.onConfirm = function() {
-                        	window.localStorage.setItem('from',url.basename);
-                        	window.localStorage.setItem('id',get.data.id);
+                            window.localStorage.setItem('from', url.basename);
+                            window.localStorage.setItem('id', get.data.id);
                             window.location.href = 'purchase.html#!/';
                         };
                     }
                 });
             },
             couponClick: function() {
-                router.to('/coupon-list');
+                router.go('/coupon-list');
             }
         });
         //列表点击事件
@@ -131,7 +131,8 @@ require([
                     vm.couponRmbNum = json.voucheramount;
                     vm.voucherId = json.voucherid;
                     vm.gopExchange();
-                    router.to('/');
+                    // router.to('/');
+                    window.history.back(-1);
                 }
             }
         };
