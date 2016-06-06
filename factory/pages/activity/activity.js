@@ -49,11 +49,11 @@ require([
     }
 
     initUserUniqueKey();
-    var wxShare = getQueryString("iswxShare");
-    alert(wxShare);
+    var isFromWxShare = getQueryString("grbsev");
+    alert(isFromWxShare);
     //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
     var currgopToken = $.cookie("gopToken");
-    if (currgopToken && wxShare!="yes" ) {
+    if (currgopToken && "yes"!=isFromWxShare ) {
         getAndGotoCouponlistPage(currgopToken);
         return false;
     }
@@ -76,7 +76,7 @@ require([
         }, 1000)
     }
     //判断url是否有数据,如果是授权完成以后的页面,则进行登录等逻辑
-    if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign) && wxShare!="yes" ) {
+    if (checkeSign(loginData.mobile, loginData.phonecode, loginData.sign) && "yes"!=isFromWxShare ) {
 
         //清除数据
         $.cookie('mobile', "");
