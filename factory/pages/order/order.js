@@ -117,7 +117,7 @@ require([
                 });
             },
             couponClick: function() {
-                router.to('/coupon-list');
+                router.go('/coupon-list');
             }
         });
         //列表点击事件
@@ -131,7 +131,8 @@ require([
                     vm.couponRmbNum = json.voucheramount;
                     vm.voucherId = json.voucherid;
                     vm.gopExchange();
-                    router.to('/');
+                    // router.to('/');
+                    window.history.back(-1);
                 }
             }
         };
