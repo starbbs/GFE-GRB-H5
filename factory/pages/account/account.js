@@ -312,7 +312,9 @@ require([
                     data.name && (options.transferName = data.name);
                     data.img && (options.transferImg = data.img);
                     billView.set(data.type, data.id, options);
-                    router.go('/bill');
+                    setTimeout(function(){
+                        router.go('/bill');                       
+                    },400);
                 }
             }
         });
