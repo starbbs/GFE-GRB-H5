@@ -45,9 +45,11 @@ require([
     }
 
     initUserUniqueKey();
+    var wxShare = get.data.iswxShare  ;
+
     //注册用户的情况,如果是注册用户,则直接进行领取优惠券的逻辑。
     var currgopToken = $.cookie("gopToken");
-    if (currgopToken) {
+    if (currgopToken && wxShare!="yes" ) {
         getAndGotoCouponlistPage(currgopToken);
         return false;
     }
