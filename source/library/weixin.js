@@ -29,7 +29,8 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 		title: '我刚刚抢到120元话费，人人有，限时送，小伙伴们快来~',
 		desc: '嗨聊模式开启啦，120元话费、流量任性充！关注“果仁宝”服务号还有更多惊喜哦~',
 		link: window.location.protocol + '//' + base + '/activity.html',
-		imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
+		// imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
+		imgUrl: window.location.protocol + '//' + base + '/images/eventshare.png',
 		type: '',
 		dataUrl: '',
 //		success: function() { // 用户确认分享后执行的回调函数
