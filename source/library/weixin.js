@@ -78,7 +78,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function(
 					type: weixin.type, // 分享类型,music、video或link，不填默认为link
 					dataUrl: weixin.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
 					success: function(){
-						$.alert('分享成功');
+//						$.alert('分享成功');
 					},
 					cancel: function(){
 						$.alert('分享取消');
