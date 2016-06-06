@@ -46,6 +46,7 @@ body {
 		white-space: nowrap;
 		margin-top: 200px;
 		position: relative;
+		display: none;
 		&-img{
 			@include atl(-50px , 50%);
 			transform:translateX(-50%);
