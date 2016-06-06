@@ -1,4 +1,5 @@
 // 张树垚 2015-11-27 10:46:47 创建
+// 魏冰冰 2016-06-01          修改
 // 移动端 右侧移入页面 View类
 
 define('h5-view', ['router', 'url', 'h5-alert'], function(router, url) {

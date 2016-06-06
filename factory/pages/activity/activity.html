@@ -1,7 +1,7 @@
 @@include('../../../source/include/top.html', {"name": "activity"})
 <div class="screen-r">
     <div class="activity" ms-controller="activityController">
-        <div class="block">
+        <div class="block" id="main_block">
             <div class="activity-top-banner">
                 <img src="./images/activity-top.gif" />
                 <img src="./images/activity-banner.png" class="activity-top-banner-static"/>
@@ -19,7 +19,7 @@
                         </div>
                         <div class="activity-login-main-item">
                             <input id="activity-login-code" name="activity-login-code" class="text-input" type="tel"
-                                   autocomplete="off" placeholder="验证码" maxlength="6" data-text="close"
+                                   autocomplete="off" ms-on-input="inputCode" placeholder="验证码" maxlength="6" data-text="close"
                                    ms-duplex="mobilecode">
                             <span class="activity-login-main-item-btn " ms-click="getCode" id="getcode_btn">获取验证码</span>
                         </div>

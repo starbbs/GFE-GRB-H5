@@ -15,7 +15,7 @@ require([
 	loginJudge.check(function() {
 		var gopToken = $.cookie('gopToken');
 		var transfer = $('.transfer');
-
+		// var inputTimer = null;
 		//var transferNewView = new View('transfer-new');
 		//var transferContactsView = new View('transfer-contacts');
 		var transferTargetView = new View('transfer-target');
@@ -411,13 +411,16 @@ require([
 			},
 			checkCnyMoney: function() { //输入 时候判断 果仁数量
 				//只允许输入 数字字符
+				// clearTimeout(inputTimer);
 				$(this).val($(this).val().replace(/[^\d.]/g, ""));
 				if (!this.value) {
 					return;
 				}
-				if (parseFloat(this.value) === 0 || this.value === '') {
+				if ((parseFloat(this.value) === 0 && this.value != '0' && this.value != '0.' && this.value != '0.0') || this.value === '') {
+					// inputTimer = setTimeout(function(){
 					$.alert('请输入正确的数量');
 					transferTarget.notchecked = true;
+					// },800);
 					return;
 				}
 

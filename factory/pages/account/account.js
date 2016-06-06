@@ -4,12 +4,12 @@
 require([
     'h5-login-judge', 'router', 'h5-api', 'get', 'filters', 'h5-component-bill', 'iscrollLoading', 'h5-view-bill', 'mydate', 'h5-order-judge',
     'h5-weixin'
-], function (loginJudge, router, api, get, filters, H5bill, iscrollLoading, billView, mydate, orderJudge) {
+], function(loginJudge, router, api, get, filters, H5bill, iscrollLoading, billView, mydate, orderJudge) {
     // $.cookie('gopToken','b7af44824ea34409a494393b00f0788e');
     //进入页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing
-    loginJudge.check(function () {
+    loginJudge.check(function() {
         router.init();
-        $(document).get(0).ontouchmove = function (event) {
+        $(document).get(0).ontouchmove = function(event) {
             event.preventDefault();
         };
         var gopToken = $.cookie('gopToken');
@@ -17,7 +17,7 @@ require([
         var size = 15; // 账单列表
 
         var main = $('.account'); // 主容器
-        var init = function () { // 初始化
+        var init = function() { // 初始化
             switch (get.data.from) {
                 case 'wx_info': // 来自微信消息
                     billView.set(get.data.type, get.data.id);
@@ -30,20 +30,20 @@ require([
         };
         var originList = [];
 
-        var getList = function () {
+        var getList = function() {
             api.billList({
                 gopToken: gopToken,
                 billListPage: page,
                 billListPageSize: size
-            }, function (data) {
+            }, function(data) {
                 var list = data.data.list;
                 if (data.status == 200) {
                     page = list.length < size ? 0 : page + 1; // 是否停止请求
                     vm.list = dataHandler(originList = originList.concat(list));
-                    !main.hasClass('on') && setTimeout(function () {
+                    !main.hasClass('on') && setTimeout(function() {
                         main.addClass('on');
                     }, 200);
-                    setTimeout(function () {
+                    setTimeout(function() {
                         vm.loading = false;
                         vm.uploading = false;
                     }, 100);
@@ -54,20 +54,20 @@ require([
         };
 
 
-        iscrollLoading.upLoadingData = function () { // 获取上拉列表
+        iscrollLoading.upLoadingData = function() { // 获取上拉列表
             page = 1;
             originList = [];
             getList();
         };
         //上拉 下拉的函数
-        iscrollLoading.downLoadingData = function () { // 获取列表
+        iscrollLoading.downLoadingData = function() { // 获取列表
             getList();
         };
-        iscrollLoading.scrollMove = function () { // 滑动时候
+        iscrollLoading.scrollMove = function() { // 滑动时候
             vm.loadingWord = '松开刷新';
             vm.uploading = true;
         };
-        iscrollLoading.beforeScrollEndTrue = function () { // 手指移开前 满足条件
+        iscrollLoading.beforeScrollEndTrue = function() { //上拉判断 手指移开前 满足条件
             vm.uploading = false;
             if (vm.uploading) {
                 return;
@@ -76,16 +76,16 @@ require([
             vm.uploading = true;
             iscrollLoading.upLoadingData();
         };
-        iscrollLoading.beforeScrollEndFalse = function () { // 手指移开前 不满足条件
-            setTimeout(function () {
+        iscrollLoading.beforeScrollEndFalse = function() { // 上拉判断 手指移开前 不满足条件
+            setTimeout(function() {
                 vm.uploading = false;
             }, 200);
         };
-        iscrollLoading.scrollEnd = function () { // 滑动完成后
+        iscrollLoading.scrollEnd = function() { // 下拉  滑动完成后
             if (!page) {
                 vm.loading = true;
                 vm.loadingWord = '大大, 已经没有了...';
-                setTimeout(function () {
+                setTimeout(function() {
                     vm.loading = false;
                 }, 1000);
                 return;
@@ -99,6 +99,7 @@ require([
             }
         };
 
+        //iscrollLoading.set(id, {})
         var accountScroll = iscrollLoading.set('account', {
             userUp: true,
             userDown: true,
@@ -110,7 +111,7 @@ require([
         var now = new Date(); // 当前时间
         var nowMonth = now.getMonth(); // 当前月份
         //                 money gop   []   list的每条数据
-        var dataAdd = function (kind, bills, item) { // 添加效果的数据
+        var dataAdd = function(kind, bills, item) { // 添加效果的数据
             var type = H5bill.typeClass[item.type]; // phone refund buy transfer
             var bill = { // 账单
                 id: item.businessId, // id
@@ -174,7 +175,7 @@ require([
             //根据消费方式显示  取整方式
             if (kind === 'all') { // RMB  果仁  支付都有
                 if (item.extra.recordList.length) {
-                    item.extra.recordList.forEach(function (item) {
+                    item.extra.recordList.forEach(function(item) {
                         switch (item.payType) {
                             case 'GOP_PAY': // 果仁宝支付
                                 bill.change = numHandler(-item.payGop, coins['gop'], 'ceilFix'); // 果仁消费都是向上取整
@@ -210,16 +211,16 @@ require([
         };
 
         // =========================  step 1
-        var dataHandler = function (data) { //后台返回list数据加工处理   时间处理同时获取交易的信息
+        var dataHandler = function(data) { //后台返回list数据加工处理   时间处理同时获取交易的信息
             now = new Date();
             // data 列表所有的数据条目
             // data.map全部完成 ==> sort全部完成 ==> reduce全部完成 ==>
-            return data.map(function (item) { // 确定时间 list每条的时间转化成 JS时间
+            return data.map(function(item) { // 确定时间 list每条的时间转化成 JS时间
                 item._date = mydate.parseDate(item.businessTime);
                 return item;
-            }).sort(function (item1, item2) { // 时间排序
+            }).sort(function(item1, item2) { // 时间排序
                 return item2._date.getTime() - item1._date.getTime();
-            }).reduce(function (result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
+            }).reduce(function(result, item) { // 提取   result前一个或初始值  item 当前 原始后台数据
                 // console.log(item);
                 // console.log(result);
                 var time = mydate.timeHandler(item._date);
@@ -284,7 +285,7 @@ require([
             }, []);
         };
         //			       123.22    <span>G</span>    floorFix||ceilFix
-        var numHandler = function (number, unit, filter) { // 数值处理
+        var numHandler = function(number, unit, filter) { // 数值处理
             return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + filters[filter](Math.abs(number));
         };
         // 处理 getList 的工具方法 -- 结束
@@ -296,12 +297,12 @@ require([
             uploading: false,
             loadingWord: '加载中...',
             list: [],
-            listRepeatCallback: function () { // 循环结束回调
-                setTimeout(function () {
+            listRepeatCallback: function() { // 循环结束回调
+                setTimeout(function() {
                     accountScroll.refresh();
                 }, 200);
             },
-            showAccount: function (ev) { // 显示账单详情(事件代理)
+            showAccount: function(ev) { // 显示账单详情(事件代理)
                 var target = listTarget = $(ev.target).closest('.account-item');
                 if (target.length) {
                     var data = target.get(0).dataset;
@@ -316,19 +317,19 @@ require([
         avalon.scan(main.get(0), vm);
 
         // 帐单详情
-        billView.on('hide', function () {
+        billView.on('hide', function() {
             if (!vm.list.length) { // 没有list长度时获取list
                 getList();
             }
         });
         // billView.on('close', function() {});
-        billView.onClose = function (vmid, vmtime) {
-            vm.list.every(function (month) {
-                return month.days.every(function (day, index) {
+        billView.onClose = function(vmid, vmtime) {
+            vm.list.every(function(month) {
+                return month.days.every(function(day, index) {
                     if (day.id === vmid) {
                         console.log(day)
                         day.time = vmtime.substr(vmtime.indexOf(' ') + 1, 5);
-                        day.bills.forEach(function (bill) {
+                        day.bills.forEach(function(bill) {
                             bill.status = '已关闭';
                             bill.originStatus = 'CLOSE';
                         });
