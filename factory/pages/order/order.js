@@ -175,6 +175,7 @@ require([
                                 main.addClass('on');
                             }, 100);
                             // 刷新数据
+                            alert("后台数据"+data.data.gopNum);
                             vm.productDesc = product.productDesc;
                             vm.money = order.orderMoney;
                             vm.gopPrice = data.data.gopPrice;
