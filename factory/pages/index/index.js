@@ -8,6 +8,8 @@ require([
 ], function(
 	router, api, check, get, authorization, View, weixin, H5Button, loginJudge
 ) {
+
+	router.init(true);
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
 	var wxCode = get.data.code; // 微信认证返回code
 	var openid; // 用户的微信id
@@ -115,6 +117,7 @@ require([
 			gotoHome();
 		});
 	};
+
 	var checkCode = function() {
 		// alert('是否有CODE==='+wxCode);
 		if (wxCode) { // 已授权
@@ -157,7 +160,8 @@ require([
 			checkToken();
 		}
 	};
-
+	// router.go('/index-login');
+	// return;
 	var init = function() {
 		router.init(true);
 		if(gopToken){

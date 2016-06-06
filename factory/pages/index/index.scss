@@ -15,11 +15,12 @@
 .text-ident{
 	border-left: none;
 }
-
+.screen-r{
+	height: 100%;
+}
 .index {
-
+	
 	$img: $g-pages + '/index/images';
-
 	text-align: center;
 	padding: $g-padding-bottom 0;
 	font-weight: bold;
@@ -27,9 +28,12 @@
 
 	&-login {
 		@extend .view-style;
+		position: relative;
 		background: #fff;
 		&-scroll {
-			padding-bottom: 400px;
+			height: 100%;
+			overflow: hidden;
+			// padding-bottom: 400px;
 		}
 		&-picture {
 			margin: 40px auto 0;
