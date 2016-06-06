@@ -164,8 +164,8 @@ require([
 			checkToken();
 		}
 	};
-	router.go('/index-login');
-	return;
+	// router.go('/index-login');
+	// return;
 	var init = function() {
 		router.init(true);
 		if (gopToken) {
