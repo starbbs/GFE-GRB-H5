@@ -146,7 +146,7 @@ require([
             token = $.cookie("eventUniqueKey");
         }
         var parmas = {
-            "appId": "huodong1",
+            "appId": config.countAPPID,
             "userId": token,
             "eventKey": _eventType,
             "extra": {
