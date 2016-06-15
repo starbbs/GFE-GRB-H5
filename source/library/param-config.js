@@ -10,7 +10,8 @@ define('h5-config', function() {
 		baseUri : '//172.16.33.3:18080',
 		main : '//www.xiaojian.me/wx/',
 		appid : 'wxe91980c4944999fe',
-		countAPIDomain:"//172.16.33.10:8089"
+		countAPIDomain:"//172.16.33.10:8089",
+		countAPPID:"huafeihuodong"
 	}
 	return paramConfig;
 });
