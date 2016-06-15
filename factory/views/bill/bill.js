@@ -190,7 +190,7 @@ define('h5-view-bill', [
 			var list = data.data.recordList; //流水号 创建时间 支付果仁  付款还会产生的
 			var product = data.data.product; // 商品信息 流量 话费 面额
 			var extra = data.data.extra; //银行卡
-			var vouch = data.data.billVoucher || data.data.availableVoucher; // 交易成功的优惠券   进行中
+			var vouch = data.data.billVoucher; // 交易成功  已付款进行中 的优惠券  
 
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
