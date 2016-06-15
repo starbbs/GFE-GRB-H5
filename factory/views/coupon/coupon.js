@@ -49,7 +49,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var getPreDay = function(str) {
 		var strDate = new Date(str.replace(/-/g, "/")); //字符串转日期
 		var newDate = new Date(strDate - 24 * 60 * 60 * 1000); //日期减一天操作
-		var newDateStr = newDate.getFullYear() + "-" + (newDate.getMonth() + 1) + "-" + newDate.getDate(); //获取新的日期
+		var newDateStr = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) < 10?("0" + (newDate.getMonth() + 1)):(newDate.getMonth() + 1)) + "-" + (newDate.getDate() < 10?("0" + newDate.getDate()):newDate.getDate()); //获取新的日期
 		return newDateStr;
 	}
 
@@ -70,16 +70,18 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 			}
 		});
 		if (type === 'order') {
+			var disuseUnexpire = [];
 			canuse.forEach(function(item, index, array) {
 				var itemStartTime = new Date(item.startTime).getTime();
 				var itemEndTime = new Date(item.endTime).getTime();
 				if (nowTime < itemStartTime) {
 					item.disuse = true;
 					item.voucherStatus = 'EXPIRE';
-					disuse.push(item);
+					disuseUnexpire.push(item);
 					canuse.splice(index, 1, '');
 				}
 			});
+			disuse = disuseUnexpire.concat(disuse);
 			canuse = canuse.filter(function(item, index, array) {
 				return item != '';
 			});

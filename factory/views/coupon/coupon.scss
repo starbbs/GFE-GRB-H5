@@ -72,7 +72,7 @@
     &-li{
         width: 100%;
         height: 100px;
-        margin-top: 30px;
+        margin-top: 17px;
 
         div{
             float: left;
@@ -102,11 +102,12 @@
             margin-left: -1px;
         }
         &-right{
-            width: 68.5%;
+            width: 69.5%;
             height: 100%;
             background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;
             border-bottom-right-radius: 5px;
             margin-left: -1px;
+            padding-right: 1px;
             position: relative;
             &-title{
                 display: block;
