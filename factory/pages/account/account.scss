@@ -34,6 +34,7 @@ body {
 	font-family: $g-font-num;
 	padding-bottom: $g-padding-bottom;
 	background-color: $g-background;
+	opacity: 0;
 
 	&-scroll {
 		@extend %rw;

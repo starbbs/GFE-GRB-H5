@@ -23,6 +23,7 @@ require([
 
         var vm = avalon.define({
             $id: 'order',
+            hasBill: false, //是否已经生成定单
             money: 0, // RMB总金额
             phone: '', // 要发送验证码的电话
             productDesc: '', // 订单内容
@@ -73,6 +74,11 @@ require([
                 orderJudge.KWQ_checkRMB(filters.fix(vm.money),vm.couponRmbNum, function(status, gopPrice, myGopNum) {
                     // status = 'gopNumNo';
                     if (status == 'gopNumOk') {
+                        if(vm.hasBill){
+                            alert('已经生成过定单了');
+                        }else{
+                            alert('还没生成过定单了');                            
+                        }
                         dialogPaypass.show();
                         //支付浮层消失的回调
                         dialogPaypass.vm.callback = function(value) {
@@ -136,6 +142,129 @@ require([
                 }
             }
         };
+
+        document.title = {
+            phonecharge: '订单-手机充值', // 来自手机充值
+            loverelay: '订单-爱心接力', // 来自爱心接力
+        }[get.data.from] || '果仁宝-订单'; // 未知来源
+
+        billView.onFinish = function() { // 返回首页点击时露底问题
+            main.hide();
+        };
+
+         // 区分bill  phonecharge
+        var getDataFromBill = function(){
+           if (get.data.id) { // 有订单ID, 跳转订单详情
+                billView.set('PAY', get.data.id, {
+                    onRequest: function(data) {
+                        if (data.status == 200) {
+                            var order = data.data.consumeOrder; // 订单信息
+                            var product = data.data.product; // 产品信息
+                            var record = data.data.recordList; // 付款记录
+                            var availableVoucher = data.data.availableVoucher; //最大可用代金券
+                            if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
+                                // 打开页面
+                                router.to('/');
+                                setTimeout(function() {
+                                    main.addClass('on');
+                                }, 100);
+                                // 刷新数据
+                                vm.productDesc = product.productDesc;
+                                vm.money = order.orderMoney;
+                                vm.gopPrice = data.data.gopPrice;
+                                vm.gopNum = data.data.gopNum;
+                                vm.productRealPrice = JSON.parse(product.extraContent).price;
+                                vm.orderCode = order.orderCode;
+                                vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
+                                vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
+                                vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
+                                vm.voucherId = availableVoucher ? availableVoucher.id : '';
+                                vm.hasBill = true;
+                                vm.gopExchange();
+                                // 银行卡相关
+                                /*
+                                 if (Array.isArray(data.data.bankCardList)) {
+                                 bankListRefresh(data.data.bankCardList);
+                                 dialogBankcard.on('hide', function() {
+                                 bankListReturn();
+                                 });
+                                 viewBankcardAppend.vm.callback = function() { // 银行卡添加回调
+                                 api.bankcardSearch({
+                                 gopToken: gopToken
+                                 }, function(data) {
+                                 if (data.status == 200) {
+                                 bankListRefresh(data.data.list);
+                                 setTimeout(function() {
+                                 router.to('/');
+                                 }, 100);
+                                 } else {
+                                 $.alert(data.msg);
+                                 }
+                                 });
+                                 };
+                                 }
+                                 */
+                                price.onChange = price.onFirstChange = function(next) {
+                                    vm.gopPrice = next;
+                                    vm.gopExchange();
+                                };
+                                price.once();
+                            } else { // 失败, 成功, 进行中(已付款)
+                                router.to('/bill');
+                            }
+                        } else {
+                            $.alert(data.msg);
+                        }
+                    },
+                });
+            } else {
+                $.alert('缺少订单号');
+            }
+        };
+ 
+        var getDataFromPhonecharge = function(){
+            
+        };
+
+
+        var init = function(){
+            if(get.data.from ==='bill'){
+                getDataFromBill();
+                console.log('来自bill,已经生成过定单了');
+            }else{
+                getDataFromBill();
+                console.log('来自phonecharge，还未生成定单');
+            }
+        };
+
+
+        init();
+
+        avalon.scan();   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /*
          var bankSelect = function(bank) { // 处理当前显示
          bank = bank || vm.bankSelect.$model;
@@ -160,82 +289,5 @@ require([
          bankSelect();
          };
          */
-        // 进入页面
-        if (get.data.id) { // 有订单ID, 跳转订单详情
-            billView.set('PAY', get.data.id, {
-                onRequest: function(data) {
-                    if (data.status == 200) {
-                        var order = data.data.consumeOrder; // 订单信息
-                        var product = data.data.product; // 产品信息
-                        var record = data.data.recordList; // 付款记录
-                        var availableVoucher = data.data.availableVoucher; //最大可用代金券
-                        if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
-                            // 打开页面
-                            router.to('/');
-                            setTimeout(function() {
-                                main.addClass('on');
-                            }, 100);
-                            // 刷新数据
-                            vm.productDesc = product.productDesc;
-                            vm.money = order.orderMoney;
-                            vm.gopPrice = data.data.gopPrice;
-                            vm.gopNum = data.data.gopNum;
-                            vm.productRealPrice = JSON.parse(product.extraContent).price;
-                            vm.orderCode = order.orderCode;
-                            vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
-                            vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
-                            vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
-                            vm.voucherId = availableVoucher ? availableVoucher.id : '';
-                            vm.gopExchange();
-                            // 银行卡相关
-                            /*
-                             if (Array.isArray(data.data.bankCardList)) {
-                             bankListRefresh(data.data.bankCardList);
-                             dialogBankcard.on('hide', function() {
-                             bankListReturn();
-                             });
-                             viewBankcardAppend.vm.callback = function() { // 银行卡添加回调
-                             api.bankcardSearch({
-                             gopToken: gopToken
-                             }, function(data) {
-                             if (data.status == 200) {
-                             bankListRefresh(data.data.list);
-                             setTimeout(function() {
-                             router.to('/');
-                             }, 100);
-                             } else {
-                             $.alert(data.msg);
-                             }
-                             });
-                             };
-                             }
-                             */
-                            price.onChange = price.onFirstChange = function(next) {
-                                vm.gopPrice = next;
-                                vm.gopExchange();
-                            };
-                            price.once();
-                        } else { // 失败, 成功, 进行中(已付款)
-                            router.to('/bill');
-                        }
-                    } else {
-                        $.alert(data.msg);
-                    }
-                },
-            });
-        } else {
-            $.alert('缺少订单号');
-        }
-
-        document.title = {
-            phonecharge: '订单-手机充值', // 来自手机充值
-            loverelay: '订单-爱心接力', // 来自爱心接力
-        }[get.data.from] || '果仁宝-订单'; // 未知来源
-
-        billView.onFinish = function() { // 返回首页点击时露底问题
-            main.hide();
-        };
-
-        avalon.scan();
     });
 });
