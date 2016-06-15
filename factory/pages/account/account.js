@@ -24,7 +24,7 @@ require([
                     router.to('/bill');
                     break;
                 default:
-                    iscrollLoading.downLoadingData(function(){
+                    iscrollLoading.downLoadingData(function() {
                         router.to('/');
                     });
             }
