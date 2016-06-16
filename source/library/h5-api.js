@@ -10,11 +10,11 @@
  * 	1.编号顺序和文档一致,方便查找和对应
  * 	2.使用文档为v1.2.0
  */
-define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], function(Api, authorization, alert, cookie, config) {
-	
+define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'], function(Api, authorization, alert, cookie, config) {
+
 	// var baseUri = '.'; // 同域
 	var baseUri = config.baseUri; // http测试服务器
-	
+
 
 	var goIndex = function() { // 返回首页
 		authorization.go();
@@ -330,6 +330,11 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], 
 
 	//89 . 验证手机号与微信号的绑定
 	api.regist('getVoucher', '/voucher/getVoucher');
+
+	// 90. 请求 卖1价 买1价 
+	api.regist('getselloneprice', 'http://172.16.33.4/trade/optimumPrice', {
+		'_type': 'get'
+	});
 
 	return api;
 });

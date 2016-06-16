@@ -17,6 +17,8 @@ require([
         //do notheing
         router.init(true);
 
+        price.getSellOnePrice();
+
         var main = $('.order');
         var gopToken = $.cookie('gopToken');
         var identInput = $('#order-ident');
@@ -152,7 +154,9 @@ require([
             main.hide();
         };
 
-         // 区分bill  phonecharge
+         // 页面来源
+         // bill            根据定单ID
+         // phonecharge     根据商品ID
         var getDataFromBill = function(){
            if (get.data.id) { // 有订单ID, 跳转订单详情
                 billView.set('PAY', get.data.id, {

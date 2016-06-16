@@ -25,7 +25,7 @@ define('h5-price', ['h5-api'], function(api) {
 	};
 	var get = price.get = function() {
 		once(function(next) {
-			var now = price.now;// false = false
+			var now = price.now; // false = false
 			var change = next - now; //  3=3-false
 			if (now === false) {
 				price.onFirstChange(next);
@@ -37,6 +37,21 @@ define('h5-price', ['h5-api'], function(api) {
 			price.now = next;
 			price.timer = setTimeout(price.get, price.interval);
 		});
+	};
+	var getSellOnePrice = price.getSellOnePrice = function() {
+		api.getselloneprice(function(data) {
+			console.log(data);
+		});
+		// 6-16 获取卖1价样品调用
+		//$.ajax({
+		//	type: 'GET',
+		//	url: 'http://172.16.33.4/trade/optimumPrice',
+		//	data: '',
+		//	dataType: 'json',
+		//	success: function(data){
+		//		console.log(data);
+		//	}
+		//});
 	};
 	return price;
 });
