@@ -331,7 +331,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	//89 . 验证手机号与微信号的绑定
 	api.regist('getVoucher', '/voucher/getVoucher');
 
-	// 90. 请求 卖1价 买1价 jsonp请求
+	// 90. 请求 卖1价 买1价 
 	api.regist('getselloneprice', 'http://172.16.33.4/trade/optimumPrice', {
 		'_type': 'get'
 	});
