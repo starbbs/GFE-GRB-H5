@@ -46,12 +46,12 @@
 				<div class="mine-item-tip" ms-class-1="green:setMarketAddressTip==='查看'" ms-class-2="silver:setMarketAddressTip==='未设置'||!setMarketAddressTip">{{setMarketAddressTip}}</div>
 				<div class="mine-item-arrow"></div>
 			</div>
-			<div class="mine-item" ms-click="walletAddress_click">
+			<!--<div class="mine-item" ms-click="walletAddress_click">
 				<div class="mine-icon-5"></div>
 				<div class="mine-item-name">钱包地址</div>
 				<div class="mine-item-tip" ms-class-1="green:setWallet==='查看'" ms-class-2="silver:setWallet==='未设置'||!setWallet">{{setWallet}}</div>
 				<div class="mine-item-arrow"></div>
-			</div>
+			</div>-->
 			<div class="mine-item" ms-click="myCoupon_click">
 				<div class="mine-icon-9"></div>
 				<div class="mine-item-name">我的卡券</div>
@@ -76,7 +76,7 @@
 	@@include('../../components/nav/nav.html', { "name": "mine" })
 	<div class="view">
 		@@include('../../views/address/address-mine.html')
-		@@include('../../views/address/address-wallet.html')
+		<!--@@include('../../views/address/address-wallet.html')-->
 		<!--优惠券-->
 		@@include('../../views/coupon/coupon-detail.html')
 		@@include('../../views/coupon/coupon-list.html')
