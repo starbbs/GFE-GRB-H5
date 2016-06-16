@@ -370,6 +370,9 @@ require([
                 if ($(this).hasClass('disabled')) {
                     return;
                 }
+
+                // 后期接口出来就要删除以下部分
+                // window.location.href = 'order.html?from=phonecharge'
                 if (vm.confirmCangory === '话费') {
                     api.phoneRecharge({
                         gopToken: gopToken,
@@ -407,6 +410,7 @@ require([
                         }
                     });
                 }
+            //=============================================================================    
             }
         });
 

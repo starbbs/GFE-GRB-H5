@@ -459,6 +459,7 @@ define('h5-view-bill', [
 	};
 	var billBuyGopVM = avalon.define($.extend({ // 买果仁VM
 		$id: 'billBuyGop',
+		/*
 		gotoPay: function() { // 前往支付 买果仁和买话费
 			// 买果仁
 			if (billBuyGopVM.payType === '微信支付') {
@@ -481,6 +482,7 @@ define('h5-view-bill', [
 				});
 			}
 		},
+		*/
 		close: function() { // 关闭订单
 			closeOrder(billBuyGopVM);
 		},

@@ -24,13 +24,14 @@ require([
                     router.to('/bill');
                     break;
                 default:
-                    router.to('/');
-                    iscrollLoading.downLoadingData();
+                    iscrollLoading.downLoadingData(function() {
+                        router.to('/');
+                    });
             }
         };
         var originList = [];
 
-        var getList = function() {
+        var getList = function(dbfn) {
             api.billList({
                 gopToken: gopToken,
                 billListPage: page,
@@ -43,7 +44,8 @@ require([
                     vm.list = dataHandler(originList = originList.concat(list));
                     !main.hasClass('on') && setTimeout(function() {
                         main.addClass('on');
-                    }, 200);
+                        dbfn && dbfn();
+                    }, 300);
                     setTimeout(function() {
                         vm.loading = false;
                         vm.uploading = false;
@@ -61,8 +63,8 @@ require([
             getList();
         };
         //上拉 下拉的函数
-        iscrollLoading.downLoadingData = function() { // 获取列表
-            getList();
+        iscrollLoading.downLoadingData = function(dbfn) { // 获取列表
+            getList(dbfn);
         };
         iscrollLoading.scrollMove = function() { // 滑动时候
             vm.loadingWord = '松开刷新';
