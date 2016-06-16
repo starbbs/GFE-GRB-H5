@@ -117,8 +117,9 @@
                 margin-top: 5%;
             }
             &-time{
+                display: inline-block;
                 font-size: 12px;
-                color: $g-white;
+                color: #e2ecfe;
                 margin-left: 5%;
                 margin-top: 2%;
                 background: url($image+'/coupon-timeline.png') center bottom no-repeat;
