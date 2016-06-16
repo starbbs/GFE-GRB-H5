@@ -37,7 +37,40 @@ html{
 		margin-top: 10px;
 	}
 	// padding-bottom: $g-padding-bottom;
-	
+	&-slider {
+        overflow: hidden;
+        background: #ffffff;
+
+        &-li {
+            float: left;
+
+            > a {
+                overflow: hidden;
+                display: block;
+            }
+        }
+
+        &-hd {
+            overflow: hidden;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 5px;
+
+            &-li {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background-color: rgba($g-white, 0.5);
+                float: left;
+                margin-right: 8px;
+
+                &.on {
+                    background-color: $g-white;
+                }
+            }
+        }
+    }
 	&-body{ //选项卡
 		&-title{
 			overflow: hidden;
@@ -75,6 +108,7 @@ html{
 				position: relative;
 				&-tit{//话费充值标题
 					line-height: 35px;
+					margin-left: 2%;
 				}
 				ul{
 					overflow: hidden;
@@ -101,7 +135,7 @@ html{
 						margin-bottom: 10px;
 						padding: 5px 0px;
 						>div:nth-child(1){
-							font-size: 16px;
+							font-size: 20px;
 							line-height: 1.5em;
 						}
 						>div:nth-child(2){
@@ -153,7 +187,7 @@ html{
 						border-bottom: $listborder;
 						padding: 5px 0px;
 						>div:nth-child(1){
-							font-size: 16px;
+							font-size: 20px;
 							line-height: 1.5em;
 							color: #333333;
 						}
