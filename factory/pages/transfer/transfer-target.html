@@ -1,18 +1,18 @@
 <div class="transfer-target scroll" ms-controller="transfer-target">
 	<!--头部-->
-	<div class="transfer-target-head my-wallet">
+	<div class="transfer-target-head my-wallet" ms-visible="myWallet">
 		<div class="transfer-icon-2-big"></div>
 		<div class="transfer-target-head-name">我的钱包</div>
 		<div class="transfer-target-head-address">{{address|address}}</div>
 	</div>
-	<div class="transfer-target-head gop-market">
+	<div class="transfer-target-head gop-market" ms-visible="market">
 		<div class="transfer-icon-3-big"></div>
 		<div class="transfer-target-head-name">果仁市场</div>
 		<div class="transfer-target-head-address">{{address|address}}</div>
 	</div>
 	<!--联系人头像及姓名-->
 	<!--
-	<div class="transfer-target-head phone-address">
+	<div class="transfer-target-head phone-address" ms-visible="phoneAddr">
 			<div class="transfer-target-head-img"><img ms-attr-src="photo" alt="" class="img-f"></div>
 			<div class="transfer-target-head-name">{{name}}</div>
 			<div class="transfer-target-head-address">{{phone|phone}}</div>
@@ -20,7 +20,7 @@
 	-->
 	<!--钱包地址-->
 	<!--
-	<div class="transfer-target-head wallet-address">
+	<div class="transfer-target-head wallet-address" ms-visible="walletAddr">
 			<div class="transfer-icon-5-big"></div>
 			<div class="transfer-target-head-name">{{name}}</div>
 			<div class="transfer-target-head-address">{{address|address}}</div>
@@ -28,7 +28,7 @@
 	-->
 	<!--数量转帐金额  钱包和果仁联系人-->
 	<!--钱包-->
-	<div class="transfer-target-box wallet">
+	<div class="transfer-target-box wallet" ms-visible="wallet">
 		<div class="transfer-target-box-title">转出数量
 			<div class="transfer-target-box-fee">手续费 <span class="iconfont icon-g"></span> {{serviceFee}}</div>
 		</div>
@@ -56,7 +56,7 @@
 	</div>
 	<!--果仁-->
 	<!--
-	<div class="transfer-target-box gop">
+	<div class="transfer-target-box gop" ms-visible="gop">
 			<div class="transfer-target-box-title">转出数量
 					<div class="transfer-target-box-fee">手续费 <span class="iconfont icon-g"></span> {{serviceFee}}</div>
 			</div>
