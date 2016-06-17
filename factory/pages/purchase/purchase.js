@@ -112,12 +112,11 @@ require([
             vmOrder.gopNum = vmOrder.orderMoney / vmOrder.price;
         };
         var getPrice = function () { // 果仁现价
-            price.once(function (next) {
-                vm.price = vmOrder.price = next;
+            api.getselloneprice({},function(data){
+                vm.price = vmOrder.price = data.optimumSellPrice;
                 setOrderNum();
-            });
+            })
         };
-
         avalon.scan();
 
         /*

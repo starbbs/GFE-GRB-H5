@@ -35,24 +35,24 @@ require([
 			// alert('focus    '+loginVM.tipIsShow);	
 		},
 		close: function(attr) { // 关闭按钮
-			loginVM[attr] = '';
+			// $("#index-login-"+attr).val("");
+			// loginVM[attr] = '';
 		},
 		click: function() { // 按钮
 			// console.log(H5Button.filter(this));
 			var self = $('.button').eq(0).click();
 			var _this = $('.button')[0];
-			console.log(self);
 			if (self.hasClass('disabled')) {
 				return $.alert('正在校验中, 请稍后');
 			}
 
-			var mobile = loginVM.mobile;
+			var mobile = $("#index-login-mobile").val();
 			var mobileCheck = check.phone(mobile);
 			if (!mobileCheck.result) {
 				return $.alert(mobileCheck.message);
 			}
 
-			var code = loginVM.code;
+			var code = $("#index-login-code").val();
 			var codeCheck = check.ident(code);
 			if (!codeCheck.result) {
 				return $.alert(codeCheck.message);

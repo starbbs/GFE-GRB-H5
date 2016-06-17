@@ -17,8 +17,6 @@ require([
         //do notheing
         router.init(true);
 
-        price.getSellOnePrice();
-
         var main = $('.order');
         var gopToken = $.cookie('gopToken');
         var identInput = $('#order-ident');
@@ -73,13 +71,13 @@ require([
             // ifConfirmPay: false,
             confirmPay: function() { // 确认支付
                 // 确认支付   orderJudge.KWQ_checkRMB(定单所有RMB数 , 优惠券RMB数(可以不传) , 回调函数)
-                orderJudge.KWQ_checkRMB(filters.fix(vm.money),vm.couponRmbNum, function(status, gopPrice, myGopNum) {
+                orderJudge.KWQ_checkRMB(filters.fix(vm.money), vm.couponRmbNum, function(status, gopPrice, myGopNum) {
                     // status = 'gopNumNo';
                     if (status == 'gopNumOk') {
-                        if(vm.hasBill){
+                        if (vm.hasBill) {
                             alert('已经生成过定单了');
-                        }else{
-                            alert('还没生成过定单了');                            
+                        } else {
+                            alert('还没生成过定单了');
                         }
                         dialogPaypass.show();
                         //支付浮层消失的回调
@@ -154,11 +152,11 @@ require([
             main.hide();
         };
 
-         // 页面来源
-         // bill            根据定单ID
-         // phonecharge     根据商品ID
-        var getDataFromBill = function(){
-           if (get.data.id) { // 有订单ID, 跳转订单详情
+        // 页面来源
+        // bill            根据定单ID
+        // phonecharge     根据商品ID
+        var getDataFromBill = function() {
+            if (get.data.id) { // 有订单ID, 跳转订单详情
                 billView.set('PAY', get.data.id, {
                     onRequest: function(data) {
                         if (data.status == 200) {
@@ -177,7 +175,7 @@ require([
                                 vm.money = order.orderMoney;
                                 vm.gopPrice = data.data.gopPrice;
                                 vm.gopNum = data.data.gopNum;
-                                vm.productRealPrice = JSON.parse(product.extraContent).price;
+                                // vm.productRealPrice = JSON.parse(product.extraContent).price;
                                 vm.orderCode = order.orderCode;
                                 vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
                                 vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
@@ -208,11 +206,10 @@ require([
                                  };
                                  }
                                  */
-                                price.onChange = price.onFirstChange = function(next) {
-                                    vm.gopPrice = next;
+                                api.getselloneprice({}, function(data) {
+                                    vm.gopPrice = data.optimumBuyPrice;
                                     vm.gopExchange();
-                                };
-                                price.once();
+                                })
                             } else { // 失败, 成功, 进行中(已付款)
                                 router.to('/bill');
                             }
@@ -225,18 +222,86 @@ require([
                 $.alert('缺少订单号');
             }
         };
- 
-        var getDataFromPhonecharge = function(){
-            
+
+        var getDataFromPhonecharge = function() {
+            if (get.data.id) {
+                //api.getProductInfor({
+                //    'gopToken':gopToken,
+                //    'productId':get.data.id
+                //},function(data){
+                //    console.log();
+                //}); 
+
+                // 商品详情
+                var productInfor = {
+                    status: 200,
+                    msg: "success",
+                    data: {
+                        product: {
+                            productDesc: "移动话费-50元",
+                            extraContent: {
+                                carrier: "移动",
+                                price: 50
+                            },
+                            price: 49.8,
+                            currency: "RMB",
+                            id: 33,
+                            productName: "话费充值",
+                            productType: "SHOUJICHONGZHIKA"
+                        }
+                    }
+                };
+
+
+                // 刷新数据
+                vm.productDesc = productInfor.data.product.productDesc;
+                vm.money = productInfor.data.product.price; //商品价钱
+                api.getselloneprice({}, function(data) {
+                    vm.gopPrice = data.optimumBuyPrice; //果仁现价
+                });
+                //获取果仁数
+                api.getGopNum({
+                    gopToken: gopToken,
+                }, function(data) {
+                    if (data.status == 200) {
+                        vm.gopNum = data.data.gopNum;
+                    } else {
+                        console.log(data);
+                    }
+                });
+
+                
+
+                vm.productRealPrice = productInfor.data.product.extraContent.price;
+                vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
+                vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
+                vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
+                vm.voucherId = availableVoucher ? availableVoucher.id : '';
+                vm.hasBill = false;
+                vm.gopExchange();
+
+                setTimeout(function() {
+                    main.addClass('on')
+                }, 200);
+            } else {
+                $.alert('缺少商品单号号');
+            }
+
+            var availableVoucher = {
+                "currencyType": "RMB",
+                "voucherName": "10元现金抵扣券",
+                "voucherType": "AMOUNT",
+                "voucherAmount": 10,
+                "id": 104
+            };
         };
 
-
-        var init = function(){
-            if(get.data.from ==='bill'){
+        var init = function() {
+            if (get.data.from === 'bill') {
                 getDataFromBill();
                 console.log('来自bill,已经生成过定单了');
-            }else{
-                getDataFromBill();
+            } else {
+                getDataFromPhonecharge();
                 console.log('来自phonecharge，还未生成定单');
             }
         };
@@ -244,28 +309,7 @@ require([
 
         init();
 
-        avalon.scan();   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        avalon.scan();
 
 
 
