@@ -37,10 +37,10 @@ require([
             couponRmbName: '', //优惠券名称
             moneyUse: 0, //实付金额
             voucherId: '', //优惠券id
-            confirmCangory:'', // 消费类型 话费 || 流量
-            confirmId:'', // 消费商品的ID
-            confirmPhone:'', //消费商品充值的手机号码
-            consumeOrderId:'', // 生成定单后的账单ID
+            confirmCangory: '', // 消费类型 话费 || 流量
+            confirmId: '', // 消费商品的ID
+            confirmPhone: '', //消费商品充值的手机号码
+            consumeOrderId: '', // 生成定单后的账单ID
             /*
              gopClick: function() { // 果仁点击
              vm.gopIfUse = !vm.gopIfUse;
@@ -71,7 +71,6 @@ require([
                     vm.gopMoney = vm.gopNum * vm.gopPrice;
                     // vm.ifConfirmPay = false;
                 }
-                alert(11);
             },
             // ifConfirmPay: false,
             confirmPay: function() { // 确认支付
@@ -80,12 +79,11 @@ require([
                     // status = 'gopNumNo';
                     if (status == 'gopNumOk') {
                         if (vm.hasBill) {
-                            alert('已经生成过定单了');
+                            console.log('已经生成过定单了');
                             paypassShow();
                         } else {
-                            alert('还没生成过定单了');
-                            createBill();
-                            paypassShow();
+                            console.log('还没生成过定单了');
+                            createBill(paypassShow);
                         }
                     } else {
                         dialogConfirm.set('您的果仁不足是否购买？');
@@ -128,11 +126,12 @@ require([
             main.hide();
         };
 
-        var paypassShow = function(){
+        // 支付并跳转bill 分页
+        var paypassShow = function() {
             dialogPaypass.show();
             //支付浮层消失的回调
             dialogPaypass.vm.callback = function(value) {
-            // 支付密码校验成功
+                // 支付密码校验成功
                 api.pay({
                     gopToken: gopToken, // token
                     useGop: vm.gopIfUse, // 是否使用果仁
@@ -162,7 +161,8 @@ require([
             }
         };
 
-        var createBill = function(){
+        // 创建账单
+        var createBill = function(dbfn) {
             if (vm.confirmCangory === '话费') {
                 api.phoneRecharge({
                     gopToken: gopToken,
@@ -172,6 +172,7 @@ require([
                     if (data.status == 200) {
                         vm.hasBill = true;
                         vm.consumeOrderId = data.data.consumeOrderId;
+                        dbfn && dbfn();
                     } else {
                         $.alert(data.msg);
                     }
@@ -185,14 +186,14 @@ require([
                     if (data.status == 200) {
                         vm.hasBill = true;
                         vm.consumeOrderId = data.data.consumeOrderId;
+                        dbfn && dbfn();
                     } else {
                         $.alert(data.msg);
                     }
                 });
-            }        
+            }
         };
 
-        // 页面来源
         // bill            根据定单ID
         // phonecharge     根据商品ID
         var getDataFromBill = function() {
@@ -223,29 +224,6 @@ require([
                                 vm.voucherId = availableVoucher ? availableVoucher.id : '';
                                 vm.hasBill = true;
                                 vm.gopExchange();
-                                // 银行卡相关
-                                /*
-                                 if (Array.isArray(data.data.bankCardList)) {
-                                 bankListRefresh(data.data.bankCardList);
-                                 dialogBankcard.on('hide', function() {
-                                 bankListReturn();
-                                 });
-                                 viewBankcardAppend.vm.callback = function() { // 银行卡添加回调
-                                 api.bankcardSearch({
-                                 gopToken: gopToken
-                                 }, function(data) {
-                                 if (data.status == 200) {
-                                 bankListRefresh(data.data.list);
-                                 setTimeout(function() {
-                                 router.to('/');
-                                 }, 100);
-                                 } else {
-                                 $.alert(data.msg);
-                                 }
-                                 });
-                                 };
-                                 }
-                                 */
                                 api.getselloneprice({}, function(data) {
                                     vm.gopPrice = data.optimumBuyPrice;
                                     vm.gopExchange();
@@ -268,145 +246,49 @@ require([
                 var index = 0;
                 vm.confirmId = get.data.id;
                 vm.confirmPhone = get.data.phone;
-                //api.getProductInfor({
-                //    'gopToken':gopToken,
-                //    'productId':get.data.id
-                //},function(data){
-                //    console.log();
-                //}); 
 
                 // 商品详情
-                var productInfor = {
-                    status: 200,
-                    msg: "success",
-                    data: {
-                        product: {
-                            productDesc: "移动话费-50元",
-                            extraContent: {
-                                carrier: "移动",
-                                price: 50
-                            },
-                            price: 49.8,
-                            currency: "RMB",
-                            id: 33,
-                            productName: "话费充值",
-                            productType: "SHOUJICHONGZHIKA"
-                        }
-                    }
-                };
-
-                // 刷新  商品信息数据
-                vm.productDesc = productInfor.data.product.productDesc;
-                vm.money = productInfor.data.product.price; //商品价钱
-                vm.productRealPrice = productInfor.data.product.extraContent.price; // 果仁宝的RMB价格
-                vm.confirmCangory = productInfor.data.product.productName.slice(0,2);  //消费商品类别
+                api.getProductInfor({
+                    'gopToken':gopToken,
+                    'productId':get.data.id
+                },function(data){
+                    var productInfor = data.data.product;
+                    // 刷新  商品信息数据
+                    vm.productDesc = productInfor.productDesc;
+                    vm.money = productInfor.price; //商品价钱
+                    vm.productRealPrice = productInfor.extraContent.price; // 果仁宝的RMB价格
+                    vm.confirmCangory = productInfor.productName.slice(0, 2); //消费商品类别
+                    if (index === 3) {
+                        vm.gopExchange();
+                    };
+                    index++;                    
+                }); 
 
                 // 刷新 最大可用优惠券
-                var myOrderVoucherList = {
-                    "status": 200,
-                        "msg": "success",
-                    "data": {
-                        usable: [{ // 可用优惠券列表     
-                            id: 1,
-                            voucherName: '22 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 22
-                        }, {
-                            id: 2,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 17,
-                        }, {
-                            id: 2,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 16,
-                        }, {
-                            id: 2,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 13,
-                        }, {
-                            id: 2,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 6,
-                        }, {
-                            id: 2,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 1,
-                        }],
-                        disable: [{ // 不可用优惠券列表
-                            id: 1,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 4
-                        }, {
-                            id: 2,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 3,
-                        }],
-                        expire: [{ // 过期
-                            id: 1,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 11
-                        }, {
-                            id: 2,
-                            voucherName: '5 元代金券',
-                            voucherType: 'AMOUNT',
-                            currencyType: 'RMB',
-                            startTime: '2016 - 5 - 24',
-                            endTime: '2016 - 6 - 24',
-                            voucherAmount: 15,
-                        }]
-                    }
-                };
+                api.myOrderVoucherList({
+                    gopToken: gopToken,
+                }, function(data) {
+                    var myOrderVoucherList = data.data.available;
+                    // 最大可用优惠券
+                    var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.data.usable.sort(function(item1, item2) {
+                        return item2.voucherAmount - item1.voucherAmount;
+                    })[0];
 
-                var myOrderMaxVoucher = myOrderVoucherList.data.usable.sort(function(item1, item2) {
-                    return item2.voucherAmount - item1.voucherAmount;
-                })[0];
-
-                vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用现金抵扣券";
-                vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0;
-                vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00');
-                vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : '';
-                vm.hasBill = false;
+                    vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用现金抵扣券"; //优惠券名字
+                    vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0; // 优惠券 金额
+                    vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00'); // 商品价格RMB
+                    vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : ''; // 优惠券ID
+                    vm.hasBill = false; //是否已生成账单信号   
+                    if (index === 3) {
+                        vm.gopExchange();
+                    };
+                    index++;
+                });
 
                 // 获取卖1价
                 api.getselloneprice({}, function(data) {
                     vm.gopPrice = data.optimumBuyPrice; //果仁现价
-                    console.log(index);
-                    if(index === 1){
+                    if (index === 3) {
                         vm.gopExchange();
                     };
                     index++;
@@ -418,8 +300,7 @@ require([
                 }, function(data) {
                     if (data.status == 200) {
                         vm.gopNum = data.data.gopNum;
-                       console.log(index);
-                        if(index === 1){
+                        if (index === 3) {
                             vm.gopExchange();
                         };
                         index++;
@@ -435,7 +316,6 @@ require([
                 $.alert('缺少商品单号号');
             }
         };
-
 
         var init = function() {
             if (get.data.from === 'bill') {
