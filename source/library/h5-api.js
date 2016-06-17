@@ -318,7 +318,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	// 85.微信端微信注册用户
 	api.regist('wxregister', '/login/wx/wxregister');
 
-	//86.优惠券列表接口
+	//86.我的卡券优惠券列表接口
 	api.regist('myVoucherList', '/voucher/myVoucherList');
 
 	//87 .判断用户登录密码状态的接口
@@ -335,6 +335,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	api.regist('getselloneprice', 'http://172.16.33.4/trade/optimumPrice', {
 		'_type': 'get'
 	});
+	
+	//91.消费订单优惠券列表接口
+	api.regist('myOrderVoucherList', '/voucher/myOrderVoucherList');
 
 	return api;
 });
