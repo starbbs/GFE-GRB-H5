@@ -7,7 +7,7 @@
   .header-top{
     width: 90%;
     margin: 0px auto;
-    padding:10px 0px 20px;
+    padding:20px 0px 20px;
     position: relative;
     border-bottom: 1px solid #cccccc;
     h2{
@@ -25,6 +25,21 @@
       position: absolute;
       top:15px;
       right:10px;
+    }
+    &-button{
+        width: 94px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 4px;
+        background: #6888D9;
+        color: #FFFFFF;
+        position: absolute;
+        right: 0;
+        top: 25px;
+        font-size: 14px;
+        border: none;
+        outline: none;
     }
   }
   .details{

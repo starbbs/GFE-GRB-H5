@@ -41,6 +41,9 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	//设置详情VM
 	couponDetailView.VM = avalon.define($.extend({
 		$id: 'couponDetail',
+		toUse: function(){
+			window.location.href = "phonecharge.html";
+		}
 	}, couponDetailJSON));
 
 	avalon.scan();
@@ -54,7 +57,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	}
 
 	var dataHandler = function(data, type) {
-		data.available.forEach(function(item, index, arr){
+		data.available && data.available.forEach(function(item, index, arr){
 			var itemEndTime = new Date(item.endTime.replace(/-/g, "/")).getTime();
 			item.endTime = getPreDay(item.endTime.substr(0, 10)); //对当前结束时间进行建议减一天的操作
 			item.startTime = item.startTime.substr(0, 10);
@@ -62,7 +65,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 			item.disuse = false;  //判断是否展示过期的标志icon
 			canuse.push(item);
 		});
-		data.expire.forEach(function(item, index, arr){
+		data.expire && data.expire.forEach(function(item, index, arr){
 			var itemEndTime = new Date(item.endTime.replace(/-/g, "/")).getTime();
 			item.endTime = getPreDay(item.endTime.substr(0, 10)); //对当前结束时间进行建议减一天的操作
 			item.startTime = item.startTime.substr(0, 10);
@@ -72,7 +75,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 		});
 		if (type === "order") {
 			var disuseUnexpire = [];
-			data.disable.forEach(function(item, index, arr){
+			data.disable && data.disable.forEach(function(item, index, arr){
 				var itemEndTime = new Date(item.endTime.replace(/-/g, "/")).getTime();
 				item.endTime = getPreDay(item.endTime.substr(0, 10)); //对当前结束时间进行建议减一天的操作
 				item.startTime = item.startTime.substr(0, 10);
@@ -82,7 +85,6 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 			});
 			disuse = disuseUnexpire.concat(disuse);
 		}
-		console.log(canuse);
 		$.extend(couponListView.VM, {
 			listAva: canuse,
 			listExp: disuse
@@ -122,15 +124,24 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	};
 
 	var set = function() {
-		var type = url.filename;
-		switch (type) {
-			case 'mine.html':
-				mineHandler();
-				break;
-			case 'order.html':
-				orderHandler();
-				break;
-		};
+		//根据当前传入的参数判断是否是app传入的链接
+		if(get.data.from === 'myvouchercards'){
+			gopToken = get.data.token;
+			mineHandler();
+		}else if(get.data.from === 'consumecards'){
+			orderHandler();
+		}else{
+			gopToken = $.cookie('gopToken');
+			var type = url.filename;
+			switch (type) {
+				case 'mine.html':
+					mineHandler();
+					break;
+				case 'order.html':
+					orderHandler();
+					break;
+			};
+		}
 	};
 	set();
 
