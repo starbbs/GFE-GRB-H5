@@ -17,8 +17,6 @@ require([
         //do notheing
         router.init(true);
 
-        price.getSellOnePrice();
-
         var main = $('.order');
         var gopToken = $.cookie('gopToken');
         var identInput = $('#order-ident');
@@ -208,11 +206,10 @@ require([
                                  };
                                  }
                                  */
-                                price.onChange = price.onFirstChange = function(next) {
-                                    vm.gopPrice = next;
+                                api.getselloneprice({},function(data){
+                                    vm.gopPrice = data.optimumBuyPrice;
                                     vm.gopExchange();
-                                };
-                                price.once();
+                                })
                             } else { // 失败, 成功, 进行中(已付款)
                                 router.to('/bill');
                             }

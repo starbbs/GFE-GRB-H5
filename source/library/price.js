@@ -38,20 +38,10 @@ define('h5-price', ['h5-api'], function(api) {
 			price.timer = setTimeout(price.get, price.interval);
 		});
 	};
-	var getSellOnePrice = price.getSellOnePrice = function() {
+	var getSellOnePrice = price.getSellOnePrice = function(callBack) {
 		api.getselloneprice(function(data) {
-			console.log(data);
+			callBack && callBack(data);
 		});
-		// 6-16 获取卖1价样品调用
-		//$.ajax({
-		//	type: 'GET',
-		//	url: 'http://172.16.33.4/trade/optimumPrice',
-		//	data: '',
-		//	dataType: 'json',
-		//	success: function(data){
-		//		console.log(data);
-		//	}
-		//});
 	};
 	return price;
 });
