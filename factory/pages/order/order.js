@@ -175,7 +175,7 @@ require([
                                 vm.money = order.orderMoney;
                                 vm.gopPrice = data.data.gopPrice;
                                 vm.gopNum = data.data.gopNum;
-                                vm.productRealPrice = JSON.parse(product.extraContent).price;
+                                // vm.productRealPrice = JSON.parse(product.extraContent).price;
                                 vm.orderCode = order.orderCode;
                                 vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
                                 vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
@@ -206,7 +206,7 @@ require([
                                  };
                                  }
                                  */
-                                api.getselloneprice({},function(data){
+                                api.getselloneprice({}, function(data) {
                                     vm.gopPrice = data.optimumBuyPrice;
                                     vm.gopExchange();
                                 })
@@ -224,38 +224,55 @@ require([
         };
 
         var getDataFromPhonecharge = function() {
-            if(get.data.id){
+            if (get.data.id) {
                 //api.getProductInfor({
                 //    'gopToken':gopToken,
                 //    'productId':get.data.id
                 //},function(data){
                 //    console.log();
                 //}); 
-                
+
                 // 商品详情
                 var productInfor = {
-                    "status":200,
-                    "msg":"success",
-                    "data": {
-                        "product": {
-                            "productDesc": "移动话费-50元",
-                            "extraContent": {"carrier":"移动","price":50},
-                            "price": 49.8,
-                             "currency": "RMB",
-                            "id": 33,
-                            "productName": "话费充值",
-                            "productType": "SHOUJICHONGZHIKA"
+                    status: 200,
+                    msg: "success",
+                    data: {
+                        product: {
+                            productDesc: "移动话费-50元",
+                            extraContent: {
+                                carrier: "移动",
+                                price: 50
+                            },
+                            price: 49.8,
+                            currency: "RMB",
+                            id: 33,
+                            productName: "话费充值",
+                            productType: "SHOUJICHONGZHIKA"
                         }
                     }
-                };  
+                };
 
 
                 // 刷新数据
-                vm.productDesc = productInfor.data.productDesc;
-                vm.money = productInfor.data.price; //商品价钱
-                vm.gopPrice = productInfor.data.gopPrice; //果仁现价
-                vm.gopNum = 10;                      //用户果仁数
-                vm.productRealPrice = productInfor.data.extraContent.price;
+                vm.productDesc = productInfor.data.product.productDesc;
+                vm.money = productInfor.data.product.price; //商品价钱
+                api.getselloneprice({}, function(data) {
+                    vm.gopPrice = data.optimumBuyPrice; //果仁现价
+                });
+                //获取果仁数
+                api.getGopNum({
+                    gopToken: gopToken,
+                }, function(data) {
+                    if (data.status == 200) {
+                        vm.gopNum = data.data.gopNum;
+                    } else {
+                        console.log(data);
+                    }
+                });
+
+                
+
+                vm.productRealPrice = productInfor.data.product.extraContent.price;
                 vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
                 vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
                 vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
@@ -263,19 +280,19 @@ require([
                 vm.hasBill = false;
                 vm.gopExchange();
 
-                setTimeout(function(){
+                setTimeout(function() {
                     main.addClass('on')
-                },200);
-            }else{
-                 $.alert('缺少商品单号号');
+                }, 200);
+            } else {
+                $.alert('缺少商品单号号');
             }
 
             var availableVoucher = {
-                    "currencyType": "RMB",
-                    "voucherName": "10元现金抵扣券",
-                    "voucherType": "AMOUNT",
-                    "voucherAmount": 10,
-                    "id": 104
+                "currencyType": "RMB",
+                "voucherName": "10元现金抵扣券",
+                "voucherType": "AMOUNT",
+                "voucherAmount": 10,
+                "id": 104
             };
         };
 
