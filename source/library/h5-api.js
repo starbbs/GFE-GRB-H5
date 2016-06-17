@@ -337,9 +337,11 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	});
 	
 	//91.消费订单优惠券列表接口
-	api.regist('myOrderVoucherList', '/voucher/myOrderVoucherList');
+	api.regist('myOrderVoucherList', '/voucher/myOrderVoucherList',{
+		asyn: true
+	});
 
-	//91. 商品信息
+	//92. 商品信息
 	api.regist('getProductInfor', '/consume/product/query');
 	
 

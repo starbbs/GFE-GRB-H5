@@ -37,6 +37,10 @@ require([
             couponRmbName: '', //优惠券名称
             moneyUse: 0, //实付金额
             voucherId: '', //优惠券id
+            confirmCangory: '', // 消费类型 话费 || 流量
+            confirmId: '', // 消费商品的ID
+            confirmPhone: '', //消费商品充值的手机号码
+            consumeOrderId: '', // 生成定单后的账单ID
             /*
              gopClick: function() { // 果仁点击
              vm.gopIfUse = !vm.gopIfUse;
@@ -75,42 +79,12 @@ require([
                     // status = 'gopNumNo';
                     if (status == 'gopNumOk') {
                         if (vm.hasBill) {
-                            alert('已经生成过定单了');
+                            console.log('已经生成过定单了');
+                            paypassShow();
                         } else {
-                            alert('还没生成过定单了');
+                            console.log('还没生成过定单了');
+                            createBill(paypassShow);
                         }
-                        dialogPaypass.show();
-                        //支付浮层消失的回调
-                        dialogPaypass.vm.callback = function(value) {
-                            // 支付密码校验成功
-                            api.pay({
-                                gopToken: gopToken, // token
-                                useGop: vm.gopIfUse, // 是否使用果仁
-                                consumeOrderId: get.data.id, // 订单id
-                                // identifyingCode: identInput.val(), // 短信验证码
-                                // bankCardId: vm.bankid, // 银行卡id  4-11去除银行卡支付后可随便写ID
-                                bankCardId: 12,
-                                payPassword: value, // 支付密码
-                                bill99ValidCode: '803585',
-                                bill99token: '1330872',
-                                voucherId: vm.voucherId
-                            }, function(data) {
-                                if (data.status == 200) {
-                                    router.to('/bill');
-                                    console.log(vm);
-                                    billView.set('PAY', get.data.id, {
-                                        // forceStatus: 'PROCESSING',
-                                        ifFinishButton: true,
-                                        waitForPayMoney: '', // 取消等待支付
-                                        //orderMoney: vm.gopMoney, // 加入订单金额
-                                        //ifTip: true,
-                                        //tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
-                                    });
-                                } else {
-                                    $.alert(data.msg);
-                                }
-                            });
-                        };
                     } else {
                         dialogConfirm.set('您的果仁不足是否购买？');
                         dialogConfirm.show();
@@ -152,7 +126,74 @@ require([
             main.hide();
         };
 
-        // 页面来源
+        // 支付并跳转bill 分页
+        var paypassShow = function() {
+            dialogPaypass.show();
+            //支付浮层消失的回调
+            dialogPaypass.vm.callback = function(value) {
+                // 支付密码校验成功
+                api.pay({
+                    gopToken: gopToken, // token
+                    useGop: vm.gopIfUse, // 是否使用果仁
+                    consumeOrderId: vm.consumeOrderId, // 订单id
+                    // identifyingCode: identInput.val(), // 短信验证码
+                    // bankCardId: vm.bankid, // 银行卡id  4-11去除银行卡支付后可随便写ID
+                    bankCardId: 12,
+                    payPassword: value, // 支付密码
+                    bill99ValidCode: '803585',
+                    bill99token: '1330872',
+                    voucherId: vm.voucherId
+                }, function(data) {
+                    if (data.status == 200) {
+                        router.to('/bill');
+                        billView.set('PAY', get.data.id, {
+                            // forceStatus: 'PROCESSING',
+                            ifFinishButton: true,
+                            waitForPayMoney: '', // 取消等待支付
+                            //orderMoney: vm.gopMoney, // 加入订单金额
+                            //ifTip: true,
+                            //tip: '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询',
+                        });
+                    } else {
+                        $.alert(data.msg);
+                    }
+                });
+            }
+        };
+
+        // 创建账单
+        var createBill = function(dbfn) {
+            if (vm.confirmCangory === '话费') {
+                api.phoneRecharge({
+                    gopToken: gopToken,
+                    productId: vm.confirmId,
+                    phone: vm.confirmPhone
+                }, function(data) {
+                    if (data.status == 200) {
+                        vm.hasBill = true;
+                        vm.consumeOrderId = data.data.consumeOrderId;
+                        dbfn && dbfn();
+                    } else {
+                        $.alert(data.msg);
+                    }
+                });
+            } else {
+                api.phoneTraffic({
+                    gopToken: gopToken,
+                    productId: vm.confirmId,
+                    phone: vm.confirmPhone
+                }, function(data) {
+                    if (data.status == 200) {
+                        vm.hasBill = true;
+                        vm.consumeOrderId = data.data.consumeOrderId;
+                        dbfn && dbfn();
+                    } else {
+                        $.alert(data.msg);
+                    }
+                });
+            }
+        };
+
         // bill            根据定单ID
         // phonecharge     根据商品ID
         var getDataFromBill = function() {
@@ -183,29 +224,6 @@ require([
                                 vm.voucherId = availableVoucher ? availableVoucher.id : '';
                                 vm.hasBill = true;
                                 vm.gopExchange();
-                                // 银行卡相关
-                                /*
-                                 if (Array.isArray(data.data.bankCardList)) {
-                                 bankListRefresh(data.data.bankCardList);
-                                 dialogBankcard.on('hide', function() {
-                                 bankListReturn();
-                                 });
-                                 viewBankcardAppend.vm.callback = function() { // 银行卡添加回调
-                                 api.bankcardSearch({
-                                 gopToken: gopToken
-                                 }, function(data) {
-                                 if (data.status == 200) {
-                                 bankListRefresh(data.data.list);
-                                 setTimeout(function() {
-                                 router.to('/');
-                                 }, 100);
-                                 } else {
-                                 $.alert(data.msg);
-                                 }
-                                 });
-                                 };
-                                 }
-                                 */
                                 api.getselloneprice({}, function(data) {
                                     vm.gopPrice = data.optimumBuyPrice;
                                     vm.gopExchange();
@@ -225,60 +243,71 @@ require([
 
         var getDataFromPhonecharge = function() {
             if (get.data.id) {
-                //api.getProductInfor({
-                //    'gopToken':gopToken,
-                //    'productId':get.data.id
-                //},function(data){
-                //    console.log();
-                //}); 
+                var index = 0;
+                vm.confirmId = get.data.id;
+                vm.confirmPhone = get.data.phone;
 
                 // 商品详情
-                var productInfor = {
-                    status: 200,
-                    msg: "success",
-                    data: {
-                        product: {
-                            productDesc: "移动话费-50元",
-                            extraContent: {
-                                carrier: "移动",
-                                price: 50
-                            },
-                            price: 49.8,
-                            currency: "RMB",
-                            id: 33,
-                            productName: "话费充值",
-                            productType: "SHOUJICHONGZHIKA"
-                        }
-                    }
-                };
+                api.getProductInfor({
+                    'gopToken':gopToken,
+                    'productId':get.data.id
+                },function(data){
+                    var productInfor = data.data.product;
+                    // 刷新  商品信息数据
+                    vm.productDesc = productInfor.productDesc;
+                    vm.money = productInfor.price; //商品价钱
+                    vm.productRealPrice = productInfor.extraContent.price; // 果仁宝的RMB价格
+                    vm.confirmCangory = productInfor.productName.slice(0, 2); //消费商品类别
+                    if (index === 3) {
+                        vm.gopExchange();
+                    };
+                    index++;                    
+                }); 
 
+                // 刷新 最大可用优惠券
+                api.myOrderVoucherList({
+                    gopToken: gopToken,
+                }, function(data) {
+                    var myOrderVoucherList = data.data.available;
+                    // 最大可用优惠券
+                    var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.data.usable.sort(function(item1, item2) {
+                        return item2.voucherAmount - item1.voucherAmount;
+                    })[0];
 
-                // 刷新数据
-                vm.productDesc = productInfor.data.product.productDesc;
-                vm.money = productInfor.data.product.price; //商品价钱
+                    vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用现金抵扣券"; //优惠券名字
+                    vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0; // 优惠券 金额
+                    vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00'); // 商品价格RMB
+                    vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : ''; // 优惠券ID
+                    vm.hasBill = false; //是否已生成账单信号   
+                    if (index === 3) {
+                        vm.gopExchange();
+                    };
+                    index++;
+                });
+
+                // 获取卖1价
                 api.getselloneprice({}, function(data) {
                     vm.gopPrice = data.optimumBuyPrice; //果仁现价
+                    if (index === 3) {
+                        vm.gopExchange();
+                    };
+                    index++;
                 });
+
                 //获取果仁数
                 api.getGopNum({
                     gopToken: gopToken,
                 }, function(data) {
                     if (data.status == 200) {
                         vm.gopNum = data.data.gopNum;
+                        if (index === 3) {
+                            vm.gopExchange();
+                        };
+                        index++;
                     } else {
                         console.log(data);
                     }
                 });
-
-                
-
-                vm.productRealPrice = productInfor.data.product.extraContent.price;
-                vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
-                vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
-                vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
-                vm.voucherId = availableVoucher ? availableVoucher.id : '';
-                vm.hasBill = false;
-                vm.gopExchange();
 
                 setTimeout(function() {
                     main.addClass('on')
@@ -286,14 +315,6 @@ require([
             } else {
                 $.alert('缺少商品单号号');
             }
-
-            var availableVoucher = {
-                "currencyType": "RMB",
-                "voucherName": "10元现金抵扣券",
-                "voucherType": "AMOUNT",
-                "voucherAmount": 10,
-                "id": 104
-            };
         };
 
         var init = function() {
@@ -305,7 +326,6 @@ require([
                 console.log('来自phonecharge，还未生成定单');
             }
         };
-
 
         init();
 
