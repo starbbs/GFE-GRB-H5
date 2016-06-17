@@ -49,54 +49,59 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	var getPreDay = function(str) {
 		var strDate = new Date(str.replace(/-/g, "/")); //字符串转日期
 		var newDate = new Date(strDate - 24 * 60 * 60 * 1000); //日期减一天操作
-		var newDateStr = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) < 10?("0" + (newDate.getMonth() + 1)):(newDate.getMonth() + 1)) + "-" + (newDate.getDate() < 10?("0" + newDate.getDate()):newDate.getDate()); //获取新的日期
+		var newDateStr = newDate.getFullYear() + "-" + ((newDate.getMonth() + 1) < 10 ? ("0" + (newDate.getMonth() + 1)) : (newDate.getMonth() + 1)) + "-" + (newDate.getDate() < 10 ? ("0" + newDate.getDate()) : newDate.getDate()); //获取新的日期
 		return newDateStr;
 	}
 
-	var dataHandler = function(arr, type) {
-		var nowTime = new Date().getTime();
-		arr.forEach(function(item, index, array) {
-			var itemStartTime = new Date(item.startTime.replace(/-/g, "/")).getTime();
+	var dataHandler = function(data, type) {
+		data.available.forEach(function(item, index, arr){
 			var itemEndTime = new Date(item.endTime.replace(/-/g, "/")).getTime();
-			item.startTime = item.startTime.substr(0, 10);
 			item.endTime = getPreDay(item.endTime.substr(0, 10)); //对当前结束时间进行建议减一天的操作
-			item.disuse = false;
-			if (nowTime > itemEndTime) {
-				item.voucherStatus = 'EXPIRE';
-				disuse.push(item);
-			} else {
-				item.voucherStatus = 'AVAILABLE';
-				canuse.push(item);
-			}
+			item.startTime = item.startTime.substr(0, 10);
+			item.voucherStatus = 'AVAILABLE';
+			item.disuse = false;  //判断是否展示过期的标志icon
+			canuse.push(item);
 		});
-		if (type === 'order') {
+		data.expire.forEach(function(item, index, arr){
+			var itemEndTime = new Date(item.endTime.replace(/-/g, "/")).getTime();
+			item.endTime = getPreDay(item.endTime.substr(0, 10)); //对当前结束时间进行建议减一天的操作
+			item.startTime = item.startTime.substr(0, 10);
+			item.voucherStatus = 'EXPIRE';
+			item.disuse = false;
+			disuse.push(item);
+		});
+		if (type === "order") {
 			var disuseUnexpire = [];
-			canuse.forEach(function(item, index, array) {
-				var itemStartTime = new Date(item.startTime).getTime();
-				var itemEndTime = new Date(item.endTime).getTime();
-				if (nowTime < itemStartTime) {
-					item.disuse = true;
-					item.voucherStatus = 'EXPIRE';
-					disuseUnexpire.push(item);
-					canuse.splice(index, 1, '');
-				}
+			data.disable.forEach(function(item, index, arr){
+				var itemEndTime = new Date(item.endTime.replace(/-/g, "/")).getTime();
+				item.endTime = getPreDay(item.endTime.substr(0, 10)); //对当前结束时间进行建议减一天的操作
+				item.startTime = item.startTime.substr(0, 10);
+				item.voucherStatus = 'EXPIRE';
+				item.disuse = true;
+				disuseUnexpire.push(item);
 			});
 			disuse = disuseUnexpire.concat(disuse);
-			canuse = canuse.filter(function(item, index, array) {
-				return item != '';
-			});
 		}
-	}
-
-	//我的   券列表处理
-	var mineHandler = function(arr) {
-		//详情消失 重新渲染数据
-		//数据处理函数
-		dataHandler(arr, 'mine');
+		console.log(canuse);
 		$.extend(couponListView.VM, {
 			listAva: canuse,
 			listExp: disuse
 		})
+	}
+
+	//我的   券列表处理
+	var mineHandler = function() {
+		//详情消失 重新渲染数据
+		//数据处理函数--获取优惠券list
+		api.myVoucherList({
+			gopToken: gopToken,
+		}, function(data) {
+			if (data.status == 200) {
+				dataHandler(data.data, 'mine');
+			} else {
+				$.alert(data.msg);
+			}
+		});
 		couponListView.on('show', function() {
 			$.extend(couponDetailView.VM, couponDetailJSON);
 		});
@@ -105,39 +110,29 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixi
 	//定单  券列表处理
 	var orderHandler = function(arr) {
 		//数据处理函数
-		dataHandler(arr, 'order');
-		$.extend(couponListView.VM, {
-			listAva: canuse,
-			listExp: disuse
-		})
-
+		api.myOrderVoucherList({
+			gopToken: gopToken,
+		}, function(data) {
+			if (data.status == 200) {
+				dataHandler(data.data, 'order');
+			} else {
+				$.alert(data.msg);
+			}
+		});
 	};
 
-
-
-	var set = function(arr) {
+	var set = function() {
 		var type = url.filename;
 		switch (type) {
 			case 'mine.html':
-				mineHandler(arr);
+				mineHandler();
 				break;
 			case 'order.html':
-				orderHandler(arr);
+				orderHandler();
 				break;
 		};
 	};
-
-	//获取优惠券list
-	api.myVoucherList({
-		gopToken: gopToken,
-	}, function(data) {
-		if (data.status == 200) {
-			set(data.data.voucherList);
-		} else {
-			// $.alert(data.msg);
-		}
-	});
-
+	set();
 
 	//返回的JSON
 	var couponJSON = {};
