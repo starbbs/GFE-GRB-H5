@@ -336,5 +336,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 		'_type': 'get'
 	});
 
+	//91. 商品信息
+	api.regist('getProductInfor', '/consume/product/query');
+	
+
 	return api;
 });
