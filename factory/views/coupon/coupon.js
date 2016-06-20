@@ -8,7 +8,7 @@
  * @param    {[function]}     		set								[按页面URL设置优惠券列表]
  */
 
-define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view', 'h5-weixin'], function(api, router, get, url, View) {
+define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view'], function(api, router, get, url, View) {
 	var gopToken = $.cookie('gopToken');
 
 	var canuse = []; //可用优惠券数组
