@@ -88,6 +88,9 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view'], function
 			});
 			disuse = disuseUnexpire.concat(disuse);
 		}
+		canuse.length && $("#canuse-list").show();
+		disuse.length && $("#disuse-list").show();
+		(!canuse.length && !disuse.length) && $("#coupon-none").show();
 		$.extend(couponListView.VM, {
 			listAva: canuse,
 			listExp: disuse
