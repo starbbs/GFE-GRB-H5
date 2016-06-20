@@ -40,7 +40,7 @@ require([
             confirmCangory: '', // 消费类型 话费 || 流量
             confirmId: '', // 消费商品的ID
             confirmPhone: '', //消费商品充值的手机号码
-            consumeOrderId: '', // 生成定单后的账单ID
+            consumeOrderId: '', // 帐单查询的ID
             /*
              gopClick: function() { // 果仁点击
              vm.gopIfUse = !vm.gopIfUse;
@@ -146,7 +146,7 @@ require([
                 }, function(data) {
                     if (data.status == 200) {
                         router.to('/bill');
-                        billView.set('PAY', get.data.id, {
+                        billView.set('PAY', vm.consumeOrderId, {
                             // forceStatus: 'PROCESSING',
                             ifFinishButton: true,
                             waitForPayMoney: '', // 取消等待支付
@@ -194,10 +194,11 @@ require([
             }
         };
 
-        // bill            根据定单ID
-        // phonecharge     根据商品ID
+        // bill            根据定单ID   优惠券 商品信息 价格
+        // phonecharge     根据商品ID   优惠券 商品信息 价格
         var getDataFromBill = function() {
             if (get.data.id) { // 有订单ID, 跳转订单详情
+                vm.consumeOrderId = get.data.id;
                 billView.set('PAY', get.data.id, {
                     onRequest: function(data) {
                         if (data.status == 200) {
@@ -249,9 +250,9 @@ require([
 
                 // 商品详情
                 api.getProductInfor({
-                    'gopToken':gopToken,
-                    'productId':get.data.id
-                },function(data){
+                    'gopToken': gopToken,
+                    'productId': get.data.id
+                }, function(data) {
                     var productInfor = data.data.product;
                     // 刷新  商品信息数据
                     vm.productDesc = productInfor.productDesc;
@@ -261,8 +262,8 @@ require([
                     if (index === 3) {
                         vm.gopExchange();
                     };
-                    index++;                    
-                }); 
+                    index++;
+                });
 
                 // 刷新 最大可用优惠券
                 api.myOrderVoucherList({
