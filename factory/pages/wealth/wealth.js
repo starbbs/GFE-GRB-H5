@@ -207,7 +207,7 @@ require([
                     },
                     tickInterval: (function () {
                         if ((max - min) <= 0.01) {
-                            return (max - min) * 10000000 * 0.8 / 10000000;
+                            return (max - min) * 10000000 * 0.9 / 10000000;
                         } else if ((max - min) < 0.08) {
                             return (max - min) * 10000000 * 0.5 / 10000000;
                         } else {
