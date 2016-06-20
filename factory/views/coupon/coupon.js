@@ -9,8 +9,11 @@
  */
 
 define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view'], function(api, router, get, url, View) {
-	var gopToken = $.cookie('gopToken');
-
+//	var gopToken = $.cookie('gopToken');
+	var gopToken = get.data.token;
+	if(gopToken){
+		$.cookie('gopToken',gopToken);
+	}
 	var canuse = []; //可用优惠券数组
 	var disuse = []; //不可用优惠券数组
 	var couponListView = new View('coupon-list');
@@ -124,10 +127,6 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view'], function
 	};
 
 	var set = function() {
-		var gopToken = get.data.token;
-		if(gopToken){
-			$.cookie('gopToken',gopToken);
-		}
 		//根据当前传入的参数判断是否是app传入的链接
 		if(get.data.from === 'myvouchercards'){
 			mineHandler();
