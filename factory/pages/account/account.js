@@ -177,7 +177,7 @@ require([
 
             //根据消费方式显示  取整方式
             if (kind === 'all') { // RMB  果仁  支付都有
-                if (item.extra.recordList.length) {
+                if (item.extra && item.extra.recordList && item.extra.recordList.length) {
                     item.extra.recordList.forEach(function(item) {
                         switch (item.payType) {
                             case 'GOP_PAY': // 果仁宝支付

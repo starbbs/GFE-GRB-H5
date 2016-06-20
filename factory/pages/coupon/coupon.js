@@ -1,7 +1,7 @@
 // 姜晓妮 2016-06-17 15:48:40 创建
 // H5微信端 --- 卡券列表
 
-require(['h5-view-coupon', 'h5-weixin', 'get', 'url', 'h5-view', 'router'], function(coupon, weixin, get, url, View, router) {
+require(['h5-view-coupon', 'get', 'url', 'h5-view', 'router'], function(coupon, get, url, View, router) {
 //	var couponDetailView = new View('coupon-detail');
 	var couponDetailHandler = function() {
 		//列表点击事件--跳转至详情页面
