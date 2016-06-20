@@ -1,6 +1,7 @@
 ﻿@charset "utf-8";
 @import '../../../source/scss/main';
 .coupon-detail{
+  @extend %scroll; //平滑滚动
   @extend .view-style;
   background: #f2f2f2;
   width:100%;
@@ -62,6 +63,7 @@
 }
 
 .coupon-list{
+    @extend %scroll; //平滑滚动
     @extend .view-style;
     $img: $g-views + '/coupon/images';
     $image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
