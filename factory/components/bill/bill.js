@@ -18,7 +18,7 @@ define('h5-component-bill', function() {
 			CLOSE: 'close',
 		},
 		statusBusiness: { // 交易状态对应中文
-			PROCESSING: '进行中',
+			PROCESSING: '待支付',
 			SUCCESS: '交易成功',
 			FAILURE: '交易失败',
 			CLOSE: '已关闭',
