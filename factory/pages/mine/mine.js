@@ -10,7 +10,7 @@ require([
 ) {
 	//进入我的页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing
 	loginJudge.check(function() {
-		router.init();
+		router.init(true);
 		var gopToken = $.cookie('gopToken');
 		var mine = $('.mine');
 		var feedbackText = $(".setting-feedback-text");
@@ -26,7 +26,7 @@ require([
 			if (target.length) {
 				var json = target.get(0).dataset;
 				$.extend(CouponJSON.couponDetailView.VM, json);
-				router.go('/coupon-detail');
+				router.to('/coupon-detail');
 			}
 		};
 		/*
