@@ -270,7 +270,7 @@ require([
                 }, function(data) {
                     var myOrderVoucherList = data.data.available;
                     // 最大可用优惠券
-                    var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.data.usable.sort(function(item1, item2) {
+                    var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.sort(function(item1, item2) {
                         return item2.voucherAmount - item1.voucherAmount;
                     })[0];
 
