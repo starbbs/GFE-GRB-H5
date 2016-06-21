@@ -6,7 +6,7 @@ require([
     'h5-weixin'
 ], function(loginJudge, router, api, get, filters, H5bill, iscrollLoading, billView, mydate, orderJudge) {
     // $.cookie('gopToken','b7af44824ea34409a494393b00f0788e');
-    //进入页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing
+    //进入页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing\
     loginJudge.check(function() {
         router.init();
         $(document).get(0).ontouchmove = function(event) {
@@ -55,7 +55,6 @@ require([
                 }
             });
         };
-
 
         iscrollLoading.upLoadingData = function() { // 获取上拉列表
             page = 1;
@@ -114,6 +113,17 @@ require([
         var now = new Date(); // 当前时间
         var nowMonth = now.getMonth(); // 当前月份
         //                 money gop   []   list的每条数据
+        function getStatusDesc(item){
+            if(item.status == "PROCESSING"){
+                if(item.extra && item.extra.recordList && item.extra.recordList.length>0){
+                    return "进行中";
+                }else{
+                    return "待支付";
+                }
+            }else{
+                return H5bill.statusBusiness[item.status];
+            }
+        }
         var dataAdd = function(kind, bills, item) { // 添加效果的数据
             var type = H5bill.typeClass[item.type]; // phone refund buy transfer
             var bill = { // 账单
@@ -121,11 +131,12 @@ require([
                 img: '', // 头像
                 name: '', // 姓名
                 desc: item.businessDesc,
-                status: H5bill.statusBusiness[item.status], // 交易状态中文  进行中  交易成功/失败。。。
+                status: getStatusDesc(item), // 交易状态中文  进行中  交易成功/失败。。。
                 originStatus: item.status,
                 type: type,
                 originType: item.type,
                 iconClass: '',
+
             };
             var types = { // 类型
                 money: 'money',
@@ -301,6 +312,7 @@ require([
             uploading: false,
             loadingWord: '加载中...',
             list: [],
+
             listRepeatCallback: function() { // 循环结束回调
                 setTimeout(function() {
                     accountScroll.refresh();

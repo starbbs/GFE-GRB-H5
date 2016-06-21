@@ -86,7 +86,7 @@ require([
                             createBill(paypassShow);
                         }
                     } else {
-                        dialogConfirm.set('您的果仁不足是否购买？');
+                        dialogConfirm.set('您的果仁不足是否购买？',{okBtnText:'是',cancelBtnText:"否"});
                         dialogConfirm.show();
                         dialogConfirm.onConfirm = function() {
                             window.localStorage.setItem('from', url.basename);

@@ -15,8 +15,17 @@ define('h5-dialog-confirm', ['h5-dialog'], function(Dialog) {
 
 	var _main = confirm.self.find('.dialog-main');
 
-	var _html = function(html){
+	var _html = function(html,options){
 		this.html(html);
+		if(options) {
+			if (options.okBtnText) {
+				$(".dialog-confirm-button").html(options.okBtnText);
+			}
+			if (options.cancelBtnText) {
+				$(".dialog-confirm-cancel").html(options.cancelBtnText);
+			}
+		}
+
 		return confirm;
 	};
 	//bing this转指针好用方法

@@ -445,7 +445,7 @@ require([
 				}
 				if (parseFloat(filters.floorFix(parseFloat($('#address-mine-input-1')[0].value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
 
-					dialogConfirm.set('您的果仁不足是否购买？');
+					dialogConfirm.set('您的果仁不足是否购买？',{okBtnText:'是',cancelBtnText:"否"});
 					dialogConfirm.show();
 					dialogConfirm.onConfirm = function() {
 						window.location.href = 'purchase.html?from=' + url.basename;
