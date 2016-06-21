@@ -220,7 +220,7 @@ define('h5-view-bill', [
 			type: type, // 类型
 			status: order.status, // 订单状态
 			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: H5bill.statusBusiness[order.status], // 头部内容
+			headContent: getHeaderContent(order.status,waitForPay), // 头部内容
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney, //等待支付金额
 			productDesc: product.productDesc, // 商品信息
@@ -273,7 +273,6 @@ define('h5-view-bill', [
 			gopToken: gopToken,
 			refundId: id
 		}, function(data) {
-			console.log(nowData = data);
 			options.onRequest && options.onRequest(data);
 			if (!data.data || data.status != 200) {
 				//data.msg && $.alert(data.msg);
@@ -418,7 +417,7 @@ define('h5-view-bill', [
 	};
 	var setUserAddress = function(data) {
 		console.log(data.data.contactType);
-		if (data.data.contactType == 'GOP_CONTACT') { //果仁宝联系人  手机号
+		if (data.data.contactType == 'GOP_CONTACT') {//果仁宝联系人  手机号
 			return filters.phone(data.data.phone);
 		} else if (data.data.contactType == 'WALLET_CONTACT') { //地址
 			return data.data.address ? filters.address(data.data.address) : defaultAddress;
@@ -517,13 +516,25 @@ define('h5-view-bill', [
 		});
 	};
 
+	function getHeaderContent(_status,_waitforPay){
+
+		if(_status =="PROCESSING"){
+			if(_waitforPay){
+				return '待支付';
+			}else{
+				return '进行中';
+			}
+		}else{
+			return H5bill.statusBusiness[_status]
+		}
+	}
 	var buyGopHandler = function(type, id, order, list, waitForPay) { // 买果仁数据处理
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
 			status: order.status, // 订单状态
 			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: H5bill.statusBusiness[order.status], // 头部内容
+			headContent: getHeaderContent(order.status,waitForPay), // 头部内容
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney, //等待支付金额
 			gopNum: order.status === 'SUCCESS' ? order.gopNum : '', //success获得果仁数
