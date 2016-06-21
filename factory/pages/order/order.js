@@ -226,7 +226,7 @@ require([
                                 vm.hasBill = true;
                                 vm.gopExchange();
                                 api.getselloneprice({}, function(data) {
-                                    vm.gopPrice = data.optimumBuyPrice;
+                                    vm.gopPrice = data.optimumSellPrice;
                                     vm.gopExchange();
                                 })
                             } else { // 失败, 成功, 进行中(已付款)
@@ -291,7 +291,7 @@ require([
 
                 // 获取卖1价
                 api.getselloneprice({}, function(data) {
-                    vm.gopPrice = data.optimumBuyPrice; //果仁现价
+                    vm.gopPrice = data.optimumSellPrice; //果仁现价
                     if (index === 3) {
                         vm.gopExchange();
                     };
