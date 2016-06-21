@@ -181,7 +181,11 @@
 					<div class="bill-detail-item" ms-visible="(payGop || bankCangory) && status==='FAILURE'">
 						<div class="bill-detail-left">支付方式</div>
 						<div class="bill-detail-right dark">
-							<p class="bill-detail-right-pr ash">{{payGop ? '果仁' : '银行卡'}}</p>
+							<p class="bill-detail-right-pr ash" ms-visible="payGop">果仁</p>
+							<p class="bill-detail-right-pr ash" ms-visible="bankCangory">
+								bankCangory
+								<span class="blue">(卡号)</span>
+							</p>							
 						</div>
 					</div>
 					<!--实付   失败专有-->
@@ -205,7 +209,10 @@
 						</div>
 					</div>
 					<!--优惠 使用优惠券时候会显示-->
-					<div class="bill-detail-item" ms-class-1="(mb10px:status==='SUCCESS'||hasPay)&&status!='FAILURE'" ms-visible="voucherName" ms-class-2="mat10px:(status==='SUCCESS'||hasPay)&&status!='FAILURE'">
+					<div class="bill-detail-item" ms-class-1="mb10px:(status==='SUCCESS'||hasPay)&&status!='FAILURE'" 
+					ms-visible="voucherName" 
+					ms-class-2="mat10px:(status==='SUCCESS'||hasPay)&&status!='FAILURE'"
+					>
 						<div class="bill-detail-left">优惠</div>
 						<div class="bill-detail-right">
 							<p class="bill-detail-right-pr" ms-class-1="ash:status==='FAILURE'">{{voucherName}}</p>
@@ -213,8 +220,8 @@
 					</div>						
 					<!--银行卡信息 使用银行卡时候会显示-->
 					<div class="bill-detail-item mb10px" ms-visible="bankCangory">
-						<div class="bill-detail-right dark">
-							<p class="bill-detail-right-pr">{{bankCangory}}</p>
+						<div class="bill-detail-right dark w100">
+							<p class="bill-detail-right-pr w100 wdcenter">{{bankCangory}}</p>
 						</div>
 					</div>	
 					<div class="bill-target-bottom" ms-visible="status==='SUCCESS'||(status==='PROCESSING'&&hasPay)"></div>
@@ -225,7 +232,7 @@
 							<p class="bill-detail-right-pr dark" ms-class-1="ash:status==='FAILURE'">￥{{voucherOrderMoney|fix}}</p>
 						</div>
 					</div>										
-					<div class="underline" ms-visible="status==='FAILURE'||(status==='PROCESSING'&&hasPay)||status==='SUCCESS'"></div>		
+					<div class="underline" ms-visible="status==='FAILURE'||(status==='PROCESSING'&&hasPay)||(status==='SUCCESS'&&voucherName)"></div>		
 					<!--付款详情 果仁支付-->
 					<!--
 					<div class="bill-detail-item" ms-visible="payGop">
