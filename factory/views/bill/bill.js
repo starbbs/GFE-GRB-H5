@@ -492,11 +492,9 @@ define('h5-view-bill', [
 
 	var buyInHandler = function(type, id, options) { // 买果仁 step 1
 		var price;
-		api.price(function(data) {
-			if (data.status == '200') {
-				price = data.data.price;
-			}
-		});
+		api.getselloneprice({},function(data){
+			price= data.optimumSellPrice;
+		})
 		api.queryBuyinOrder({
 			gopToken: gopToken,
 			buyinOrderId: id,

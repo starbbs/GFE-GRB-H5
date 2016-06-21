@@ -333,7 +333,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 
 	// 90. 请求 卖1价 买1价 
 	api.regist('getselloneprice', 'http://172.16.33.4/trade/optimumPrice', {
-		'_type': 'get'
+		'_type': 'get',
+		'asyn': true
+
 	});
 	
 	//91.消费订单优惠券列表接口
