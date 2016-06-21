@@ -300,19 +300,24 @@
 						<div class="bill-detail-left">关闭时间</div>
 						<div class="bill-detail-right ash">{{closeTime}}</div>
 					</div>	
-					<div class="bill-detail-item" ms-visible="type==='BUY_IN'||type==='PAY'">
-						<div class="bill-detail-left">收款方</div>
-						<div class="bill-detail-right">北京果仁宝科技有限公司</div>
+					<div ms-visible="showHide">
+						<div class="bill-detail-item" ms-visible="type==='BUY_IN'||type==='PAY'">
+							<div class="bill-detail-left">收款方</div>
+							<div class="bill-detail-right">北京果仁宝科技有限公司</div>
+						</div>
+						<div class="bill-detail-item" ms-visible="orderCode">
+							<div class="bill-detail-left">订单号</div>
+							<div class="bill-detail-right ash">{{orderCode}}</div>
+						</div>
+						<div class="bill-detail-item" ms-visible="serialNum">
+							<div class="bill-detail-left">流水号</div>
+							<div class="bill-detail-right ash">{{serialNum|html}}</div>
+						</div>								
 					</div>
-					<div class="bill-detail-item" ms-visible="orderCode">
-						<div class="bill-detail-left">订单号</div>
-						<div class="bill-detail-right ash">{{orderCode}}</div>
-					</div>
-					<div class="bill-detail-item" ms-visible="serialNum">
-						<div class="bill-detail-left">流水号</div>
-						<div class="bill-detail-right ash">{{serialNum|html}}</div>
-					</div>		
+					<!--"ash:status==='FAILURE'" ms-class-1="up:showhide===true" ms-class-2="down:showhide===false"-->
+					<div class="showhide" ms-visible="status!='CLOSE'" ms-on-click="showHideMore" ms-class-1="up:showHide" ms-class-2="down:!showHide"></div>
 				</div>
+
 				<!--已付款进行  流程下来  有完成按钮-->
 				<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
 				<div class="bill-tip" ms-visible="ifTip">

@@ -13,7 +13,7 @@ require([
 	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //徐停
 	//  $.cookie('gopToken', '1332f5bda22640db9e1f49583f5bb884'); //李鹏
 	// $.cookie('gopToken', '7ed37109ecf44a2ea18f1b410693a54a'); //王源
-	$.cookie('gopToken', '09f83d1b82c74b048cda1978b51886a1'); //零娜
+	// $.cookie('gopToken', '09f83d1b82c74b048cda1978b51886a1'); //零娜
 
 	router.init(true);
 	//清除订单过去买果仁的存入内容

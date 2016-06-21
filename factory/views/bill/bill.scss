@@ -57,7 +57,18 @@
 	$img: $g-views + '/bill/images';
 
 	@extend .view-style;
-
+	.showhide{
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		margin-left: -8px;
+	}
+	.up{
+		@include sprite($img + '/up.png', 16px,8px);	
+	}	
+	.down{
+		@include sprite($img + '/down.png', 16px,8px);	
+	}
 	.AMOUNT5{
 		@include sprite($img + '/AMOUNT5.png', 106px,106px);	
 	}
@@ -83,7 +94,7 @@
 		$h: 2px;
 		position: relative;
 		margin-top: 5px;
-		padding: 5px $g-padding 28px;
+		padding: 5px $g-padding 40px;
 		background-color: $g-white;
 		font-size: 14px;
 		color: $g-ash;
