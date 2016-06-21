@@ -158,7 +158,7 @@
 						</div>
 						-->
 						<div class="bill-get-number mb10px" ms-class-1="dark:status!='CLOSE'">-{{orderMoney|abs|fix}}</div>
-						<div class="bill-get-label blue">
+						<div class="bill-get-label blue" ms-class-1"ash:bankCangory">
 							{{bankCangory?'银行卡支付':'果仁支付'}}
 						</div>
 						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>
@@ -183,11 +183,12 @@
 						<div class="bill-detail-right dark">
 							<p class="bill-detail-right-pr ash" ms-visible="payGop">果仁</p>
 							<p class="bill-detail-right-pr ash" ms-visible="bankCangory">
-								bankCangory
-								<span class="blue">(卡号)</span>
+								{{bankName}} {{bankCangory}} 
+								<span class="blue">({{bankLastNum}})</span>
 							</p>							
 						</div>
 					</div>
+										
 					<!--实付   失败专有-->
 					<div class="bill-detail-item" ms-visible="hasPay  && status==='FAILURE'">
 						<div class="bill-detail-left">实付</div>
@@ -218,10 +219,10 @@
 							<p class="bill-detail-right-pr" ms-class-1="ash:status==='FAILURE'">{{voucherName}}</p>
 						</div>
 					</div>						
-					<!--银行卡信息 使用银行卡时候会显示-->
-					<div class="bill-detail-item mb10px" ms-visible="bankCangory">
+					<!--银行卡信息 成功-->
+					<div class="bill-detail-item mb10px" ms-visible="bankCangory&&status==='SUCCESS'">
 						<div class="bill-detail-right dark w100">
-							<p class="bill-detail-right-pr w100 wdcenter">{{bankCangory}}</p>
+							<p class="bill-detail-right-pr w100 wdcenter">{{bankName}} {{bankCangory}} ({{bankLastNum}})</p>
 						</div>
 					</div>	
 					<div class="bill-target-bottom" ms-visible="status==='SUCCESS'||(status==='PROCESSING'&&hasPay)"></div>
@@ -244,7 +245,7 @@
 						</div>
 					</div>
 					-->
-					<!--付款详情 银行卡支付 ms-visible="bankCangory"-->					
+					<!--付款详情 银行卡支付 ms-visible="bankCangory"				
 					<div class="bill-detail-item"  ms-visible="bankCangory">
 						<div class="bill-detail-left">付款详情</div>					
 						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">
@@ -252,7 +253,7 @@
 							<p class="bill-detail-right-pr">{{bankName}}</p>
 						</div>
 					</div>
-
+					-->	
 					<!--订单相关信息-->
 					<div class="bill-pay no-padding no-bottom-border" ms-class-1="pbnone:status==='FAILURE'" ms-visible="hasPay||status==='CLOSE'"  ms-class-2="mat10px:status==='CLOSE'"><!--失败 专用 订单金额-->
 						<div class="bill-detail-left">

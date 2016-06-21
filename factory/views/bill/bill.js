@@ -144,6 +144,7 @@ define('h5-view-bill', [
 		phoneNum: '', // 手机号		
 		bankCangory: '', // 银行卡类型
 		bankName: '', //银行卡名称
+		bankLastNum:'',//银行卡尾几位
 		productDesc: '', // 商品信息
 		voucherClassName: '', //优惠券class名字
 		voucherNum: '', //优惠券金额
@@ -214,6 +215,7 @@ define('h5-view-bill', [
 					// ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
 					// tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
 			}, options);
+			console.log(extra.bankcard.cardNo);
 			options.onRendered && options.onRendered(billPhoneVM);
 		});
 	};
@@ -234,6 +236,7 @@ define('h5-view-bill', [
 			phoneNum: JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
 			bankCangory: extra.bankcard ? extra.bankcard.cardType.indexOf('SAVINGS') != -1 ? '储蓄卡' : '信用卡' : '', //银行类型
 			bankName: extra.bankcard ? extra.bankcard.bankName : '', //银行名称
+			bankLastNum:extra.bankcard ? extra.bankcard.cardNo.substr(extra.bankcard.cardNo.length - 4 , 4) :'',//银行卡尾几位
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
 			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
 			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间

@@ -6,14 +6,14 @@ require([
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
-	$.cookie('gopToken', '9bfcd178472f48bcb28584dc4ed82a04'); //小妮
+	// $.cookie('gopToken', '9bfcd178472f48bcb28584dc4ed82a04'); //小妮
 	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟    
 	// $.cookie('gopToken','fc7c154d9c82426ca64931bfe2bcf406'); //东霖
 	// $.cookie('gopToken', 'd5610892684b4523a1c2547b59318e37'); //魏冰
 	// $.cookie('gopToken', '780a1811bc19478fbdd5a8c1802e9b3c'); //徐停
 	//  $.cookie('gopToken', '1332f5bda22640db9e1f49583f5bb884'); //李鹏
 	// $.cookie('gopToken', '7ed37109ecf44a2ea18f1b410693a54a'); //王源
-	// $.cookie('gopToken', '09f83d1b82c74b048cda1978b51886a1'); //零娜
+	$.cookie('gopToken', '09f83d1b82c74b048cda1978b51886a1'); //零娜
 
 	router.init(true);
 	//清除订单过去买果仁的存入内容
