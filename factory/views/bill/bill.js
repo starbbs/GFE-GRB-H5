@@ -215,7 +215,6 @@ define('h5-view-bill', [
 					// ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
 					// tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
 			}, options);
-			console.log(extra.bankcard.cardNo);
 			options.onRendered && options.onRendered(billPhoneVM);
 		});
 	};

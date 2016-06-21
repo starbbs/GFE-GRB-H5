@@ -16,6 +16,13 @@
 	.wdcenter{
 		text-align: center;
 	}
+	.poscenter{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -53px;
+		margin-left: -53px;
+	}
 	.pbnone{
 		padding: 0px; border: none;
 	}
@@ -56,6 +63,9 @@
 	}
 	.AMOUNT10{
 		@include sprite($img + '/AMOUNT10.png', 106px,106px);	
+	}
+	.refundVoucher{
+		@include sprite($img + '/refundVoucher.png', 106px, 106px);
 	}
 	.no-bottom-border{
 		border-bottom: none;

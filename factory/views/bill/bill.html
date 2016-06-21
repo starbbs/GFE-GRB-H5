@@ -139,6 +139,8 @@
 			<!--话费充值-->
 			<div class="bill-box-out" ms-controller="billPhone"  ms-visible="type==='CONSUME_ORDER'||type==='PAY'">
 				<div class="bill-box">
+					<!--失败退款专用 -->
+					<span class="poscenter refundVoucher" ms-visible="status==='FAILURE'&&voucherNum"></span>
 					<!--头部  进行中  成功  失败 
 					ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')||type==='REFUND'||status==='PROCESSING'"-->
 					<div class="bill-head" ms-class="{{headClass}}">
@@ -158,8 +160,9 @@
 						</div>
 						-->
 						<div class="bill-get-number mb10px" ms-class-1="dark:status!='CLOSE'">-{{orderMoney|abs|fix}}</div>
-						<div class="bill-get-label blue" ms-class-1"ash:bankCangory">
-							{{bankCangory?'银行卡支付':'果仁支付'}}
+						<div class="bill-get-label" ms-class-1"ash:bankCangory">
+							<span class="blue" ms-visible="payGop">果仁支付</span>
+							<span class="ash" ms-visible="bankCangory">银行卡支付</span>
 						</div>
 						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>
 					</div>	
