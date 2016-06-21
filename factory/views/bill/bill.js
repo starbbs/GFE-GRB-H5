@@ -117,7 +117,7 @@ define('h5-view-bill', [
 		} else {
 			//orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
 			//	if (status === orderJudge.ok) {
-					window.location.href = './order.html?from=bill&id=' + vm.id;
+			window.location.href = './order.html?from=bill&id=' + vm.id;
 			//	} else {
 			//		$.alert(orderJudge.tip);
 			//	}
@@ -147,6 +147,9 @@ define('h5-view-bill', [
 		productDesc: '', // 商品信息
 		voucherClassName: '', //优惠券class名字
 		voucherNum: '', //优惠券金额
+		voucherName: '', //优惠券名字
+		voucherOrderMoney: '', //优惠后金额
+		hasPay: false, //是否付过钱
 
 		orderTime: '', // 交易时间
 		closeTime: '', // 关闭时间
@@ -207,10 +210,11 @@ define('h5-view-bill', [
 				waitForPayMoney: waitForPay ? order.orderMoney : '', //(!list && !list.length )&& order.status === 'PROCESSING' ? order.orderMoney : '',
 				orderMoney: list && list.length || order.status === 'CLOSE' ? order.orderMoney : '', //订单金额
 				ifTip: list && list.length && order.status === 'PROCESSING' ? true : false, // 已付款进行中  提示文字
-				// ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
-				// tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
+				hasPay: list && list.length ? true : false //是否付过钱
+					// ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
+					// tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
 			}, options);
-			options.onRendered && options.onRendered(billPhoneVM); 			
+			options.onRendered && options.onRendered(billPhoneVM);
 		});
 	};
 
@@ -220,7 +224,7 @@ define('h5-view-bill', [
 			type: type, // 类型
 			status: order.status, // 订单状态
 			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: getHeaderContent(order.status,waitForPay), // 头部内容
+			headContent: getHeaderContent(order.status, waitForPay), // 头部内容
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney, //等待支付金额
 			productDesc: product.productDesc, // 商品信息
@@ -231,7 +235,6 @@ define('h5-view-bill', [
 			bankCangory: extra.bankcard ? extra.bankcard.cardType.indexOf('SAVINGS') != -1 ? '储蓄卡' : '信用卡' : '', //银行类型
 			bankName: extra.bankcard ? extra.bankcard.bankName : '', //银行名称
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
-			orderMoney: order.orderMoney ? order.orderMoney : '', // 订单金额
 			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
 			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
 			// createTime: order.updateTime ? '' : order.createTime, // 创建时间
@@ -242,9 +245,12 @@ define('h5-view-bill', [
 			}).join('<br>') : order.serialNum,
 			payType: H5bill.payType[order.payType], // 支付方式
 			voucherClassName: (order.status === 'PROCESSING' || order.status === 'SUCCESS') && vouch ? vouch.voucherType + vouch.voucherAmount : '', //优惠券所用类名
-			voucherNum: order.status === 'FAILURE' && vouch ? vouch.voucherName : '', //优惠券金额
-			// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
-			// ifClose: waitForPay, // 是否显示"关闭"
+			voucherNum: order.status === 'FAILURE' && vouch ? vouch.voucherAmount : '', //优惠券金额
+			voucherName: vouch ? vouch.voucherName : '', //优惠券名字
+			orderMoney: order.orderMoney ? order.orderMoney : '', // 订单金额
+			voucherOrderMoney: order.orderMoney && vouch ? order.orderMoney - vouch.voucherAmount : '' //优惠后金额
+				// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+				// ifClose: waitForPay, // 是否显示"关闭"
 		};
 	};
 
@@ -293,7 +299,7 @@ define('h5-view-bill', [
 				orderCode: data.data.orderCode, // 订单号
 				serialNum: data.data.serialNum, // 流水号
 			}, options);
-			options.onRendered && options.onRendered(billRefundVM); 
+			options.onRendered && options.onRendered(billRefundVM);
 		});
 	};
 
@@ -347,7 +353,7 @@ define('h5-view-bill', [
 				transferSign: '-',
 			}, options);
 			order.personId && setUser(order.personId);
-			options.onRendered && options.onRendered(billTransferVM); 			
+			options.onRendered && options.onRendered(billTransferVM);
 		});
 	};
 
@@ -365,7 +371,7 @@ define('h5-view-bill', [
 				transferSign: '+',
 			}, options);
 			order.personId && setUser(order.personId);
-			options.onRendered && options.onRendered(billTransferVM); 			
+			options.onRendered && options.onRendered(billTransferVM);
 		});
 	};
 
@@ -417,7 +423,7 @@ define('h5-view-bill', [
 	};
 	var setUserAddress = function(data) {
 		console.log(data.data.contactType);
-		if (data.data.contactType == 'GOP_CONTACT') {//果仁宝联系人  手机号
+		if (data.data.contactType == 'GOP_CONTACT') { //果仁宝联系人  手机号
 			return filters.phone(data.data.phone);
 		} else if (data.data.contactType == 'WALLET_CONTACT') { //地址
 			return data.data.address ? filters.address(data.data.address) : defaultAddress;
@@ -492,9 +498,11 @@ define('h5-view-bill', [
 
 	var buyInHandler = function(type, id, options) { // 买果仁 step 1
 		var price;
-		api.getselloneprice({},function(data){
-			price= data.optimumSellPrice;
-		})
+		api.price(function(data) {
+			if (data.status == '200') {
+				price = data.data.price;
+			}
+		});
 		api.queryBuyinOrder({
 			gopToken: gopToken,
 			buyinOrderId: id,
@@ -510,19 +518,19 @@ define('h5-view-bill', [
 			var list = data.data.recordList; // 支付
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			$.extend(billBuyGopVM, buyGopHandler(type, id, order, list, waitForPay), options);
-			options.onRendered && options.onRendered(billBuyGopVM); 
+			options.onRendered && options.onRendered(billBuyGopVM);
 		});
 	};
 
-	function getHeaderContent(_status,_waitforPay){
+	function getHeaderContent(_status, _waitforPay) {
 
-		if(_status =="PROCESSING"){
-			if(_waitforPay){
+		if (_status == "PROCESSING") {
+			if (_waitforPay) {
 				return '待支付';
-			}else{
+			} else {
 				return '进行中';
 			}
-		}else{
+		} else {
 			return H5bill.statusBusiness[_status]
 		}
 	}
@@ -532,7 +540,7 @@ define('h5-view-bill', [
 			type: type, // 类型
 			status: order.status, // 订单状态
 			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: getHeaderContent(order.status,waitForPay), // 头部内容
+			headContent: getHeaderContent(order.status, waitForPay), // 头部内容
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney, //等待支付金额
 			gopNum: order.status === 'SUCCESS' ? order.gopNum : '', //success获得果仁数

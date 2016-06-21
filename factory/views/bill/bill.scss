@@ -19,7 +19,7 @@
 	.underline{
 		height: 1px; 
 		background-color: $g-line;
-		margin: 15px 0px;
+		margin: 10px 0px;
 	}
 	.mt10px{
 		height: 8px;
@@ -40,10 +40,10 @@
 	@extend .view-style;
 
 	.AMOUNT5{
-		@include sprite($img + '/AMOUNT5.png', 112px,78px);	
+		@include sprite($img + '/AMOUNT5.png', 106px,106px);	
 	}
 	.AMOUNT10{
-		@include sprite($img + '/AMOUNT10.png', 112px,78px);	
+		@include sprite($img + '/AMOUNT10.png', 106px,106px);	
 	}
 	.no-bottom-border{
 		border-bottom: none;
@@ -445,7 +445,7 @@
 	//	@include abl(110px,0px);
 	//}
 	&-coupon{
-		@include atr(50px,70px);
+		@include atr(0px,0px);
 		// display: inline-block;
 	}
 }
