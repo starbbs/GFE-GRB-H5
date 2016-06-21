@@ -181,7 +181,7 @@
 					<div class="bill-detail-item" ms-visible="(payGop || bankCangory) && status==='FAILURE'">
 						<div class="bill-detail-left">支付方式</div>
 						<div class="bill-detail-right dark">
-							<p class="bill-detail-right-pr ash">果仁</p>
+							<p class="bill-detail-right-pr ash">{{payGop ? '果仁' : '银行卡'}}</p>
 						</div>
 					</div>
 					<!--实付   失败专有-->
@@ -205,7 +205,7 @@
 						</div>
 					</div>
 					<!--优惠 使用优惠券时候会显示-->
-					<div class="bill-detail-item" ms-class-1="mb10px:status==='SUCCESS'" ms-visible="voucherName">
+					<div class="bill-detail-item" ms-class-1="(mb10px:status==='SUCCESS'||hasPay)&&status!='FAILURE'" ms-visible="voucherName" ms-class-2="mat10px:(status==='SUCCESS'||hasPay)&&status!='FAILURE'">
 						<div class="bill-detail-left">优惠</div>
 						<div class="bill-detail-right">
 							<p class="bill-detail-right-pr" ms-class-1="ash:status==='FAILURE'">{{voucherName}}</p>
@@ -217,7 +217,7 @@
 							<p class="bill-detail-right-pr">{{bankCangory}}</p>
 						</div>
 					</div>	
-					<div class="bill-target-bottom" ms-visible="status==='SUCCESS'"></div>
+					<div class="bill-target-bottom" ms-visible="status==='SUCCESS'||(status==='PROCESSING'&&hasPay)"></div>
 					<!--优惠后金额-->
 					<div class="bill-detail-item mb10px" ms-visible="voucherName">
 						<div class="bill-detail-left">优惠后金额</div>
@@ -225,7 +225,7 @@
 							<p class="bill-detail-right-pr dark" ms-class-1="ash:status==='FAILURE'">￥{{voucherOrderMoney|fix}}</p>
 						</div>
 					</div>										
-					<div class="underline" ms-visible="status==='FAILURE'"></div>		
+					<div class="underline" ms-visible="status==='FAILURE'||(status==='PROCESSING'&&hasPay)||status==='SUCCESS'"></div>		
 					<!--付款详情 果仁支付-->
 					<!--
 					<div class="bill-detail-item" ms-visible="payGop">
@@ -247,7 +247,7 @@
 					</div>
 
 					<!--订单相关信息-->
-					<div class="bill-pay no-padding no-bottom-border" ms-class-1="pbnone:status==='FAILURE'" ms-visible="status!='CLOSE'"><!--失败 专用 订单金额-->
+					<div class="bill-pay no-padding no-bottom-border" ms-class-1="pbnone:status==='FAILURE'" ms-visible="hasPay||status==='CLOSE'"  ms-class-2="mat10px:status==='CLOSE'"><!--失败 专用 订单金额-->
 						<div class="bill-detail-left">
 							订单金额(¥)
 						</div>
@@ -305,10 +305,12 @@
 				<!--已付款进行  流程下来  有完成按钮-->
 				<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
 				<div class="bill-tip" ms-visible="ifTip">
-					<!--{{tip|html}}-->预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询
+					<!--{{tip|html}}-->预计20分钟内到账, 请稍后查看账单状态
+					<!--<br>如有疑问, 请咨询
 					<a class="a-blue" href="tel:400-184-9696">
 						400-184-9696
 					</a>
+					-->
 				</div>						
 				<!--未付款进行-->
 				<div class="text-button">
