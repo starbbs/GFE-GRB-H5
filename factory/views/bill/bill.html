@@ -140,7 +140,7 @@
 			<div class="bill-box-out" ms-controller="billPhone"  ms-visible="type==='CONSUME_ORDER'||type==='PAY'">
 				<div class="bill-box">
 					<!--头部  进行中  成功  失败 -->
-					<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')||type==='REFUND'">
+					<div class="bill-head" ms-class="{{headClass}}" ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')||type==='REFUND'||status==='PROCESSING'">
 						{{headContent|html}}
 					</div>	
 
@@ -150,12 +150,17 @@
 						<div class="bill-wait-right">-{{waitForPayMoney|fix}}</div>
 					</div>
 					<!--进行中  已支付-->	
-					<div class="bill-pay mb10px" ms-visible="status==='CLOSE'||status==='SUCCESS'||(status==='PROCESSING'&&!waitForPay)"><!--已支付进行中  关闭  成功 专用-->
+					<div class="bill-pay mb10px" ms-visible="status==='CLOSE'||status==='SUCCESS'"><!--已支付进行中  关闭  成功 专用-->
 						<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
 							订单金额(¥)
 						</div>
-						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>						
+						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>
 						<div class="bill-num" ms-class-1="dark:status!='CLOSE'">-{{orderMoney|abs|fix}}</div>
+					</div>
+					<div class="bill-get" ms-visible="status==='PROCESSING'&&!waitForPay">
+						<div class="bill-get-number">-{{orderMoney|abs|fix}}</div>
+						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>
+						<div class="bill-get-label" ms-class-1="blue">果仁支付</div>
 					</div>
 					<!--失败-->
 					<div class="bill-pay mb10px" ms-visible="failReason">
