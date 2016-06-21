@@ -14,16 +14,22 @@ define('h5-dialog-confirm', ['h5-dialog'], function(Dialog) {
 	});
 
 	var _main = confirm.self.find('.dialog-main');
-
 	var _html = function(html,options){
 		this.html(html);
 		if(options) {
 			if (options.okBtnText) {
 				$(".dialog-confirm-button").html(options.okBtnText);
+			}else{
+				$(".dialog-confirm-button").html("好");
 			}
 			if (options.cancelBtnText) {
 				$(".dialog-confirm-cancel").html(options.cancelBtnText);
+			}else{
+				$(".dialog-confirm-cancel").html("取消");
 			}
+		}else{
+			$(".dialog-confirm-button").html("好");
+			$(".dialog-confirm-cancel").html("取消");
 		}
 
 		return confirm;

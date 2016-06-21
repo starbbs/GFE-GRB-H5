@@ -263,28 +263,31 @@ require([
                         vm.gopExchange();
                     };
                     index++;
+                    getMaxVoucher();
                 });
 
                 // 刷新 最大可用优惠券
-                api.myOrderVoucherList({
-                    gopToken: gopToken,
-                }, function(data) {
-                    var myOrderVoucherList = data.data.available;
-                    // 最大可用优惠券
-                    var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.sort(function(item1, item2) {
-                        return item2.voucherAmount - item1.voucherAmount;
-                    })[0];
-
-                    vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用现金抵扣券"; //优惠券名字
-                    vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0; // 优惠券 金额
-                    vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00'); // 商品价格RMB
-                    vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : ''; // 优惠券ID
-                    vm.hasBill = false; //是否已生成账单信号   
-                    if (index === 3) {
-                        vm.gopExchange();
-                    };
-                    index++;
-                });
+               var getMaxVoucher = function(){
+	               	api.myOrderVoucherList({
+	                    gopToken: gopToken,
+	                }, function(data) {
+	                    var myOrderVoucherList = data.data.available;
+	                    // 最大可用优惠券
+	                    var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.sort(function(item1, item2) {
+	                        return item2.voucherAmount - item1.voucherAmount;
+	                    })[0];
+	
+	                    vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用现金抵扣券"; //优惠券名字
+	                    vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0; // 优惠券 金额
+	                    vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00'); // 商品价格RMB
+	                   vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : ''; // 优惠券ID
+	                    vm.hasBill = false; //是否已生成账单信号   
+	                    if (index === 3) {
+	                        vm.gopExchange();
+	                    };
+	                    index++;
+	                });
+               } 
 
                 // 获取卖1价
                 api.getselloneprice({}, function(data) {
