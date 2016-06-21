@@ -30,6 +30,11 @@
 	.mt20px{
 		margin-top: 20px;
 	}
+
+	.no-padding{
+		padding: 0px;
+	}
+
 	$img: $g-views + '/bill/images';
 
 	@extend .view-style;
@@ -39,7 +44,10 @@
 	}
 	.AMOUNT10{
 		@include sprite($img + '/AMOUNT10.png', 112px,78px);	
-	}	
+	}
+	.no-bottom-border{
+		border-bottom: none;
+	}
 
 	&-scroll { // 滚动
 		@extend %rw;
