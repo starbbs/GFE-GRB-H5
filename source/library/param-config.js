@@ -12,7 +12,7 @@ define('h5-config', function() {
 		appid : 'wxe91980c4944999fe',
 		countAPIDomain:"//172.16.33.10:8089",
 		countAPPID:"huafeihuodong",
-		guorenMarketUrl:"//172.16.33.4"
+		guorenMarketUrl:"//exchange.xiaojian.me/"
 	}
 	return paramConfig;
 });
