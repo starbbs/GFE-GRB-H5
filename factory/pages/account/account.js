@@ -117,8 +117,10 @@ require([
             if(item.status == "PROCESSING"){
                 if(item.extra && item.extra.recordList && item.extra.recordList.length>0){
                     return "进行中";
+                }else if(item.type=="TRANSFER_OUT" || item.type=="TRANSFER_IN"){
+                    return "进行中";
                 }else{
-                    return "待支付";
+                    return '待支付';
                 }
             }else{
                 return H5bill.statusBusiness[item.status];
@@ -130,7 +132,7 @@ require([
                 id: item.businessId, // id
                 img: '', // 头像
                 name: '', // 姓名
-                desc: item.businessDesc,
+                desc: item.businessDesc?item.businessDesc:'',
                 status: getStatusDesc(item), // 交易状态中文  进行中  交易成功/失败。。。
                 originStatus: item.status,
                 type: type,
