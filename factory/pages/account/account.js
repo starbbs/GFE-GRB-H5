@@ -132,7 +132,7 @@ require([
                 id: item.businessId, // id
                 img: '', // 头像
                 name: '', // 姓名
-                desc: item.businessDesc,
+                desc: item.businessDesc?item.businessDesc:'',
                 status: getStatusDesc(item), // 交易状态中文  进行中  交易成功/失败。。。
                 originStatus: item.status,
                 type: type,
