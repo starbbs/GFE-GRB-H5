@@ -107,7 +107,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view'], function
 			if (data.status == 200) {
 				dataHandler(data.data, 'mine');
 			} else {
-				$.alert(data.msg);
+				// $.alert(data.msg);
 			}
 		});
 		couponListView.on('show', function() {
