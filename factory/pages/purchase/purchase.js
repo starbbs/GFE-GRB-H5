@@ -113,7 +113,7 @@ require([
         };
         var getPrice = function () { // 果仁现价
             api.getselloneprice({},function(data){
-                vm.price = vmOrder.price = data.optimumSellPrice;
+                vm.price = vmOrder.price = data.optimumBuyPrice;
                 setOrderNum();
             })
         };

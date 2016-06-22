@@ -13,8 +13,24 @@
 		border-bottom-right-radius: 0;
 		border-bottom-left-radius: 0;
 	}
+	.wdcenter{
+		text-align: center;
+	}
+	.poscenter{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-top: -53px;
+		margin-left: -53px;
+	}
 	.pbnone{
 		padding: 0px; border: none;
+	}
+	.w100{
+		width: 100%;
+	} 
+	.wdcenter{
+		text-align: center;
 	}
 	.underline{
 		height: 1px; 
@@ -23,6 +39,9 @@
 	}
 	.mt10px{
 		height: 8px;
+	}
+	.mat10px{
+		margin-top: 10px;
 	}
 	.mb10px{
 		margin-bottom: 10px;
@@ -38,12 +57,26 @@
 	$img: $g-views + '/bill/images';
 
 	@extend .view-style;
-
+	.showhide{
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		margin-left: -8px;
+	}
+	.up{
+		@include sprite($img + '/up.png', 16px,8px);	
+	}	
+	.down{
+		@include sprite($img + '/down.png', 16px,8px);	
+	}
 	.AMOUNT5{
 		@include sprite($img + '/AMOUNT5.png', 106px,106px);	
 	}
 	.AMOUNT10{
 		@include sprite($img + '/AMOUNT10.png', 106px,106px);	
+	}
+	.refundVoucher{
+		@include sprite($img + '/refundVoucher.png', 106px, 106px);
 	}
 	.no-bottom-border{
 		border-bottom: none;
@@ -61,7 +94,7 @@
 		$h: 2px;
 		position: relative;
 		margin-top: 5px;
-		padding: 5px $g-padding 28px;
+		padding: 5px $g-padding 40px;
 		background-color: $g-white;
 		font-size: 14px;
 		color: $g-ash;

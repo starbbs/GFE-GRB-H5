@@ -144,6 +144,7 @@ define('h5-view-bill', [
 		phoneNum: '', // 手机号		
 		bankCangory: '', // 银行卡类型
 		bankName: '', //银行卡名称
+		bankLastNum: '', //银行卡尾几位
 		productDesc: '', // 商品信息
 		voucherClassName: '', //优惠券class名字
 		voucherNum: '', //优惠券金额
@@ -163,7 +164,9 @@ define('h5-view-bill', [
 		waitForPayMoney: '', // 等待支付金额
 		// ifPayButton:false, //等待支付按钮
 		ifTip: false, // 提示文字
-		ifFinishButton: false, //提示完成按钮		
+		ifFinishButton: false, //提示完成按钮
+
+		showHide: false, //显示更多
 	};
 	var billPhoneVM = avalon.define($.extend({
 		$id: 'billPhone',
@@ -176,6 +179,9 @@ define('h5-view-bill', [
 		finish: function() {
 			window.location.href = './home.html';
 		},
+		showHideMore: function() {
+			billPhoneVM.showHide = !billPhoneVM.showHide;
+		}
 	}, phoneJSON));
 
 	var consumeHandler = function(type, id, options) { // 消费 话费流量 step1
@@ -234,6 +240,7 @@ define('h5-view-bill', [
 			phoneNum: JSON.parse(order.extraContent).phone ? JSON.parse(order.extraContent).phone : '', //充值号码
 			bankCangory: extra.bankcard ? extra.bankcard.cardType.indexOf('SAVINGS') != -1 ? '储蓄卡' : '信用卡' : '', //银行类型
 			bankName: extra.bankcard ? extra.bankcard.bankName : '', //银行名称
+			bankLastNum: extra.bankcard ? extra.bankcard.cardNo.substr(extra.bankcard.cardNo.length - 4, 4) : '', //银行卡尾几位
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
 			orderTime: order.status !== 'CLOSE' ? order.updateTime === order.createTime ? '' : order.updateTime : '', // 交易时间
 			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
@@ -248,7 +255,8 @@ define('h5-view-bill', [
 			voucherNum: order.status === 'FAILURE' && vouch ? vouch.voucherAmount : '', //优惠券金额
 			voucherName: vouch ? vouch.voucherName : '', //优惠券名字
 			orderMoney: order.orderMoney ? order.orderMoney : '', // 订单金额
-			voucherOrderMoney: order.orderMoney && vouch ? order.orderMoney - vouch.voucherAmount : '' //优惠后金额
+			voucherOrderMoney: order.orderMoney && vouch ? order.orderMoney - vouch.voucherAmount : '', //优惠后金额
+			showHide:order.status === 'CLOSE' ? true : false, //账单关闭状态不显示 读取更多按钮
 				// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 				// ifClose: waitForPay, // 是否显示"关闭"
 		};

@@ -11,7 +11,8 @@ define('h5-config', function() {
 		main : '//www.xiaojian.me/wx/',
 		appid : 'wxe91980c4944999fe',
 		countAPIDomain:"//172.16.33.10:8089",
-		countAPPID:"huafeihuodong"
+		countAPPID:"huafeihuodong",
+		guorenMarketUrl:"//172.16.33.4"
 	}
 	return paramConfig;
 });

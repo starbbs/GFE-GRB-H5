@@ -130,7 +130,8 @@ body {
 			};
 			span{
 			   display: inline-block;
-			   width: 93px;
+			   min-width: 93px;
+				padding: 0 5px;
 			   @include height(20px);
 			   text-align: center;
 			   color: #6888d9;
