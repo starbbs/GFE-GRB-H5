@@ -219,9 +219,9 @@ require([
                                 vm.gopNum = data.data.gopNum;
                                 // vm.productRealPrice = JSON.parse(product.extraContent).price;
                                 vm.orderCode = order.orderCode;
-                                vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用现金抵扣券";
+                                vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用卡券";
                                 vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
-                                vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
+                                vm.moneyUse = vm.couponRmbName === "无可用卡券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
                                 vm.voucherId = availableVoucher ? availableVoucher.id : '';
                                 vm.hasBill = true;
                                 vm.gopExchange();
@@ -277,9 +277,9 @@ require([
 	                        return item2.voucherAmount - item1.voucherAmount;
 	                    })[0];
 	
-	                    vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用现金抵扣券"; //优惠券名字
+	                    vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用卡券"; //优惠券名字
 	                    vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0; // 优惠券 金额
-	                    vm.moneyUse = vm.couponRmbName === "无可用现金抵扣券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00'); // 商品价格RMB
+	                    vm.moneyUse = vm.couponRmbName === "无可用卡券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00'); // 商品价格RMB
 	                   vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : ''; // 优惠券ID
 	                    vm.hasBill = false; //是否已生成账单信号   
 	                    if (index === 3) {
