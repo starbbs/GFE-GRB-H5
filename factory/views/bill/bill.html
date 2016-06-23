@@ -150,7 +150,7 @@
 					<!--进行中  未支付-->
 					<div class="bill-wait" ms-visible="waitForPayMoney" ms-class="borderrudiasnone:status==='PROCESSING'">
 						<div class="bill-wait-left">等待支付(¥)</div>
-						<div class="bill-wait-right">-{{waitForPayMoney|fix}}</div>
+						<div class="bill-wait-right">{{waitForPayMoney|fix}}</div>
 					</div>
 					<!--进行中  已支付 bill-pay -->	
 					<div class="bill-get no-bottom-border mb10px" ms-visible="status==='SUCCESS'"><!--已支付进行中  关闭  成功 专用-->
@@ -260,7 +260,7 @@
 					<!--订单相关信息-->
 					<div class="bill-pay no-padding no-bottom-border" ms-class-1="pbnone:status==='FAILURE'" ms-visible="hasPay||status==='CLOSE'"  ms-class-2="mat10px:status==='CLOSE'"><!--失败 专用 订单金额-->
 						<div class="bill-detail-left">
-							订单金额(¥)
+							订单金额
 						</div>
 						<div class="bill-detail-right">￥{{orderMoney|fix}}</div>
 						<!--
