@@ -52,7 +52,7 @@
 			display: block;
 			position: absolute;
 			border-color: $color;
-			opacity: (1 - lightness($color) / 100%) * 2;
+			opacity: (1 - lightness($color) / 100%) * 3.5;
 			@if $position == 'top' {
 				top: 0;
 				left: 0;
