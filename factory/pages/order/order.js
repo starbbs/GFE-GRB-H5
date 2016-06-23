@@ -218,7 +218,7 @@ require([
                                 vm.gopPrice = data.data.gopPrice;
                                 vm.gopNum = data.data.gopNum;
                                 // vm.productRealPrice = JSON.parse(product.extraContent).price;
-                                vm.orderCode = order.orderCode;
+                                //vm.orderCode = order.orderCode;
                                 vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用卡券";
                                 vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
                                 vm.moneyUse = vm.couponRmbName === "无可用卡券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
