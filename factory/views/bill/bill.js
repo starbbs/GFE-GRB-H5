@@ -550,7 +550,7 @@ define('h5-view-bill', [
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney, //等待支付金额
 			gopNum: order.status === 'SUCCESS' ? order.gopNum : '', //success获得果仁数
-			noPayGopNum: order.orderMoney / order.price, //预获果仁
+			noPayGopNum: order.orderMoney / buyInPrice, //预获果仁
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
 			orderMoney: order.status === 'PROCESSING' || order.status === 'FAILURE' ? '' : order.orderMoney, // 订单金额
 			gopPrice: buyInPrice, // 成交价格
