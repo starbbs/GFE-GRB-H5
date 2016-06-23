@@ -342,7 +342,7 @@ html {
 			box-sizing: border-box;
 			padding-left: 10%;
 			&-sline{
-				width: 1px; 
+				width: 0.5px; 
 				display: inline-block;
 				background: $g-bordercolor;
 				height: 24px;
@@ -370,6 +370,7 @@ html {
 			overflow: hidden;
 			clear: both;
 			border-top: 1px solid $g-bordercolor;
+			border-top-width: 0.5px;
 			width: 90%;
 			line-height: 39px;
 			margin-left: 5%;
