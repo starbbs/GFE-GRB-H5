@@ -120,7 +120,7 @@
 			background-size: auto $h;
 		}
 		&-out{
-			height: 100%;
+			height: 110%;
 			.text-button{
 			    margin-bottom: 15px;
 			}
@@ -498,10 +498,4 @@
 		@include atr(0px,0px);
 		// display: inline-block;
 	}
-}
-@media screen and (max-height:568px){
-    .bill-more{
-        position: static;
-        margin-top: 20px;
-    }
 }
