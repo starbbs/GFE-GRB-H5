@@ -138,9 +138,9 @@
 
 			<!--话费充值-->
 			<div class="bill-box-out" ms-controller="billPhone"  ms-visible="type==='CONSUME_ORDER'||type==='PAY'">
+				<!--失败退款专用 -->
+				<span class="poscenter refundVoucher" ms-visible="status==='FAILURE'&&voucherNum"></span>
 				<div class="bill-box">
-					<!--失败退款专用 -->
-					<span class="poscenter refundVoucher" ms-visible="status==='FAILURE'&&voucherNum"></span>
 					<!--头部  进行中  成功  失败 
 					ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')||type==='REFUND'||status==='PROCESSING'"-->
 					<div class="bill-head" ms-class="{{headClass}}" ms-class-1="noborderbottom:status==='PROCESSING'||status==='SUCCESS'">
@@ -234,7 +234,7 @@
 					<div class="bill-detail-item mb10px" ms-visible="voucherName">
 						<div class="bill-detail-left">优惠后金额</div>
 						<div class="bill-detail-right">
-							<p class="bill-detail-right-pr dark" ms-class-1="ash:status==='FAILURE'">￥{{voucherOrderMoney|fix}}</p>
+							<p class="bill-detail-right-pr dark" ms-class-1="ash:status==='FAILURE'"><span class="font-rmb-icon">¥</span>{{voucherOrderMoney|fix}}</p>
 						</div>
 					</div>										
 					<div class="underline" ms-visible="status==='FAILURE'||(status==='PROCESSING'&&hasPay)||(status==='SUCCESS'&&voucherName)"></div>		
@@ -263,7 +263,7 @@
 						<div class="bill-detail-left">
 							订单金额
 						</div>
-						<div class="bill-detail-right">￥{{orderMoney|fix}}</div>
+						<div class="bill-detail-right"><span class="font-rmb-icon">¥</span>{{orderMoney|fix}}</div>
 						<!--
 						<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 							<div class="bill-pay-item" ms-visible="payMoney">
@@ -322,7 +322,7 @@
 				<!--已付款进行  流程下来  有完成按钮-->
 				<div class="text-button"><span class="button" ms-visible="ifFinishButton&&!ifReturnButton" ms-click="finish">完成</span></div>
 				<div class="text-button"><span class="button" ms-visible="ifReturnButton" ms-click="finish">返回</span></div>
-				<div class="bill-tip" ms-visible="ifTip">
+				<div class="bill-tip bill-finish-tip" ms-visible="ifTip">
 					<!--{{tip|html}}-->预计20分钟内到账, 请稍后查看账单状态
 					<!--<br>如有疑问, 请咨询
 					<a class="a-blue" href="tel:400-184-9696">

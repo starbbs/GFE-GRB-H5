@@ -25,6 +25,7 @@
 		left: 50%;
 		margin-top: -53px;
 		margin-left: -53px;
+		z-index: 10;
 	}
 	.pbnone{
 		padding: 0px; border: none;
@@ -478,6 +479,9 @@
 		bottom: 10px;
 		// box-sizing:border-box;
 		//@include abl(20px,0px);		
+	}
+	&-finish-tip{
+	    position: static;
 	}
 	//&-gotopay{
 	//	box-sizing:border-box;
