@@ -499,4 +499,9 @@
 		// display: inline-block;
 	}
 }
-
+@media screen and (max-height:568px){
+    .bill-more{
+        position: static;
+        margin-top: 20px;
+    }
+}
