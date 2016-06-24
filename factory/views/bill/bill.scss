@@ -222,7 +222,8 @@
 	}
 	&-get { // 获得果仁
 		@extend .font-money;
-		border-bottom: $g-border;
+		//border-bottom: $g-border;
+		margin-bottom: 10px;
 		&-number {
 			margin-top: 32px;
 			margin-bottom: 18px;

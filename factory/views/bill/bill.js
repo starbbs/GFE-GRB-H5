@@ -232,7 +232,7 @@ define('h5-view-bill', [
 			type: type, // 类型
 			status: order.status, // 订单状态
 			headClass: H5bill.statusClass[order.status], // 头部样式名
-			headContent: getHeaderContent(order.status, waitForPay) + (((order.status === 'PROCESSING' || order.status === 'SUCCESS') && extra.bankcard) ? '(<span>￥</span>)' : ((order.status === 'PROCESSING' || order.status === 'SUCCESS') && vouch) ? '(<span class="iconfont icon-g"></span>)' : ''), // 头部内容
+			headContent: getHeaderContent(order.status, waitForPay) + (((order.status === 'PROCESSING' || order.status === 'SUCCESS') && extra.bankcard) ? '(<span>￥</span>)' : ((order.status === 'PROCESSING' || order.status === 'SUCCESS')) ? '(<span class="iconfont icon-g"></span>)' : ''), // 头部内容
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney, //等待支付金额
 			productDesc: product.productDesc, // 商品信息
