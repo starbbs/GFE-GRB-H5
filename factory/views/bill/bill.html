@@ -143,7 +143,7 @@
 				<div class="bill-box">
 					<!--头部  进行中  成功  失败 
 					ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')||type==='REFUND'||status==='PROCESSING'"-->
-					<div class="bill-head" ms-class="{{headClass}}" ms-class-1="noborderbottom:status==='PROCESSING'||status==='SUCCESS'">
+					<div class="bill-head" ms-class="{{headClass}}" ms-class-1="noborderbottom:(status==='PROCESSING' && !waitForPay)||status==='SUCCESS'">
 						{{headContent|html}}
 					</div>	
 
@@ -177,7 +177,7 @@
 						<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
 							失败原因
 						</div>
-						<div class="bill-num red text-align-right box-width270px">{{failReason}}</div>
+						<div class="bill-num red text-align-right box-width200px">{{failReason}}</div>
 					</div>
 
 					<!--支付方式  失败专有-->
@@ -194,7 +194,7 @@
 										
 					<!--实付   失败专有-->
 					<div class="bill-detail-item" ms-visible="hasPay  && status==='FAILURE'">
-						<div class="bill-detail-left">实付</div>
+						<div class="bill-detail-left">应付</div>
 						<div class="bill-detail-right dark">
 							<p class="bill-detail-right-pr dark">
 								<span class="iconfont icon-g dark"></span>
