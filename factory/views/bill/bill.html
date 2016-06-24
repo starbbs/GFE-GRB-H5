@@ -229,7 +229,7 @@
 							<p class="bill-detail-right-pr w100 wdcenter">{{bankName}} {{bankCangory}} ({{bankLastNum}})</p>
 						</div>
 					</div>	
-<div class="bill-target-bottom" ms-visible="(status==='SUCCESS'&&(bankCangory||voucherName))||(status==='PROCESSING'&&!(hasPay||bankCangory||voucherName))"></div>
+<div class="bill-target-bottom" ms-visible="(status==='SUCCESS'&&(bankCangory||voucherName))||(status==='PROCESSING'&&(hasPay&&(bankCangory||voucherName)))"></div>
 					<!--优惠后金额-->
 					<div class="bill-detail-item mb10px" ms-visible="voucherName">
 						<div class="bill-detail-left">优惠后金额</div>
