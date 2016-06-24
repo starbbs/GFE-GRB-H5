@@ -45,7 +45,7 @@
 		text-align: right;
 	}
 	.box-width200px{
-		width: 200px;
+		width: 170px;
 	}
 	.mt10px{
 		height: 8px;
@@ -120,7 +120,7 @@
 			background-size: auto $h;
 		}
 		&-out{
-			height: 110%;
+			height: 100%;
 			.text-button{
 			    margin-bottom: 15px;
 			}
@@ -421,7 +421,7 @@
 	}
 	&-num { // 右侧文字
 		float: right;
-		font-size: 16px;
+		font-size: 14px;
 		font-family: $g-font-num;
 	}
 	&-detail { // 细节
@@ -499,3 +499,4 @@
 		// display: inline-block;
 	}
 }
+
