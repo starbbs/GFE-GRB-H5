@@ -121,6 +121,9 @@
 		}
 		&-out{
 			height: 100%;
+			.text-button{
+			    margin-bottom: 15px;
+			}
 		}
 	}
 	&-head { // 头部
