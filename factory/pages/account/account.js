@@ -10,7 +10,9 @@ require([
     loginJudge.check(function() {
         router.init();
         $(document).get(0).ontouchmove = function(event) {
-            event.preventDefault();
+            if(!$("#bill_contents").hasClass("show")){
+                event.preventDefault();
+            }
         };
         var gopToken = $.cookie('gopToken');
         var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
