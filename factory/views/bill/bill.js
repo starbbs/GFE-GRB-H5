@@ -165,8 +165,10 @@ define('h5-view-bill', [
 		// ifPayButton:false, //等待支付按钮
 		ifTip: false, // 提示文字
 		ifFinishButton: false, //提示完成按钮
+		ifReturnButton: false, //返回按钮  流程交易失败
 
 		showHide: false, //显示更多
+		showHideMoreBTN: false //显示更多按钮
 	};
 	var billPhoneVM = avalon.define($.extend({
 		$id: 'billPhone',
@@ -194,15 +196,14 @@ define('h5-view-bill', [
 				//data.msg && $.alert(data.msg);
 				return;
 			}
-
 			var order = data.data.consumeOrder; //定单信息 创建时间 
 			var list = data.data.recordList; //流水号 创建时间 支付果仁  付款还会产生的
 			var product = data.data.product; // 商品信息 流量 话费 面额
 			var extra = data.data.extra; //银行卡
 			var vouch = data.data.billVoucher; // 交易成功  已付款进行中 的优惠券  
-
 			var waitForPay = (order.status = options.forceStatus || order.status) == 'PROCESSING' && (!list || !list.length);
 			var payMoney, payGop;
+			console.log(order.status === 'FAILURE' && window.location.href.indexOf('order.html') != -1);
 			list.forEach(function(item) {
 				item.payMoney && (payMoney = item.payMoney);
 				item.payGop && (payGop = item.payGop);
@@ -216,9 +217,10 @@ define('h5-view-bill', [
 				waitForPayMoney: waitForPay ? order.orderMoney : '', //(!list && !list.length )&& order.status === 'PROCESSING' ? order.orderMoney : '',
 				orderMoney: list && list.length || order.status === 'CLOSE' ? order.orderMoney : '', //订单金额
 				ifTip: list && list.length && order.status === 'PROCESSING' ? true : false, // 已付款进行中  提示文字
-				hasPay: list && list.length ? true : false //是否付过钱
-					// ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
-					// tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
+				hasPay: list && list.length ? true : false, //是否付过钱
+				// ifTip: list && list.length && order.status != 'FAILURE' ? true : false,
+				// tip: list && list.length && order.status === 'PROCESSING' ? '预计15分钟内到账, 请稍后查看账单状态<br>如有疑问, 请咨询' : '',
+				ifReturnButton: order.status === 'FAILURE' && window.location.href.indexOf('order.html') != -1,
 			}, options);
 			options.onRendered && options.onRendered(billPhoneVM);
 		});
@@ -256,9 +258,10 @@ define('h5-view-bill', [
 			voucherName: vouch ? vouch.voucherName : '', //优惠券名字
 			orderMoney: order.orderMoney ? order.orderMoney : '', // 订单金额
 			voucherOrderMoney: order.orderMoney && vouch ? order.orderMoney - vouch.voucherAmount : '', //优惠后金额
-			showHide:order.status === 'CLOSE' ? true : false, //账单关闭状态不显示 读取更多按钮
-				// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
-				// ifClose: waitForPay, // 是否显示"关闭"
+			showHide: order.status === 'CLOSE' || waitForPay || window.location.href.indexOf('order.html') != -1 ? true : false, //账单关闭状态不显示 读取更多按钮
+			showHideMoreBTN: order.status === 'CLOSE' || waitForPay || window.location.href.indexOf('order.html') != -1 ? false : true,
+			// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
+			// ifClose: waitForPay, // 是否显示"关闭"
 		};
 	};
 

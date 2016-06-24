@@ -17,7 +17,7 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 		go: function() { // 进入授权页
 			// 注释进入授权页
 			//if (config.appid == 'wxe91980c4944999fe') {
-				// return;
+				return;
 			//}
 			// return // 注释进入授权页
 			// alert('进入授权页面');

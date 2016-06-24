@@ -177,7 +177,7 @@
 						<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
 							失败原因
 						</div>
-						<div class="bill-num red">{{failReason}}</div>
+						<div class="bill-num red text-align-right box-width270px">{{failReason}}</div>
 					</div>
 
 					<!--支付方式  失败专有-->
@@ -228,7 +228,7 @@
 							<p class="bill-detail-right-pr w100 wdcenter">{{bankName}} {{bankCangory}} ({{bankLastNum}})</p>
 						</div>
 					</div>	
-					<div class="bill-target-bottom" ms-visible="status==='SUCCESS'||(status==='PROCESSING'&&hasPay)"></div>
+<div class="bill-target-bottom" ms-visible="(status==='SUCCESS'&&(bankCangory||voucherName))||(status==='PROCESSING'&&(hasPay||bankCangory||voucherName))"></div>
 					<!--优惠后金额-->
 					<div class="bill-detail-item mb10px" ms-visible="voucherName">
 						<div class="bill-detail-left">优惠后金额</div>
@@ -260,7 +260,7 @@
 					<!--订单相关信息-->
 					<div class="bill-pay no-padding no-bottom-border" ms-class-1="pbnone:status==='FAILURE'" ms-visible="hasPay||status==='CLOSE'"  ms-class-2="mat10px:status==='CLOSE'"><!--失败 专用 订单金额-->
 						<div class="bill-detail-left">
-							订单金额(¥)
+							订单金额
 						</div>
 						<div class="bill-detail-right">￥{{orderMoney|fix}}</div>
 						<!--
@@ -315,11 +315,12 @@
 						</div>								
 					</div>
 					<!--"ash:status==='FAILURE'" ms-class-1="up:showhide===true" ms-class-2="down:showhide===false"-->
-					<div class="showhide" ms-visible="status!='CLOSE'" ms-on-click="showHideMore" ms-class-1="up:showHide" ms-class-2="down:!showHide"></div>
+					<div class="showhide" ms-visible="showHideMoreBTN" ms-on-click="showHideMore" ms-class-1="up:showHide" ms-class-2="down:!showHide"></div>
 				</div>
 
 				<!--已付款进行  流程下来  有完成按钮-->
-				<div class="text-button"><span class="button" ms-visible="ifFinishButton" ms-click="finish">完成</span></div>
+				<div class="text-button"><span class="button" ms-visible="ifFinishButton&&!ifReturnButton" ms-click="finish">完成</span></div>
+				<div class="text-button"><span class="button" ms-visible="ifReturnButton" ms-click="finish">返回</span></div>
 				<div class="bill-tip" ms-visible="ifTip">
 					<!--{{tip|html}}-->预计20分钟内到账, 请稍后查看账单状态
 					<!--<br>如有疑问, 请咨询
