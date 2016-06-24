@@ -409,6 +409,7 @@ require([
 			},
 			closeNum: function(){
 				transferTarget.transferNum='';
+				transferTarget.notchecked = true;
 			},
 			closeCont: function(){
 				transferTarget.content='';
