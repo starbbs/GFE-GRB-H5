@@ -48,7 +48,7 @@
 					ms-on-input="checkCnyMoney"
 					ms-duplex="transferNum">
 				</div>
-				<div class="text-close"></div>
+				<div class="text-close" ms-click="closeNum"></div>
 			</div>
 		</div>
 		<!-- <div class="transfer-target-box-tip" ms-visible="!isMarket">手续费 G 0.01</div> -->
@@ -76,7 +76,7 @@
 			<div class="text">
 				<div class="text-label">转账说明</div>
 				<div class="text-box"><input id="address-mine-input" name="address-mine-input" class="text-input" autocomplete="off" type="text" data-text='close' ms-duplex="content" ms-on-focus="transferDesInputFocus"></div>
-				<div class="text-close"></div>
+				<div class="text-close" ms-click="closeCont"></div>
 			</div>
 		</div>
 		<div class="text-button">

@@ -407,6 +407,12 @@ require([
 			transferDesInputFocus: function() {
 				//$('.view').css('top','-100px');
 			},
+			closeNum: function(){
+				transferTarget.transferNum='';
+			},
+			closeCont: function(){
+				transferTarget.content='';
+			},
 			checkCnyMoney: function() { //输入 时候判断 果仁数量
 				//只允许输入 数字字符
 				// clearTimeout(inputTimer);
