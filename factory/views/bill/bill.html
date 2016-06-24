@@ -143,7 +143,7 @@
 					<span class="poscenter refundVoucher" ms-visible="status==='FAILURE'&&voucherNum"></span>
 					<!--头部  进行中  成功  失败 
 					ms-class-1="no-border:(type==='TRANSFER_IN'||type==='TRANSFER_OUT')||type==='REFUND'||status==='PROCESSING'"-->
-					<div class="bill-head" ms-class="{{headClass}}">
+					<div class="bill-head" ms-class="{{headClass}}" ms-class-1="noborderbottom:status==='PROCESSING'||status==='SUCCESS'">
 						{{headContent|html}}
 					</div>	
 
@@ -212,6 +212,7 @@
 							</p>
 						</div>
 					</div>
+					<div class="underline" ms-visible="status==='SUCCESS'"></div>
 					<!--优惠 使用优惠券时候会显示-->
 					<div class="bill-detail-item" ms-class-1="mb10px:(status==='SUCCESS'||hasPay)&&status!='FAILURE'" 
 					ms-visible="voucherName" 
