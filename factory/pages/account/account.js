@@ -332,8 +332,14 @@ require([
                             listitem.days.forEach(function(daysitem) {
                                 if (daysitem.id == data.id) {
                                     setTimeout(function() {
-                                        daysitem.bills[0].status = vms.headContent.replace(/\(.+/g, '');
-                                        daysitem.bills[0].originStatus = vms.status;
+                                        if(daysitem.bills[0].originStatus!=vms.status){
+                                            if(daysitem.bills[0].type =='refund' ){
+                                                daysitem.bills[0].status = H5bill.getStatusRefund[vms.status];
+                                            }else{
+                                                daysitem.bills[0].status = H5bill.statusBusiness[vms.status];
+                                            }
+                                            daysitem.bills[0].originStatus = vms.status;
+                                        }
                                     }, 400);
                                     return false;
                                 }

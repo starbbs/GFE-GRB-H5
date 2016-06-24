@@ -4,8 +4,8 @@
 		<div class="order-head">
 			<div class="order-head-desc">
 				<div class="order-head-desc-line">
-					<div class="order-head-label">{{productDesc}}(¥)</div>
-					<div class="order-head-num">{{money|fix}}</div>
+					<div class="order-head-label">{{productDesc}}</div>
+					<div class="order-head-num">¥{{money|fix}}</div>
 				</div>
 				<div class="order-head-desc-tip">
 					<div class="fl order-head-desc-tip-fl">收款方</div>
@@ -70,13 +70,13 @@
 			<div class="order-head-use-coupon" ms-click="couponClick">
 				<div class="order-head-label">
 					选择卡券
-					<span ms-class="no-coupon:couponRmbName==='无可用现金抵扣券'">{{couponRmbName}}</span>
 				</div>
 				<div class="order-head-use-coupon-arrow"></div>
+				<span ms-class="no-coupon:couponRmbName==='无可用卡券'">{{couponRmbName}}</span>
 			</div>
 			<div class="order-head-use-line" ms-visible="couponRmbNum"></div>
 			<div class="order-head-use-coupon" ms-visible="couponRmbNum">
-				<div class="order-head-label">实付金额(<icon>¥</icon>)</div>
+				<div class="order-head-label">优惠后金额(<icon>¥</icon>)</div>
 				<div class="order-head-use-money">{{moneyUse|fix}}</div>
 			</div>
 		</div>
@@ -87,10 +87,10 @@
 				<div class="order-head-radio"></div>
 			-->
 			<div class="order-head-label">支付果仁</div>
-			<div class="order-head-use-guo"><i class="iconfont icon-g"></i></div>
 			<!--<div class="order-head-use-guo"><i class="iconfont icon-g"></i> {{gopUse|floorFix}}</div>
 			<div class="order-head-use-money">- {{gopMoney|floorFix}}</div>-->
 			<div class="order-head-use-money">{{gopUse|ceilFix}}</div>
+			<div class="order-head-use-guo"><i class="iconfont icon-g"></i></div>
 		</div>
 
 

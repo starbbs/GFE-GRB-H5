@@ -88,12 +88,14 @@
     ul{
         width: 90%;
         margin: 0 auto;
+        &:last-child{
+            margin-bottom: 30px;
+        }
     }
     &-li{
         width: 100%;
         height: 100px;
         margin-top: 17px;
-
         div{
             float: left;
         }
@@ -104,7 +106,8 @@
             height: 100px;
             color: $g-white;
             background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;
-            border-bottom-left-radius: 5px;
+            background-size: 6px 2px;
+            border-bottom-left-radius: 3px;
             text-align: center;
             position: relative;
             icon{
@@ -112,14 +115,14 @@
                 font-size: 16px;
                 position: absolute;
                 left: 10px;
-                bottom: 15px;
+                bottom: 8px;
             }
             span{
                 width: 50px;
                 text-align: center;
                 position: absolute;
-                right: 14px;
-                top: -4px;            
+                right: 18px;
+                top: -2px;            
             }
         }
         &-middle{
@@ -131,8 +134,9 @@
         &-right{
             width: 69%;
             height: 100%;
-            background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;
-            border-bottom-right-radius: 5px;
+            background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;//7aacf9
+            background-size: 6px 2px;
+            border-bottom-right-radius: 3px;
             padding-right: 1px;
             margin-left: -1px;
             position: relative;
@@ -165,9 +169,11 @@
     .disabled{
         .coupon-list-li-left{
             background: url($image+'/coupon-bg-icon-grey.png') #dfdfdf center top repeat-x;
+            background-size: 6px 2px;
         }
         .coupon-list-li-right{
             background: url($image+'/coupon-bg-icon-grey.png') #dfdfdf center top repeat-x;
+            background-size: 6px 2px;
             img{
                 top: 0px;
                 right: 0px;

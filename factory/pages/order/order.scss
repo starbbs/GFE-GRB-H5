@@ -60,10 +60,10 @@ body {
 			padding: 0 $g-padding;
 			margin-top: 10px;
 			&-guo {
-				float: left;
+				float: right;
 				font-size: 14px;
 				color: $g-blue;
-				margin-left: 8px;
+				margin-right: 8px;
 			}
 			&-money {
 				float: right;
@@ -84,6 +84,25 @@ body {
                     float: right;
                     margin-top: 17px;
 			    }
+			    span{
+                   display: inline-block;
+                   //min-width: 93px;
+                    padding: 0 5px;
+                   @include height(20px);
+                   text-align: center;
+                   color: #6888d9;
+                   border: 1px solid #6888d9;
+                   border-radius: 5px;
+                   font-size: 12px;
+                   float: right;
+                   margin-right: 10px;
+                   margin-top: 13px;
+                }
+                .no-coupon{
+                    width: 70px;
+                    color: #999;
+                    border: 1px solid #999;
+                }
 			}
 			&-coupon:after{
                 content: "."; 
@@ -128,27 +147,12 @@ body {
 			icon {
 			    font-family: helvetica;
 			};
-			span{
-			   display: inline-block;
-			   min-width: 93px;
-				padding: 0 5px;
-			   @include height(20px);
-			   text-align: center;
-			   color: #6888d9;
-			   border: 1px solid #6888d9;
-			   border-radius: 5px;
-			   font-size: 12px;
-			}
-			.no-coupon{
-			    width: 103px;
-			    color: #999;
-			    border: 1px solid #999;
-			}
 		}
 		&-num {
 			float: right;
 			font-size: 22px;
-			color: $g-red;
+			color: #999999;
+			font-family: arial;
 		}
 	}
 	&-bill {

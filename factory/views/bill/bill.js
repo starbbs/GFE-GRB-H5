@@ -508,12 +508,6 @@ define('h5-view-bill', [
 	}, buygopJSON));
 
 	var buyInHandler = function(type, id, options) { // 买果仁 step 1
-		var price;
-		api.price(function(data) {
-			if (data.status == '200') {
-				price = data.data.price;
-			}
-		});
 		api.queryBuyinOrder({
 			gopToken: gopToken,
 			buyinOrderId: id,
@@ -546,6 +540,10 @@ define('h5-view-bill', [
 		}
 	}
 	var buyGopHandler = function(type, id, order, list, waitForPay) { // 买果仁数据处理
+		var buyInPrice ;
+		api.getselloneprice({},function(data){
+			buyInPrice =data.optimumBuyPrice;
+		})
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
@@ -555,10 +553,10 @@ define('h5-view-bill', [
 			waitForPay: waitForPay, // 等待支付
 			waitForPayMoney: order.status !== 'PROCESSING' ? '' : order.orderMoney, //等待支付金额
 			gopNum: order.status === 'SUCCESS' ? order.gopNum : '', //success获得果仁数
-			noPayGopNum: order.orderMoney / order.price, //预获果仁
+			noPayGopNum: order.orderMoney / buyInPrice, //预获果仁
 			closeReason: order.status === 'CLOSE' ? order.payResult : '', // 关闭原因
 			orderMoney: order.status === 'PROCESSING' || order.status === 'FAILURE' ? '' : order.orderMoney, // 订单金额
-			gopPrice: order.price, // 成交价格
+			gopPrice: buyInPrice, // 成交价格
 			orderTime: order.status === 'SUCCESS' ? order.payTime : '', // 交易时间
 			closeTime: order.status === 'CLOSE' ? order.updateTime : '', // 关闭时间
 			// createTime: order.updateTime ? '' : order.createTime, // 创建时间
