@@ -159,7 +159,7 @@
 							订单金额(¥)
 						</div>
 						-->
-						<div class="bill-get-number mb10px" ms-class-1="dark:status!='CLOSE'">-{{orderMoney|abs|fix}}</div>
+						<div class="bill-get-number mb10px" ms-class-1="dark:status!='CLOSE'">-{{payGop|abs|fix}}</div>
 						<div class="bill-get-label" ms-class-1"ash:bankCangory">
 							<span class="blue" ms-visible="payGop">果仁支付</span>
 							<span class="ash" ms-visible="bankCangory">银行卡支付</span>
@@ -168,7 +168,7 @@
 					</div>	
 
 					<div class="bill-get" ms-visible="status==='PROCESSING'&&!waitForPay">
-						<div class="bill-get-number">-{{orderMoney|abs|fix}}</div>
+						<div class="bill-get-number">-{{payGop|abs|fix}}</div>
 						<span class="bill-coupon" ms-class-1="{{voucherClassName}}"></span>
 						<div class="bill-get-label" ms-class-1="blue">果仁支付</div>
 					</div>
