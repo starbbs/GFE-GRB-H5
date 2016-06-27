@@ -1,7 +1,6 @@
 // 余效俭 2016-01-09 20:58:22 创建
 // H5微信端 --- 转果仁
 
-
 require([
 	'h5-login-judge', 'h5-api', 'h5-view', 'h5-price', 'get', 'filters', 'h5-component-bill',
 	'h5-view-address-mine', 'h5-view-address-wallet', 'h5-view-bill',
@@ -34,7 +33,6 @@ require([
 		viewAddressWallet.vm.setSuccess = function(walletListLength) {
 			return walletListLength > 0 ? true : false;
 		};
-
 
 		// 转帐首页面
 		var vm = avalon.define({
@@ -122,15 +120,7 @@ require([
 			},
 			marketWalletClick: function() { // 果仁市场
 				if (vm.marketGopAddress != '') {
-					vm.transferOutType = 'GOP_MARKET';
-					vm.gopAddress = vm.marketGopAddress;
-					transferTarget.address = vm.marketGopAddress;
-					transferTarget.name = '果仁市场';
-					transferTarget.isMarket = true;
-					transferTarget.serviceFee = '0.01';
-					targetInit(vm.transferOutType);
-					dialogPaypass.vm.cangory = vm.transferOutType;
-					router.go('/transfer-target');
+					toTransferTarget();
 				} else {
 					//跳转到设置果仁市场
 					viewAddressMine.vm.hasStepNext = false;
@@ -140,23 +130,14 @@ require([
 						}, function(data) {
 							if (data.status == 200) {
 								if (data.data.marketGopAddress) {
-									vm.marketGopAddress = data.data.marketGopAddress; //果仁市场地址
-									vm.transferOutType = 'GOP_MARKET';
-									vm.gopAddress = vm.marketGopAddress;
-									transferTarget.address = vm.marketGopAddress;
-									transferTarget.name = '果仁市场';
-									transferTarget.isMarket = true;
-									transferTarget.serviceFee = '0.01';
-									targetInit(vm.transferOutType);
-									dialogPaypass.vm.cangory = vm.transferOutType;
-									router.go('/transfer-target');
+									toTransferTarget();
 								}
 							} else {
 								console.log(data);
 							}
 						});
 					}
-					router.go('/address-mine');
+					router.to('/address-mine');
 				}
 			},
 			/*
@@ -200,127 +181,138 @@ require([
 				dialogAlert.show();
 			}
 		});
+		//跳转到转果仁页面的初始化
+		var toTransferTarget = function() {
+				vm.transferOutType = 'GOP_MARKET';
+				vm.gopAddress = vm.marketGopAddress;
+				transferTarget.address = vm.marketGopAddress;
+				transferTarget.name = '果仁市场';
+				transferTarget.isMarket = true;
+				transferTarget.serviceFee = '0.01';
+				targetInit(vm.transferOutType);
+				dialogPaypass.vm.cangory = vm.transferOutType;
+				router.to('/transfer-target');
+			}
+			/*
+			 var transferNew = avalon.define({ //转帐到新目标
+			 $id: 'transfer-new',
+			 newTarget: '',
+			 checked: true,
+			 internalGopAddress: '',
+			 newguorentype: false,
+			 check: function() {
+			 if (this.value.length != 11 && this.value.length != 67 && this.value.length != 68) {
+			 transferNew.checked = true;
+			 } else if (this.value.length == 11) {
+			 var reg = /^0?1[3|4|5|8\7][0-9]\d{8}$/;
+			 if (!reg.test(this.value)) {
+			 transferNew.checked = true;
+			 } else {
+			 transferNew.checked = false;
+			 transferNew.newguorentype = false;
+			 }
+			 } else if (this.value.indexOf('GOP') != -1) {
+			 transferNew.checked = false;
+			 transferNew.newguorentype = true;
+			 } else {
+			 transferNew.checked = true;
+			 }
+			 if (transferNew.checked) {
+			 $(this).addClass("error");
+			 } else {
+			 $(this).removeClass("error");
+			 }
+			 },
+			 //转到新目标   添加新目标(钱包地址或手机号)  的下一步操作
+			 newNextClick: function() {
+			 if (transferNew.checked) {
+			 return;
+			 }
+			 if (transferNew.newTarget == '') {
+			 $.alert('手机号或地址为空');
+			 return;
+			 } else if (transferNew.newTarget.length == 11) {
+			 var reg = /^0?1[3|4|5|8\7][0-9]\d{8}$/;
+			 if (!reg.test(transferNew.newTarget)) {
+			 $.alert('该手机号格式不正确');
+			 return;
+			 }
+			 } else if (transferNew.newTarget.length == 67 || transferNew.newTarget.length == 68) {
+			 if (transferNew.newTarget.indexOf('GOP') != 0) {
+			 $.alert('该地址格式不正确');
+			 return;
+			 }
+			 } else {
+			 $.alert('手机号或地址格式不正确');
+			 return;
+			 }
 
-		/*
-		 var transferNew = avalon.define({ //转帐到新目标
-		 $id: 'transfer-new',
-		 newTarget: '',
-		 checked: true,
-		 internalGopAddress: '',
-		 newguorentype: false,
-		 check: function() {
-		 if (this.value.length != 11 && this.value.length != 67 && this.value.length != 68) {
-		 transferNew.checked = true;
-		 } else if (this.value.length == 11) {
-		 var reg = /^0?1[3|4|5|8\7][0-9]\d{8}$/;
-		 if (!reg.test(this.value)) {
-		 transferNew.checked = true;
-		 } else {
-		 transferNew.checked = false;
-		 transferNew.newguorentype = false;
-		 }
-		 } else if (this.value.indexOf('GOP') != -1) {
-		 transferNew.checked = false;
-		 transferNew.newguorentype = true;
-		 } else {
-		 transferNew.checked = true;
-		 }
-		 if (transferNew.checked) {
-		 $(this).addClass("error");
-		 } else {
-		 $(this).removeClass("error");
-		 }
-		 },
-		 //转到新目标   添加新目标(钱包地址或手机号)  的下一步操作
-		 newNextClick: function() {
-		 if (transferNew.checked) {
-		 return;
-		 }
-		 if (transferNew.newTarget == '') {
-		 $.alert('手机号或地址为空');
-		 return;
-		 } else if (transferNew.newTarget.length == 11) {
-		 var reg = /^0?1[3|4|5|8\7][0-9]\d{8}$/;
-		 if (!reg.test(transferNew.newTarget)) {
-		 $.alert('该手机号格式不正确');
-		 return;
-		 }
-		 } else if (transferNew.newTarget.length == 67 || transferNew.newTarget.length == 68) {
-		 if (transferNew.newTarget.indexOf('GOP') != 0) {
-		 $.alert('该地址格式不正确');
-		 return;
-		 }
-		 } else {
-		 $.alert('手机号或地址格式不正确');
-		 return;
-		 }
-
-		 if (transferNew.newTarget != '') {
-		 var nowData = {};
-		 var re = /^1\d{10}$/
-		 if (re.test(transferNew.newTarget)) {
-		 vm.transferOutType = 'GOP_NEW';
-		 nowData.phone = transferNew.newTarget;
-		 } else if (transferNew.newTarget.indexOf('GOP') >= 0) {
-		 vm.transferOutType = 'WALLET_NEW';
-		 }
-		 nowData.address = transferNew.newTarget;
-		 api.transferValidate({
-		 gopToken: gopToken,
-		 address: transferNew.newTarget
-		 }, function(data) {
-		 if (data.status == 200) {
-		 console.log(data.data.photo);
-		 if (data.data) {
-		 if (data.data.photo) {
-		 nowData.photo = data.data.photo;
-		 }else{
-		 nowData.photo =  './images/picture.png';
-		 }
-		 if (data.data.phone) { //果仁宝联系人
-		 nowData.addressToPhone = data.data.phone;
-		 nowData.phone = data.data.phone;
-		 vm.transferOutType = 'GOP_NEW';
-		 nowData.serviceFee = '0.00';
-		 }
-		 if (re.test(transferNew.newTarget)) { //如果目标是手机号
-		 if (data.data.nick) {
-		 nowData.name = data.data.nick;
-		 } else {
-		 nowData.name = '未命名用户';
-		 }
-		 nowData.serviceFee = '0.00';
-		 } else if (transferNew.newTarget.indexOf('GOP') >= 0) { //如果目标是钱包地址
-		 nowData.name = data.data.nick || '未命名用户';
-		 nowData.serviceFee = '0.01';
-		 }
-		 } else {
-		 nowData.name = "未命名地址";
-		 nowData.serviceFee = '0.01';
-		 }
-		 $.extend(transferTarget, nowData);
-		 targetInit(vm.transferOutType);
-		 router.go('/transfer-target');
-		 } else if (data.status == 400) { // 手机号未注册 或 不能给自己转账
-		 $.alert(data.msg);
-		 } else {
-		 if (transferNew.newTarget.length == 11) {
-		 $.alert('该手机号未注册');
-		 } else {
-		 nowData.name = "未命名地址";
-		 nowData.serviceFee = '0.01';
-		 $.extend(transferTarget, nowData);
-		 targetInit(vm.transferOutType);
-		 router.go('/transfer-target');
-		 }
-		 }
-		 });
-		 } else {
-		 $.alert('地址格式错误');
-		 }
-		 },
-		 });
-		 */
+			 if (transferNew.newTarget != '') {
+			 var nowData = {};
+			 var re = /^1\d{10}$/
+			 if (re.test(transferNew.newTarget)) {
+			 vm.transferOutType = 'GOP_NEW';
+			 nowData.phone = transferNew.newTarget;
+			 } else if (transferNew.newTarget.indexOf('GOP') >= 0) {
+			 vm.transferOutType = 'WALLET_NEW';
+			 }
+			 nowData.address = transferNew.newTarget;
+			 api.transferValidate({
+			 gopToken: gopToken,
+			 address: transferNew.newTarget
+			 }, function(data) {
+			 if (data.status == 200) {
+			 console.log(data.data.photo);
+			 if (data.data) {
+			 if (data.data.photo) {
+			 nowData.photo = data.data.photo;
+			 }else{
+			 nowData.photo =  './images/picture.png';
+			 }
+			 if (data.data.phone) { //果仁宝联系人
+			 nowData.addressToPhone = data.data.phone;
+			 nowData.phone = data.data.phone;
+			 vm.transferOutType = 'GOP_NEW';
+			 nowData.serviceFee = '0.00';
+			 }
+			 if (re.test(transferNew.newTarget)) { //如果目标是手机号
+			 if (data.data.nick) {
+			 nowData.name = data.data.nick;
+			 } else {
+			 nowData.name = '未命名用户';
+			 }
+			 nowData.serviceFee = '0.00';
+			 } else if (transferNew.newTarget.indexOf('GOP') >= 0) { //如果目标是钱包地址
+			 nowData.name = data.data.nick || '未命名用户';
+			 nowData.serviceFee = '0.01';
+			 }
+			 } else {
+			 nowData.name = "未命名地址";
+			 nowData.serviceFee = '0.01';
+			 }
+			 $.extend(transferTarget, nowData);
+			 targetInit(vm.transferOutType);
+			 router.go('/transfer-target');
+			 } else if (data.status == 400) { // 手机号未注册 或 不能给自己转账
+			 $.alert(data.msg);
+			 } else {
+			 if (transferNew.newTarget.length == 11) {
+			 $.alert('该手机号未注册');
+			 } else {
+			 nowData.name = "未命名地址";
+			 nowData.serviceFee = '0.01';
+			 $.extend(transferTarget, nowData);
+			 targetInit(vm.transferOutType);
+			 router.go('/transfer-target');
+			 }
+			 }
+			 });
+			 } else {
+			 $.alert('地址格式错误');
+			 }
+			 },
+			 });
+			 */
 
 		/*
 		 var transferContacts = avalon.define({//转帐到联系人
@@ -406,8 +398,21 @@ require([
 			flag: true,
 			len: 0,
 			addressToPhone: '',
+			myWallet: false, //以下几个属性用于判断显示隐藏的
+			market: false,
+			phoneAddr: false,
+			walletAddr: false,
+			wallet: false,
+			gop: false,
 			transferDesInputFocus: function() {
 				//$('.view').css('top','-100px');
+			},
+			closeNum: function(){
+				transferTarget.transferNum='';
+				transferTarget.notchecked = true;
+			},
+			closeCont: function(){
+				transferTarget.content='';
 			},
 			checkCnyMoney: function() { //输入 时候判断 果仁数量
 				//只允许输入 数字字符
@@ -447,14 +452,13 @@ require([
 				}
 				if (parseFloat(filters.floorFix(parseFloat($('#address-mine-input-1')[0].value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
 
-					dialogConfirm.set('您的果仁不足是否购买？');
+					dialogConfirm.set('您的果仁不足是否购买？',{okBtnText:'是',cancelBtnText:"否"});
 					dialogConfirm.show();
 					dialogConfirm.onConfirm = function() {
 						window.location.href = 'purchase.html?from=' + url.basename;
 					};
 					return;
 				}
-
 
 				if (parseFloat(transferTarget.transferNum) > 0 && parseFloat(transferTarget.gopNum - transferTarget.serviceFee)) {
 					//密码输入框显示 AJAX密码确认后 设置回调函数
@@ -568,29 +572,35 @@ require([
 			transferTarget.cnyMoney = 0; // 约合人民币
 			transferTarget.content = ''; // 转账说明
 			transferTarget.notchecked = true; // 是否没有检验通过
-			$('.transfer-target-head').hide();
-			$('.transfer-target-box').hide();
-			if (transferOutType === 'WALLET_NEW') { // 新钱包
-				$('.wallet-address').show();
-				$('.wallet').show();
-			} else if (transferOutType === 'GOP_NEW') { // 新果仁宝
-				$('.phone-address').show();
-				$('.gop').show();
-			} else if (transferOutType === 'WALLET_CONTACT') { //钱包联系人
-				$('.wallet-address').show();
-				$('.wallet').show();
-			} else if (transferOutType === 'GOP_CONTACT') { // 果仁宝联系人
-				$('.phone-address').show();
-				$('.gop').show();
-			} else if (transferOutType === 'GOP_MARKET') { // 果仁市场
-				$('.gop-market').show();
-				$('.wallet').show();
-			} else if (transferOutType === 'ME_WALLET') { // 我的钱包
-				$('.my-wallet').show();
-				$('.wallet').show();
-			} else if (transferOutType === 'new_walletaddress_nextstep') { // 我的钱包
-				$('.my-wallet').show();
-				$('.wallet').show();
+			switch (transferOutType) {
+				case 'WALLET_NEW': // 新钱包
+					transferTarget.walletAddr = true;
+					transferTarget.wallet = true;
+					break;
+				case 'GOP_NEW': // 新果仁宝
+					transferTarget.phoneAddr = true;
+					transferTarget.gop = true;
+					break;
+				case 'WALLET_CONTACT': //钱包联系人
+					transferTarget.walletAddr = true;
+					transferTarget.wallet = true;
+					break;
+				case 'GOP_CONTACT': // 果仁宝联系人
+					transferTarget.phoneAddr = true;
+					transferTarget.gop = true;
+					break;
+				case 'GOP_MARKET': // 果仁市场
+					transferTarget.market = true;
+					transferTarget.wallet = true;
+					break;
+				case 'ME_WALLET': // 我的钱包
+					transferTarget.myWallet = true;
+					transferTarget.wallet = true;
+					break;
+				case 'new_walletaddress_nextstep': // 我的钱包
+					transferTarget.myWallet = true;
+					transferTarget.wallet = true;
+					break;
 			}
 			getprice();
 		};
@@ -630,7 +640,6 @@ require([
 			refresh_list();
 		};
 		var getCangory = function() {
-			console.log(get.data.cangory);
 			if (get.data.cangory) {
 				switch (get.data.cangory) {
 					case 'ME_WALLET':

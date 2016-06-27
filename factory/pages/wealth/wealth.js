@@ -206,12 +206,12 @@ require([
                         text: ''
                     },
                     tickInterval: (function () {
-                        if ((max - min) <= 0.01) {
-                            return (max - min) * 10000000 * 0.8 / 10000000;
-                        } else if ((max - min) < 0.08) {
-                            return (max - min) * 10000000 * 0.5 / 10000000;
+                        if ((max - min).toFixed(2) <= 0.01) {
+                            return (max - min) * 10000000 * 0.9 / 10000000 < 0.01 ? 0.01 : ((max - min)* 0.9).toFixed(2);
+                        } else if ((max - min).toFixed(2) < 0.08) {
+                            return (max - min) * 10000000 * 0.5 / 10000000 < 0.01 ? 0.01 : ((max - min)* 0.5).toFixed(2);
                         } else {
-                            return (max - min) * 10000000 * 0.3 / 10000000;
+                            return (max - min) * 10000000 * 0.3 / 10000000 < 0.01 ? 0.01 : ((max - min)* 0.3).toFixed(2);
                         }
                     })(),
                     labels: {

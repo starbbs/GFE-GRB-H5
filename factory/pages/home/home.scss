@@ -271,7 +271,7 @@ html {
 			}
 		}
 		&-buy{
-			@include border-one("right", $g-bordercolor, "after");
+			@include border-one("right", #DDDDDD, "after");
 			&-span {
 				@include sprite($img + '/gop_buy.png', 36px, 36px);
 			}
@@ -294,7 +294,7 @@ html {
 		margin-bottom: 9px;
 		// height: 83.34px;
 		// padding: 17px 12.8px 10.66px 12.8px;
-		padding: 17px 0px 10.66px 0px;
+		padding: 17px 0px 2px 0px;
 		text-align: center;
 		&-blocka{
 			display: block;
@@ -309,7 +309,7 @@ html {
 			padding-left: 5%;
 			float: left;
 			width: 35%;
-			height: 79px;
+			height: 75px;
 			&-curprice{
 				font-size: 18px;
 				color: #F13A3A;
@@ -321,6 +321,7 @@ html {
 			&-oriprice{
 				color: $color999;
 				position: relative;
+				line-height: 22px;
 				>i{
 					display: block;
 					position: absolute;
@@ -338,9 +339,10 @@ html {
 			text-align: left;
 			float: right;
 			width: 65%;
-			height: 79px;
+			height: 75px;
 			box-sizing: border-box;
 			padding-left: 10%;
+			margin-top: 2px;
 			&-sline{
 				width: 1px; 
 				display: inline-block;
@@ -371,14 +373,15 @@ html {
 			clear: both;
 			border-top: 1px solid $g-bordercolor;
 			width: 90%;
-			line-height: 39px;
+			line-height: 34px;
 			margin-left: 5%;
 			&:nth-child(2)>a,&:nth-child(3)>a{
 				background: #5883f2;
-			}			
+			}
 			>span{
 				float: left;
 				color: $color999;
+				display: inline-block;
 			}
 			>a{
 				float: right;
@@ -386,9 +389,12 @@ html {
 				background: #ff5a6b;
 				line-height: 20px;
 				padding: 0px 10px;
-				margin-top: 9px;
+				margin-top: 7px;
 				color: #ffffff;
 			}
 		}
 	}
+}
+.slider-hd-li{
+    background-color:#e6e6e6;
 }

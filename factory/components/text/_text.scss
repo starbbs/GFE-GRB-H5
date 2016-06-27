@@ -168,7 +168,7 @@
 		width: 115px;
 	}
 	&-bottom { // 页面底部的提示
-		@include ablw(36px);
+		margin-top: 130px;
 		text-align: center;
 		white-space: nowrap;
 		color: $g-ash;

@@ -1,0 +1,9 @@
+@@include('../../../source/include/top.html', {"name": "coupon"})
+<div class="screen-a">
+	<!-- 只对客户端使用 -->
+	@@include('../../views/coupon/coupon-list.html')
+	<div class="view">
+		@@include('../../views/coupon/coupon-detail.html');
+	</div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "coupon"})

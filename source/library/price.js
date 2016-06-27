@@ -25,7 +25,7 @@ define('h5-price', ['h5-api'], function(api) {
 	};
 	var get = price.get = function() {
 		once(function(next) {
-			var now = price.now;// false = false
+			var now = price.now; // false = false
 			var change = next - now; //  3=3-false
 			if (now === false) {
 				price.onFirstChange(next);
@@ -36,6 +36,11 @@ define('h5-price', ['h5-api'], function(api) {
 			}
 			price.now = next;
 			price.timer = setTimeout(price.get, price.interval);
+		});
+	};
+	var getSellOnePrice = price.getSellOnePrice = function(callBack) {
+		api.getselloneprice(function(data) {
+			callBack && callBack(data);
 		});
 	};
 	return price;
