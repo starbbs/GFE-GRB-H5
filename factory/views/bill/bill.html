@@ -44,9 +44,9 @@
 					<!--订单金额  关闭状态带上下边框  -->
 					<div class="bill-pay" ms-visible="status==='CLOSE'"><!--买果仁 ms-visible="orderMoney&&!buyMoney"-->
 						<div class="bill-label ash">
-							订单金额(¥)
+							订单金额
 						</div>
-						<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
+						<div class="bill-num dark"><span class="font-rmb-icon">¥</span>{{orderMoney|abs|fix}}</div>
 						<!--
 						<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 							<div class="bill-pay-item" ms-visible="payMoney">
@@ -63,8 +63,8 @@
 
 					<!--支付金额-->
 					<div class="bill-pay" ms-visible="status==='SUCCESS'">
-						<div class="bill-label ash">支付金额(¥)</div>
-						<div class="bill-num dark">-{{orderMoney|abs|fix}}</div><!---{{buyMoney|fix}}-->
+						<div class="bill-label ash">支付金额</div>
+						<div class="bill-num dark"><span class="font-rmb-icon">¥</span>{{orderMoney|abs|fix}}</div><!---{{buyMoney|fix}}-->
 					</div>
 
 					<!--订单信息相关-->
@@ -76,9 +76,9 @@
 					<!--订单金额 失败不带上下边框-->
 					<div class="bill-pay" ms-visible="status==='FAILURE'"><!--买果仁 ms-visible="orderMoney&&!buyMoney"-->
 						<div class="bill-label" ms-class-1="ash:status==='FAILURE'" ms-class-2="dark:status!=='FAILURE'">
-							订单金额(¥)
+							订单金额
 						</div>
-						<div class="bill-num dark">-{{orderMoney|abs|fix}}</div>
+						<div class="bill-num dark"><span class="font-rmb-icon">¥</span>{{orderMoney|abs|fix}}</div>
 						<!--
 						<div class="bill-pay-box" ms-visible="status==='SUCCESS'&&(payMoney||payGop)">
 							<div class="bill-pay-item" ms-visible="payMoney">
@@ -94,13 +94,13 @@
 					</div>	
 					<!--预计得果仁  关闭-->
 					<div class="bill-detail-item" ms-visible="status==='CLOSE'">
-						<div class="bill-detail-left">预计获得果仁 <span class="iconfont icon-g"></span> </div>
-						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'">{{noPayGopNum|floorFix}}</div>
+						<div class="bill-detail-left">预计获得果仁</div>
+						<div class="bill-detail-right dark" ms-class="ash:status==='CLOSE'"><span class="iconfont icon-g"></span>{{noPayGopNum|floorFix}}</div>
 					</div>									
 					<div class="bill-detail-item" ms-visible="status==='SUCCESS'">
 						<div class="bill-detail-left">成交价</div>
-						<div class="fl">(¥)</div>
-						<div class="bill-detail-right blue">{{gopPrice|fix}}</div>
+						<!--<div class="fl">(¥)</div>-->
+						<div class="bill-detail-right blue"><span class="font-rmb-icon">¥</span>{{gopPrice|fix}}</div>
 					</div>	
 					<div class="bill-detail-item" ms-visible="type==='BUY_IN'||type==='PAY'">
 						<div class="bill-detail-left">收款方</div>
