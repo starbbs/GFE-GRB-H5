@@ -2,15 +2,15 @@
 // H5微信端 --- 我的
 
 require([
-	'h5-login-judge','router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine', 'h5-view-address-wallet','h5-view-coupon',
+	'h5-login-judge','router', 'h5-api', 'h5-view', 'check', 'h5-view-address-mine','h5-view-coupon',
 	'url',
 	'h5-view-about-us', 'h5-view-agreement', 'h5-alert', 'h5-text', 'h5-weixin', 'filters'
 ], function(
-	loginJudge,router, api, View, check, address_mine, address_wallet, CouponJSON, url
+	loginJudge,router, api, View, check, address_mine, CouponJSON, url
 ) {
 	//进入我的页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing
 	loginJudge.check(function() {
-		router.init();
+		router.init(true);
 		var gopToken = $.cookie('gopToken');
 		var mine = $('.mine');
 		var feedbackText = $(".setting-feedback-text");
@@ -26,7 +26,7 @@ require([
 			if (target.length) {
 				var json = target.get(0).dataset;
 				$.extend(CouponJSON.couponDetailView.VM, json);
-				router.go('/coupon-detail');
+				router.to('/coupon-detail');
 			}
 		};
 		/*
@@ -51,15 +51,15 @@ require([
 			return false;
 		};
 
-		//钱包
-		address_wallet.vm.callback = function() {
-			router.go('/');
-		};
-		//删除添加钱包地址后回调
-		address_wallet.vm.setSuccess = function(walletListLength) {
-			vm.setWallet = walletListLength > 0 ? '查看' : '未设置';
-			return false;
-		};
+//		//钱包
+//		address_wallet.vm.callback = function() {
+//			router.go('/');
+//		};
+//		//删除添加钱包地址后回调
+//		address_wallet.vm.setSuccess = function(walletListLength) {
+//			vm.setWallet = walletListLength > 0 ? '查看' : '未设置';
+//			return false;
+//		};
 
 
 
@@ -107,28 +107,28 @@ require([
 				$.extend(address_mine.vm, nowData);
 				router.go('/address-mine');
 			},
-			walletAddress_click: function() { //钱包地址跳转
-				var nowData = {};
-				nowData.walletList = [];
-				api.walletList({
-					gopToken: gopToken
-				}, function(data) {
-					if (data.status == 200) {
-						for (var i = 0; i < data.data.walletList.length; i++) {
-							var item = data.data.walletList[i];
-							if (item.defaultWallet) {
-								nowData.walletList.unshift(item);
-							} else {
-								nowData.walletList.push(item);
-							}
-						}
-						$.extend(address_wallet.vm, nowData);
-						router.go('/address-wallet');
-					} else {
-						console.log(data);
-					}
-				});
-			},
+//			walletAddress_click: function() { //钱包地址跳转
+//				var nowData = {};
+//				nowData.walletList = [];
+//				api.walletList({
+//					gopToken: gopToken
+//				}, function(data) {
+//					if (data.status == 200) {
+//						for (var i = 0; i < data.data.walletList.length; i++) {
+//							var item = data.data.walletList[i];
+//							if (item.defaultWallet) {
+//								nowData.walletList.unshift(item);
+//							} else {
+//								nowData.walletList.push(item);
+//							}
+//						}
+//						$.extend(address_wallet.vm, nowData);
+//						router.go('/address-wallet');
+//					} else {
+//						console.log(data);
+//					}
+//				});
+//			},
 			myCoupon_click: function() {
 				//router.go('/coupon-detail');
 				router.go('/coupon-list');

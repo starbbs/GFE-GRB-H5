@@ -257,10 +257,10 @@ require([
                 clearTimeout(focusTimer);
                 vm.goodsFlag = false;
                 $(".phonecharge-lista-item").removeClass('cur');
-                confirmData[0]=null;
+                confirmData[0] = null;
 
                 $(".phonecharge-listb-item").removeClass('cur');
-                confirmData[1]=null;
+                confirmData[1] = null;
             },
             /*blur: function() { // 失去焦点
              var inputVal = $("#phonecharge-text-input").val();
@@ -297,8 +297,8 @@ require([
                 vm.button = '支付';
                 $(".phonecharge-lista-item").removeClass('cur');
                 $(".phonecharge-listb-item").removeClass('cur');
-                confirmData[0]=null;
-                confirmData[1]=null;
+                confirmData[0] = null;
+                confirmData[1] = null;
                 phoneInput.blur();
                 vm.input();
             },
@@ -370,43 +370,7 @@ require([
                 if ($(this).hasClass('disabled')) {
                     return;
                 }
-                if (vm.confirmCangory === '话费') {
-                    api.phoneRecharge({
-                        gopToken: gopToken,
-                        productId: vm.confirmId,
-                        phone: vm.phone
-                    }, function(data) {
-                        if (data.status == 200) {
-                            setTimeout(function() {
-                                window.location.href = get.add('order.html', {
-                                    // 跳到公共订单页 build/order.html?from=phonecharge&id=1525
-                                    from: 'phonecharge',
-                                    id: data.data.consumeOrderId
-                                });
-                            }, 1000 / 60);
-                        } else {
-                            $.alert(data.msg);
-                        }
-                    });
-                } else {
-                    api.phoneTraffic({
-                        gopToken: gopToken,
-                        productId: vm.confirmId,
-                        phone: vm.phone
-                    }, function(data) {
-                        if (data.status == 200) {
-                            setTimeout(function() {
-                                window.location.href = get.add('order.html', {
-                                    // 跳到公共订单页 build/order.html?from=phonecharge&id=1525
-                                    from: 'phonecharge',
-                                    id: data.data.consumeOrderId
-                                });
-                            }, 1000 / 60);
-                        } else {
-                            $.alert(data.msg);
-                        }
-                    });
-                }
+                window.location.href = window.location.href = 'order.html?from=phonecharge&phone=' + vm.phone + '&id=' + vm.confirmId
             }
         });
 

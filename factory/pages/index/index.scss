@@ -24,6 +24,9 @@
 	border-left: none;
 }
 
+.text-input{
+	width: 80%;
+}
 .index {	
 	$img: $g-pages + '/index/images';
 	text-align: center;
@@ -35,8 +38,8 @@
 		@extend .view-style;
 		background: #fff;
 		&-scroll {
-			height: 100%;
 			overflow: hidden;
+			height: 100%;
 			// padding-bottom: 400px;
 		}
 		&-picture {

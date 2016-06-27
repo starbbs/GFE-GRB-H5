@@ -10,11 +10,11 @@
  * 	1.编号顺序和文档一致,方便查找和对应
  * 	2.使用文档为v1.2.0
  */
-define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], function(Api, authorization, alert, cookie, config) {
-	
+define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'], function(Api, authorization, alert, cookie, config) {
+
 	// var baseUri = '.'; // 同域
 	var baseUri = config.baseUri; // http测试服务器
-	
+
 
 	var goIndex = function() { // 返回首页
 		authorization.go();
@@ -318,7 +318,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], 
 	// 85.微信端微信注册用户
 	api.regist('wxregister', '/login/wx/wxregister');
 
-	//86.优惠券列表接口
+	//86.我的卡券优惠券列表接口
 	api.regist('myVoucherList', '/voucher/myVoucherList');
 
 	//87 .判断用户登录密码状态的接口
@@ -330,6 +330,22 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie','h5-config'], 
 
 	//89 . 验证手机号与微信号的绑定
 	api.regist('getVoucher', '/voucher/getVoucher');
+
+	// 90. 请求 卖1价 买1价 
+	api.regist('getselloneprice', config.guorenMarketUrl+'/trade/optimumPrice', {
+		'_type': 'get',
+		'asyn': true
+
+	});
+	
+	//91.消费订单优惠券列表接口
+	api.regist('myOrderVoucherList', '/voucher/myOrderVoucherList',{
+		asyn: true
+	});
+
+	//92. 商品信息
+	api.regist('getProductInfor', '/consume/product/query');
+	
 
 	return api;
 });

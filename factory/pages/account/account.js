@@ -6,11 +6,13 @@ require([
     'h5-weixin'
 ], function(loginJudge, router, api, get, filters, H5bill, iscrollLoading, billView, mydate, orderJudge) {
     // $.cookie('gopToken','b7af44824ea34409a494393b00f0788e');
-    //进入页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing
+    //进入页面之前先进行检查,如果还未登录则进入授权页面,成功回调do nothing\
     loginJudge.check(function() {
         router.init();
         $(document).get(0).ontouchmove = function(event) {
-            event.preventDefault();
+            if(!$("#bill_contents").hasClass("show")){
+                event.preventDefault();
+            }
         };
         var gopToken = $.cookie('gopToken');
         var page = 1; // 账单页数, 当返回列表长度小于当前列表长度时, 置零, 不再请求
@@ -24,13 +26,14 @@ require([
                     router.to('/bill');
                     break;
                 default:
-                    router.to('/');
-                    iscrollLoading.downLoadingData();
+                    iscrollLoading.downLoadingData(function() {
+                        router.to('/');
+                    });
             }
         };
         var originList = [];
 
-        var getList = function() {
+        var getList = function(dbfn) {
             api.billList({
                 gopToken: gopToken,
                 billListPage: page,
@@ -43,7 +46,8 @@ require([
                     vm.list = dataHandler(originList = originList.concat(list));
                     !main.hasClass('on') && setTimeout(function() {
                         main.addClass('on');
-                    }, 200);
+                        dbfn && dbfn();
+                    }, 300);
                     setTimeout(function() {
                         vm.loading = false;
                         vm.uploading = false;
@@ -54,15 +58,14 @@ require([
             });
         };
 
-
         iscrollLoading.upLoadingData = function() { // 获取上拉列表
             page = 1;
             originList = [];
             getList();
         };
         //上拉 下拉的函数
-        iscrollLoading.downLoadingData = function() { // 获取列表
-            getList();
+        iscrollLoading.downLoadingData = function(dbfn) { // 获取列表
+            getList(dbfn);
         };
         iscrollLoading.scrollMove = function() { // 滑动时候
             vm.loadingWord = '松开刷新';
@@ -112,18 +115,32 @@ require([
         var now = new Date(); // 当前时间
         var nowMonth = now.getMonth(); // 当前月份
         //                 money gop   []   list的每条数据
+        function getStatusDesc(item){
+            if(item.status == "PROCESSING"){
+                if(item.extra && item.extra.recordList && item.extra.recordList.length>0){
+                    return "进行中";
+                }else if(item.type=="TRANSFER_OUT" || item.type=="TRANSFER_IN"){
+                    return "进行中";
+                }else{
+                    return '待支付';
+                }
+            }else{
+                return H5bill.statusBusiness[item.status];
+            }
+        }
         var dataAdd = function(kind, bills, item) { // 添加效果的数据
             var type = H5bill.typeClass[item.type]; // phone refund buy transfer
             var bill = { // 账单
                 id: item.businessId, // id
                 img: '', // 头像
                 name: '', // 姓名
-                desc: item.businessDesc,
-                status: H5bill.statusBusiness[item.status], // 交易状态中文  进行中  交易成功/失败。。。
+                desc: item.businessDesc?item.businessDesc:'',
+                status: getStatusDesc(item), // 交易状态中文  进行中  交易成功/失败。。。
                 originStatus: item.status,
                 type: type,
                 originType: item.type,
                 iconClass: '',
+
             };
             var types = { // 类型
                 money: 'money',
@@ -175,7 +192,7 @@ require([
 
             //根据消费方式显示  取整方式
             if (kind === 'all') { // RMB  果仁  支付都有
-                if (item.extra.recordList.length) {
+                if (item.extra && item.extra.recordList && item.extra.recordList.length) {
                     item.extra.recordList.forEach(function(item) {
                         switch (item.payType) {
                             case 'GOP_PAY': // 果仁宝支付
@@ -299,6 +316,7 @@ require([
             uploading: false,
             loadingWord: '加载中...',
             list: [],
+
             listRepeatCallback: function() { // 循环结束回调
                 setTimeout(function() {
                     accountScroll.refresh();
@@ -316,8 +334,14 @@ require([
                             listitem.days.forEach(function(daysitem) {
                                 if (daysitem.id == data.id) {
                                     setTimeout(function() {
-                                        daysitem.bills[0].status = vms.headContent.replace(/\(.+/g, '');
-                                        daysitem.bills[0].originStatus = vms.status;
+                                        if(daysitem.bills[0].originStatus!=vms.status){
+                                            if(daysitem.bills[0].type =='refund' ){
+                                                daysitem.bills[0].status = H5bill.getStatusRefund[vms.status];
+                                            }else{
+                                                daysitem.bills[0].status = H5bill.statusBusiness[vms.status];
+                                            }
+                                            daysitem.bills[0].originStatus = vms.status;
+                                        }
                                     }, 400);
                                     return false;
                                 }

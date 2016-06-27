@@ -9,20 +9,49 @@
 		position: relative;
 		height: 100%;
 	}
+	.noborderbottom{
+		border-bottom: none;
+	}
 	.borderrudiasnone{
 		border-bottom-right-radius: 0;
 		border-bottom-left-radius: 0;
 	}
+	.wdcenter{
+		text-align: center;
+	}
+	.poscenter{
+		position: absolute;
+		top: 35%;
+		left: 50%;
+		margin-top: -53px;
+		margin-left: -53px;
+		z-index: 10;
+	}
 	.pbnone{
 		padding: 0px; border: none;
+	}
+	.w100{
+		width: 100%;
+	} 
+	.wdcenter{
+		text-align: center;
 	}
 	.underline{
 		height: 1px; 
 		background-color: $g-line;
-		margin: 15px 0px;
+		margin: 10px 0px;
+	}
+	.text-align-right{
+		text-align: right;
+	}
+	.box-width200px{
+		width: 170px;
 	}
 	.mt10px{
 		height: 8px;
+	}
+	.mat10px{
+		margin-top: 10px;
 	}
 	.mb10px{
 		margin-bottom: 10px;
@@ -30,16 +59,38 @@
 	.mt20px{
 		margin-top: 20px;
 	}
+
+	.no-padding{
+		padding: 0px;
+	}
+
 	$img: $g-views + '/bill/images';
 
 	@extend .view-style;
-
+	.showhide{
+		position: absolute;
+		bottom: 10px;
+		left: 50%;
+		margin-left: -8px;
+	}
+	.up{
+		@include sprite($img + '/up.png', 16px,8px);	
+	}	
+	.down{
+		@include sprite($img + '/down.png', 16px,8px);	
+	}
 	.AMOUNT5{
-		@include sprite($img + '/AMOUNT5.png', 112px,78px);	
+		@include sprite($img + '/AMOUNT5.png', 106px,106px);	
 	}
 	.AMOUNT10{
-		@include sprite($img + '/AMOUNT10.png', 112px,78px);	
-	}	
+		@include sprite($img + '/AMOUNT10.png', 106px,106px);	
+	}
+	.refundVoucher{
+		@include sprite($img + '/refundVoucher.png', 106px, 106px);
+	}
+	.no-bottom-border{
+		border-bottom: none;
+	}
 
 	&-scroll { // 滚动
 		@extend %rw;
@@ -53,7 +104,7 @@
 		$h: 2px;
 		position: relative;
 		margin-top: 5px;
-		padding: 5px $g-padding 28px;
+		padding: 5px $g-padding 40px;
 		background-color: $g-white;
 		font-size: 14px;
 		color: $g-ash;
@@ -70,6 +121,9 @@
 		}
 		&-out{
 			height: 100%;
+			.text-button{
+			    margin-bottom: 15px;
+			}
 		}
 	}
 	&-head { // 头部
@@ -116,6 +170,7 @@
 		line-height: 50px;
 		padding: 15px $g-padding 0;
 		margin-top: 8px;
+		margin-bottom: 32px;
 		// margin-bottom: 24px;
 			&-left {
 				float: left;
@@ -133,7 +188,9 @@
 			background: #fafafa;
 			@include border($g-bordercolor);
 			border-bottom-right-radius: 5px;
-			border-bottom-left-radius: 5px;			
+			border-bottom-left-radius: 5px;
+			margin-top: -32px;
+			margin-bottom: 15px;
 			//@include media-retina(1){
 			//	border-top: none;
 			//};
@@ -165,7 +222,8 @@
 	}
 	&-get { // 获得果仁
 		@extend .font-money;
-		border-bottom: $g-border;
+		//border-bottom: $g-border;
+		margin-bottom: 10px;
 		&-number {
 			margin-top: 32px;
 			margin-bottom: 18px;
@@ -363,7 +421,7 @@
 	}
 	&-num { // 右侧文字
 		float: right;
-		font-size: 16px;
+		font-size: 14px;
 		font-family: $g-font-num;
 	}
 	&-detail { // 细节
@@ -409,11 +467,12 @@
 		}
 	}
 	&-more { // 关闭
+		margin-top: 50px;
 		text-align: center;
-		position: absolute;
-		bottom: 70px;
 		padding: 10px 0px;
-		width: 100%;		
+		width: 100%;
+		font-size: 14px;
+		margin-bottom: 20px;
 	}
 	&-tip { // 底部提示
 		line-height: 1.5;
@@ -425,6 +484,9 @@
 		// box-sizing:border-box;
 		//@include abl(20px,0px);		
 	}
+	&-finish-tip{
+	    position: static;
+	}
 	//&-gotopay{
 	//	box-sizing:border-box;
 	//	margin:0px;
@@ -433,7 +495,7 @@
 	//	@include abl(110px,0px);
 	//}
 	&-coupon{
-		@include atr(50px,70px);
+		@include atr(0px,0px);
 		// display: inline-block;
 	}
 }
