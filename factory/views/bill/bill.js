@@ -541,9 +541,12 @@ define('h5-view-bill', [
 	}
 	var buyGopHandler = function(type, id, order, list, waitForPay) { // 买果仁数据处理
 		var buyInPrice = order.price;
-//		api.getselloneprice({}, function(data) {
-//			buyInPrice = data.optimumBuyPrice;
-//		})
+		if(order.status ==='PROCESSING'){
+			api.getselloneprice({}, function(data) {
+				buyInPrice = data.optimumBuyPrice;
+			})
+		}
+
 		return {
 			id: id, // 账单ID
 			type: type, // 类型
