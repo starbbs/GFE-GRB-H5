@@ -1,38 +1,40 @@
 
 <div class="coupon-list scroll" ms-controller="couponList"  ms-on-click="itemClick($event)">
-	<!--可用-->
-	<div class="coupon-list-none disnone" id="coupon-none">
-		<img class="coupon-list-none-img" src="./images/coupon-nonecoupon.png"/>
-		<p class="coupon-list-none-word">您目前还没有优惠券~</p>
+	<div class="coupon-list-bottom">
+		<!--可用-->
+		<div class="coupon-list-none disnone" id="coupon-none">
+			<img class="coupon-list-none-img" src="./images/coupon-nonecoupon.png"/>
+			<p class="coupon-list-none-word">您目前还没有优惠券~</p>
+		</div>
+		<ul class="disnone" id="canuse-list">
+			<li class="coupon-list-li" ms-repeat-item="listAva" 
+				ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus" ms-data-voucherAmount="item.voucherAmount" ms-data-voucherId="item.id">
+				<div class="coupon-list-li-left">
+					<icon>¥</icon>
+					<span>{{item.voucherAmount}}</span>
+				</div>
+				<img src="./images/coupon-bg-middle.png" class="coupon-list-li-middle"/>
+				<div class="coupon-list-li-right">
+					<span class="coupon-list-li-right-title">{{item.voucherName}}</span>
+					<span class="coupon-list-li-right-time">有效时间：{{item.startTime}}至{{item.endTime}}</span>
+					<img src="./images/coupon-coupon.png" />
+				</div>
+			</li>
+		</ul>
+		<!--不可用-->
+		<ul class="disabled disnone" id="disuse-list">
+			<li class="coupon-list-li" ms-repeat-item="listExp" ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus" ms-data-voucherAmount="item.voucherAmount" ms-data-voucherId="item.id">
+				<div class="coupon-list-li-left">
+					<icon>¥</icon>
+					<span>{{item.voucherAmount}}</span>
+				</div>
+				<img src="./images/coupon-bg-middle-grey.png" class="coupon-list-li-middle"/>
+				<div class="coupon-list-li-right">
+					<span class="coupon-list-li-right-title">{{item.voucherName}}</span>
+					<span class="coupon-list-li-right-time">有效时间：{{item.startTime}}至{{item.endTime}}</span>
+					<img src="./images/coupon-passhalf.png" ms-class="none:item.disuse"/>
+				</div>
+			</li>
+		</ul>
 	</div>
-	<ul class="disnone" id="canuse-list">
-		<li class="coupon-list-li" ms-repeat-item="listAva" 
-			ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus" ms-data-voucherAmount="item.voucherAmount" ms-data-voucherId="item.id">
-			<div class="coupon-list-li-left">
-				<icon>¥</icon>
-				<span>{{item.voucherAmount}}</span>
-			</div>
-			<img src="./images/coupon-bg-middle.png" class="coupon-list-li-middle"/>
-			<div class="coupon-list-li-right">
-				<span class="coupon-list-li-right-title">{{item.voucherName}}</span>
-				<span class="coupon-list-li-right-time">有效时间：{{item.startTime}}至{{item.endTime}}</span>
-				<img src="./images/coupon-coupon.png" />
-			</div>
-		</li>
-	</ul>
-	<!--不可用-->
-	<ul class="disabled disnone" id="disuse-list">
-		<li class="coupon-list-li" ms-repeat-item="listExp" ms-attr-id="item.id" ms-data-voucherName="item.voucherName" ms-data-startTime="item.startTime" ms-data-endTime="item.endTime" ms-data-voucherStatus="item.voucherStatus" ms-data-voucherAmount="item.voucherAmount" ms-data-voucherId="item.id">
-			<div class="coupon-list-li-left">
-				<icon>¥</icon>
-				<span>{{item.voucherAmount}}</span>
-			</div>
-			<img src="./images/coupon-bg-middle-grey.png" class="coupon-list-li-middle"/>
-			<div class="coupon-list-li-right">
-				<span class="coupon-list-li-right-title">{{item.voucherName}}</span>
-				<span class="coupon-list-li-right-time">有效时间：{{item.startTime}}至{{item.endTime}}</span>
-				<img src="./images/coupon-passhalf.png" ms-class="none:item.disuse"/>
-			</div>
-		</li>
-	</ul>
 </div>

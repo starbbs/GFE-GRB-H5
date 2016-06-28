@@ -67,6 +67,9 @@
     @extend .view-style;
     $img: $g-views + '/coupon/images';
     $image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
+    .coupon-list-bottom{
+        padding-bottom: 30px;
+    }
     .disnone{
         display: none;
     }
@@ -88,9 +91,6 @@
     ul{
         width: 90%;
         margin: 0 auto;
-        &:last-child{
-            margin-bottom: 30px;
-        }
     }
     &-li{
         width: 100%;
@@ -99,14 +99,15 @@
         div{
             float: left;
         }
-
+        &-left,&-right{
+            background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;
+            background-size: 6px 2px;
+        }
         &-left{
             width: 27%;
             font-size: 47px;
             height: 100px;
             color: $g-white;
-            background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;
-            background-size: 6px 2px;
             border-bottom-left-radius: 3px;
             text-align: center;
             position: relative;
@@ -134,8 +135,6 @@
         &-right{
             width: 69%;
             height: 100%;
-            background: url($image+'/coupon-bg-icon.png') #7aacf9 center top repeat-x;//7aacf9
-            background-size: 6px 2px;
             border-bottom-right-radius: 3px;
             padding-right: 1px;
             margin-left: -1px;
