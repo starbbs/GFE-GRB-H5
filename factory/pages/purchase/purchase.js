@@ -21,6 +21,7 @@ require([
         // dialogAlert.onAlert();
         var from = window.localStorage.getItem("from"); //从哪个页面过来
         var id = window.localStorage.getItem("id");   //id
+        var phone = window.localStorage.getItem('phone');
         var vm = avalon.define({ // 主页面
             $id: 'purchase',
             price: 0, // 果仁实时价
@@ -47,7 +48,7 @@ require([
                         ifFinishButton: true
                     });
                     if (from) {
-                        window.location.href = from + '.html' + (id ? '?id=' + id : '');
+                        window.location.href = from + '.html' + (id ? '?id=' + id : '')+ (from ? '&from=' + from : '')+ (phone ? '&phone=' + phone : '');
                     } else {
                         router.to('/bill');
                     }
@@ -99,13 +100,14 @@ require([
                 weixin.pay.work();
                 weixin.pay.onComplete = function () {
                     if (from) {
-                        window.location.href = from + '.html' + (id ? '?id=' + id : '');
+                        window.location.href = from + '.html' + (id ? '?id=' + id : '')+ (from ? '&from=' + from : '')+ (phone ? '&phone=' + phone : '');
                     } else {
                         window.location.href = 'home.html';
                     }
                 };
                 window.localStorage.removeItem("from");
                 window.localStorage.removeItem("id");
+                window.localStorage.removeItem("phone");
             },
         });
         var setOrderNum = function () {

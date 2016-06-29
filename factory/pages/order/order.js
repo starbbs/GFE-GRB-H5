@@ -91,6 +91,7 @@ require([
                         dialogConfirm.onConfirm = function() {
                             window.localStorage.setItem('from', url.basename);
                             window.localStorage.setItem('id', get.data.id);
+                            window.localStorage.setItem('phone',get.data.phone);
                             window.location.href = 'purchase.html#!/';
                         };
                     }
