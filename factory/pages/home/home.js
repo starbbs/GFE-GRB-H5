@@ -19,6 +19,7 @@ require([
 	//清除订单过去买果仁的存入内容
 	window.localStorage.removeItem("from");
 	window.localStorage.removeItem("id");
+	window.localStorage.removeItem('phone');
 
 	var gopToken = $.cookie('gopToken');
 	/**

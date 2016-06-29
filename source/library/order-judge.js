@@ -29,9 +29,9 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 		KWQ_checkRMB: function(orderRMB, orderQ, callback) {
 			var orderQ = orderQ ? typeof orderQ != 'function' ? orderQ : callback = orderQ : 0;
 			orderQ = typeof orderQ == 'function' ? 0 : orderQ;
-			this.once(function(myGopNum, gopPrice) {
-				var status = parseFloat(filters.ceilFix(orderRMB / gopPrice - orderQ / gopPrice)) <= parseFloat(filters.floorFix(myGopNum)) ? ok : no;
-				callback && callback(status, myGopNum, gopPrice);
+			this.jxn_once(function(myGopNum, sellPrice) {
+				var status = parseFloat(filters.ceilFix(orderRMB / sellPrice - orderQ / sellPrice)) <= parseFloat(filters.floorFix(myGopNum)) ? ok : no;
+				callback && callback(status, myGopNum, sellPrice);
 			});
 		},
 		once: function(callback) { // 请求一次
@@ -53,6 +53,31 @@ define('h5-order-judge', ['h5-api', 'filters'], function(api, filters) {
 					todo();
 				}
 			});
+			api.getGopNum({ // 获取果仁数
+				gopToken: gopToken
+			}, function(data) {
+				if (data.status == 200) {
+					myGopNum = parseFloat(data.data.gopNum);
+					todo();
+				}
+			});
+		},
+		jxn_once: function(callback) { // 请求一次
+			var gopToken = $.cookie('gopToken');
+			var myGopNum = 0;
+			var gopPrice = 0;
+			var i = 0;
+			var todo = function() {
+				i++;
+				if (i === 2) {
+					callback && callback(myGopNum, gopPrice);
+				}
+			};
+			// 获取卖1价
+            api.getselloneprice({}, function(data) {
+				gopPrice = parseFloat(data.optimumSellPrice);
+				todo();
+            });
 			api.getGopNum({ // 获取果仁数
 				gopToken: gopToken
 			}, function(data) {
