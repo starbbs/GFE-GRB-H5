@@ -5,6 +5,6 @@
 define('h5-view-agreement', ['h5-view', 'get'], function(View, get) {
 	var agreement = new View('agreement');
 	// agreement.v = $('#js-v').html('V' + (get.data.v || '1.0'));
-	//  get.data.app === 'ios' && get.data.v === '1.2.1' && $('.js-hide').remove();
+	  get.data.app === 'ios' && get.data.v === '1.3.0' && $('.js-hide').remove();
 	return agreement;
 });
