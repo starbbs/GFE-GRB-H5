@@ -4,7 +4,9 @@
 
 define('h5-view-agreement', ['h5-view', 'get'], function(View, get) {
 	var agreement = new View('agreement');
-	// agreement.v = $('#js-v').html('V' + (get.data.v || '1.0'));
-	//  get.data.app === 'ios' && get.data.v === '1.2.1' && $('.js-hide').remove();
+	//如果ios并且versionForStore =1(需要屏蔽)的情况下,隐藏.js-hide 的内容
+	if(get.data.app === 'ios' && get.data.versionForStore==1){
+		$('.js-hide').remove();
+	}
 	return agreement;
 });
