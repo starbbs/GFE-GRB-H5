@@ -1,0 +1,63 @@
+@@include('../../../source/include/top.html', {"name": "login"})
+<div class="screen-r">
+	<!-- <div class="dialog"></div> -->
+	<div class="login scroll" ms-controller="index-login">
+		<div class="login-scroll">
+			<div class='login-picture'><img ms-attr-src="image"></div>
+			<div class="login-name">{{name}}</div>
+			<div class="login-main">
+				<div class="block border-none">
+					<div class="block-item">
+						<div class="text" for="index-login-mobile">
+							<div class="text-label">账号 (+86)</div>
+							<div class="text-box">
+								<input
+										id="index-login-mobile"
+										name="index-login-mobile"
+										class="text-input"
+										type="tel"
+										autocomplete="off"
+										placeholder="请输入手机号"
+										maxlength="11"
+										data-text="close"
+										ms-on-blur="blur"
+										ms-on-focus="focus"
+								>
+							</div>
+							<div class="text-close" ></div>
+						</div>
+					</div>
+					<div class="block-item">
+						<div class="text border-bottom" for="index-login-code">
+							<div class="text-label">验证码</div>
+							<div class="text-box">
+								<input
+										id="index-login-code"
+										name="index-login-code"
+										class="text-input"
+										type="tel"
+										autocomplete="off"
+										placeholder="6位数字"
+										maxlength="6"
+										data-text="close"
+										ms-on-blur="blur"
+										ms-on-focus="focus"
+								>
+							</div>
+							<div class="text-close" ></div>
+						</div>
+						<div class="text-ident" data-ident="index-login-mobile"></div>
+					</div>
+				</div>
+				<div class="text-button">
+					<span class="button" data-button="loading(验证中...)" ms-on-touchstart="click">开启果仁世界</span>
+					<span class="button tip" ms-visible="tipIsShow" ms-on-touchstart="click">开启果仁世界</span>
+				</div>
+			</div>
+			<div class="text-bottom" >轻点开启果仁世界<br>即表示您已阅读并接受《<a class="gray" href="#!/agreement">果仁宝服务协议</a>》</div>
+		</div>
+	</div>
+	<div class="alert"></div>
+</div>
+@@include('../../../source/include/bottom.html', {"name": "login"})
+

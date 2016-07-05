@@ -3,186 +3,81 @@
 
 
 require([
-	'router', 'h5-api', 'check', 'get', 'h5-authorization', 'h5-view', 'h5-weixin', 'h5-button', 'h5-login-judge',
-	'h5-view-agreement', 'h5-text', 'h5-keyboard', 'h5-ident'
-], function(
-	router, api, check, get, authorization, View, weixin, H5Button, loginJudge
-) {
+    'h5-api', 'check', 'get', 'h5-authorization', 'h5-weixin', 'h5-login-judge',
+], function (api, check, get, authorization, weixin, loginJudge) {
 
-	router.init();
-	var gopToken = $.cookie('gopToken'); // 果仁宝token
-	var wxCode = get.data.code; // 微信认证返回code
-	var openid; // 用户的微信id
-	var unionid; // 判断微信是否和手机绑定的id
+    var gopToken = $.cookie('gopToken'); // 果仁宝token
+    var wxCode = get.data.code; // 微信认证返回code
+    var openid; // 用户的微信id
+    var unionid; // 判断微信是否和手机绑定的id
+    var gotoAuthorization = function () { // 跳转授权页, 未授权
+        // return;
+        setTimeout(function () {
+            authorization.go(); //跳转威信授权的地址
+        }, 100);
+    };
+    var gotoHome = function () {
+        // 跳转home页面, 已授权, 已绑定账号 解决安卓停留请等待,
+        // window.location.href = 'frozen.html'
+        authorization.goGet();
+    };
+    var gotoLogin = function () { // 跳转login分页
+        setTimeout(function () {
+            location.href = "./login.html";
+            document.title = '绑定手机号';
+        }, 100);
+    };
 
-	var mobileInput = $('#index-login-mobile');
-	var codeInput = $('#index-login-code');
+    var checkToken = function () {
+        loginJudge.check(function () {
+            gotoHome();
+        });
+    };
+    var checkCode = function () {
+        // alert('是否有CODE==='+wxCode);
+        if (wxCode) { // 已授权
+            api.wxlogin({
+                code: wxCode
+            }, function (data) {
+                if (data.status == 200) { // code有效
+                    // alert('code有效，返回TOKEN设置COOKIE，然后GOHOME 判断STATE 进入相关页面');
+                    if (data.data.gopToken) { // 已绑定
+                        gopToken = data.data.gopToken;
+                        $.cookie('gopToken', data.data.gopToken);
+                        gotoHome();
+                    } else { // 未绑定
+                        // alert('没有TOKEN 去注册');
+                        openid = data.data.openid;
+                        unionid = data.data.unionid;
+                        loginVM.name = data.data.nick;
+                        loginVM.image = data.data.img;
+                        gotoLogin();
+                    }
 
-	var login = new View('index-login');
-	var loginVM = login.vm = avalon.define({
-		$id: 'index-login',
-		name: '您好', // 微信昵称
-		image: './images/picture.png', // 微信头像
-		tipIsShow: false,
-		mobile: '', // 手机号
-		code: '', // 验证码
-		blur: function() {
-			loginVM.tipIsShow = false;
-			// alert('blur    '+loginVM.tipIsShow);
-		},
-		focus: function() {
-			loginVM.tipIsShow = true;
-			// alert('focus    '+loginVM.tipIsShow);	
-		},
-		close: function(attr) { // 关闭按钮
-			// $("#index-login-"+attr).val("");
-			// loginVM[attr] = '';
-		},
-		click: function() { // 按钮
-			// console.log(H5Button.filter(this));
-			var self = $('.button').eq(0).click();
-			var _this = $('.button')[0];
-			if (self.hasClass('disabled')) {
-				return $.alert('正在校验中, 请稍后');
-			}
+                } else if (data.status == 312) { //如果用户的密码被锁定那么跳转到锁定页面
+                    if (data.lockTimes == 15) { //15次跳转到永远锁定页面
+                        setTimeout(function () {
+                            window.location.href = './frozen15.html?type=locked'
+                        }, 210);
+                    } else { //跳转到锁定页面
+                        setTimeout(function () {
+                            window.location.href = './frozen10.html?type=locked'
+                        }, 210);
+                    }
 
-			var mobile = $("#index-login-mobile").val();
-			var mobileCheck = check.phone(mobile);
-			if (!mobileCheck.result) {
-				return $.alert(mobileCheck.message);
-			}
-
-			var code = $("#index-login-code").val();
-			var codeCheck = check.ident(code);
-			if (!codeCheck.result) {
-				return $.alert(codeCheck.message);
-			}
-
-			var load = _this.__loading;
-			load.work();
-			api.identifyingCode({
-				phone: mobile,
-				identifyingCode: code
-			}, function(data) {
-				if (data.status == 200) {
-					api.checkPhoneRelatedWxAccount({
-						phone: mobile,
-						unionId: unionid,
-					}, function(data) {
-						if (data.status == 200) {
-							api.wxregister({
-								phone: mobile,
-								identifyingCode: code,
-								openId: openid,
-							}, function(data) {
-								if (data.status == 200) {
-									load.reset('欢迎!');
-									gopToken = data.data.gopToken;
-									$.cookie('gopToken', gopToken);
-									$.alert('微信注册成功!<br>欢迎来到果仁世界!', gotoHome, 'half');
-								} else {
-									$.alert(data.msg);
-									load.reset();
-								}
-							});
-						} else {
-							$.alert(data.msg);
-							load.reset();
-						}
-					});
-				} else {
-					$.alert('验证码错误');
-					load.reset();
-				}
-			});
-		},
-	});
-	login.on('show', function() {
-		// login.self.get(0).scrollTop = 0; // 显示时滚回最上面
-	});
-	avalon.scan(login.native, loginVM);
-
-	var gotoAuthorization = function() { // 跳转授权页, 未授权
-		// return;
-		setTimeout(function() {
-			authorization.go(); //跳转威信授权的地址
-		}, 100);
-	};
-	var gotoHome = function() {
-		// 跳转home页面, 已授权, 已绑定账号 解决安卓停留请等待,
-		setInterval(function() {
-			// window.location.href = 'frozen.html'
-			authorization.goGet();
-		}, 300);
-	};
-	var gotoLogin = function() { // 跳转login分页
-		setTimeout(function() {
-			router.to('/index-login');
-			document.title = '绑定手机号';
-		}, 100);
-	};
-
-	var checkToken = function() {
-		loginJudge.check(function() {
-			gotoHome();
-		});
-	};
-
-	var checkCode = function() {
-		// alert('是否有CODE==='+wxCode);
-		if (wxCode) { // 已授权
-			api.wxlogin({
-				code: wxCode
-			}, function(data) {
-				if (data.status == 200) { // code有效
-					// alert('code有效，返回TOKEN设置COOKIE，然后GOHOME 判断STATE 进入相关页面');
-					if (data.data.gopToken) { // 已绑定
-						gopToken = data.data.gopToken;
-						$.cookie('gopToken', data.data.gopToken);
-						gotoHome();
-					} else { // 未绑定
-						// alert('没有TOKEN 去注册');
-						openid = data.data.openid;
-						unionid = data.data.unionid;
-						loginVM.name = data.data.nick;
-						loginVM.image = data.data.img;
-						gotoLogin();
-					}
-
-				} else if (data.status == 312) { //如果用户的密码被锁定那么跳转到锁定页面
-					if (data.lockTimes == 15) { //15次跳转到永远锁定页面
-						setTimeout(function() {
-							window.location.href = './frozen15.html?type=locked'
-						}, 210);
-					} else { //跳转到锁定页面
-						setTimeout(function() {
-							window.location.href = './frozen10.html?type=locked'
-						}, 210);
-					}
-
-				} else {
-					//alert(data.status+"  "+data.msg);
-					gotoAuthorization();
-				}
-			});
-		} else { // 未授权
-			// alert('没有CODE未授权 继续检测TOKEN');
-			checkToken();
-		}
-	};
-	//router.go('/index-login');
-	//return;
-	var init = function() {
-		router.init(true);
-		if (gopToken) {
-			gotoHome();
-		} else {
-			checkCode();
-		}
-		// setTimeout(function() {
-		// 	gotoLogin();
-		// }, 100);
-	};
-	// alert(window.location.href);
-	init();
+                } else {
+                    //alert(data.status+"  "+data.msg);
+                    gotoAuthorization();
+                }
+            });
+        } else { // 未授权
+            // alert('没有CODE未授权 继续检测TOKEN');
+            checkToken();
+        }
+    };
+    if (gopToken) {
+        gotoHome();
+    } else {
+        checkCode();
+    }
 });
