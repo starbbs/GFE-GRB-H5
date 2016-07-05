@@ -20,6 +20,11 @@ require([
 	window.localStorage.removeItem("from");
 	window.localStorage.removeItem("id");
 	window.localStorage.removeItem('phone');
+	//清除注册时留下的用户痕迹
+	localStorage.removeItem("username");
+	localStorage.removeItem("userimg");
+	localStorage.removeItem("openid");
+	localStorage.removeItem("unionid");
 
 	var gopToken = $.cookie('gopToken');
 	/**

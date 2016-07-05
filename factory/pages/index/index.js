@@ -49,8 +49,10 @@ require([
                         // alert('没有TOKEN 去注册');
                         openid = data.data.openid;
                         unionid = data.data.unionid;
-                        loginVM.name = data.data.nick;
-                        loginVM.image = data.data.img;
+                        localStorage.setItem("openid",data.data.openid);
+                        localStorage.setItem("unionid",data.data.unionid);
+                        localStorage.setItem("username",data.data.nick);
+                        localStorage.setItem("userimg",data.data.img);
                         gotoLogin();
                     }
 

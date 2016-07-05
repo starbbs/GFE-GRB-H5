@@ -11,9 +11,8 @@ require([
 
 	router.init();
 	var gopToken = $.cookie('gopToken'); // 果仁宝token
-	var wxCode = get.data.code; // 微信认证返回code
-	var openid; // 用户的微信id
-	var unionid; // 判断微信是否和手机绑定的id
+	var openid = localStorage.getItem("openid");
+	var unionid=localStorage.getItem("unionid"); // 判断微信是否和手机绑定的id
 	var gotoHome = function() {
 		authorization.goGet();
 	};
@@ -25,10 +24,11 @@ require([
 	};
 	init();
 	var login = new View('login');
+	var username =  localStorage.getItem("username"),userimg = localStorage.getItem("userimg");
 	var loginVM = login.vm = avalon.define({
 		$id: 'index-login',
-		name: '您好', // 微信昵称
-		image: './images/picture.png', // 微信头像
+		name: username?username:'您好', // 微信昵称
+		image: userimg?userimg:'./images/picture.png', // 微信头像
 		tipIsShow: false,
 		mobile: '', // 手机号
 		code: '', // 验证码
@@ -85,6 +85,10 @@ require([
 									load.reset('欢迎!');
 									gopToken = data.data.gopToken;
 									$.cookie('gopToken', gopToken);
+									localStorage.removeItem("username");
+									localStorage.removeItem("userimg");
+									localStorage.removeItem("openid");
+									localStorage.removeItem("unionid");
 									$.alert('微信注册成功!<br>欢迎来到果仁世界!', gotoHome, 'half');
 								} else {
 									$.alert(data.msg);
