@@ -53,7 +53,7 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 			for(var i=0;i<10;i++){
 				history.pushState(stateObj, "page "+i, "./home.html");
 			}
-			return window.location.href = this.get();
+			window.location.href = this.get();
 		},
 	}
 });
