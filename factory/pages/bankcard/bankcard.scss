@@ -1,0 +1,39 @@
+﻿@charset 'utf-8';
+
+
+// 姜晓妮 2016-07-07 15:15:27 创建
+// app端 --- 银行卡限额信息
+
+
+@import '../../../source/scss/main';
+
+@import '../../views/view';
+
+.bank-card-list{
+    @extend %scroll; //平滑滚动
+    @extend .view-style;
+    &-title{
+        font-size: 16px;
+        line-height: 46px;
+        text-indent: 15px;
+    }
+    &-cont{
+        background-color: #FFFFFF;
+        li{
+            line-height: 33px;
+            font-size: 12px;
+            color: #666666;
+            margin: auto 15px;
+            position: relative;
+            @include border-bottom($g-line);
+        }
+        li:first-child{
+            padding-top: 9px;
+        }
+        li:last-child{
+            @include border-none;
+        }
+    }
+}
+
+
