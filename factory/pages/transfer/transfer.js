@@ -622,6 +622,7 @@ require([
 					if (data.data.hasWallet) {
 						vm.hasWallet = data.data.hasWallet; //果仁市场地址。null或空字符串都表示未设置
 					}
+					getCangory();
 				} else {
 					console.log(data);
 				}
@@ -688,33 +689,33 @@ require([
 
 		init();
 
-		setTimeout(function() {
-			if (get.data.from === 'contacts') { // 来自联系人, 后期分离出公用页面
-				api.contactInfo({
-					gopToken: gopToken,
-					personId: get.data.id,
-				}, function(data) {
-					if (data.status == 200) {
-						var person = data.data;
-						$.extend(transferTarget, {
-							address: person.address,
-							name: person.remark || person.nick || H5bill.transferNoNames[person.contactType],
-							personId: person.id,
-							photo: person.photo || './images/picture.png',
-							phone: person.phone,
-						});
-						targetInit(vm.transferOutType = person.contactType);
-						router.to('/transfer-target');
-					} else {
-						$.alert(data.msg);
-						console.log(data);
-					}
-					transfer.addClass('on');
-				});
-			} else {
-				transfer.addClass('on');
-			}
-			getCangory();
-		}, 100);
+//		setTimeout(function() {
+//			if (get.data.from === 'contacts') { // 来自联系人, 后期分离出公用页面
+//				api.contactInfo({
+//					gopToken: gopToken,
+//					personId: get.data.id,
+//				}, function(data) {
+//					if (data.status == 200) {
+//						var person = data.data;
+//						$.extend(transferTarget, {
+//							address: person.address,
+//							name: person.remark || person.nick || H5bill.transferNoNames[person.contactType],
+//							personId: person.id,
+//							photo: person.photo || './images/picture.png',
+//							phone: person.phone,
+//						});
+//						targetInit(vm.transferOutType = person.contactType);
+//						router.to('/transfer-target');
+//					} else {
+//						$.alert(data.msg);
+//						console.log(data);
+//					}
+//					transfer.addClass('on');
+//				});
+//			} else {
+//				transfer.addClass('on');
+//			}
+//			getCangory();
+//		}, 100);
 	});
 });
