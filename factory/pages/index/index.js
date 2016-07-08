@@ -82,4 +82,6 @@ require([
     } else {
         checkCode();
     }
+    
+    
 });

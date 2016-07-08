@@ -4,176 +4,61 @@
 		<div class="home-banner">
 			<!--没有买果仁-->
 			<div class="home-banner-nobuygop" ms-visible="myGopNum===0">
-				<div class="home-banner-nobuygop-layer1">
-					港股上市公司神州数字<span>（08255.HK）</span>旗下
+				<div class="home-banner-nobuygop-layer1">港股上市公司神州数字（08255.HK）旗下
 				</div>
 				<div class="home-banner-nobuygop-layer2">
-					<div class="layer21">10.00 <span>%</span> </div>
-					<p class="layer22">预计年化收益率</p>
+					<p class="layer22">预计年化收益率 <span class="rate-num">20</span><span class="rate-num-small">.00%</span></p>
 				</div>
-				<div class="home-banner-nobuygop-layer3">
-					<a href="purchase.html#!/">立即购买</a>
-					<span>可在果仁市场随时提现</span>
-				</div>
+				<div class="home-banner-nobuygop-layer3">与众不同的价值投资&emsp;引领未来的超级钱包</div>
+				<a class="home-banner-nobuygop-layer4" href="about-us.html">了解详情</a>
 			</div>
 			<!--有果仁-->
 			<div class="home-banner-mygop" ms-visible="myGopNum!=0">
-				<!--切换按钮-->
-				<div class="home-banner-mygop-togglebtn up" ms-click="toggleBtnFn()"></div>
 				<!--总资产-->
 				<div class="home-banner-mygop-totalgop" ms-visible="curIndex===1">
-				<a href="wealth.html">
-					<div class="expectincome">
-						<i></i>
-						预计年化收益率<span>10.00%</span>
-					</div>
 					<div class="mytotalgop">
-						我的总资产(<span class="font-rmb-icon">¥</span>)
+						总资产(<span class="font-rmb-icon">¥</span>)
 					</div>
 					<div class="rmbnum">
 						<span>{{(myGopNum*1000000*gopNowPrice/1000000).toFixed(2)}}</span>
 					</div>
-					<div class="gopbottom">
-						<div class="mygopnum">
-							<div>我的果仁数(<i class="iconfont icon-g"></i>)</div>
-							<span>{{myGopNum|floorFix}}</span>
-						</div>
-						<div class="gopprice">
-							<div>果仁现价(<span class="font-rmb-icon">¥</span>)</div>
-							<span>{{gopNowPrice|floorFix}}</span>
-						</div>
-					</div>
-					</a>
+
 				</div>
-				<!--收益-->
-				<div class="home-banner-mygop-incomegop" ms-visible="curIndex===2">
-				<a href="wealth.html">
-					<div class="home-banner-mygop-incomegop-nowgopprice">
-						<i></i>
-						果仁现价<span>{{gopNowPrice|floorFix}}</span>
-					</div>
-					<div class="home-banner-mygop-incomegop-totalincome">
-						累计收益(<span class="font-rmb-icon">¥</span>)
-					</div>
-					<div class="home-banner-mygop-incomegop-incomenum">
+			</div>
+			<ul class="gopbottom" ms-visible="myGopNum!=0">
+				<li class="gopli">
+					<div class="gopli-title">持有果仁(<i class="iconfont icon-g"></i>)</div>
+					<div class="gopli-numbers">{{myGopNum|floorFix}}</div>
+				</li>
+				<li class="gopli">
+					<div class="gopli-title">体验果仁(<i class="iconfont icon-g"></i>)</div>
+					<div class="gopli-numbers">0.00</div>
+				</li>
+				<li class="gopli">
+					<div class="gopli-title">累计收益(¥)</div>
+					<div class="gopli-numbers">
 						<span class="home-banner-mygop-incomegop-incomenum-sign">{{totalInCome|sign}}</span>
 						<span>{{totalInCome|abs|floorFix}}</span>
 					</div>
-					<div class="home-banner-mygop-incomegop-gopbottom">
-						<div class="home-banner-mygop-incomegop-gopbottom-yestodayincome">
-							<div>昨日浮动盈亏(<span class="font-rmb-icon">¥</span>)</div>
-							<span>{{yesterDayIncome|sign }}{{yesterDayIncome|abs|floorFix}}</span>
-						</div>
-						<div class="home-banner-mygop-incomegop-gopbottom-yearincome">
-							<div>预计年化收益率</div>
-							<span>10.00%</span>
-						</div>
-					</div>
-				</a>
-				</div>
-			</div>
+
+				</li>
+			</ul>
 		</div>
 		<div class="home-gop">
 			<a href="purchase.html#!/" class="home-gop-buy"><span class="home-gop-buy-span"></span><span>买果仁</span></a>
 			<a href="transfer.html?cangory=GOP_MARKET" class="home-gop-transfer"><span class="home-gop-transfer-span"></span><span>转果仁</span></a>
 		</div>
-		<div class="home-slider slider" id="touchSlide">
-			<ul class="slider-bd">
-				<li class="slider-bd-li" ms-repeat-img="bannerImgArr">
-					<a ms-if-loop="img.url" ms-attr-href="img.url">
-						<img ms-attr-src="img.img" alt="" class="img-w">
-					</a>
-					<!--循环完了再给值   防止赋值时候还没HTML结构-->
-					<img ms-if-loop="!img.url" ms-attr-src="img.img" alt="" class="img-w">
-				</li>
-			</ul>
-			<ul class="slider-hd">
-				<li class="slider-hd-li" ms-repeat="bannerImgArr"></li>
-			</ul>			
-		</div>
-		<!--<div class="home-phonebills-title">限时抢购</div>-->
-		<div ms-on-click="gotophonecharge($event)">	
-		<div class="home-phonebills" data-href="phonecharge.html?from=home&cangory=流量&level=500M&carrier=移动">
-			<span class="home-phonebills-jins"></span>
-			<div class="home-phonebills-left">
-				<div class="home-phonebills-left-curprice">
-					<icon class="font-rmb-icon">¥</icon> <span>23</span>.00
-				</div>
-				<div class="home-phonebills-left-oriprice">
-					原价：<icon class="font-rmb-icon">¥</icon>30.00 <i></i>
-				</div>
-			</div>
-			<div class="home-phonebills-right">
-				<em class="home-phonebills-right-sline"></em>
-				<div class="home-phonebills-right-productcangory">
-					中国移动&nbsp500M流量
-				</div>
-				<div class="home-phonebills-right-productrange">
-					<span>立即生效</span>
-					<span>全国流量</span>
-				</div>
-			</div>
-			<div class="home-phonebills-down">
-				<span>超值优惠，7月30号截止</span>
-				<!--<a href="phonecharge.html?from=home&cangory=流量&level=500M&carrier=移动">马上抢购</a>-->
-				<a href="javascript:;">马上抢购</a>
-			</div>
-		</div>
-		<div class="home-phonebills" data-href="phonecharge.html?from=home&cangory=话费&price=50&carrier=联通">
-			<div class="home-phonebills-left">
-				<div class="home-phonebills-left-curprice">
-					<icon class="font-rmb-icon">¥</icon> <span>49</span>.50
-				</div>
-				<div class="home-phonebills-left-oriprice">
-					原价：<icon class="font-rmb-icon">¥</icon>50.00 <i></i>
-				</div>
-			</div>
-			<div class="home-phonebills-right">
-				<em class="home-phonebills-right-sline"></em>
-				<div class="home-phonebills-right-productcangory">
-					中国联通&nbsp50元话费
-				</div>
-				<div class="home-phonebills-right-productrange">
-					<span>立即生效</span>
-					<span>全国通用</span>
-				</div>
-			</div>
-			<div class="home-phonebills-down">
-				<span>会理财，开源节流</span>
-				<a href="javascript:;">马上充值</a>
-			</div>
-		</div>
-		<div class="home-phonebills" data-href="phonecharge.html?from=home&cangory=话费&price=50&carrier=电信">
-			<div class="home-phonebills-left">
-				<div class="home-phonebills-left-curprice">
-					<icon class="font-rmb-icon">¥</icon> <span>49</span>.40
-				</div>
-				<div class="home-phonebills-left-oriprice">
-					原价：<icon class="font-rmb-icon">¥</icon>50.00 <i></i>
-				</div>
-			</div>
-			<div class="home-phonebills-right">
-				<em class="home-phonebills-right-sline"></em>
-				<div class="home-phonebills-right-productcangory">
-					中国电信&nbsp50元话费
-				</div>
-				<div class="home-phonebills-right-productrange">
-					<span>立即生效</span>
-					<span>全国通用</span>
-				</div>
-			</div>
-			<div class="home-phonebills-down">
-				<span>会生活，精打细算</span>
-				<a href="javascript:;">马上充值</a>
-			</div>
-		</div>
+		<h3 class="home-chart-title">近30日果仁价格曲线(¥)</h3>
+		<div class="home-chart">
+			<div class="home-chart-item" id="chart-history"></div>
+			<div class="home-chart-cover"></div>
 		</div>
 	</div>
 	@@include('../../components/nav/nav.html', { "name": "home" })
 	<div class="alert"></div>
-	<div class="view">
-		<!--1 引入分页   2 分页的SASS引入@extend .view-style;需要几个引几个-->
-		@@include('../../views/discovery-temp/discovery-temp.html')
-	</div>	
 </div>
-@@include('../../../source/include/bottom.html', {"name": "home"})
+@@include('../../../source/include/bottom.html',
+{
+"name": "home",
+"jquery": true
+})

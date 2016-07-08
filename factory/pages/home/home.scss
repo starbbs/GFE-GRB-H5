@@ -4,9 +4,7 @@
 // 张树垚 2015-12-20 11:22:45 创建
 // H5微信端 --- 个人首页
 
-
 @import '../../../source/scss/main'; //里面有components $.alert() 的一些样式
-
 @import '../../components/nav/nav';
 @import "../../views/view";
 @import "../../views/discovery-temp/discovery-temp";
@@ -18,20 +16,6 @@ html {
 	font-size: 30px;
 	width: 5px;
 	display: inline-block;
-}
-%bannerbottomspanstyle{ //banner下方数字样式
-	display: inline-block;
-	font-size: 24px;
-	color: #ffffff;
-	line-height: 25px;
-	position: relative;
-}
-%bannercenterspanstyle{ //banner中间数字样式
-	text-align: center;
-	font-size: 54px;
-	line-height: 85px;
-	padding-bottom: 8px;
-	color: #fff;	
 }
 
 .home {
@@ -51,208 +35,131 @@ html {
 	$colorpricered: #ffa2a3; //收益红
     margin-bottom: 70px;
 
-	&-slider{
-		margin: 9px 0px;
-	}
-
 	&-banner{
-		height: 194px;
-		padding: $padding;
-		background-image: url($image + '/home-down.jpg'); 
+		height: 160px;
+		padding-top: 30px;
+		padding-bottom: 60px;
+		background-image: url($image + '/home-bgblue.png');
 		@include background-size;
 		&-nobuygop{
+			width: 94%;
+			margin: 0 auto;
 			height: 100%;
+			margin-top: -15px;
 			display: none;
 			&-layer1{
-				width: 245px;
-				text-align: center;
 				color: $colorworldblue;
-				background-color: #4B5293;
-				border-radius:10px; 
-				// margin-bottom: 10px;
-				>span{
-					color: $colororange;
-				}
 			}
 			&-layer2{
+				font-size: 18px;
 				text-align: center;
 				color: $colorwhite;
-				.layer21{
-					text-align: center;
-					// @extend %bannercenterspanstyle;
-					font-size: 54px;
-					height: 75px;
-					line-height: 85px;
-					>span{
-						font-size: 30px;
-						line-height: 85px;
-						height: 100%;
-						display: inline-block;
-						margin-left: -13px;
-					}
+				margin-top: 15px;
+				.rate-num{
+					font-size: 60px;
+					color: #fdd654;
+					line-height: 80px;
 				}
-				.layer22{
-					
+				.rate-num-small{
+					font-size: 18px;
+					color: #fdd654;
 				}
 			}
 			&-layer3{
+				background: rgba(0,0,0,.2);
+				color:rgba(255,255,255,.5);
+				width: 248px;
+				height: 20px;
+				line-height: 20px;
+				border-radius: 10px;
 				text-align: center;
-				// margin-top: 25px;
-				>a{
-					font-size: 16px;					
-					margin: 10px auto;
-					border-radius: 5px;
-					background-color: $colororange;
-					display: block;
-					line-height: 38px;
-					width: 92%;
-					color: $colorwhite;
-				}
-				>span{
-					display: block;	
-					height: auto;				
-					color: $colororange;
-				}
+				margin: 0 auto;
+			}
+			&-layer4{
+				display: block;
+				width: 150px;
+				height: 28px;
+				line-height: 28px;
+				border: 1px solid $colorwhite;
+				color: $colorwhite;
+				background: rgba(255,255,255,.1);
+				border-radius: 5px;
+				margin: 20px auto;
+				text-align: center;
+				font-size: 14px;
 			}
 		}
 		&-mygop{
 			display: none;
 			position: relative;
-			height: 100%;
-			&-togglebtn{
-				position: absolute;
-				top: 3px;
-				right: 0px;
-				&:after{
-					// @extend %click;
-					width: 30px; height: 30px; content: ''; display: block;
-					@include atl(-25%,-25%);
-				}
-			}
-			.up{
-				@include sprite($img + '/up.png', 22px, 22px);
-			}			
-			.down{
-				@include sprite($img + '/down.png', 22px, 22px);
-			}
+			width: 94%;
+			margin: 0 auto;
+
 			&-totalgop{ //总共果仁
 				color: $colorwhite;
-				.expectincome{
-					>i{	//小猪
-						@include sprite($img + '/pig.png', 22px, 22px);
-						float: left;
-						margin:0px 5px;
-					}
-					>span{
-						color: $colororange;
-					}
-					color: $colorworldblue;
-					text-align: right;
-					padding-right: 10px;
-					border-radius: 13px; 
-					background-color: #4C5292;
-					margin-right: 35px;
-					width: auto;
-					float: right;
-				}
 				.mytotalgop{
 					color: $colorworldblue;
-					padding-top: $bannerlayer2pt;
+					text-indent: 15px;
 				}
 				.rmbnum{
-					@extend %bannercenterspanstyle;
-					>span{
-						padding-bottom: 5px;
-						border-bottom: 1px solid #8589BE;
-					}
-				}
-				.gopbottom{
-					overflow: hidden;
-					div{
-						color: $colorworldblue;
-					}
-					.mygopnum{
-						float: left;
-						 text-align: left;
-						 >span{
-							@extend %bannerbottomspanstyle;
-						}
-					}
-					.gopprice{
-						float: right;
-						text-align: right;
-						>span{
-							@extend %bannerbottomspanstyle;
-							border-bottom: 1px solid #8589BE;
-						}
-					}
+					font-size: 38px;
+					line-height: 70px;
+					color: #fff;
+					text-indent: 15px;
 				}
 			}
-			&-incomegop{
-				&-nowgopprice{
-					>i{	//小猪
-						@include sprite($img + '/tg.png', 22px, 22px);
-						float: left;
-						margin: 0px 5px;
-					}
-					>span{
-						color: $colorpricered;
-						border-bottom: 1px solid $colorpricered;
-						margin: 0px 5px;
-					}
-					padding: 0px 5px;
-					color: $colorworldblue;
-					text-align: right;
-					padding-right: 10px;
-					border-radius: 15px; 
-					background-color: #4C5292;
-					margin-right: 35px;
-					float: right;
+		}
+		.gopbottom{
+			$borderrbgacolor:rgba(255,255,255,.2);
+			overflow: hidden;
+			height: 100px;
+			border-top:1px solid $borderrbgacolor ;
+			&:after{
+				content: "";
+				clear: both;
+				width: 0;
+				height: 0;
+			}
+			.gopli{
+				width: 33.33%;
+				border-right: 1px solid $borderrbgacolor;
+				box-sizing: border-box;
+				height: 100%;
+				padding-top: 25px;
+				float: left;
+				text-align: center;
+				&-title{
+					width: 100%;
+					line-height: 20px;
+					color: rgba(255,255,255,.5);
+					font-size: 10px;
+
 				}
-				&-totalincome{
-					color: $colorworldblue;
-					padding-top: $bannerlayer2pt;					
+				&-numbers{
+					width: 100%;
+					line-height: 30px;
+					color: rgba(255,255,255,1);
+					font-size: 18px;
+					font-weight: bold;
 				}
-				&-incomenum{
-					@extend %bannercenterspanstyle;
-					padding-bottom: 1px;
-					>span{
-						padding-bottom: 5px;
-						display: inline-block;
-						margin: 0 auto;
-						vertical-align: middle;
-					}
-					>span:nth-child(1){
-						@extend %sign;
-					}
-				}
-				&-gopbottom{
-					overflow: hidden;
-					div{
-						color: $colorworldblue;
-					}
-					&-yestodayincome{
-						float: left;
-						 text-align: left;
-						 >span{
-						 	@extend %bannerbottomspanstyle;
-						}
-					}
-					&-yearincome{
-						float: right;
-						text-align: right;
-						>span{
-							@extend %bannerbottomspanstyle;
-						}
-					}
-				}				
+			}
+			.gopli:nth-last-child(1){
+				border: none;
 			}
 		}
 	}
 	&-gop{
+		width: 94%;
+		margin: 0px auto;
+		margin-top: -30px;
+		height: 60px;
+		line-height: 60px;
 		overflow: hidden;
 		background: $colorwhite;
-		> a {
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+		&-buy,&-transfer{
 			color: #777777;
 			float: left;
 			box-sizing: border-box;
@@ -262,138 +169,46 @@ html {
 			background-repeat: no-repeat;
 			background-position: 15% 45%;
 			position: relative;
-			> span {
-				// position: absolute; top: 10px; left: 30px;
-				display: inline-block;
-				vertical-align: middle;
-				margin: 0 5px;
-				font-size: 14px;
-			}
+		}
+		&-buy span,&-transfer span{
+			display: inline-block;
+			vertical-align: middle;
+			margin: 0 5px;
+			font-size: 14px;
 		}
 		&-buy{
 			@include border-one("right", #DDDDDD, "after");
 			&-span {
-				@include sprite($img + '/gop_buy.png', 36px, 36px);
+				@include sprite($img + '/icon_buy.png', 36px, 36px);
 			}
 		}
 		&-transfer {
 			&-span {
-				@include sprite($img + '/gop_transfer.png', 36px, 36px);
+				@include sprite($img + '/icon_transfer.png', 36px, 36px);
 			}
 		}
 	}
-
-	&-phonebills-title{
-		text-align: center;
-		margin-bottom: 15px;
+	&-chart-title{
+		line-height: 40px;
+		text-indent: 10px;
+		font-size: 16px;
+		padding: 0px 3%;
+		margin-top: 10px;
 	}
-	&-phonebills{
-		background-color: $colorwhite;
+	&-chart {
 		position: relative;
-		height: 110px;
-		margin-bottom: 9px;
-		// height: 83.34px;
-		// padding: 17px 12.8px 10.66px 12.8px;
-		padding: 17px 0px 2px 0px;
-		text-align: center;
-		&-blocka{
-			display: block;
+		margin: 0px auto 50px;
+		// float: left;
+		height: 200px;
+		padding: 0px 3%;
+		&-item {
 			height: 100%;
 		}
-		&-jins{
-			@include atr(0px,0px);
-			@include sprite($img+'/jins.png', 60px, 60px);
-		}		
-		&-left{
-			box-sizing:border-box;
-			padding-left: 5%;
-			float: left;
-			width: 35%;
-			height: 75px;
-			&-curprice{
-				font-size: 18px;
-				color: #F13A3A;
-				line-height: 34px;
-				>span{
-					font-size: 32px;
-				}
-			}
-			&-oriprice{
-				color: $color999;
-				position: relative;
-				line-height: 22px;
-				>i{
-					display: block;
-					position: absolute;
-					top: 50%;
-					left: 50%;
-					height: 1px;
-					width: 80px;
-					transform:translate(-50%,-50%);
-					border-top: 1px solid $color999;
-				}
-			}
-		}
-		&-right{
-			position: relative;
-			text-align: left;
-			float: right;
-			width: 65%;
-			height: 75px;
-			box-sizing: border-box;
-			padding-left: 10%;
-			margin-top: 2px;
-			&-sline{
-				width: 1px; 
-				display: inline-block;
-				background: $g-bordercolor;
-				height: 24px;
-				@include atl(20px,10px);
-			}
-			&-productcangory{
-				font-size: 16px;
-				margin-bottom: 5px;
-			}
-			&-productrange{
-				overflow: hidden;
-				>span{
-					float: left;
-					width: 63px; 
-					line-height: 17px; 
-					border-radius: 10px;
-					@include border($g-bordercolor);
-					text-align: center;
-					margin-right: 10px;
-					color: $color999;
-				}
-			}
-		}
-		&-down{
-			overflow: hidden;
-			clear: both;
-			border-top: 1px solid $g-bordercolor;
-			width: 90%;
-			line-height: 34px;
-			margin-left: 5%;
-			&:nth-child(2)>a,&:nth-child(3)>a{
-				background: #5883f2;
-			}
-			>span{
-				float: left;
-				color: $color999;
-				display: inline-block;
-			}
-			>a{
-				float: right;
-				border-radius: 15px;
-				background: #ff5a6b;
-				line-height: 20px;
-				padding: 0px 10px;
-				margin-top: 7px;
-				color: #ffffff;
-			}
-		}
+		//&-cover {
+		//	@extend %afull;
+		//}
 	}
+
 }
 .slider-hd-li{
     background-color:#e6e6e6;

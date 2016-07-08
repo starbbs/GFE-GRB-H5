@@ -2,7 +2,7 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'filters',
+	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'filters','hchart'
 ], function(
 	router, api, price, weixin, touchsliderBanner
 ) {
@@ -14,7 +14,6 @@ require([
 	//  $.cookie('gopToken', '1332f5bda22640db9e1f49583f5bb884'); //李鹏
 	// $.cookie('gopToken', '7ed37109ecf44a2ea18f1b410693a54a'); //王源
 	// $.cookie('gopToken', '09f83d1b82c74b048cda1978b51886a1'); //零娜
-
 	router.init(true);
 	//清除订单过去买果仁的存入内容
 	window.localStorage.removeItem("from");
@@ -120,152 +119,142 @@ require([
 		}
 	});
 
-	// 首页轮播图
-	api.static(function(data) {
-		if (data.status == 200) {
-			data.data.indexSlideAds.filter(function(val, index, arr) {
-				if (val.sources.indexOf('h5') != -1) {
-					homeVm.bannerImgArr.push(val);
-				}
-			});
-			touchsliderBanner.touchsliderFn();
-		}
-	});
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
 
 
-	/*
-		'use strict';
-		//字符串模板
-		
-		var name = 'kingswei',
-			time = '111111';
-		console.log(`我是${name},出生时间是${time}`);
-		console.log(`字符串模板${(function(){ return '---可以放函数---'})()}`);
-	*/
-
-
-	/*
-	//generator  return yield区别在于记忆功能
-	function* helloGenerator() {
-		yield console.log('1111');
-		yield console.log('2222');
-		yield console.log('3333');
-		yield console.log('4444');
-		yield console.log('5555');
-		yield console.log('6666');
-		yield console.log('7777');
-		yield console.log('8888');
-		yield console.log('9999');
-		yield console.log('0000');
-		return console.log('循环完成');
+	var chartHistory = $('#chart-history'); //历史
+	var chartHistoryData = [];
+	var chartHistoryDate = [];
+	var chartHistoryHandler = function (list) {
+		chartHistoryData.length = 0;
+		chartHistoryDate.length = 0;
+		list.forEach(function (item) {
+			chartHistoryData.push(item.price);
+			chartHistoryDate.push(item.date.replace(/^\d{4}-(\d{2})-(\d{2}).*$/, function (s, s1, s2) {
+				return s1 + '/' + s2;
+			}));
+		});
 	};
-	// helloGenerator GEN函数执行返回遍历接口对象
-	var Gfn = helloGenerator();
-	// console.log(Gfn);
-	for (let i = 0; i < 11; i++) {
-		Gfn.next();
-	}
-
-	for (let val of helloGenerator()) { //for of可执行具有itnerator接口对象
-		console.log('for of执行===' + val);
-	}
-
-	//==================generator 遍历接口
-	const flat = function*(arr) {
-		for (let i = 0; i < arr.length; i++) {
-			typeof arr[i] != 'number' ? yield * flat(arr[i]) : yield arr[i];
+	var chartSetting = function (data, date, flag) {
+		var max = Math.max.apply(Math, data);
+		var min = Math.min.apply(Math, data);
+		var setting = {
+			chart: {
+				// type: 'area'
+				// type: 'areaspline' // 带阴影的线
+				type: 'spline',
+				backgroundColor:"#f2f2f2"
+			},
+			colors: ['#3d70ee'],
+			title: {
+				text: ''
+			},
+			subtitle: {
+				text: ''
+			},
+			legend: {
+				x: 150,
+				y: 100,
+			},
+			xAxis: {
+				// showFirstLabel: false,
+				// showLastLabel: true,
+				// endOnTick: true,
+				// minTickInterval: 5,
+				// maxTickInterval: 2,
+				// maxPadding: 0.05,
+				// startOnTick: true,
+				tickInterval: (function () { // 间隔问题, 最终采用收尾式
+					// if (data.length < 8) {
+					// 	return 1;
+					// } else {
+					// 	return Math.round(data.length / 7);
+					// }
+					return data.length - 1;
+				})(),
+				tickWidth: 0,
+				tickmarkPlacement: 'on',
+				labels: {
+					formatter: function () {
+						return date[this.value];
+					}
+				},
+			},
+			yAxis: {
+				title: {
+					text: ''
+				},
+				tickInterval: (function () {
+					if ((max - min).toFixed(2) <= 0.01) {
+						return (max - min) * 10000000 * 0.9 / 10000000 < 0.01 ? 0.01 : ((max - min)* 0.9).toFixed(2);
+					} else if ((max - min).toFixed(2) < 0.08) {
+						return (max - min) * 10000000 * 0.5 / 10000000 < 0.01 ? 0.01 : ((max - min)* 0.5).toFixed(2);
+					} else {
+						return (max - min) * 10000000 * 0.3 / 10000000 < 0.01 ? 0.01 : ((max - min)* 0.3).toFixed(2);
+					}
+				})(),
+				labels: {
+					formatter: function () {
+						if (flag == "annual") {
+							return this.value.toFixed(2) * 1000000 * 100 / 1000000;
+						} else {
+							return this.value.toFixed(2);
+						}
+					}
+				}
+			},
+			plotOptions: {
+				series: {
+					marker: {
+						enabled: false // 去掉线上的点
+					}
+				}
+			},
+			series: [{
+				data: data
+			}]
+		};
+		if (max === min) { // 相等时加辅助线
+			var fun = function (value) {
+				return {
+					color: '#C0C0C0',
+					dashStyle: 'solid',
+					width: 0.5,
+					value: value,
+					label: {
+						text: avalon.filters.fix(value),
+						x: -30,
+						y: 5,
+						style: {
+							fontSize: 11,
+							color: '#666'
+						}
+					},
+				}
+			};
+			setting.yAxis.plotLines = [
+				fun(max - 0.5 / 3 * 1),
+				fun(max - 0.5 / 3 * 2),
+				fun(max + 0.5 / 3 * 1),
+				fun(max + 0.5 / 3 * 2),
+			];
 		}
+		return setting;
 	};
-	let arr = [
-		[1, 2, 3, 3, 3, 3, 3, 3, 3], 4, 5, 6, [7, 8, 9]
-	];
-	for (let val of flat(arr)) {
-		console.log(val);
-	}
-	*/
-
-
-	// promise实例 3   先检测token  再取果仁数  再取果仁现价  最后 算总RMB
-	//果仁现价
-
-	//创建promise对象
-	/*
-	var creatPromise = function(cnfn) {
-		return new Promise(function(reslove, reject) {
-			cnfn && cnfn(reslove, reject);
-		});
-	}
-	//获取果仁现价FN
-	var getpriceFN = function (reslove, reject) {
-		api.price(function(data) {
-			if (data.status == '200') {
-				reslove(data.data.price);
-			} else {
-				reject('错误');
-			}
-		});
-	};
-	var getGopnum = function(reslove, reject){
-		api.getGopNum({
-			gopToken: gopToken
-		}, function(data) {
+	var chartHistorySet = function () {
+		api.historyPrice({
+			historyDay: 30,
+			gopToken:gopToken
+		}, function (data) {
 			if (data.status == 200) {
-				reslove(data.data.gopNum);
+				chartHistoryHandler(data.data.list);
+				chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
 			} else {
-				reject('错误');
+				// $.alert(data.msg);
 			}
-		});		
-	};
-	var getPrice = creatPromise(getpriceFN).then(function(price){
-		console.log(price);
-		return creatPromise(getGopnum);
-	}).then(function(gopnum){
-		console.log(gopnum);
-	});
-	*/
-
-
-	/*	
-	'use strict';
-	// promise实例 1
-	var promise = [1,2,3,4,5].map((id)=>{
-		var op = new Promise(function(reslove,reject){
-			reslove('promist-----'+id);
-		})
-		return op;
-	});
-
-	Promise.all(promise).then((text)=>{
-		console.log(text);
-	}).catch((errwhy)=>{
-		console.log('有错误'+errwhy)
-	});
-
-	// promise实例 2
-	var p = Promise.resolve('hello');  // 等价于 var p = new Promise((resolve,reject)=>resolve('hello'));
-	
-
-	
-
-
-	es6 箭头函数   add ([x,y]) => {return x+y;};
-		var add = (a, b) => a + b;
-		var valFN = (val) => console.log(val);		
-		console.log(add(1, 2)); //3
-
-		var add1 = (a, b) => {
-			return typeof a == 'number' && typeof b == 'number' ? a + b : 'a && b are not number';
-		}
-		console.log(add1(1, 3)); // 4
-
-		//匿名函数
-		setTimeout(() => {
-			console.log(add1(1, 3)); // 4
 		});
-	*/
-
-
+	};
+	chartHistorySet();
 });
