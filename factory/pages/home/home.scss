@@ -45,28 +45,48 @@ html {
 			width: 94%;
 			margin: 0 auto;
 			height: 100%;
-			margin-top: -15px;
+			margin-top: -20px;
 			display: none;
 			&-layer1{
 				color: $colorworldblue;
 			}
 			&-layer2{
-				font-size: 18px;
-				text-align: center;
+				width: 250px;
+				height: 65px;
 				color: $colorwhite;
-				margin-top: 15px;
+				text-align: center;
+				margin: 10px auto 0;
+				line-height: 20px;
+
+				&:after{
+					content: "";
+					clear: both;
+					width: 0;
+					height: 0;
+				}
+				.layer22{
+					font-size: 18px;
+					text-align: center;
+					float: left;
+					text-indent: 5px;
+					margin-top: 34px;
+				}
 				.rate-num{
+					float: left;
 					font-size: 60px;
 					color: #fdd654;
-					line-height: 80px;
+					line-height: 65px;
+					margin-left: 8px;
 				}
 				.rate-num-small{
+					margin-top: 34px;
+					float: left;
 					font-size: 18px;
 					color: #fdd654;
 				}
 			}
 			&-layer3{
-				background: rgba(0,0,0,.2);
+				background: rgba(64, 77, 150, 0.5);
 				color:rgba(255,255,255,.5);
 				width: 248px;
 				height: 20px;
@@ -84,7 +104,7 @@ html {
 				color: $colorwhite;
 				background: rgba(255,255,255,.1);
 				border-radius: 5px;
-				margin: 20px auto;
+				margin: 30px auto 0;
 				text-align: center;
 				font-size: 14px;
 			}
@@ -201,13 +221,43 @@ html {
 		margin: 0px auto 50px;
 		// float: left;
 		height: 200px;
-		padding: 0px 3%;
+		width: 94%;
 		&-item {
 			height: 100%;
 		}
 		&-cover {
 			@extend %afull;
 		}
+		.curr-price-tip{
+			display: none;
+			position: absolute;
+			width: 120px;
+			height: 30px;
+			line-height: 30px;
+			text-align: center;
+			color: white;
+			font-size: 12px;
+			border-radius: 15px;
+			background: #5674e7;
+		}
+		.curr-price-circle{
+			display: none;
+			position: absolute;
+			width: 10px;
+			height: 10px;
+			line-height: 10px;
+			box-sizing: border-box;
+			border-radius: 5px;
+			border: 2px solid #5674e7;
+			background: white;
+		}
+		.curr-price-span{
+			display: inline-block;
+			height: 12px;
+			line-height: 12px;
+			border-bottom: 1px solid white;
+		}
+
 	}
 
 }

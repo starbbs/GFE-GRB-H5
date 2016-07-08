@@ -71,7 +71,6 @@ require([
 		//预计年化收益
 		toggleBtnFn: function() { //切换样式Fn
 			var $this = $(this);
-			console.log(homeVm.curIndex);
 			if (this.className.indexOf('up') != -1) {
 				homeVm.curIndex = 2;
 				$this.removeClass('up').addClass('down');
@@ -90,52 +89,65 @@ require([
 	});
 
 	avalon.scan(main.get(0), homeVm);
-	api.getIncome({
-		gopToken: gopToken
-	}, function(data) {
-		if (data.status == '200') {
-			homeVm.totalInCome = data.data.totalIncome;
-			homeVm.yesterDayIncome = data.data.yesterdayIncome;
-		}
-	});
-	//果仁现价
-	api.price(function(data) {
-		if (data.status == '200') {
-			homeVm.gopNowPrice = data.data.price;
-		}
-	});
-
-	//获取果仁数
-	api.getGopNum({
-		gopToken: gopToken
-	}, function(data) {
-		if (data.status == 200) {
-			homeVm.myGopNum = data.data.gopNum;
-			if (homeVm.myGopNum > 0) {
-				homeVm.curIndex = 1;
+	if(gopToken){
+		api.getIncome({
+			gopToken: gopToken
+		}, function(data) {
+			if (data.status == '200') {
+				homeVm.totalInCome = data.data.totalIncome;
+				homeVm.yesterDayIncome = data.data.yesterdayIncome;
 			}
-		} else {
-			console.log(data);
-		}
-	});
+		});
+		//获取果仁数
+		api.getGopNum({
+			gopToken: gopToken
+		}, function(data) {
+			if (data.status == 200) {
+				homeVm.myGopNum = data.data.gopNum;
+				if (homeVm.myGopNum > 0) {
+					homeVm.curIndex = 1;
+				}
+			} else {
+			}
+		});
+	}
 
 	setTimeout(function() {
 		main.addClass('on');
 	}, 250);
+	/**
+	 * 设置 当前价格显示框位置
+	 * @param _point
+     */
+	function setCurrPrice(_point){
+		var left = _point.series.chart.plotLeft;
+		var top= _point.series.chart.plotTop;
+		var x = _point.plotX+left;
+		var y =  _point.plotY+top;
+		$("#curr_price_circle").css({
+			"left": (x-5)+"px",
+			"top":(y-5)+"px"
+		}).show();
+		$("#curr_price_tip").css({
+			"right": "5px",
+			"top":(y-40)+"px"
+		}).slideDown("fast");
 
-
+	}
 	var chartHistory = $('#chart-history'); //历史
 	var chartHistoryData = [];
 	var chartHistoryDate = [];
-	var chartHistoryHandler = function (list) {
+	var chartHistoryHandler = function (list,currPrice) {
 		chartHistoryData.length = 0;
 		chartHistoryDate.length = 0;
+
 		list.forEach(function (item) {
 			chartHistoryData.push(item.price);
 			chartHistoryDate.push(item.date.replace(/^\d{4}-(\d{2})-(\d{2}).*$/, function (s, s1, s2) {
 				return s1 + '/' + s2;
 			}));
 		});
+		chartHistoryData[chartHistoryData.length-1] = currPrice;
 	};
 	var chartSetting = function (data, date, flag) {
 		var max = Math.max.apply(Math, data);
@@ -145,7 +157,16 @@ require([
 				// type: 'area'
 				// type: 'areaspline' // 带阴影的线
 				type: 'spline',
-				backgroundColor:"#f2f2f2"
+				backgroundColor:"#f2f2f2",
+				events:{
+					load:function(){
+						var point = this.series[0].data[chartHistoryData.length-1];
+						setTimeout(function(){
+							setCurrPrice(point);
+						},1000);
+
+					}
+				}
 			},
 			colors: ['#3d70ee'],
 			title: {
@@ -157,10 +178,12 @@ require([
 			legend: {
 				x: 150,
 				y: 100,
+				// align: 'top',
+				// verticalAlign: 'top'
 			},
 			xAxis: {
 				// showFirstLabel: false,
-				// showLastLabel: true,
+				showLastLabel: true,
 				// endOnTick: true,
 				// minTickInterval: 5,
 				// maxTickInterval: 2,
@@ -214,7 +237,12 @@ require([
 			},
 			series: [{
 				data: data
-			}]
+			}],
+			tooltip: {
+				formatter: function() {
+					return this.x +"的价格为:" +this.y + '元';
+				}
+			}
 		};
 		if (max === min) { // 相等时加辅助线
 			var fun = function (value) {
@@ -245,12 +273,19 @@ require([
 	};
 	var chartHistorySet = function () {
 		api.historyPrice({
-			historyDay: 30,
-			gopToken:gopToken
+			historyDay: 30
 		}, function (data) {
+			var historylist = data.data.list
 			if (data.status == 200) {
-				chartHistoryHandler(data.data.list);
-				chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
+				//果仁现价
+				api.price(function(data) {
+					if (data.status == '200') {
+						homeVm.gopNowPrice = data.data.price;
+						chartHistoryHandler(historylist,data.data.price);
+						chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
+
+					}
+				});
 			} else {
 				// $.alert(data.msg);
 			}
