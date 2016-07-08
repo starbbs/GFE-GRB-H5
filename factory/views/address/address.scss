@@ -9,13 +9,38 @@
 	$w: set(96);
 	&-mine {
 		@extend .view-style;
+		@extend .scroll;
 		&-banner{
 		    width: 100%;
+		    display: block;
 		}
 		.block-item{
 		    margin-left: 0px;
 		    padding-left: 15px;
 		    background-color: #FFFFFF;
+		    .address_del{
+		        width: 50px;
+		        height: 30px;
+		        font-size: 14px;
+		        color: #CCCCCC;
+		        border: 1px solid #CCCCCC;
+		        outline: none;
+		        background: none;
+		        float: right;
+		        border-radius: 5px;
+		    }
+		}
+		&-tips{
+		    &-title{
+		        font-size: 16px;
+		        text-align: center;
+		        margin-top: 47px;
+		        margin-bottom: 20px;
+		    }
+		    p{
+		        font-size: 12px;
+		        text-align: center;
+		    }
 		}
 	}
 	&-wallet {
@@ -57,9 +82,11 @@
 		}
 	}
 	&-bottom-tips {
-		@extend %ablw;
-		margin-bottom: 50px;
-		color: $g-gray;
+	    margin-top: 20px;
+	    margin-bottom: 50px;
+//		@extend %ablw;
+//		margin-bottom: 50px;
+		color: #999999;
 		span {
 			display:block;
 			text-align:center;			

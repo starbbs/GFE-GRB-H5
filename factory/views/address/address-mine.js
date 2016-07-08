@@ -64,6 +64,11 @@ define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'url', '
                         console.log(data);
                     }
                 });
+            },
+            transferToMarket: function(){
+            		if(vm.hasMarketAddress){
+            			window.location.href = "transfer.html?cangory=GOP_MARKET";
+            		}
             }
         });
 
