@@ -159,6 +159,7 @@ html {
 		-webkit-border-radius: 10px;
 		-moz-border-radius: 10px;
 		border-radius: 10px;
+		box-shadow: 0px 1px 5px rgba(0,0,0,.4);
 		&-buy,&-transfer{
 			color: #777777;
 			float: left;
@@ -204,9 +205,9 @@ html {
 		&-item {
 			height: 100%;
 		}
-		//&-cover {
-		//	@extend %afull;
-		//}
+		&-cover {
+			@extend %afull;
+		}
 	}
 
 }
