@@ -17,8 +17,8 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 		go: function() { // 进入授权页
 			setTimeout(function(){
 				//替换之前pushState的方案,改为replaceState,pushstate在部分手机上会引起进入我的页面之后切换不回到我的页面。
-				var stateObj = {foo:"bar"}
-				history.replaceState(stateObj, "pageme", "./linkhome.html");
+				var stateObj = {foo:"bar333"}
+				history.replaceState(stateObj, "pageme3", "./home.html");
 				window.location.href = this.set(this.main, url.basename);
 			}.bind(this),100);
 		},
