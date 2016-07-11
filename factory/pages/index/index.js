@@ -25,7 +25,7 @@ require([
         setTimeout(function () {
             //修改当前url使返回之后返回到首页,防止出现返回又跳转到登录页面的情况
             var stateObj = {foo:"bar"}
-            history.replaceState(stateObj, "pageme", "./home.html");
+            history.replaceState(stateObj, "pageme", "./linkhome.html");
             location.href = "./login.html";
             document.title = '绑定手机号';
         }, 100);

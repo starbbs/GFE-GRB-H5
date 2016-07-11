@@ -16,7 +16,7 @@ require([
 	var gotoHome = function() {
 		//跳转到新页面之前,修改当前路径为login,防止返回到登录页面。
 		var stateObj = {foo:"bar"}
-		history.replaceState(stateObj, "pageme", "./home.html");
+		history.replaceState(stateObj, "pageme", "./linkhome.html");
 		authorization.goGet();
 	};
 	var init = function() {
