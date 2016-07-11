@@ -30,6 +30,21 @@
 		        border-radius: 5px;
 		    }
 		}
+		.tip{
+            padding-left: 15px;	
+            line-height: 30px;
+            height: 30px;	
+		    &-icon{
+		        float: left;
+		        @include sprite($img + '/tip.png', 16px);
+		        margin-top: 7px;
+		    }
+		    &-cont{
+		        float: left;
+		        font-size: 12px;
+		        margin-left: 5px;
+		    }
+		}
 		&-tips{
 		    &-title{
 		        font-size: 16px;
