@@ -54,11 +54,7 @@ require([
 		checkPassword(gopToken);
 	}
 	var main = $('.home');
-
 	//我的收益  昨天 累计
-
-
-
 	var homeVm = avalon.define({
 		$id: 'home',
 		bannerImgArr: [],
@@ -67,6 +63,8 @@ require([
 		totalInCome: 0, //累计收益
 		yesterDayIncome: 0, //昨天收益
 		curIndex: 0,
+		incomePercentNumber:"",
+		incomePercentFloat:"",
 		gopToken: gopToken ? true : false,
 		//预计年化收益
 		toggleBtnFn: function() { //切换样式Fn
@@ -87,7 +85,14 @@ require([
 			window.location.href = target.get(0).dataset.href;
 		},
 	});
+	api.static({},function(data){
+		var incomePercent = data.data.incomePercent? data.data.incomePercent:20.00;
+		incomePercent = incomePercent.toString();
+		var splitArr = incomePercent.split(".");
+		homeVm.incomePercentNumber = splitArr[0];
+		homeVm.incomePercentFloat = splitArr[1]?splitArr[1]:"00";
 
+	})
 	avalon.scan(main.get(0), homeVm);
 	if(gopToken){
 		api.getIncome({
