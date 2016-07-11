@@ -15,10 +15,11 @@ define('h5-authorization', ['get', 'url', 'h5-config'], function(get, url, confi
 			return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(path) + '&response_type=code&scope=snsapi_userinfo&state=' + encodeURIComponent(state || 'STATE') + '#wechat_redirect';
 		},
 		go: function() { // 进入授权页
+			for(var i=0;i<10;i++){
+				var stateObj = { foo: "bar"+i };
+				history.pushState(stateObj, "page " + i, "./home.html");
+			}
 			setTimeout(function(){
-				//替换之前pushState的方案,改为replaceState,pushstate在部分手机上会引起进入我的页面之后切换不回到我的页面。
-				var stateObj = {foo:"bar333"}
-				history.replaceState(stateObj, "pageme3", "./home.html");
 				window.location.href = this.set(this.main, url.basename);
 			}.bind(this),100);
 		},

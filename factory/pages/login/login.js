@@ -15,8 +15,10 @@ require([
 	var unionid=localStorage.getItem("unionid"); // 判断微信是否和手机绑定的id
 	var gotoHome = function() {
 		//跳转到新页面之前,修改当前路径为login,防止返回到登录页面。
-		var stateObj = {foo:"bar11"}
-		history.replaceState(stateObj, "pageme1", "./home.html");
+		for(var i=0;i<10;i++){
+			var stateObj = { foo: "bar"+i };
+			history.pushState(stateObj, "page " + i, "./home.html");
+		}
 		authorization.goGet();
 	};
 	var init = function() {
