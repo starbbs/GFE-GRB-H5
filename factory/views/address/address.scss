@@ -105,10 +105,10 @@
 		}
 	}
 	&-bottom-tips {
-	    margin-top: 20px;
-	    margin-bottom: 50px;
-//		@extend %ablw;
-//		margin-bottom: 50px;
+//	    margin-top: 20px;
+//	    margin-bottom: 50px;
+		@extend %ablw;
+		margin-bottom: 50px;
 		color: #999999;
 		span {
 			display:block;
