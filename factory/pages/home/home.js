@@ -152,7 +152,9 @@ require([
 				return s1 + '/' + s2;
 			}));
 		});
-		chartHistoryData[chartHistoryData.length-1] = currPrice;
+		if(currPrice){
+			chartHistoryData[chartHistoryData.length-1] = currPrice;
+		}
 	};
 	var chartSetting = function (data, date, flag) {
 		var max = Math.max.apply(Math, data);
@@ -287,9 +289,10 @@ require([
 					if (data.status == '200') {
 						homeVm.gopNowPrice = data.data.price;
 						chartHistoryHandler(historylist,data.data.price);
-						chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
-
+					}else{
+						chartHistoryHandler(historylist,false);
 					}
+					chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
 				});
 			} else {
 				// $.alert(data.msg);
