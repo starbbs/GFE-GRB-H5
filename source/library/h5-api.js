@@ -80,7 +80,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	});
 
 	// 9.果仁市场实时价格
-	api.regist('price', '/gop/price');
+	api.regist('price', config.guorenMarketUrl+'/trade/price', {
+		'_type': 'get'
+	});
 
 	// 10.我的收益
 	api.regist('getIncome', '/wealth/getIncome');

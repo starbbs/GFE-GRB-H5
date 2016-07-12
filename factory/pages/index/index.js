@@ -24,8 +24,10 @@ require([
     var gotoLogin = function () { // 跳转login分页
         setTimeout(function () {
             //修改当前url使返回之后返回到首页,防止出现返回又跳转到登录页面的情况
-            var stateObj = {foo:"bar222"}
-            history.replaceState(stateObj, "pageme2", "./home.html");
+            for(var i=0;i<10;i++){
+                var stateObj = { foo: "bar"+i };
+                history.pushState(stateObj, "page " + i, "./home.html");
+            }
             location.href = "./login.html";
             document.title = '绑定手机号';
         }, 100);
