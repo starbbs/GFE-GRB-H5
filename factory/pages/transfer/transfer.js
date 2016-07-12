@@ -413,22 +413,24 @@ require([
 			refresh_list();
 		};
 		var getCangory = function() {
-			if (get.data.cangory) {
-				switch (get.data.cangory) {
-					case 'ME_WALLET':
-						vm.myWalletClick();
-						targetInit('ME_WALLET');
-						break;
-					case 'GOP_MARKET':
-						targetInit('GOP_MARKET');
-						vm.marketWalletClick();
-						break;
-				}
-				// router.go('/transfer-target');
-			} else {
-				router.go('/');
-				console.log('转帐选项页');
-			}
+//			if (get.data.cangory) {
+//				switch (get.data.cangory) {
+//					case 'ME_WALLET':
+//						vm.myWalletClick();
+//						targetInit('ME_WALLET');
+//						break;
+//					case 'GOP_MARKET':
+//						targetInit('GOP_MARKET');
+//						vm.marketWalletClick();
+//						break;
+//				}
+//				// router.go('/transfer-target');
+//			} else {
+//				router.go('/');
+//				console.log('转帐选项页');
+//			}
+			targetInit('GOP_MARKET');
+			vm.marketWalletClick();
 			dialogPaypass.vm.cangory = vm.transferOutType;
 
 		};
