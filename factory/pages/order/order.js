@@ -5,22 +5,20 @@
 
 require([
     'h5-login-judge', 'h5-api', 'get', 'router',
-    'h5-view', 'h5-view-bill',
+    'h5-view', 'mathtool', 'h5-view-bill',
     'h5-price', 'h5-ident', 'h5-component-bill',
     'h5-dialog-paypass', 'filters', 'h5-order-judge', 'h5-dialog-confirm', 'url', 'h5-view-coupon',
     'h5-weixin', 'h5-paypass-judge-auto'
-], function(loginJudge, api, get, router,
-    View, billView,
-    price, H5Ident, H5Bill,
-    dialogPaypass, filters, orderJudge, dialogConfirm, url, CouponJSON) {
-    loginJudge.check(function() {
+], function (loginJudge, api, get, router,
+             View,mathtool, billView,
+             price, H5Ident, H5Bill,
+             dialogPaypass, filters, orderJudge, dialogConfirm, url, CouponJSON) {
+    loginJudge.check(function () {
         //do notheing
         router.init(true);
-
         var main = $('.order');
         var gopToken = $.cookie('gopToken');
         var identInput = $('#order-ident');
-
         var vm = avalon.define({
             $id: 'order',
             hasBill: false, //是否已经生成定单
@@ -52,7 +50,7 @@ require([
              },
              */
             gopMoney: 0, //所用果仁折合人民币
-            gopExchange: function() { // 换算gopMoney
+            gopExchange: function () { // 换算gopMoney
                 //vm.gopNum 小数点后为数据库返回的六位小数
                 if (vm.gopNum * vm.gopPrice >= vm.money) { // 够支付
                     // vm.rmbUse = 0;
@@ -60,22 +58,22 @@ require([
                         vm.gopUse = vm.money / vm.gopPrice;
                         vm.gopMoney = vm.money;
                     } else {
-                        var gopUse = vm.money / vm.gopPrice - vm.couponRmbNum / vm.gopPrice;
+                        var gopUse = mathtool.reduce(mathtool.division(vm.money, vm.gopPrice), mathtool.division(vm.couponRmbNum, vm.gopPrice));
                         vm.gopUse = gopUse <= 0 ? 0 : gopUse;
                     }
                     // vm.ifConfirmPay = true;
                 } else {
                     // vm.rmbUse = vm.money - vm.gopNum * vm.gopPrice;
-                    var gopUse = vm.money / vm.gopPrice - vm.couponRmbNum / vm.gopPrice;
+                    var gopUse = mathtool.reduce(mathtool.division(vm.money, vm.gopPrice), mathtool.division(vm.couponRmbNum, vm.gopPrice));
                     vm.gopUse = gopUse <= 0 ? 0 : gopUse;
-                    vm.gopMoney = vm.gopNum * vm.gopPrice;
+                    vm.gopMoney = mathtool.multiplication(vm.gopNum, vm.gopPrice);
                     // vm.ifConfirmPay = false;
                 }
             },
             // ifConfirmPay: false,
-            confirmPay: function() { // 确认支付
+            confirmPay: function () { // 确认支付
                 // 确认支付   orderJudge.KWQ_checkRMB(定单所有RMB数 , 优惠券RMB数(可以不传) , 回调函数)
-                orderJudge.KWQ_checkRMB(filters.fix(vm.money), vm.couponRmbNum, function(status, gopPrice, myGopNum) {
+                orderJudge.KWQ_checkRMB(filters.fix(vm.money), vm.couponRmbNum, function (status, gopPrice, myGopNum) {
                     // status = 'gopNumNo';
                     if (status == 'gopNumOk') {
                         if (vm.hasBill) {
@@ -86,29 +84,29 @@ require([
                             createBill(paypassShow);
                         }
                     } else {
-                        dialogConfirm.set('您的果仁不足是否购买？',{okBtnText:'是',cancelBtnText:"否"});
+                        dialogConfirm.set('您的果仁不足是否购买？', {okBtnText: '是', cancelBtnText: "否"});
                         dialogConfirm.show();
-                        dialogConfirm.onConfirm = function() {
+                        dialogConfirm.onConfirm = function () {
                             window.localStorage.setItem('from', url.basename);
                             window.localStorage.setItem('id', get.data.id);
-                            window.localStorage.setItem('phone',get.data.phone);
+                            window.localStorage.setItem('phone', get.data.phone);
                             window.location.href = 'purchase.html#!/';
                         };
                     }
                 });
             },
-            couponClick: function() {
+            couponClick: function () {
                 router.go('/coupon-list');
             }
         });
         //列表点击事件
-        CouponJSON.couponListView.VM.onClickFn = function(ev) {
+        CouponJSON.couponListView.VM.onClickFn = function (ev) {
             var target = $(ev.target).closest('.coupon-list-li');
             if (target.length) {
                 var json = target.get(0).dataset;
                 if (json.voucherstatus === 'AVAILABLE') {
                     vm.couponRmbName = json.voucherstatus === 'AVAILABLE' ? json.vouchername : '无可用现金抵扣券';
-                    vm.moneyUse = (vm.money - json.voucheramount) <= 0 ? 0 : (vm.money - json.voucheramount);
+                    vm.moneyUse = (vm.money - json.voucheramount) <= 0 ? 0 : mathtool.reduce(vm.money, json.voucheramount);
                     vm.couponRmbNum = json.voucheramount;
                     vm.voucherId = json.voucherid;
                     vm.gopExchange();
@@ -119,19 +117,19 @@ require([
         };
 
         document.title = {
-            phonecharge: '订单-手机充值', // 来自手机充值
-            loverelay: '订单-爱心接力', // 来自爱心接力
-        }[get.data.from] || '果仁宝-订单'; // 未知来源
+                phonecharge: '订单-手机充值', // 来自手机充值
+                loverelay: '订单-爱心接力', // 来自爱心接力
+            }[get.data.from] || '果仁宝-订单'; // 未知来源
 
-        billView.onFinish = function() { // 返回首页点击时露底问题
+        billView.onFinish = function () { // 返回首页点击时露底问题
             main.hide();
         };
 
         // 支付并跳转bill 分页
-        var paypassShow = function() {
+        var paypassShow = function () {
             dialogPaypass.show();
             //支付浮层消失的回调
-            dialogPaypass.vm.callback = function(value) {
+            dialogPaypass.vm.callback = function (value) {
                 // 支付密码校验成功
                 api.pay({
                     gopToken: gopToken, // token
@@ -144,7 +142,7 @@ require([
                     bill99ValidCode: '803585',
                     bill99token: '1330872',
                     voucherId: vm.voucherId
-                }, function(data) {
+                }, function (data) {
                     if (data.status == 200) {
                         router.to('/bill');
                         billView.set('PAY', vm.consumeOrderId, {
@@ -163,13 +161,13 @@ require([
         };
 
         // 创建账单
-        var createBill = function(dbfn) {
+        var createBill = function (dbfn) {
             if (vm.confirmCangory === '话费') {
                 api.phoneRecharge({
                     gopToken: gopToken,
                     productId: vm.confirmId,
                     phone: vm.confirmPhone
-                }, function(data) {
+                }, function (data) {
                     if (data.status == 200) {
                         vm.hasBill = true;
                         vm.consumeOrderId = data.data.consumeOrderId;
@@ -183,7 +181,7 @@ require([
                     gopToken: gopToken,
                     productId: vm.confirmId,
                     phone: vm.confirmPhone
-                }, function(data) {
+                }, function (data) {
                     if (data.status == 200) {
                         vm.hasBill = true;
                         vm.consumeOrderId = data.data.consumeOrderId;
@@ -197,11 +195,11 @@ require([
 
         // bill            根据定单ID   优惠券 商品信息 价格
         // phonecharge     根据商品ID   优惠券 商品信息 价格
-        var getDataFromBill = function() {
+        var getDataFromBill = function () {
             if (get.data.id) { // 有订单ID, 跳转订单详情
                 vm.consumeOrderId = get.data.id;
                 billView.set('PAY', get.data.id, {
-                    onRequest: function(data) {
+                    onRequest: function (data) {
                         if (data.status == 200) {
                             var order = data.data.consumeOrder; // 订单信息
                             var product = data.data.product; // 产品信息
@@ -210,7 +208,7 @@ require([
                             if (order.status === 'PROCESSING' && !record.length) { // 进行中(未付款)
                                 // 打开页面
                                 router.to('/');
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     main.addClass('on');
                                 }, 100);
                                 // 刷新数据
@@ -222,11 +220,11 @@ require([
                                 //vm.orderCode = order.orderCode;
                                 vm.couponRmbName = availableVoucher ? availableVoucher.voucherName : "无可用卡券";
                                 vm.couponRmbNum = availableVoucher ? availableVoucher.voucherAmount : 0;
-                                vm.moneyUse = vm.couponRmbName === "无可用卡券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? vm.money - availableVoucher.voucherAmount : '0.00');
+                                vm.moneyUse = vm.couponRmbName === "无可用卡券" ? vm.money : (vm.money - availableVoucher.voucherAmount > 0 ? mathtool.reduce(vm.money, availableVoucher.voucherAmount) : '0.00');
                                 vm.voucherId = availableVoucher ? availableVoucher.id : '';
                                 vm.hasBill = true;
                                 vm.gopExchange();
-                                api.getselloneprice({}, function(data) {
+                                api.getselloneprice({}, function (data) {
                                     vm.gopPrice = data.optimumSellPrice;
                                     vm.gopExchange();
                                 })
@@ -243,7 +241,7 @@ require([
             }
         };
 
-        var getDataFromPhonecharge = function() {
+        var getDataFromPhonecharge = function () {
             if (get.data.id) {
                 var index = 0;
                 vm.confirmId = get.data.id;
@@ -253,7 +251,7 @@ require([
                 api.getProductInfor({
                     'gopToken': gopToken,
                     'productId': get.data.id
-                }, function(data) {
+                }, function (data) {
                     var productInfor = data.data.product;
                     // 刷新  商品信息数据
                     vm.productDesc = productInfor.productDesc;
@@ -262,59 +260,63 @@ require([
                     vm.confirmCangory = productInfor.productName.slice(0, 2); //消费商品类别
                     if (index === 3) {
                         vm.gopExchange();
-                    };
+                    }
+                    ;
                     index++;
                     getMaxVoucher();
                 });
 
                 // 刷新 最大可用优惠券
-               var getMaxVoucher = function(){
-	               	api.myOrderVoucherList({
-	                    gopToken: gopToken,
-	                }, function(data) {
-	                    var myOrderVoucherList = data.data.available;
-	                    // 最大可用优惠券
-	                    var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.sort(function(item1, item2) {
-	                        return item2.voucherAmount - item1.voucherAmount;
-	                    })[0];
-	
-	                    vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用卡券"; //优惠券名字
-	                    vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0; // 优惠券 金额
-	                    vm.moneyUse = vm.couponRmbName === "无可用卡券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? vm.money - myOrderMaxVoucher.voucherAmount : '0.00'); // 商品价格RMB
-	                   vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : ''; // 优惠券ID
-	                    vm.hasBill = false; //是否已生成账单信号   
-	                    if (index === 3) {
-	                        vm.gopExchange();
-	                    };
-	                    index++;
-	                });
-               } 
+                var getMaxVoucher = function () {
+                    api.myOrderVoucherList({
+                        gopToken: gopToken,
+                    }, function (data) {
+                        var myOrderVoucherList = data.data.available;
+                        // 最大可用优惠券
+                        var myOrderMaxVoucher = myOrderVoucherList.length && myOrderVoucherList.sort(function (item1, item2) {
+                                return item2.voucherAmount - item1.voucherAmount;
+                            })[0];
+
+                        vm.couponRmbName = myOrderMaxVoucher ? myOrderMaxVoucher.voucherName : "无可用卡券"; //优惠券名字
+                        vm.couponRmbNum = myOrderMaxVoucher ? myOrderMaxVoucher.voucherAmount : 0; // 优惠券 金额
+                        vm.moneyUse = vm.couponRmbName === "无可用卡券" ? vm.money : (vm.money - myOrderMaxVoucher.voucherAmount > 0 ? mathtool.reduce(vm.money, myOrderMaxVoucher.voucherAmount) : '0.00'); // 商品价格RMB
+                        vm.voucherId = myOrderMaxVoucher ? myOrderMaxVoucher.id : ''; // 优惠券ID
+                        vm.hasBill = false; //是否已生成账单信号
+                        if (index === 3) {
+                            vm.gopExchange();
+                        }
+                        ;
+                        index++;
+                    });
+                }
 
                 // 获取卖1价
-                api.getselloneprice({}, function(data) {
+                api.getselloneprice({}, function (data) {
                     vm.gopPrice = data.optimumSellPrice; //果仁现价
                     if (index === 3) {
                         vm.gopExchange();
-                    };
+                    }
+                    ;
                     index++;
                 });
 
                 //获取果仁数
                 api.getGopNum({
                     gopToken: gopToken,
-                }, function(data) {
+                }, function (data) {
                     if (data.status == 200) {
                         vm.gopNum = data.data.gopNum;
                         if (index === 3) {
                             vm.gopExchange();
-                        };
+                        }
+                        ;
                         index++;
                     } else {
                         console.log(data);
                     }
                 });
 
-                setTimeout(function() {
+                setTimeout(function () {
                     main.addClass('on')
                 }, 200);
             } else {
@@ -322,7 +324,7 @@ require([
             }
         };
 
-        var init = function() {
+        var init = function () {
             if (get.data.from === 'bill') {
                 getDataFromBill();
                 console.log('来自bill,已经生成过定单了');
@@ -335,7 +337,6 @@ require([
         init();
 
         avalon.scan();
-
 
 
         /*
