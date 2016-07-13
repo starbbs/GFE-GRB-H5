@@ -285,13 +285,9 @@ require([
 			var historylist = data.data.list
 			if (data.status == 200) {
 				//果仁现价
-				api.price(function(data) {
-					if (data.status == '200') {
-						homeVm.gopNowPrice = data.data.price;
-						chartHistoryHandler(historylist,data.data.price);
-					}else{
-						chartHistoryHandler(historylist,false);
-					}
+				api.getselloneprice(function(data) {
+					homeVm.gopNowPrice = data.optimumBuyPrice;
+					chartHistoryHandler(historylist,data.optimumBuyPrice);
 					chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
 				});
 			} else {
