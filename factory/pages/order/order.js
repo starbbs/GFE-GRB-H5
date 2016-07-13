@@ -22,6 +22,7 @@ require([
         var vm = avalon.define({
             $id: 'order',
             hasBill: false, //是否已经生成定单
+            isLoading:false,
             money: 0, // RMB总金额
             phone: '', // 要发送验证码的电话
             productDesc: '', // 订单内容
@@ -33,6 +34,7 @@ require([
             orderCode: '',
             couponRmbNum: 0, //优惠券RMB
             couponRmbName: '', //优惠券名称
+            orderBtnText:'确认支付',
             moneyUse: 0, //实付金额
             voucherId: '', //优惠券id
             confirmCangory: '', // 消费类型 话费 || 流量
@@ -72,6 +74,10 @@ require([
             },
             // ifConfirmPay: false,
             confirmPay: function () { // 确认支付
+                if(vm.isLoading){
+                    $.alert("订单处理中");
+                    return false;
+                }
                 // 确认支付   orderJudge.KWQ_checkRMB(定单所有RMB数 , 优惠券RMB数(可以不传) , 回调函数)
                 orderJudge.KWQ_checkRMB(filters.fix(vm.money), vm.couponRmbNum, function (status, gopPrice, myGopNum) {
                     // status = 'gopNumNo';
@@ -130,6 +136,8 @@ require([
             dialogPaypass.show();
             //支付浮层消失的回调
             dialogPaypass.vm.callback = function (value) {
+                vm.orderBtnText = "订单处理中...";
+                vm.isLoading = true;
                 // 支付密码校验成功
                 api.pay({
                     gopToken: gopToken, // token
@@ -143,6 +151,8 @@ require([
                     bill99token: '1330872',
                     voucherId: vm.voucherId
                 }, function (data) {
+                    vm.orderBtnText = "确认支付";
+                    vm.isLoading = false;
                     if (data.status == 200) {
                         router.to('/bill');
                         billView.set('PAY', vm.consumeOrderId, {
