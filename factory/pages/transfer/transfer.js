@@ -263,6 +263,7 @@ require([
 						}, function(data) { // 转账成功
 							//console.log(data);
 							if (data.status == 200) {
+								
 								var nowData = {};
 								nowData.successFlag = true;
 								if (transferTarget.address) {
@@ -279,7 +280,7 @@ require([
 									ifReturnHome: true
 								});
 								router.go('/bill');
-								init();
+								//init();
 							} else {
 								console.log(data);
 								$.alert(data.msg);
