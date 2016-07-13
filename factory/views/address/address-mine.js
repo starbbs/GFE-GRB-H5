@@ -71,7 +71,9 @@ define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'url','h
             },
             transferToMarket: function(){
             		if(vm.hasMarketAddress){
-            			history.replaceState(null,'',"mine.html");
+            			if(url.filename === 'mine.html'){
+            				history.replaceState(null,'',"mine.html");
+            			}
             			window.location.href = "transfer.html?cangory=GOP_MARKET";
             		}
             }
