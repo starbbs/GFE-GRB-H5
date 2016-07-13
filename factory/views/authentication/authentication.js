@@ -32,8 +32,7 @@ define('h5-view-authentication', ['h5-view', 'h5-api','h5-dialog-alert','router'
 							$('.authed').addClass('on');
 						}
 					} else {
-						console.log(data);
-						$.alert('身份证号或名字错误');
+						$.alert(data.msg);
 					}
 				});
 			} else {
