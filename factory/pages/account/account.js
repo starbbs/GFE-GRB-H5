@@ -229,7 +229,7 @@ require([
         };
         function getShowTime(_time){
             if(parseInt(_time)<10){
-                return "0"+_time;
+                return "0"+parseInt(_time);
             }
             return _time;
         }
