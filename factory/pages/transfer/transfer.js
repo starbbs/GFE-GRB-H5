@@ -191,14 +191,16 @@ require([
 				if (!this.value) {
 					return;
 				}
-				if ((parseFloat(this.value) === 0 && this.value != '0' && this.value != '0.' && this.value != '0.0') || this.value === '') {
+//				if ((parseFloat(this.value) === 0 && this.value != '0' && this.value != '0.' && this.value != '0.0') || this.value === '') {
+				var reg = new RegExp("^[1-9][0-9]{0,3}\.?[0-9]*$"); //非零开头的整数
+				var reg2 = /^0(\.\d+)?$/g; 
+				if(!reg.test(this.value) && !reg2.test(this.value)){
 					// inputTimer = setTimeout(function(){
 					$.alert('请输入正确的数量');
 					transferTarget.notchecked = true;
 					// },800);
 					return;
 				}
-
 				transferTarget.notchecked = false;
 				var whether_include_numrice = this.value.indexOf(".");
 				if (whether_include_numrice != -1) {
@@ -210,9 +212,16 @@ require([
 			},
 			//确定转帐按钮
 			transferCommitClick: function() {
+				var value = parseFloat(transferTarget.transferNum);
 				// console.log(transferTarget.notchecked);
 				// console.log(typeof transferTarget.transferNum);
 				if (transferTarget.notchecked) {
+					return;
+				}
+				var reg = new RegExp("^[1-9][0-9]{0,3}\.?[0-9]*$"); //非零开头的整数
+				var reg2 = /^0\.\d+$/g; 
+				if(!reg.test(value) && !reg2.test(value) && value <= 0){
+					$.alert('请输入正确的数量');
 					return;
 				}
 				var val = transferTarget.content;
