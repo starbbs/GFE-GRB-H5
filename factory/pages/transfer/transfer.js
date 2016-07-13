@@ -193,7 +193,8 @@ require([
 				}
 //				if ((parseFloat(this.value) === 0 && this.value != '0' && this.value != '0.' && this.value != '0.0') || this.value === '') {
 				var reg = new RegExp("^[1-9][0-9]{0,3}\.?[0-9]*$"); //非零开头的整数
-				var reg2 = /^0(\.\d+)?$/g; 
+				var reg2 = /^0(\.\d*)?$/g; 
+				//alert(!reg.test(this.value)+"**"+!reg2.test(this.value));
 				if(!reg.test(this.value) && !reg2.test(this.value)){
 					// inputTimer = setTimeout(function(){
 					$.alert('请输入正确的数量');
