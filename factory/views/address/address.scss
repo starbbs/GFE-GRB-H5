@@ -9,6 +9,65 @@
 	$w: set(96);
 	&-mine {
 		@extend .view-style;
+		@extend .scroll;
+		&-banner{
+		    width: 100%;
+		    display: block;
+		}
+		.block-item{
+		    margin-left: 0px;
+		    padding-left: 15px;
+		    background-color: #FFFFFF;
+		    .address_del{
+		        width: 50px;
+		        height: 30px;
+		        font-size: 14px;
+		        color: #CCCCCC;
+		        border: 1px solid #CCCCCC;
+		        outline: none;
+		        background: none;
+		        float: right;
+		        border-radius: 5px;
+		    }
+		}
+		.tip{
+            padding-left: 15px;	
+            line-height: 30px;
+            height: 30px;	
+		    &-icon{
+		        float: left;
+		        @include sprite($img + '/tip.png', 16px);
+		        margin-top: 7px;
+		    }
+		    &-cont{
+		        float: left;
+		        font-size: 12px;
+		        margin-left: 5px;
+		    }
+		}
+		&-tips{
+		    opacity: 0.5;
+		    &-title{
+		        font-size: 16px;
+		        text-align: center;
+		        margin-top: 47px;
+		        margin-bottom: 20px;
+		    }
+		    p{
+		        font-size: 12px;
+		        text-align: center;
+		    }
+		    &-arrow{
+		        display: inline-block;
+		        background: url(../images/address-arrow.png);
+		        background-size: 4px 8px;
+		        width: 4px;
+		        height: 8px;
+		    }
+		}
+		.text-button{
+		    margin-bottom: 20px;
+		}
 	}
 	&-wallet {
 		@extend .view-style;
@@ -24,7 +83,7 @@
 	}
 	&-add {
 		/*引入 sprite方法 传入$img 和宽高值*/
-		@include sprite($img + '/add.png', 17px);
+		@include sprite($img + '/add_icon.png', 15px);
 		margin-right: 12px;
 	}
 	&-finish {
@@ -49,9 +108,11 @@
 		}
 	}
 	&-bottom-tips {
+//	    margin-top: 20px;
+//	    margin-bottom: 50px;
 		@extend %ablw;
 		margin-bottom: 50px;
-		color: $g-gray;
+		color: #999999;
 		span {
 			display:block;
 			text-align:center;			

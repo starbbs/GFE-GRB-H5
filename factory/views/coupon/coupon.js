@@ -45,6 +45,7 @@ define('h5-view-coupon', ['h5-api', 'router', 'get', 'url', 'h5-view'], function
 	couponDetailView.VM = avalon.define($.extend({
 		$id: 'couponDetail',
 		toUse: function(){
+			history.replaceState(null,'',"mine.html");
 			window.location.href = "phonecharge.html";
 		}
 	}, couponDetailJSON));

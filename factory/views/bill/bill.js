@@ -257,7 +257,7 @@ define('h5-view-bill', [
 			voucherNum: order.status === 'FAILURE' && vouch ? vouch.voucherAmount : '', //优惠券金额
 			voucherName: vouch ? vouch.voucherName : '', //优惠券名字
 			orderMoney: order.orderMoney ? order.orderMoney : '', // 订单金额
-			voucherOrderMoney: order.orderMoney && vouch ? order.orderMoney - vouch.voucherAmount : '', //优惠后金额
+			voucherOrderMoney: order.orderMoney && vouch ? (order.orderMoney - vouch.voucherAmount < 0 ? 0 : (order.orderMoney - vouch.voucherAmount)) : '', //优惠后金额
 			showHide: order.status === 'CLOSE' || waitForPay || window.location.href.indexOf('order.html') > -1 ? true : false, //账单关闭状态不显示 读取更多按钮
 			showHideMoreBTN: order.status === 'CLOSE' || waitForPay || window.location.href.indexOf('order.html') != -1 ? false : true,
 			// ifPayButton: waitForPay, // 是否显示"前往支付"按钮

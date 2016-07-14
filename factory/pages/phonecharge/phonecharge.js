@@ -23,7 +23,6 @@ require([
             '移动': [],
             '电信': [],
         };
-        var gopPrice = [];
         var curPhone;
         //获取以往手机号
         api.phoneLastest({
@@ -35,15 +34,6 @@ require([
                 console.log(data);
             }
         });
-        //果仁现价
-        api.price({
-            gopToken: gopToken
-        }, function(data) {
-            if (data.status == '200') {
-                gopPrice.push(data.data.price);
-            }
-        });
-
         //获取流量列表  联通 移动 电信
         var phoneJson = {
             i: 0,

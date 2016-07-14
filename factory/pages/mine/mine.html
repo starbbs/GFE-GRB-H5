@@ -10,14 +10,6 @@
 			</div>
 		</div>
 		<div class="mine-block">
-			<a class="mine-item" href="./account.html">
-				<div class="mine-icon-8"></div>
-				<div class="mine-item-name">我的账单</div>
-				<!--<div class="mine-item-tip green">查看</div>-->
-				<div class="mine-item-arrow"></div>
-			</a>
-		</div>
-		<div class="mine-block">
 			<!--
 			<div class="mine-item" ms-click="nick_click">
 				<div class="mine-icon-1"></div>
@@ -26,12 +18,11 @@
 				<div class="mine-item-arrow"></div>
 			</div>
 			-->
-			<a href="#!/setting-address" class="mine-item">
+			<!--<a href="#!/setting-address" class="mine-item">
 				<div class="mine-icon-2"></div>
 				<div class="mine-item-name">我的果仁宝地址</div>
-				<!--<div class="mine-item-tip green">查看</div>-->
 				<div class="mine-item-arrow"></div>
-			</a>
+			</a>-->
 			<!--
 			<a href="bankcard.html" class="mine-item">
 				<div class="mine-icon-3"></div>
@@ -39,7 +30,20 @@
 				<div class="mine-item-arrow"></div>
 			</a>
 			-->
-
+			<a class="mine-item" href="./account.html">
+				<div class="mine-icon-8"></div>
+				<div class="mine-item-name">我的账单</div>
+				<div class="mine-item-tip green">查看</div>
+				<div class="mine-item-arrow"></div>
+			</a>
+			
+			<div class="mine-item" ms-click="myCoupon_click">
+				<div class="mine-icon-9"></div>
+				<div class="mine-item-name">我的卡券</div>
+				<div class="mine-item-tip green">查看</div>
+				<div class="mine-item-arrow"></div>
+			</div>
+			
 			<div class="mine-item" ms-click="address_mine_click">
 				<div class="mine-icon-4"></div>
 				<div class="mine-item-name">果仁市场</div>
@@ -52,12 +56,6 @@
 				<div class="mine-item-tip" ms-class-1="green:setWallet==='查看'" ms-class-2="silver:setWallet==='未设置'||!setWallet">{{setWallet}}</div>
 				<div class="mine-item-arrow"></div>
 			</div>-->
-			<div class="mine-item" ms-click="myCoupon_click">
-				<div class="mine-icon-9"></div>
-				<div class="mine-item-name">我的卡券</div>
-				<div class="mine-item-tip green">查看</div>
-				<div class="mine-item-arrow"></div>
-			</div>
 		</div>
 		<div class="mine-block">
 			<a href="security.html" class="mine-item">
@@ -65,7 +63,11 @@
 				<div class="mine-item-name">安全中心</div>
 				<div class="mine-item-arrow"></div>
 			</a>
-
+			<a href="#!/setting-feedback" class="mine-item">
+				<div class="mine-icon-10"></div>
+				<div class="mine-item-name">反馈</div>
+				<div class="mine-item-arrow"></div>
+			</a>
 			<a href="#!/setting-about" class="mine-item">
 				<div class="mine-icon-7"></div>
 				<div class="mine-item-name">关于</div>
@@ -89,6 +91,9 @@
 		@@include('../../views/about-us/about-us.html')
 	</div>
 	<div class="alert"></div>
+	<div class="dialog">
+		@@include('../../dialogs/confirm/confirm.html')
+	</div>
 	<!-- <div class="dialog"></div> -->
 </div>
 @@include('../../../source/include/bottom.html', {"name": "mine"})
