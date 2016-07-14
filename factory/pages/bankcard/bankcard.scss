@@ -25,13 +25,15 @@
             color: #666666;
             margin: auto 15px;
             position: relative;
-            @include border-bottom($g-line);
+            border-bottom: 1px solid $g-line;
+//          @include border-bottom($g-line);
         }
         li:first-child{
             padding-top: 9px;
         }
         li:last-child{
-            @include border-none;
+//          @include border-none;
+            border-bottom: none;
         }
     }
 }
