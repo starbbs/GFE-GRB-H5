@@ -1,8 +1,8 @@
 // 余效俭 2016-01-11 17:26:56 创建
 // 魏冰冰 2016-06-01          修改
 // H5微信端 --- 我的
-define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'url', 'h5-alert', 'h5-text'],
-    function(router, api, View, check, url) {
+define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'url','h5-dialog-confirm', 'h5-alert', 'h5-text'],
+    function(router, api, View, check, url, dialogConfirm) {
         var gopToken = $.cookie('gopToken');
         var address_mine = new View('address-mine');
         var vm = address_mine.vm = avalon.define({
@@ -47,23 +47,37 @@ define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'url', '
                     }
                 });
             },
-            marketAddress_del_click: function() { //删除果仁市场地址 
-                var _this = this;
-                api.marketDel({
-                    gopToken: gopToken
-                }, function(data) {
-                    if (data.status == 200) {
-                        $.alert('删除成功!');
-                        vm.marketGopAddress = '';
-                        $('#address-mine-input-focusa').val('');
-                        $(_this).parent('.address-item').removeClass('del');
-                        vm.hasMarketAddress = false;
-                        // vm.hasStepNext = false;
-                        vm.hasStepNext = vm.setDelSuccess && vm.setDelSuccess();
-                    } else {
-                        console.log(data);
-                    }
-                });
+            marketAddress_del_click: function() { //删除果仁市场地址
+            		var _this = this;
+            		dialogConfirm.set('删除后可重新添加果仁市场地址 确定删除？',{okBtnText:'删除',cancelBtnText:"取消"});
+                dialogConfirm.show();
+                dialogConfirm.onConfirm = function() {
+	                api.marketDel({
+	                    gopToken: gopToken
+	                }, function(data) {
+	                    if (data.status == 200) {
+	                        $.alert('删除成功!');
+	                        vm.marketGopAddress = '';
+	                        $('#address-mine-input-focusa').val('');
+	                        $(_this).parent('.address-item').removeClass('del');
+	                        vm.hasMarketAddress = false;
+	                        // vm.hasStepNext = false;
+	                        vm.hasStepNext = vm.setDelSuccess && vm.setDelSuccess();
+	                    } else {
+	                        console.log(data);
+	                    }
+	                });
+                };
+            },
+            transferToMarket: function(){
+            		if(vm.hasMarketAddress){
+            			if(url.filename === 'mine.html'){
+            				history.replaceState(null,'',"mine.html");
+            			}else if(url.filename === 'transfer.html'){
+            				history.replaceState(null,'',"home.html");
+            			}
+            			window.location.href = "transfer.html?cangory=GOP_MARKET";
+            		}
             }
         });
 

@@ -227,7 +227,12 @@ require([
                 bills.push(bill);
             }
         };
-
+        function getShowTime(_time){
+            if(parseInt(_time)<10){
+                return "0"+parseInt(_time);
+            }
+            return _time;
+        }
         // =========================  step 1
         var dataHandler = function(data) { //后台返回list数据加工处理   时间处理同时获取交易的信息
             now = new Date();
@@ -285,7 +290,7 @@ require([
                     var day = {
                         id: item.businessId,
                         day: compare ? compare : ('周' + time.day2),
-                        time: compare ? (time.hour2 + ':' + time.minute2) : (time.month2 + '-' + time.date),
+                        time: compare ? (getShowTime(time.hour2) + ':' + getShowTime(time.minute2)) : (getShowTime(time.month2) + '-' + getShowTime(time.date)),
                         type: type,
                         originType: item.type,
                         bills: bills,
