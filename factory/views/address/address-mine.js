@@ -23,17 +23,19 @@ define('h5-view-address-mine', ['router', 'h5-api', 'h5-view', 'check', 'url','h
                 vm.setMarketAddress = true;
             },
             marketAddress_save_click: function() { //添加果仁市场  事件
-                if (check.empty(vm.marketGopAddress)) {
+            		var gopAddress = $("#address-mine-input-focusa").val();
+            		$("#address-mine-input-focusa").blur();
+                if (check.empty(gopAddress)) {
                     $.alert('请输入果仁市场地址!');
                     return false;
                 }
-                if (vm.marketGopAddress.indexOf('GOP') < 0) {
+                if (gopAddress.indexOf('GOP') < 0) {
                     $.alert('果仁市场地址格式错误!');
                     return false;
                 }
                 api.marketAdd({
                     gopToken: gopToken,
-                    gopMarketAddress: vm.marketGopAddress
+                    gopMarketAddress: gopAddress
                 }, function(data) {
                     if (data.status == 200) {
                         //$.alert('设置成功!');
