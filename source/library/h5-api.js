@@ -75,9 +75,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	});
 
 	// 8.我的果仁数
-	api.regist('getGopNum', '/wealth/getGopNum', {
-		asyn: true
-	});
+	api.regist('getGopNum', '/wealth/getGopNum', {});
 
 	// 9.果仁市场实时价格
 	api.regist('price', config.guorenMarketUrl+'/trade/price', {
@@ -335,9 +333,7 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 
 	// 90. 请求 卖1价 买1价 
 	api.regist('getselloneprice', config.guorenMarketUrl+'/trade/optimumPrice', {
-		'_type': 'get',
-		'asyn': true
-
+		'_type': 'get'
 	});
 	
 	//91.消费订单优惠券列表接口
