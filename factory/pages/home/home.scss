@@ -1,6 +1,5 @@
 ﻿@charset 'utf-8';
 
-
 // 张树垚 2015-12-20 11:22:45 创建
 // H5微信端 --- 个人首页
 
@@ -17,13 +16,28 @@ html {
 	width: 5px;
 	display: inline-block;
 }
-
+.screen-r:after{
+	content: 'loading...';
+	position: absolute;
+	width: 100px;
+	text-align: center;
+	font-size: 16px;
+	height: 30px;
+	line-height: 30px;
+	left:50%;
+	margin-left: -50px;
+	top:50%;
+	margin-top:-50px;
+}
+.screen-r.focus:after{
+	display: none;
+}
 .home {
 	$bannerlayer2pt: 25px;     // banner图 我的总资产 累计收益
 	$bannercenterworldlineheight: 90px; //banner图 中间大字
 	$bannercenterworldfontsize: 50px;
 
-	@extend %fade-in; 
+	@extend %fade-in;
 	$img: $g-pages + '/home/images'; //雪碧图用的相对路径 不生成public中
 	$image: $g-img;	// 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
 	$border: 1px solid $g-light;
@@ -34,13 +48,13 @@ html {
 	$colorworldblue: #AABFF5; //蓝色类似透明文字
 	$colorpricered: #ffa2a3; //收益红
     margin-bottom: 70px;
-
 	&-banner{
 		height: 160px;
 		padding-top: 30px;
 		padding-bottom: 60px;
-		background-image: url($image + '/home-bgblue.png');
-		@include background-size;
+		background-image: url($image + '/home-bgblue.jpg');
+		background-size:cover ;
+		background-repeat: repeat;
 		&-nobuygop{
 			width: 94%;
 			margin: 0 auto;
@@ -57,7 +71,6 @@ html {
 				text-align: center;
 				margin: 10px auto 0;
 				line-height: 20px;
-
 				&:after{
 					content: "";
 					clear: both;
@@ -65,7 +78,7 @@ html {
 					height: 0;
 				}
 				.layer22{
-					font-size: 18px;
+					font-size: 17px;
 					text-align: center;
 					float: left;
 					text-indent: 5px;
@@ -73,15 +86,15 @@ html {
 				}
 				.rate-num{
 					float: left;
-					font-size: 60px;
+					font-size: 59px;
 					color: #fdd654;
 					line-height: 65px;
-					margin-left: 8px;
+					margin-left: 10px;
 				}
 				.rate-num-small{
 					margin-top: 34px;
 					float: left;
-					font-size: 18px;
+					font-size: 17px;
 					color: #fdd654;
 				}
 			}
@@ -118,8 +131,9 @@ html {
 			&-totalgop{ //总共果仁
 				color: $colorwhite;
 				.mytotalgop{
-					color: $colorworldblue;
+					color: rgba(255,255,255,.5);;
 					text-indent: 15px;
+					font-size: 10px;
 				}
 				.rmbnum{
 					font-size: 38px;
@@ -130,7 +144,7 @@ html {
 			}
 		}
 		.gopbottom{
-			$borderrbgacolor:rgba(255,255,255,.2);
+			$borderrbgacolor:rgba(238,238,238,.1);
 			overflow: hidden;
 			height: 100px;
 			border-top:1px solid $borderrbgacolor ;
@@ -153,8 +167,8 @@ html {
 					line-height: 20px;
 					color: rgba(255,255,255,.5);
 					font-size: 10px;
-
 				}
+
 				&-numbers{
 					width: 100%;
 					line-height: 30px;
@@ -178,8 +192,8 @@ html {
 		background: $colorwhite;
 		-webkit-border-radius: 10px;
 		-moz-border-radius: 10px;
-		border-radius: 10px;
-		box-shadow: 0px 1px 5px rgba(105, 98, 128, 0.4);
+		border-radius: 5px;
+		box-shadow: 0px 1px 5px rgba(154, 144, 188, 0.2);
 		&-buy,&-transfer{
 			color: #777777;
 			float: left;
@@ -212,7 +226,7 @@ html {
 	&-chart-title{
 		line-height: 40px;
 		text-indent: 10px;
-		font-size: 16px;
+		font-size: 14px;
 		padding: 0px 3%;
 		margin-top: 10px;
 	}
@@ -253,14 +267,19 @@ html {
 		}
 		.curr-price-span{
 			display: inline-block;
-			height: 12px;
-			line-height: 12px;
-			border-bottom: 1px solid white;
-			margin-left: 10px;
+			margin-left: 8px;
+			font-size: 14px;
+			height: 13px;
+			line-height: 13px;
 		}
 
 	}
 
+}
+.icon-rmb{
+	display: inline-block;
+	width: 12px;
+	text-align: center;
 }
 .slider-hd-li{
     background-color:#e6e6e6;

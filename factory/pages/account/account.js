@@ -147,7 +147,7 @@ require([
                 gop: 'gopNumber',
             };
             var coins = { // 货币
-                money: '¥',
+                money: '<span class="font-rmb-icon">¥</span>',
                 gop: '<span class="iconfont icon-g"></span>',
             };
             var filter = { // 过滤器
