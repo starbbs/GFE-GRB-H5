@@ -140,6 +140,12 @@ require([
 			chartHistoryData[chartHistoryData.length-1] = currPrice;
 		}
 	};
+	//动态设置高度
+	var height = $(window).height();
+	if(height>(250+30+100+200+50)){
+		$("#chart_title").css("marginTop",15);
+		$("#home_chart_outer").height(height-(250+30+100+40));
+	}
 	var chartSetting = function (data, date, flag) {
 		var max = Math.max.apply(Math, data);
 		var min = Math.min.apply(Math, data);

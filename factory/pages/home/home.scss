@@ -48,7 +48,6 @@ html {
 	$colorworldblue: #AABFF5; //蓝色类似透明文字
 	$colorpricered: #ffa2a3; //收益红
     margin-bottom: 70px;
-
 	&-banner{
 		height: 160px;
 		padding-top: 30px;
@@ -72,7 +71,6 @@ html {
 				text-align: center;
 				margin: 10px auto 0;
 				line-height: 20px;
-
 				&:after{
 					content: "";
 					clear: both;
@@ -80,7 +78,7 @@ html {
 					height: 0;
 				}
 				.layer22{
-					font-size: 18px;
+					font-size: 17px;
 					text-align: center;
 					float: left;
 					text-indent: 5px;
@@ -88,15 +86,15 @@ html {
 				}
 				.rate-num{
 					float: left;
-					font-size: 60px;
+					font-size: 59px;
 					color: #fdd654;
 					line-height: 65px;
-					margin-left: 8px;
+					margin-left: 10px;
 				}
 				.rate-num-small{
 					margin-top: 34px;
 					float: left;
-					font-size: 18px;
+					font-size: 17px;
 					color: #fdd654;
 				}
 			}
@@ -133,8 +131,9 @@ html {
 			&-totalgop{ //总共果仁
 				color: $colorwhite;
 				.mytotalgop{
-					color: $colorworldblue;
+					color: rgba(255,255,255,.5);;
 					text-indent: 15px;
+					font-size: 10px;
 				}
 				.rmbnum{
 					font-size: 38px;
@@ -145,7 +144,7 @@ html {
 			}
 		}
 		.gopbottom{
-			$borderrbgacolor:rgba(255,255,255,.2);
+			$borderrbgacolor:rgba(238,238,238,.1);
 			overflow: hidden;
 			height: 100px;
 			border-top:1px solid $borderrbgacolor ;
@@ -168,8 +167,8 @@ html {
 					line-height: 20px;
 					color: rgba(255,255,255,.5);
 					font-size: 10px;
-
 				}
+
 				&-numbers{
 					width: 100%;
 					line-height: 30px;
@@ -227,7 +226,7 @@ html {
 	&-chart-title{
 		line-height: 40px;
 		text-indent: 10px;
-		font-size: 16px;
+		font-size: 14px;
 		padding: 0px 3%;
 		margin-top: 10px;
 	}
@@ -268,14 +267,19 @@ html {
 		}
 		.curr-price-span{
 			display: inline-block;
-			height: 12px;
-			line-height: 12px;
-			border-bottom: 1px solid white;
-			margin-left: 10px;
+			margin-left: 8px;
+			font-size: 14px;
+			height: 13px;
+			line-height: 13px;
 		}
 
 	}
 
+}
+.icon-rmb{
+	display: inline-block;
+	width: 12px;
+	text-align: center;
 }
 .slider-hd-li{
     background-color:#e6e6e6;

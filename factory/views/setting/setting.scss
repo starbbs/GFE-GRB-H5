@@ -34,6 +34,7 @@
 			box-sizing: border-box;
 			padding: 15px $g-padding 64px;
 			bottom: 0px;
+			height: 410px;
 		}
 		&-main {
 			flex: 1;
@@ -48,6 +49,10 @@
 			@extend %afull;
 			resize: none;
 			line-height: 1.6;
+			background: white;
+			padding: 10px;
+			height: 250px !important;
+			box-sizing: border-box;
 		}
 		&-button {
 			//margin-top: $g-margin-top-button;
