@@ -3,7 +3,7 @@
     <div class="home" ms-controller="home">
         <div class="home-banner">
             <!--没有买果仁-->
-            <div class="home-banner-nobuygop" ms-visible="myGopNum===0">
+            <div class="home-banner-nobuygop" ms-visible="myGopNum===0 && isShowHeader">
                 <div class="home-banner-nobuygop-layer1">港股上市公司神州数字(08255.HK)旗下
                 </div>
                 <div class="home-banner-nobuygop-layer2">
@@ -14,9 +14,9 @@
                 <a class="home-banner-nobuygop-layer4" href="about-us.html">了解详情</a>
             </div>
             <!--有果仁-->
-            <div class="home-banner-mygop" ms-visible="myGopNum!=0">
+            <div class="home-banner-mygop" ms-visible="myGopNum!=0 && isShowHeader">
                 <!--总资产-->
-                <div class="home-banner-mygop-totalgop" ms-visible="curIndex===1">
+                <div class="home-banner-mygop-totalgop" ms-visible="curIndex===1 ">
                     <div class="mytotalgop">
                         总资产(<span class="font-rmb-icon">¥</span>)
                     </div>
@@ -26,7 +26,7 @@
 
                 </div>
             </div>
-            <ul class="gopbottom" ms-visible="myGopNum!=0">
+            <ul class="gopbottom" ms-visible="myGopNum!=0 && isShowHeader">
                 <li class="gopli">
                     <div class="gopli-title">持有果仁(<i class="iconfont icon-g"></i>)</div>
                     <div class="gopli-numbers">{{myGopNum|floorFix}}</div>
@@ -49,7 +49,7 @@
             <a href="purchase.html#!/" class="home-gop-buy"><span class="home-gop-buy-span"></span><span>买果仁</span></a>
             <a href="transfer.html?cangory=GOP_MARKET" class="home-gop-transfer"><span class="home-gop-transfer-span"></span><span>转果仁</span></a>
         </div>
-        <h3 class="home-chart-title">近30日果仁价格曲线(¥)</h3>
+        <h3 class="home-chart-title">近7日果仁价格曲线(¥)</h3>
         <div class="home-chart">
             <div class="home-chart-item" id="chart-history"></div>
             <div class="home-chart-cover"></div>
@@ -63,5 +63,6 @@
 @@include('../../../source/include/bottom.html',
 {
 "name": "home",
-"jquery": true
+"jquery": true,
+"highcharts":true
 })

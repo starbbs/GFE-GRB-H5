@@ -2,9 +2,9 @@
 // H5微信端 --- 个人首页
 
 require([
-	'router', 'h5-api', 'h5-price', 'h5-weixin', 'h5-touchsliderBanner', 'filters','hchart'
+	'router', 'h5-api', 'h5-weixin','filters'
 ], function(
-	router, api, price, weixin, touchsliderBanner
+	router, api, weixin
 ) {
 	// $.cookie('gopToken', '9bfcd178472f48bcb28584dc4ed82a04'); //小妮
 	// $.cookie('gopToken','4d9655ca57af4fd1b1ce5f3c904ef5f7'); //杨娟    
@@ -63,36 +63,12 @@ require([
 		totalInCome: 0, //累计收益
 		yesterDayIncome: 0, //昨天收益
 		curIndex: 0,
+		isShowHeader:false,
 		incomePercentNumber:"10",
 		incomePercentFloat:"00",
 		gopToken: gopToken ? true : false,
-		//预计年化收益
-		toggleBtnFn: function() { //切换样式Fn
-			var $this = $(this);
-			if (this.className.indexOf('up') != -1) {
-				homeVm.curIndex = 2;
-				$this.removeClass('up').addClass('down');
-			} else {
-				$this.removeClass('down').addClass('up');
-				homeVm.curIndex = 1;
-			}
-		},
-		gotophonecharge: function(ev) {
-			var target = $(ev.target).closest('.home-phonebills');
-			if (!target.length) {
-				return;
-			}
-			window.location.href = target.get(0).dataset.href;
-		},
+
 	});
-	// api.static({},function(data){
-	// 	var incomePercent = data.data.incomePercent? data.data.incomePercent:20.00;
-	// 	incomePercent = incomePercent.toString();
-	// 	var splitArr = incomePercent.split(".");
-	// 	homeVm.incomePercentNumber = splitArr[0];
-	// 	homeVm.incomePercentFloat = splitArr[1]?splitArr[1]:"00";
-    //
-	// })
 	avalon.scan(main.get(0), homeVm);
 	if(gopToken){
 		api.getIncome({
@@ -107,19 +83,27 @@ require([
 		api.getGopNum({
 			gopToken: gopToken
 		}, function(data) {
+			homeVm.isShowHeader = true;
 			if (data.status == 200) {
 				homeVm.myGopNum = data.data.gopNum;
 				if (homeVm.myGopNum > 0) {
 					homeVm.curIndex = 1;
 				}
 			} else {
+
 			}
 		});
+		//两秒之后无论如何显示头部信息,防止因为后台接口挂掉而页面显示不全
+		setTimeout(function(){
+			homeVm.isShowHeader=true;
+		},2000);
+	}else{
+		homeVm.isShowHeader=true
 	}
 
-	setTimeout(function() {
-		main.addClass('on');
-	}, 250);
+
+	$(".screen-r").addClass("focus");
+	main.addClass('on');
 	/**
 	 * 设置 当前价格显示框位置
 	 * @param _point
@@ -278,22 +262,42 @@ require([
 		}
 		return setting;
 	};
+	/**
+	 * 异步处理首页加载问题
+	 * @type {number}
+     */
+	var Eventcount = 0;
+	var historyJson = {
+		historylist:[],
+		gopNowPrice:0,
+		historyError:false,
+		priceError:false
+	};
 	var chartHistorySet = function () {
 		api.historyPrice({
-			historyDay: 30
+			historyDay: 7
 		}, function (data) {
-			var historylist = data.data.list
 			if (data.status == 200) {
-				//果仁现价
-				api.getselloneprice(function(data) {
-					homeVm.gopNowPrice = data.optimumBuyPrice;
-					chartHistoryHandler(historylist,data.optimumBuyPrice);
-					chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
-				});
+				Eventcount ++;
+				historyJson.historylist = data.data.list;
+				doResult();
 			} else {
-				// $.alert(data.msg);
+				historyError = true;
 			}
 		});
+		api.getselloneprice(function(data) {
+			Eventcount++;
+			homeVm.gopNowPrice = historyJson.gopNowPrice =data.optimumBuyPrice;
+			doResult();
+		});
 	};
+	function doResult(){
+		if(Eventcount==2){
+			chartHistoryHandler(historyJson.historylist,historyJson.gopNowPrice);
+			chartHistory.highcharts(chartSetting(chartHistoryData, chartHistoryDate, 'history'));
+			Eventcount=0;
+		}
+	}
 	chartHistorySet();
+
 });
