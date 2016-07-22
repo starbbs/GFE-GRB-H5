@@ -1,0 +1,15 @@
+﻿@charset 'utf-8';
+
+// 姜晓妮 2016-07-22  创建
+// H5微信端 --- 体验果仁
+
+
+@import '../../../source/scss/main';
+
+$img: $g-pages + '/experience-gop/images';
+
+html {
+	background: url($img + '/_bg.png') #3f49a3;
+	background-size: cover;
+}
+
