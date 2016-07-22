@@ -179,6 +179,7 @@ require([
 			},
 			closeNum: function() {
 				transferTarget.transferNum = '';
+				transferTarget.cnyMoney = '';
 				transferTarget.notchecked = true;
 			},
 			closeCont: function() {
