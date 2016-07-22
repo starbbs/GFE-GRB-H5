@@ -34,10 +34,10 @@
                     <div class="gopli-numbers">0.00</div>
                 </li>
                 <li class="gopli">
-                    <div class="gopli-title font-rmb-icon">累计收益(<span class="icon-rmb">¥</span>)</div>
+                    <div class="gopli-title font-rmb-icon">浮动盈亏(<span class="icon-rmb">¥</span>)</div>
                     <div class="gopli-numbers">
-                        <span class="home-banner-mygop-incomegop-incomenum-sign">{{totalInCome|sign}}</span>
-                        <span>{{totalInCome|abs|floorFix}}</span>
+                        <span class="home-banner-mygop-incomegop-incomenum-sign">{{((gopNowPrice-gopAvgPrice)*myGopNum)|sign}}</span>
+                        <span>{{((gopNowPrice-gopAvgPrice)*myGopNum).toFixed(2)|abs}}</span>
                     </div>
 
                 </li>

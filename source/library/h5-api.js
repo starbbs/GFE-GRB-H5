@@ -344,6 +344,9 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	//92. 商品信息
 	api.regist('getProductInfor', '/consume/product/query');
 	
+	//93. 获取平均价
+	api.regist('getAvgCostPrice', '/gop/findAvgCostPriceByUserId');
+	
 
 	return api;
 });
