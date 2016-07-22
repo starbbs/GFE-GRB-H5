@@ -388,9 +388,9 @@ require([
 			}
 			getprice();
 		};
-		var getprice = function() { // 获取当前实价
-			price.once(function(next) {
-				transferTarget.price = next;
+		var getprice = function() { // 获取当前卖一价
+			api.getselloneprice(function(data) {
+				transferTarget.price = data.optimumBuyPrice;
 			});
 		};
 
