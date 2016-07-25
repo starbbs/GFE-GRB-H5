@@ -344,6 +344,11 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	//92. 商品信息
 	api.regist('getProductInfor', '/consume/product/query');
 	
-
+	//93. 体验果仁列表
+	api.regist('experienceGopList', '/experienceGop/list');
+	
+	//92. 体验果仁领取收益
+	api.regist('experienceGopWithdraw', '/experienceGop/withdraw');
+	
 	return api;
 });
