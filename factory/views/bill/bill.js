@@ -541,7 +541,12 @@ define('h5-view-bill', [
 	}
 	var buyGopHandler = function(type, id, order, list, waitForPay) { // 买果仁数据处理
 		var buyInPrice = order.price;
-		var returnData = {
+		if(order.status ==='PROCESSING'){
+			api.getselloneprice({}, function(data) {
+				buyInPrice = data.optimumBuyPrice;
+			},function(){},true);
+		}
+		return {
 			id: id, // 账单ID
 			type: type, // 类型
 			status: order.status, // 订单状态
@@ -562,23 +567,13 @@ define('h5-view-bill', [
 			serialNum: order.status === 'SUCCESS' || order.status === 'FAILURE' ? order.serialNum : '', //流水号
 			productDesc: order.status === 'PROCESSING' ? '果仁' : order.status === 'FAILURE' ? '购买果仁' : order.status === 'CLOSE' ? '买果仁' : '', //商品信息
 			/*
-			 serialNum: $.isArray(list) ? list.map(function(item) {
-			 return item.tradeNo;
-			 }).join('<br>') : order.serialNum, //流水号
-			 */
+			serialNum: $.isArray(list) ? list.map(function(item) {
+				return item.tradeNo;
+			}).join('<br>') : order.serialNum, //流水号
+			*/
 			payType: H5bill.payType[order.payType], // 支付方式
 			// ifPayButton: waitForPay, // 是否显示"前往支付"按钮
 			// ifClose: waitForPay, // 是否显示"关闭"
-		};
-		if(order.status ==='PROCESSING'){
-			api.getselloneprice({}, function(data) {
-				var currbuyInPrice = data.optimumBuyPrice;
-				returnData.gopPrice = currbuyInPrice;
-				returnData.noPayGopNum = order.orderMoney / buyInPrice;
-				return returnData;
-			});
-		}else{
-			return returnData;
 		}
 	};
 	avalon.scan();
