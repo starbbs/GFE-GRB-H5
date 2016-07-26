@@ -1,5 +1,5 @@
 @@include('../../../source/include/top.html', {"name": "experience-gop","title":"体验果仁"})
-<div class="screen-r">
+<div class="screen-r" ms-controller="experience">
 	<div class="screen-r-header">
 		<img src="images/experience-gop-step.png" class="screen-r-header-step" />
 		<div class="screen-r-header-pig"></div>
@@ -42,7 +42,7 @@
 						<span class="font-rmb-icon">¥</span>
 						<span class="screen-r-middle-menu-li-right-ru-ru3">15<span>.35</span></span>
 					</div>
-					<button class="screen-r-middle-menu-li-right-rd">
+					<button class="screen-r-middle-menu-li-right-rd" ms-click="drawConfirm">
 						领取收益
 					</button>
 				</div>
@@ -75,5 +75,19 @@
 	<div class="screen-r-bottom">
 		<span>领取收益后，体验果仁会被收回</span>
 	</div>
-</div>
-@@include('../../../source/include/bottom.html', {"name": "experience-gop"})
+	<div class="screen-r-popup">
+		
+	   @@include('../../dialogs/confirm/confirm.html')
+		  
+	</div>
+	<!--<div class="screen-r-popup">
+		<div class="screen-r-popup-top">
+			现在领取收益<span>1.08</span>个果仁（价值<span>15.35</span>元）将会进入您的账户中，同时您的体验果仁将会被系统回收
+			<div>
+				<div class="screen-r-popup-moddle">
+					<div>
+						<div class="screen-r-popup-bottom">
+							<div>
+							</div>
+						</div>-->
+						@@include('../../../source/include/bottom.html', {"name": "experience-gop"})

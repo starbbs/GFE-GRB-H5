@@ -4,6 +4,8 @@
 @charset 'utf-8';
 
 @import '../../../source/scss/main';
+@import '../../dialogs/confirm/confirm';
+@import '../../dialogs/dialog';
 
 $img: $g-pages + '/experience-gop/images'; //
 $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
@@ -182,5 +184,17 @@ $colorwhite: #fff;
         color:$color999;
         text-align: center;
         font-size: 12px;
+    }
+    &-popup{
+       line-height:25px;
+      &-top{
+          font-size:14px;
+          &-f{
+              color:#5883f2;
+          }
+      } 
+      &-bottom{
+          margin-top:10px;
+      } 
     }
 }
