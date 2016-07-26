@@ -24,30 +24,30 @@
 	</div>
 	<div class="screen-r-middle">
 		<ul class="screen-r-middle-menu">
-			<li class="screen-r-middle-menu-li">
+			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList">
 				<div class="screen-r-middle-menu-li-left">
 					<div class="screen-r-middle-menu-li-left-lu">
 						<span class="screen-r-middle-menu-li-left-lu-lum greeicon"></span>
-						<span class="screen-r-middle-menu-li-left-lu-lun">1500</span>
+						<span class="screen-r-middle-menu-li-left-lu-lun">{{item.gopNum}}</span>
 						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire">已到期</span>
 					</div>
 					<div class="screen-r-middle-menu-li-left-ld">
 						<span>获取价</span>
-						<span><span class="font-rmb-icons">¥</span>15.34</span>
+						<span><span class="font-rmb-icons">¥</span>{{item.gopPrice}}</span>
 					</div>
 				</div>
 				<div class="screen-r-middle-menu-li-right">
 					<div class="screen-r-middle-menu-li-right-ru">
-						<span>+</span>
+						<span>{{parseInt((item.getGopPrice-item.gopPrice)*item.gopNum)|sign}}</span>
 						<span class="font-rmb-icon">¥</span>
-						<span class="screen-r-middle-menu-li-right-ru-ru3">15<span>.35</span></span>
+						<span class="screen-r-middle-menu-li-right-ru-ru3">{{Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))}}<span>.{{Math.abs((item.getGopPrice-item.gopPrice)*item.gopNum)-Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))|ceilFix}}</span></span>
 					</div>
-					<button class="screen-r-middle-menu-li-right-rd" ms-click="drawConfirm">
+					<button class="screen-r-middle-menu-li-right-rd" ms-class="greebag:(item.getGopPrice-item.gopPrice)*item.gopNum<0" ms-click="drawConfirm">
 						领取收益
 					</button>
 				</div>
 			</li>
-			<li class="screen-r-middle-menu-li">
+			<!-- <li class="screen-r-middle-menu-li">
 				<div class="screen-r-middle-menu-li-left">
 					<div class="screen-r-middle-menu-li-left-lu">
 						<span class="screen-r-middle-menu-li-left-lu-lum blueicon"></span>
@@ -69,25 +69,15 @@
 						领取收益
 					</button>
 				</div>
-			</li>
+			</li> -->
 		</ul>
 	</div>
-	<div class="screen-r-bottom">
-		<span>领取收益后，体验果仁会被收回</span>
-	</div>
-	<div class="screen-r-popup">
-		
-	   @@include('../../dialogs/confirm/confirm.html')
-		  
-	</div>
-	<!--<div class="screen-r-popup">
-		<div class="screen-r-popup-top">
-			现在领取收益<span>1.08</span>个果仁（价值<span>15.35</span>元）将会进入您的账户中，同时您的体验果仁将会被系统回收
-			<div>
-				<div class="screen-r-popup-moddle">
-					<div>
-						<div class="screen-r-popup-bottom">
-							<div>
-							</div>
-						</div>-->
-						@@include('../../../source/include/bottom.html', {"name": "experience-gop"})
+</div>
+<div class="screen-r-bottom">
+	<span>领取收益后，体验果仁会被收回</span>
+</div>
+<div class="screen-r-popup">
+
+	@@include('../../dialogs/confirm/confirm.html')
+</div>
+@@include('../../../source/include/bottom.html', {"name": "experience-gop"})
