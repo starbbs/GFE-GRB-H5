@@ -2,7 +2,7 @@
 // H5微信端 --- 体验果仁
 
 
-require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function(
+require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert',],function(
 	router, api, weixin, filters, dialogConfirm
 ){
 	router.init(true);
@@ -24,7 +24,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
 				    exeprienceGopId:gopId
 				},function(data){
 					if(data.status==200){
-						
+						alert("123");	
 					}else{
 						$.alert(data.msg);
 					}
