@@ -22,7 +22,7 @@
                     		<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{(validExperGopNum*gopNowPrice)}}</span>
                     </div>
                     <div class="rmbnum">
-                        <span>{{(myGopNum*100*gopNowPrice/100).toFixed(2)}}</span>
+                        <span>{{((myGopNum+validExperGopNum)*100*gopNowPrice/100+lockedExperGopIncome).toFixed(2)}}</span>
                     </div>
 
                 </div>

@@ -129,12 +129,13 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 			var li = $(this).parents(".screen-r-middle-menu-li");
 			var _this = li.get(0).dataset;
 			var flag = _this.flag;
-			if(flag){
+			getSellOnePrice(false);
+			if(flag === "false"){
 				var gopId = _this.id;
-				var getGopNum = _this.gopnum;//获取过人数
-				var getGopPrice = _this.gopprice;//领取时的价格
-				var getGopSum = filters.ceilFix(getGopNum*getGopPrice,2); //领取时的收益
-				dialogConfirm.set('<div class="screen-r-popup"> <div class="screen-r-popup-top"> 现在领取收益 <span class="screen-r-popup-top-f"> '+getGopSum+'</span> 个果仁（价值 <span class="screen-r-popup-top-f">'+getGopPrice+'</span>元）将会进入您的账户中，同时您的体验果仁将会被系统回收 </div><div class="screen-r-popup-bottom">确定领取？</div></div>', {okBtnText: '确定', cancelBtnText: "取消"});
+				var gopNum = filters.ceilFix(_this.income / experienceVM.gopNowPrice,2);
+				var income = filters.ceilFix(_this.income,2); //领取时的收益
+				
+				dialogConfirm.set('<div class="screen-r-popup"> <div class="screen-r-popup-top"> 现在领取收益 <span class="screen-r-popup-top-f"> '+gopNum+'</span> 个果仁（价值 <span class="screen-r-popup-top-f">'+income+'</span>元）将会进入您的账户中，同时您的体验果仁将会被系统回收 </div><div class="screen-r-popup-bottom">确定领取？</div></div>', {okBtnText: '确定', cancelBtnText: "取消"});
 				dialogConfirm.show();
 				//以下是确定事件！！！！！
 				dialogConfirm.onConfirm = function () {
@@ -152,8 +153,14 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 			}
 		}
 	});
-	api.getselloneprice(function(data) {
-		experienceVM.gopNowPrice = data.optimumBuyPrice;
+	var getSellOnePrice = function(getFlag){
+		api.getselloneprice(function(data) {
+			experienceVM.gopNowPrice = data.optimumBuyPrice;
+			getFlag && getData();
+		});
+	}
+	getSellOnePrice(true);
+	var getData = function(){
 		list.data.list && list.data.list.forEach(function(item){
 		console.log(experienceVM.gopNowPrice);
 		if(item.status!="WITHDRAW"){
@@ -181,7 +188,8 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 			experienceVM.experienceList.push(item);
 		}
 	})
-	});
+	}
+	
 
 
 	//有接口后使用，不删！！！！
