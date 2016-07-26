@@ -12,9 +12,10 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 		gopNowPrice : 0, //果仁现价（取卖一价）
 		experienceList:[],
 		drawConfirm:function(){
-			var _this = $(this).parents(".screen-r-middle-menu-li").get(0).dataset;
+			var li = $(this).parents(".screen-r-middle-menu-li");
+			var _this = li.get(0).dataset;
 			var flag = _this.flag;
-			if(!flag){
+			if(flag){
 				var gopId = _this.id;
 				var getGopNum = _this.gopnum;//获取过人数
 				var getGopPrice = _this.gopprice;//领取时的价格
@@ -28,7 +29,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 					    exeprienceGopId:gopId
 					},function(data){
 						if(data.status==200){
-							alert("123");	
+							li.hide();
 						}else{
 							$.alert(data.msg);
 						}
