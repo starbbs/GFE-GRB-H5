@@ -10,7 +10,7 @@
 			<hr class="screen-r-header-price-hr1" />
 			<div class="screen-r-header-price-span">
 				<span>果仁现价</span>
-				<span><span class="font-rmb-icon">¥</span>15.12</span>
+				<span><span class="font-rmb-icon">¥</span>{{gopNowPrice}}</span>
 			</div>
 			<hr class="screen-r-header-price-hr2" />
 		</div>
@@ -24,12 +24,13 @@
 	</div>
 	<div class="screen-r-middle">
 		<ul class="screen-r-middle-menu">
-			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList">
+			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList" ms-data-id="item.id">
 				<div class="screen-r-middle-menu-li-left">
 					<div class="screen-r-middle-menu-li-left-lu">
 						<span class="screen-r-middle-menu-li-left-lu-lum greeicon"></span>
 						<span class="screen-r-middle-menu-li-left-lu-lun">{{item.gopNum}}</span>
-						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire">已到期</span>
+						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire" >已到期</span>
+						<!-- <span class="screen-r-middle-menu-li-left-lu-lud">剩余<span>一天</span> -->
 					</div>
 					<div class="screen-r-middle-menu-li-left-ld">
 						<span>获取价</span>
@@ -37,12 +38,12 @@
 					</div>
 				</div>
 				<div class="screen-r-middle-menu-li-right">
-					<div class="screen-r-middle-menu-li-right-ru">
-						<span>{{parseInt((item.getGopPrice-item.gopPrice)*item.gopNum)|sign}}</span>
+					<div class="screen-r-middle-menu-li-right-ru" ms-class="greenfont:(item.getGopPrice-item.gopPrice)*item.gopNum<0">
+						<span>{{(item.getGopPrice-item.gopPrice)*item.gopNum|sign}}</span>
 						<span class="font-rmb-icon">¥</span>
-						<span class="screen-r-middle-menu-li-right-ru-ru3">{{Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))}}<span>.{{Math.abs((item.getGopPrice-item.gopPrice)*item.gopNum)-Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))|ceilFix}}</span></span>
+						<span class="screen-r-middle-menu-li-right-ru-ru3">{{Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))}}<span>.{{item.gopDecimal}}</span></span>
 					</div>
-					<button class="screen-r-middle-menu-li-right-rd" ms-class="greebag:(item.getGopPrice-item.gopPrice)*item.gopNum<0">
+					<button class="screen-r-middle-menu-li-right-rd" ms-class-1="greebag:(item.getGopPrice-item.gopPrice)*item.gopNum<0" ms-class-2="disabled:true">
 						领取收益
 					</button>
 				</div>

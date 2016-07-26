@@ -9,7 +9,7 @@ require(['router', 'h5-api', 'h5-weixin','filters'],function(
 		"data":{
 		"list":[{"createTime":"2016-07-22 09:29:33",
 		"getGopPrice":7.050,
-		"gopPrice":7.011,
+		"gopPrice":7.010,
 		"expireDate":"2016-07-29 00:00:00",
 		"updateTime":"2016-07-22 15:39:27",
 		"id":1,
@@ -19,8 +19,8 @@ require(['router', 'h5-api', 'h5-weixin','filters'],function(
 		"status":"PROCESSING"
 		},{
 		"createTime":"2016-07-22 09:32:33",
-		"getGopPrice":6.000,
-		"gopPrice":7.000,
+		"getGopPrice":7.000,
+		"gopPrice":7.039,
 		"expireDate":"2016-07-29 00:00:00",
 		"updateTime":"2016-07-22 10:03:26",
 		"id":2,
@@ -41,7 +41,15 @@ require(['router', 'h5-api', 'h5-weixin','filters'],function(
 	api.getselloneprice(function(data) {
 		experienceVM.gopNowPrice = data.optimumBuyPrice;
 	});
-	experienceList=list.data.list;
+	experienceList=[];
+	list.data.list && list.data.list.forEach(function(item){
+		//if(item.status!="WITHDRAW"){
+			var deci=Math.abs((item.getGopPrice-item.gopPrice)*item.gopNum)-Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum));
+			item.gopDecimal=filters.ceilFix(deci,2).split(".")[1];
+			experienceList.push(item);
+		//}
+	})
+
 
 	// api.experienceGopList({gopToken:gotToken},function(data){
 	// 	if(data.status==200){
