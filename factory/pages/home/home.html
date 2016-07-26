@@ -17,7 +17,10 @@
             <div class="home-banner-mygop" ms-visible="myGopNum!=0 && isShowHeader">
                 <!--总资产-->
                 <div class="home-banner-mygop-totalgop" ms-visible="curIndex===1 ">
-                    <div class="mytotalgop">总资产( <span class="font-rmb-icon">¥</span> )</div>
+                    <div class="mytotalgop">
+                    		总资产( <span class="font-rmb-icon">¥</span> )
+                    		<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{(validExperGopNum*gopNowPrice)}}</span>
+                    </div>
                     <div class="rmbnum">
                         <span>{{(myGopNum*100*gopNowPrice/100).toFixed(2)}}</span>
                     </div>
@@ -31,7 +34,7 @@
                 </li>
                 <li class="gopli" onclick="window.location.href='experience-gop.html#!/'">
                     <div class="gopli-title">体验果仁(<i class="iconfont icon-g"></i>)</div>
-                    <div class="gopli-numbers">0.00</div>
+                    <div class="gopli-numbers">{{validExperGopNum|floorFix}}</div>
                 </li>
                 <li class="gopli">
                     <div class="gopli-title font-rmb-icon">累计收益(<span class="icon-rmb">¥</span>)</div>
