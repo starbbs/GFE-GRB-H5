@@ -69,7 +69,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
 					var deci = Math.abs((item.getGopPrice-item.gopPrice)*item.gopNum)-Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum));
 					item.gopDecimal = filters.ceilFix(deci,2).split(".")[1];
 					//收益为负 且 已到期 时收益小数部分
-					var minDeci = filters.ceilFix((Math.abs(list.data.minIncome)-Math.abs(parseInt(list.data.minIncome))),2).split(".")[1];
+					var minDeci = filters.ceilFix((Math.abs(data.data.minIncome)-Math.abs(parseInt(data.data.minIncome))),2).split(".")[1];
 					//+ -
 					item.sign = item.getGopPrice-item.gopPrice >= 0 ? '+' : (item.validDays >= 1 ? '-' : '+');
 					//收益整数、小数部分显示
