@@ -24,7 +24,7 @@
 	</div>
 	<div class="screen-r-middle">
 		<ul class="screen-r-middle-menu">
-			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList" ms-data-id="item.id">
+			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList" ms-data-id="item.id" ms-data-getGopNum="item.getGopNum" ms-data-getGopPrice="item.getGopPrice">
 				<div class="screen-r-middle-menu-li-left">
 					<div class="screen-r-middle-menu-li-left-lu">
 						<span class="screen-r-middle-menu-li-left-lu-lum" ms-class-1="greeicon:item.validDays<1" ms-class-2="blueicon:item.validDays>=1"></span>
@@ -38,7 +38,7 @@
 					</div>
 				</div>
 				<div class="screen-r-middle-menu-li-right">
-					<div class="screen-r-middle-menu-li-right-ru" ms-class="greenfont:(item.getGopPrice-item.gopPrice)*item.gopNum<0">
+					<div class="screen-r-middle-menu-li-right-ru" ms-class-1="greenfont:item.getGopPrice-item.gopPrice<0 && item.validDays>0" ms-class-2="defaultfont:item.getGopPrice-item.gopPrice==0 && item.validDays>0">
 						<span>{{item.sign}}</span>
 						<span class="font-rmb-icon">¥</span>
 						<span class="screen-r-middle-menu-li-right-ru-ru3">{{item.incomeInt}}<span>.{{item.incomeDec}}</span></span>
