@@ -505,6 +505,9 @@ define('h5-view-bill', [
 		gotoPay: function() {
 			gotoPayOrder(billBuyGopVM);
 		},
+		finish:function(){
+			location.href = "./account.html"
+		}
 	}, buygopJSON));
 
 	var buyInHandler = function(type, id, options) { // 买果仁 step 1
