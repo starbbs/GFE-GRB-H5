@@ -43,7 +43,7 @@
 						<span class="font-rmb-icon">¥</span>
 						<span class="screen-r-middle-menu-li-right-ru-ru3">{{Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))}}<span>.{{item.gopDecimal}}</span></span>
 					</div>
-					<button class="screen-r-middle-menu-li-right-rd" ms-class-1="greebag:(item.getGopPrice-item.gopPrice)*item.gopNum<0" ms-class-2="disabled:true">
+					<button class="screen-r-middle-menu-li-right-rd" ms-class-1="greebag:(item.getGopPrice-item.gopPrice)*item.gopNum<0" ms-class-2="disabled:true" ms-click="drawConfirm">
 						领取收益
 					</button>
 				</div>
@@ -73,8 +73,12 @@
 			</li> -->
 		</ul>
 	</div>
-	<div class="screen-r-bottom">
-		<span>领取收益后，体验果仁会被收回</span>
-	</div>
+</div>
+<div class="screen-r-bottom">
+	<span>领取收益后，体验果仁会被收回</span>
+</div>
+<div class="screen-r-popup">
+
+	@@include('../../dialogs/confirm/confirm.html')
 </div>
 @@include('../../../source/include/bottom.html', {"name": "experience-gop"})
