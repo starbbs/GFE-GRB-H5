@@ -2,7 +2,7 @@
 // H5微信端 --- 体验果仁
 
 
-require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function(
+require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert',],function(
 	router, api, weixin, filters, dialogConfirm
 ){
 	var list={
@@ -80,7 +80,8 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
     "status":"200"
 }
 	router.init(true);
-	var gopToken = $.cookie('gopToken',gopToken);
+	var gopToken = $.cookie('gopToken');
+	alert(gopToken);
 	var experienceVM = avalon.define({
 		$id: 'experience',
 		gopNowPrice : 0, //果仁现价（取卖一价）
@@ -94,11 +95,11 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
 			//以下是确定事件！！！！！
 			dialogConfirm.onConfirm = function () {
 				api.experienceGopWithdraw({
-				    "gopToken":gopToken,				
-				    "exeprienceGopId":gopId
+				    gopToken : gopToken,				
+				    exeprienceGopId : gopId
 				},function(data){
 					if(data.status==200){
-						
+						alert("123");	
 					}else{
 						$.alert(data.msg);
 					}
