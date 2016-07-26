@@ -5,84 +5,8 @@
 require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert',],function(
 	router, api, weixin, filters, dialogConfirm
 ){
-	//测试数据
-// 	var list={
-//     "data":{
-//         "list":[
-//             {
-//                 "createTime":"2016-07-22 09:29:33",
-//                 "getGopPrice":7.05,
-//                 "gopPrice":7.01,
-//                 "expireDate":"2016-07-29 00:00:00",
-//                 "validDays":3,
-//                 "updateTime":"2016-07-22 15:39:27",
-//                 "id":1,
-//                 "gopNum":1500,
-//                 "userId":63,
-//                 "getGopNum":0.70922,
-//                 "status":"PROCESSING"
-//             },
-//             {
-//                 "createTime":"2016-07-22 09:32:33",
-//                 "getGopPrice":7,
-//                 "gopPrice":7,
-//                 "expireDate":"2016-07-29 00:00:00",
-//                 "validDays":2,
-//                 "updateTime":"2016-07-22 10:03:26",
-//                 "id":3,
-//                 "gopNum":500,
-//                 "userId":63,
-//                 "getGopNum":0.71429,
-//                 "status":"PROCESSING"
-//             },
-//             {
-//                 "createTime":"2016-07-22 09:32:33",
-//                 "getGopPrice":7,
-//                 "gopPrice":7.039,
-//                 "expireDate":"2016-07-29 00:00:00",
-//                 "validDays":1,
-//                 "updateTime":"2016-07-22 10:03:26",
-//                 "id":2,
-//                 "gopNum":500,
-//                 "userId":63,
-//                 "getGopNum":0.71429,
-//                 "status":"PROCESSING"
-//             },
-//             {
-//                 "createTime":"2016-07-22 09:32:33",
-//                 "getGopPrice":7.005,
-//                 "gopPrice":7,
-//                 "expireDate":"2016-07-29 00:00:00",
-//                 "validDays":0,
-//                 "updateTime":"2016-07-22 10:03:26",
-//                 "id":4,
-//                 "gopNum":500,
-//                 "userId":63,
-//                 "getGopNum":0.71429,
-//                 "status":"PROCESSING"
-//             },
-//             {
-//                 "createTime":"2016-07-22 09:32:33",
-//                 "getGopPrice":7,
-//                 "gopPrice":7.039,
-//                 "expireDate":"2016-07-29 00:00:00",
-//                 "validDays":0,
-//                 "updateTime":"2016-07-22 10:03:26",
-//                 "id":5,
-//                 "gopNum":500,
-//                 "userId":63,
-//                 "getGopNum":0.71429,
-//                 "status":"WITHDRAW"
-//             }
-//         ],
-//         "minIncome":1
-//     },
-//     "msg":"success",
-//     "status":"200"
-// }
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
-	alert(gopToken);
 	var experienceVM = avalon.define({
 		$id: 'experience',
 		gopNowPrice : 0, //果仁现价（取卖一价）
@@ -134,7 +58,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 
 
 	//有接口后使用，不删！！！！
-	api.experienceGopList({gopToken:gotToken},function(data){
+	api.experienceGopList({gopToken:gopToken},function(data){
 		if(data.status==200){
 			//experienceList=data.data.list;
 			experienceList=[];
