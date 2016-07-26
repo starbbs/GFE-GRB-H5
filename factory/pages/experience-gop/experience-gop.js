@@ -6,31 +6,40 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
 	router, api, weixin, filters, dialogConfirm
 ){
 	var list={
-		"data":{
-		"list":[{"createTime":"2016-07-22 09:29:33",
-		"getGopPrice":7.050,
-		"gopPrice":7.010,
-		"expireDate":"2016-07-29 00:00:00",
-		"updateTime":"2016-07-22 15:39:27",
-		"id":1,
-		"gopNum":1500.000000,
-		"userId":63,
-		"getGopNum":0.709220,
-		"status":"PROCESSING"
-		},{
-		"createTime":"2016-07-22 09:32:33",
-		"getGopPrice":7.000,
-		"gopPrice":7.039,
-		"expireDate":"2016-07-29 00:00:00",
-		"updateTime":"2016-07-22 10:03:26",
-		"id":2,
-		"gopNum":500.000000,
-		"userId":63,
-		"getGopNum":0.714290,
-		"status":"WITHDRAW"}]
-		},
-		"msg":"success",
-		"status":"200"}
+    "data":{
+        "list":[
+            {
+                "createTime":"2016-07-22 09:29:33",
+                "getGopPrice":7.05,
+                "gopPrice":7.01,
+                "expireDate":"2016-07-29 00:00:00",
+                "validDays":1,
+                "updateTime":"2016-07-22 15:39:27",
+                "id":1,
+                "gopNum":1500,
+                "userId":63,
+                "getGopNum":0.70922,
+                "status":"PROCESSING"
+            },
+            {
+                "createTime":"2016-07-22 09:32:33",
+                "getGopPrice":7,
+                "gopPrice":7.039,
+                "expireDate":"2016-07-29 00:00:00",
+                "validDays":0,
+                "updateTime":"2016-07-22 10:03:26",
+                "id":2,
+                "gopNum":500,
+                "userId":63,
+                "getGopNum":0.71429,
+                "status":"WITHDRAW"
+            }
+        ],
+        "minIncome":1
+    },
+    "msg":"success",
+    "status":"200"
+}
 	router.init(true);
 	var gopToken = $.cookie('gopToken',gopToken);
 	var experienceVM = avalon.define({
@@ -49,8 +58,14 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
 	experienceList=[];
 	list.data.list && list.data.list.forEach(function(item){
 		//if(item.status!="WITHDRAW"){
-			var deci=Math.abs((item.getGopPrice-item.gopPrice)*item.gopNum)-Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum));
-			item.gopDecimal=filters.ceilFix(deci,2).split(".")[1];
+			item.flag = (item.getGopPrice-item.gopPrice) < 0;
+			var deci = Math.abs((item.getGopPrice-item.gopPrice)*item.gopNum)-Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum));
+			item.gopDecimal = filters.ceilFix(deci,2).split(".")[1];
+			var minDeci = filters.ceilFix((Math.abs(list.data.minIncome)-Math.abs(parseInt(list.data.minIncome))),2).split(".")[1];
+			//item.income = (item.getGopPrice-item.gopPrice)*item.gopNum > 0 ? (item.getGopPrice-item.gopPrice)*item.gopNum : (validDays < 1 ? list.data.mainIncome)
+			item.sign = (item.getGopPrice-item.gopPrice)*item.gopNum > 0 ? '+' : '-';
+			item.incomeInt = (item.getGopPrice-item.gopPrice)*item.gopNum > 0 ? parseInt((item.getGopPrice-item.gopPrice)*item.gopNum) : (item.validDays >=1 ? Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum)) : parseInt(list.data.minIncome));
+			item.incomeDec = (item.getGopPrice-item.gopPrice)*item.gopNum > 0 ? item.gopDecimal : (item.validDays >= 1 ? item.gopDecimal : minDeci);
 			experienceList.push(item);
 		//}
 	})

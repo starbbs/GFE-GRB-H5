@@ -27,10 +27,10 @@
 			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList" ms-data-id="item.id">
 				<div class="screen-r-middle-menu-li-left">
 					<div class="screen-r-middle-menu-li-left-lu">
-						<span class="screen-r-middle-menu-li-left-lu-lum greeicon"></span>
+						<span class="screen-r-middle-menu-li-left-lu-lum" ms-class-1="greeicon:item.validDays<1" ms-class-2="blueicon:item.validDays>=1"></span>
 						<span class="screen-r-middle-menu-li-left-lu-lun">{{item.gopNum}}</span>
-						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire" >已到期</span>
-						<!-- <span class="screen-r-middle-menu-li-left-lu-lud">剩余<span>一天</span> -->
+						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire" ms-if="item.validDays<1">已到期</span>
+						<span class="screen-r-middle-menu-li-left-lu-lud" ms-if="item.validDays>=1">剩余<span>{{item.validDays}}天</span>
 					</div>
 					<div class="screen-r-middle-menu-li-left-ld">
 						<span>获取价</span>
@@ -39,11 +39,11 @@
 				</div>
 				<div class="screen-r-middle-menu-li-right">
 					<div class="screen-r-middle-menu-li-right-ru" ms-class="greenfont:(item.getGopPrice-item.gopPrice)*item.gopNum<0">
-						<span>{{(item.getGopPrice-item.gopPrice)*item.gopNum|sign}}</span>
+						<span>{{item.sign}}</span>
 						<span class="font-rmb-icon">¥</span>
-						<span class="screen-r-middle-menu-li-right-ru-ru3">{{Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))}}<span>.{{item.gopDecimal}}</span></span>
+						<span class="screen-r-middle-menu-li-right-ru-ru3">{{item.incomeInt}}<span>.{{item.incomeDec}}</span></span>
 					</div>
-					<button class="screen-r-middle-menu-li-right-rd" ms-class-1="greebag:(item.getGopPrice-item.gopPrice)*item.gopNum<0" ms-class-2="disabled:true" ms-click="drawConfirm">
+					<button class="screen-r-middle-menu-li-right-rd" ms-click="drawConfirm" ms-class-1="greebag:item.flag" ms-class-2="disabled:item.flag">
 						领取收益
 					</button>
 				</div>
@@ -78,7 +78,6 @@
 	<span>领取收益后，体验果仁会被收回</span>
 </div>
 <div class="screen-r-popup">
-
 	@@include('../../dialogs/confirm/confirm.html')
 </div>
 @@include('../../../source/include/bottom.html', {"name": "experience-gop"})
