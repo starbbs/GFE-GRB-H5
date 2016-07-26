@@ -118,6 +118,8 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
 			item.sign = item.getGopPrice-item.gopPrice >= 0 ? '+' : (item.validDays >= 1 ? '-' : '+');
 			//收益整数、小数部分显示
 			item.incomeInt = (item.getGopPrice-item.gopPrice)*item.gopNum > 0 ? parseInt((item.getGopPrice-item.gopPrice)*item.gopNum) : (item.validDays >=1 ? Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum)) : parseInt(list.data.minIncome));
+			//获取价保留两位小数
+			item.gopPrice=filters.ceilFix(item.gopPrice,2);
 			item.incomeDec = (item.getGopPrice-item.gopPrice)*item.gopNum > 0 ? item.gopDecimal : (item.validDays >= 1 ? item.gopDecimal : minDeci);
 			experienceList.push(item);
 		//}
