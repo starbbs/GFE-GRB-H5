@@ -183,10 +183,11 @@ $colorwhite: #fff;
         }
     }
     &-bottom {
-        margin: 40px auto;
+        margin-top: 40px;
         color:$color999;
         text-align: center;
         font-size: 12px;
+        padding-bottom: 40px;
     }
     &-popup{
        line-height:25px;
