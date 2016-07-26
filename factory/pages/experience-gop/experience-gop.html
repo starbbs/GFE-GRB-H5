@@ -10,7 +10,7 @@
 			<hr class="screen-r-header-price-hr1" />
 			<div class="screen-r-header-price-span">
 				<span>果仁现价</span>
-				<span><span class="font-rmb-icon">¥</span>15.12</span>
+				<span><span class="font-rmb-icon">¥</span>{{gopNowPrice}}</span>
 			</div>
 			<hr class="screen-r-header-price-hr2" />
 		</div>
@@ -24,12 +24,13 @@
 	</div>
 	<div class="screen-r-middle">
 		<ul class="screen-r-middle-menu">
-			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList">
+			<li class="screen-r-middle-menu-li" ms-repeat-item="experienceList" ms-data-id="item.id">
 				<div class="screen-r-middle-menu-li-left">
 					<div class="screen-r-middle-menu-li-left-lu">
-						<span class="screen-r-middle-menu-li-left-lu-lum greeicon"></span>
+						<span class="screen-r-middle-menu-li-left-lu-lum" ms-class-1="greeicon:item.validDays<1" ms-class-2="blueicon:item.validDays>=1"></span>
 						<span class="screen-r-middle-menu-li-left-lu-lun">{{item.gopNum}}</span>
-						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire">已到期</span>
+						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire" ms-if="item.validDays<1">已到期</span>
+						<span class="screen-r-middle-menu-li-left-lu-lud" ms-if="item.validDays>=1">剩余<span>{{item.validDays}}天</span>
 					</div>
 					<div class="screen-r-middle-menu-li-left-ld">
 						<span>获取价</span>
@@ -37,12 +38,12 @@
 					</div>
 				</div>
 				<div class="screen-r-middle-menu-li-right">
-					<div class="screen-r-middle-menu-li-right-ru">
-						<span>{{parseInt((item.getGopPrice-item.gopPrice)*item.gopNum)|sign}}</span>
+					<div class="screen-r-middle-menu-li-right-ru" ms-class="greenfont:(item.getGopPrice-item.gopPrice)*item.gopNum<0">
+						<span>{{item.sign}}</span>
 						<span class="font-rmb-icon">¥</span>
-						<span class="screen-r-middle-menu-li-right-ru-ru3">{{Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))}}<span>.{{Math.abs((item.getGopPrice-item.gopPrice)*item.gopNum)-Math.abs(parseInt((item.getGopPrice-item.gopPrice)*item.gopNum))|ceilFix}}</span></span>
+						<span class="screen-r-middle-menu-li-right-ru-ru3">{{item.incomeInt}}<span>.{{item.incomeDec}}</span></span>
 					</div>
-					<button class="screen-r-middle-menu-li-right-rd" ms-class="greebag:(item.getGopPrice-item.gopPrice)*item.gopNum<0" ms-click="drawConfirm">
+					<button class="screen-r-middle-menu-li-right-rd" ms-click="drawConfirm" ms-class-1="greebag:item.flag">
 						领取收益
 					</button>
 				</div>
@@ -77,7 +78,6 @@
 	<span>领取收益后，体验果仁会被收回</span>
 </div>
 <div class="screen-r-popup">
-
 	@@include('../../dialogs/confirm/confirm.html')
 </div>
 @@include('../../../source/include/bottom.html', {"name": "experience-gop"})
