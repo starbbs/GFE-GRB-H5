@@ -59,7 +59,8 @@ require([
 		$id: 'home',
 		bannerImgArr: [],
 		myGopNum: 0, //果仁数
-		gopNowPrice: 0, //果仁现价
+		gopNowPrice: 0, //果仁现价，
+		gopAvgPrice:0,  //平均价
 		totalInCome: 0, //累计收益
 		yesterDayIncome: 0, //昨天收益
 		curIndex: 0,
@@ -71,12 +72,19 @@ require([
 	});
 	avalon.scan(main.get(0), homeVm);
 	if(gopToken){
-		api.getIncome({
+//		api.getIncome({
+//			gopToken: gopToken
+//		}, function(data) {
+//			if (data.status == '200') {
+//				homeVm.totalInCome = data.data.totalIncome;
+//				homeVm.yesterDayIncome = data.data.yesterdayIncome;
+//			}
+//		});
+		api.getAvgCostPrice({
 			gopToken: gopToken
 		}, function(data) {
 			if (data.status == '200') {
-				homeVm.totalInCome = data.data.totalIncome;
-				homeVm.yesterDayIncome = data.data.yesterdayIncome;
+				homeVm.gopAvgPrice = data.data.userAvgCostPrice;
 			}
 		});
 		//获取果仁数
