@@ -19,7 +19,7 @@
                 <div class="home-banner-mygop-totalgop" ms-visible="curIndex===1 ">
                     <div class="mytotalgop">
                     		总资产( <span class="font-rmb-icon">¥</span> )
-                    		<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{(validExperGopNum*gopNowPrice)}}</span>
+                    		<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{(validExperGopNum*gopNowPrice)+lockedExperGopIncome.toFixed(2)}}</span>
                     </div>
                     <div class="rmbnum">
                         <span>{{((myGopNum+validExperGopNum)*100*gopNowPrice/100+lockedExperGopIncome).toFixed(2)}}</span>
