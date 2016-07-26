@@ -106,14 +106,15 @@ define('h5-view-bill', [
 		// 买果仁
 		if (vm.payType === '微信支付') {
 			console.log(weixinPayData)
+			weixin.pay.set(weixinPayData);
+			weixin.pay.work();
 			weixin.pay.onSuccess = function(res) {
 				buyInHandler('BUY_IN', vm.id, {
 					forceStatus: 'SUCCESS',
 					ifFinishButton: true
 				});
 			};
-			weixin.pay.set(weixinPayData);
-			weixin.pay.work();
+
 		} else {
 			//orderJudge.checkRMB(vm.waitForPayMoney, function(status, gopPrice, myGopNum) {
 			//	if (status === orderJudge.ok) {
