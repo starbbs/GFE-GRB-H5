@@ -29,8 +29,8 @@
 					<div class="screen-r-middle-menu-li-left-lu">
 						<span class="screen-r-middle-menu-li-left-lu-lum" ms-class-1="greeicon:item.validDays<1" ms-class-2="blueicon:item.validDays>=1"></span>
 						<span class="screen-r-middle-menu-li-left-lu-lun">{{item.gopNum}}</span>
-						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire" ms-if="item.validDays<1">已到期</span>
-						<span class="screen-r-middle-menu-li-left-lu-lud" ms-if="item.validDays>=1">剩余<span>{{item.validDays}}天</span>
+						<span class="screen-r-middle-menu-li-left-lu-lud lud-expire" ms-visible='item.desc'>{{item.desc}}</span>
+						<span class="screen-r-middle-menu-li-left-lu-lud" ms-visible="item.flag1 && item.status!='LOCKED'">剩余<span>{{item.validDays}}天</span>
 					</div>
 					<div class="screen-r-middle-menu-li-left-ld">
 						<span>获取价</span>
@@ -38,10 +38,10 @@
 					</div>
 				</div>
 				<div class="screen-r-middle-menu-li-right">
-					<div class="screen-r-middle-menu-li-right-ru" ms-class-1="greenfont:item.getGopPrice-item.gopPrice<0 && item.validDays>0" ms-class-2="defaultfont:item.getGopPrice-item.gopPrice==0 && item.validDays>0">
+					<div class="screen-r-middle-menu-li-right-ru" ms-class-1="greenfont:item.sign=='-'" ms-class-2="defaultfont:item.flag2">
 						<span>{{item.sign}}</span>
 						<span class="font-rmb-icon">¥</span>
-						<span class="screen-r-middle-menu-li-right-ru-ru3">{{item.incomeInt}}<span>.{{item.incomeDec}}</span></span>
+						<span class="screen-r-middle-menu-li-right-ru-ru3">{{item.incomeInt}}<span>{{item.incomeDec}}</span></span>
 					</div>
 					<button class="screen-r-middle-menu-li-right-rd" ms-click="drawConfirm" ms-class-1="greebag:item.flag">
 						领取收益
