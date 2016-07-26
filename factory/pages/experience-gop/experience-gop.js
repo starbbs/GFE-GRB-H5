@@ -129,43 +129,47 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 			var li = $(this).parents(".screen-r-middle-menu-li");
 			var _this = li.get(0).dataset;
 			var flag = _this.flag;
-			getSellOnePrice(false);
 			if(flag === "false"){
-				var gopId = _this.id;
-				var gopNum = filters.ceilFix(_this.income / experienceVM.gopNowPrice,2);
-				var income = filters.ceilFix(_this.income,2); //领取时的收益
-				
-				dialogConfirm.set('<div class="screen-r-popup"> <div class="screen-r-popup-top"> 现在领取收益 <span class="screen-r-popup-top-f"> '+gopNum+'</span> 个果仁（价值 <span class="screen-r-popup-top-f">'+income+'</span>元）将会进入您的账户中，同时您的体验果仁将会被系统回收 </div><div class="screen-r-popup-bottom">确定领取？</div></div>', {okBtnText: '确定', cancelBtnText: "取消"});
-				dialogConfirm.show();
-				//以下是确定事件！！！！！
-				dialogConfirm.onConfirm = function () {
-					api.experienceGopWithdraw({
-					    gopToken:gopToken,				
-					    exeprienceGopId:gopId
-					},function(data){
-						if(data.status==200){
-							li.hide();
-						}else{
-							$.alert(data.msg);
-						}
-					});
-				};	
+				api.getselloneprice(function(data) {
+					experienceVM.gopNowPrice = data.optimumBuyPrice;
+					var gopId = _this.id;
+					var gopNum = filters.ceilFix(_this.income / experienceVM.gopNowPrice,2);
+					var income = filters.ceilFix(_this.income,2); //领取时的收益
+					dialogConfirm.set('<div class="screen-r-popup"> <div class="screen-r-popup-top"> 现在领取收益 <span class="screen-r-popup-top-f"> '+gopNum+'</span> 个果仁（价值 <span class="screen-r-popup-top-f">'+income+'</span>元）将会进入您的账户中，同时您的体验果仁将会被系统回收 </div><div class="screen-r-popup-bottom">确定领取？</div></div>', {okBtnText: '确定', cancelBtnText: "取消"});
+					dialogConfirm.show();
+					dialogConfirm.onConfirm = function () {
+						api.experienceGopWithdraw({
+						    gopToken:gopToken,				
+						    exeprienceGopId:gopId
+						},function(data){
+							if(data.status==200){
+								li.hide();
+							}else{
+								$.alert(data.msg);
+							}
+						});
+					};	
+				});
 			}
 		}
 	});
-	var getSellOnePrice = function(getFlag){
+	//获取卖一价
+	var getSellOnePrice = function(){
 		api.getselloneprice(function(data) {
 			experienceVM.gopNowPrice = data.optimumBuyPrice;
-			getFlag && getData();
+			getData();
 		});
 	}
-	getSellOnePrice(true);
+	getSellOnePrice();
+	//获取后台返回的体验果仁list
 	var getData = function(){
 		list.data.list && list.data.list.forEach(function(item){
-		console.log(experienceVM.gopNowPrice);
 		if(item.status!="WITHDRAW"){
 			//收益
 			item.income = item.status === 'LOCKED' ? item.getGopPrice*item.getGopNum : (experienceVM.gopNowPrice-item.gopPrice)*item.gopNum;
+			if(item.validDays < 1 && item.income < 0){
+				item.income = list.data.minIncome;
+			}
 			//判断条件
 			item.flag1 = item.validDays>=1;
 			item.flag = (experienceVM.gopNowPrice-item.gopPrice) < 0 && item.validDays > 0;

@@ -19,7 +19,7 @@
                 <div class="home-banner-mygop-totalgop" ms-visible="curIndex===1 ">
                     <div class="mytotalgop">
                     		总资产( <span class="font-rmb-icon">¥</span> )
-                    		<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{(validExperGopNum*gopNowPrice)+lockedExperGopIncome.toFixed(2)}}</span>
+                    		<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{((validExperGopNum*gopNowPrice)+lockedExperGopIncome).toFixed(2)}}</span>
                     </div>
                     <div class="rmbnum">
                         <span>{{((myGopNum+validExperGopNum)*100*gopNowPrice/100+lockedExperGopIncome).toFixed(2)}}</span>
@@ -27,24 +27,24 @@
 
                 </div>
             </div>
-            <ul class="gopbottom" ms-visible="myGopNum!=0 && isShowHeader">
-                <li class="gopli">
+            <div class="gopbottom" ms-visible="myGopNum!=0 && isShowHeader">
+                <a href="javascript:void(0);" class="gopli">
                     <div class="gopli-title">持有果仁(<i class="iconfont icon-g"></i>)</div>
                     <div class="gopli-numbers">{{myGopNum|floorFix}}</div>
-                </li>
-                <li class="gopli" onclick="window.location.href='experience-gop.html#!/'">
+                </a>
+                <a class="gopli" href="experience-gop.html#!/">
                     <div class="gopli-title">体验果仁(<i class="iconfont icon-g"></i>)</div>
                     <div class="gopli-numbers">{{validExperGopNum|floorFix}}</div>
-                </li>
-                <li class="gopli">
+                </a>
+                <a href="javascript:void(0);" class="gopli">
                     <div class="gopli-title font-rmb-icon">累计收益(<span class="icon-rmb">¥</span>)</div>
                     <div class="gopli-numbers">
                         <span class="home-banner-mygop-incomegop-incomenum-sign">{{totalInCome|sign}}</span>
                         <span>{{totalInCome|abs|floorFix}}</span>
                     </div>
 
-                </li>
-            </ul>
+                </a>
+            </div>
         </div>
         <div class="home-gop">
             <a href="purchase.html#!/" class="home-gop-buy"><span class="home-gop-buy-span"></span><span>买果仁</span></a>
