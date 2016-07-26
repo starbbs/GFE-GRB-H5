@@ -133,7 +133,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm'],function
 
 
 	//有接口后使用，不删！！！！
-	api.experienceGopList({gopToken:gotToken},function(data){
+	api.experienceGopList({gopToken:gopToken},function(data){
 		if(data.status==200){
 			//experienceList=data.data.list;
 			experienceList=[];
