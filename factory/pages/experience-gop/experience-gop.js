@@ -5,126 +5,6 @@
 require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert',],function(
 	router, api, weixin, filters, dialogConfirm
 ){
-//	api.obtain({
-//		gopToken:"9bfcd178472f48bcb28584dc4ed82a04",
-//  		toUserId:"143"
-//	},function(data){
-//		alert(data.status);
-//	});
-//	var list={
-//	    "data":{
-//	        "list":[
-//	            {
-//	                "createTime":"2016-07-22 09:29:33",
-//	                "getGopPrice":7.05,
-//	                "gopPrice":15.959793,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":3,
-//	                "updateTime":"2016-07-22 15:39:27",
-//	                "id":1,
-//	                "gopNum":1500,
-//	                "userId":63,
-//	                "getGopNum":0.70922,
-//	                "status":"PROCESSING"
-//	            },
-//	            {
-//	                "createTime":"2016-07-22 09:29:33",
-//	                "getGopPrice":7.05,
-//	                "gopPrice":17,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":1,
-//	                "updateTime":"2016-07-22 15:39:27",
-//	                "id":3,
-//	                "gopNum":1500,
-//	                "userId":63,
-//	                "getGopNum":0.70922,
-//	                "status":"PROCESSING"
-//	            },
-//	            {
-//	                "createTime":"2016-07-22 09:29:33",
-//	                "getGopPrice":7.05,
-//	                "gopPrice":16,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":2,
-//	                "updateTime":"2016-07-22 15:39:27",
-//	                "id":4,
-//	                "gopNum":1500,
-//	                "userId":63,
-//	                "getGopNum":0.70922,
-//	                "status":"PROCESSING"
-//	            },
-//	            {
-//	                "createTime":"2016-07-22 09:29:33",
-//	                "getGopPrice":7.05,
-//	                "gopPrice":15.959789,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":2,
-//	                "updateTime":"2016-07-22 15:39:27",
-//	                "id":42,
-//	                "gopNum":1500,
-//	                "userId":63,
-//	                "getGopNum":0.70922,
-//	                "status":"PROCESSING"
-//	            },
-//	            {
-//	                "createTime":"2016-07-22 09:29:33",
-//	                "getGopPrice":7.05,
-//	                "gopPrice":0.01,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":1,
-//	                "updateTime":"2016-07-22 15:39:27",
-//	                "id":5,
-//	                "gopNum":1500,
-//	                "userId":63,
-//	                "getGopNum":0.70922,
-//	                "status":"LOCKED"
-//	            },
-//	            {
-//	                "createTime":"2016-07-22 09:29:33",
-//	                "getGopPrice":7.05,
-//	                "gopPrice":0.01,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":0,
-//	                "updateTime":"2016-07-22 15:39:27",
-//	                "id":9,
-//	                "gopNum":1500,
-//	                "userId":63,
-//	                "getGopNum":0.70922,
-//	                "status":"LOCKED"
-//	            },
-//	            {
-//	                "createTime":"2016-07-22 09:32:33",
-//	                "getGopPrice":7,
-//	                "gopPrice":7,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":2,
-//	                "updateTime":"2016-07-22 10:03:26",
-//	                "id":2,
-//	                "gopNum":500,
-//	                "userId":63,
-//	                "getGopNum":0.71429,
-//	                "status":"WITHDRAW"
-//	            }
-//	            ,
-//	            {
-//	                "createTime":"2016-07-22 09:32:33",
-//	                "getGopPrice":7,
-//	                "gopPrice":17,
-//	                "expireDate":"2016-07-29 00:00:00",
-//	                "validDays":0,
-//	                "updateTime":"2016-07-22 10:03:26",
-//	                "id":80,
-//	                "gopNum":500,
-//	                "userId":63,
-//	                "getGopNum":0.71429,
-//	                "status":"PROCESSING"
-//	            }
-//	        ],
-//	        "minIncome":1
-//	    },
-//	    "msg":"success",
-//	    "status":"200"
-//	}
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
 	var experienceVM = avalon.define({
@@ -232,6 +112,6 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 //		})
 	}
 	getSellOnePrice();
-	
+	$(".screen-r").addClass('on');
 	avalon.scan();	
 });

@@ -19,6 +19,7 @@ $colorpricered: #ff5a6b;
 $colorwhite: #fff;
 .screen-r {
     overflow-x: hidden;
+    @extend %fade-in;
     &-header {
         background-image: url($image + '/home-bgblue.jpg');
         background-size: cover;
