@@ -7,7 +7,7 @@
 define('h5-config', function() {
 	var path = location.pathname;
 	var rootPatharr = path.split("/");
-	var pathName = rootPatharr[1];
+	var pathName = rootPatharr.length>1?rootPatharr[1]:'wx';
 	//测试环境参数配置
 	var paramConfig = {
 		baseUri : '//goopal.xiaojian.me',
