@@ -19,7 +19,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
     // var base = 'www.goopal.com.cn/wx'; // 地址
     var path = location.pathname;
     var rootPatharr = path.split("/");
-    var pathName = rootPatharr[0];
+    var pathName = rootPatharr.length>1?rootPatharr[1]:'wx';
     var base = 'www.xiaojian.me/' + pathName; // 地址
     var weixin = {
         // 参数
