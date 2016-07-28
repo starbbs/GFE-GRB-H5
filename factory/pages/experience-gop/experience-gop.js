@@ -54,7 +54,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 			 		//experienceList=data.data.list;			
 			 		data.data.list && data.data.list.forEach(function(item){
 			 			if(item.status!="WITHDRAW"){
-			 				item.gopNum = filters.floorFix(item.gopNum,2);
+			 				item.gopNum = item.gopNum;
 							//收益
 							item.income = item.status === 'LOCKED' ? item.getGopPrice*item.getGopNum : (experienceVM.gopNowPrice-item.gopPrice)*item.gopNum;
 							
