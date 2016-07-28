@@ -1,66 +1,63 @@
 @@include('../../../source/include/top.html', {"name": "home"})
 <div class="screen-r">
-    <div class="home" ms-controller="home">
-        <div class="home-banner">
-            <!--没有买果仁-->
-            <div class="home-banner-nobuygop" ms-visible="myGopNum===0 && isShowHeader">
-                <div class="home-banner-nobuygop-layer1">港股上市公司神州数字(08255.HK)旗下
-                </div>
-                <div class="home-banner-nobuygop-layer2">
-                    <span class="layer22">预计年化收益率</span><span class="rate-num">{{incomePercentNumber}}</span><span class="rate-num-small">.{{incomePercentFloat}}%</span>
+	<div class="home" ms-controller="home">
+		<div class="home-banner">
+			<!--没有买果仁-->
+			<div class="home-banner-nobuygop" ms-visible="myGopNum===0 && isShowHeader">
+				<div class="home-banner-nobuygop-layer1">港股上市公司神州数字(08255.HK)旗下
+				</div>
+				<div class="home-banner-nobuygop-layer2">
+					<span class="layer22">预计年化收益率</span><span class="rate-num">{{incomePercentNumber}}</span><span class="rate-num-small">.{{incomePercentFloat}}%</span>
 
-                </div>
-                <div class="home-banner-nobuygop-layer3">与众不同的价值投资&emsp;引领未来的超级钱包</div>
-                <a class="home-banner-nobuygop-layer4" href="about-us.html">了解详情</a>
-            </div>
-            <!--有果仁-->
-            <div class="home-banner-mygop" ms-visible="myGopNum!=0 && isShowHeader">
-                <!--总资产-->
-                <div class="home-banner-mygop-totalgop" ms-visible="curIndex===1 ">
-                    <div class="mytotalgop">总资产( <span class="font-rmb-icon">¥</span> )</div>
-                    <div class="rmbnum">
-                        <span>{{(myGopNum*100*gopNowPrice/100).toFixed(2)}}</span>
-                    </div>
+				</div>
+				<div class="home-banner-nobuygop-layer3">与众不同的价值投资&emsp;引领未来的超级钱包</div>
+				<a class="home-banner-nobuygop-layer4" href="about-us.html">了解详情</a>
+			</div>
+			<!--有果仁-->
+			<div class="home-banner-mygop" ms-visible="myGopNum!=0 && isShowHeader">
+				<!--总资产-->
+				<div class="home-banner-mygop-totalgop" ms-visible="curIndex===1 ">
+					<div class="mytotalgop">
+						总资产( <span class="font-rmb-icon">¥</span> )
+						<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{((validExperGopNum*gopNowPrice)+lockedExperGopIncome).toFixed(2)}}</span>
+					</div>
+					<div class="rmbnum">
+						<span>{{((myGopNum+validExperGopNum)*100*gopNowPrice/100+lockedExperGopIncome).toFixed(2)}}</span>
+					</div>
 
-                </div>
-            </div>
-            <ul class="gopbottom" ms-visible="myGopNum!=0 && isShowHeader">
-                <li class="gopli">
-                    <div class="gopli-title">持有果仁(<i class="iconfont icon-g"></i>)</div>
-                    <div class="gopli-numbers">{{myGopNum|floorFix}}</div>
-                </li>
-                <li class="gopli">
-                    <div class="gopli-title">体验果仁(<i class="iconfont icon-g"></i>)</div>
-                    <div class="gopli-numbers">0.00</div>
-                </li>
-                <li class="gopli">
-                    <div class="gopli-title font-rmb-icon">浮动盈亏(<span class="icon-rmb">¥</span>)</div>
-                    <div class="gopli-numbers">
-                        <span class="home-banner-mygop-incomegop-incomenum-sign">{{((gopNowPrice-gopAvgPrice)*myGopNum)|sign}}</span>
-                        <span>{{Math.abs((gopNowPrice-gopAvgPrice)*myGopNum).toFixed(2)}}</span>
-                    </div>
-
-                </li>
-            </ul>
-        </div>
-        <div class="home-gop">
-            <a href="purchase.html#!/" class="home-gop-buy"><span class="home-gop-buy-span"></span><span>买果仁</span></a>
-            <a href="transfer.html?cangory=GOP_MARKET" class="home-gop-transfer"><span class="home-gop-transfer-span"></span><span>转果仁</span></a>
-        </div>
-        <h3 class="home-chart-title " id="chart_title">近7日果仁价格曲线(<span class="font-rmb-icon">¥</span>)</h3>
-        <div class="home-chart" id="home_chart_outer">
-            <div class="home-chart-item" id="chart-history"></div>
-            <div class="home-chart-cover"></div>
-            <div class="curr-price-tip" id="curr_price_tip">果仁现价<span class="curr-price-span font-rmb-icon">¥ {{gopNowPrice.toFixed(2)}}</span></div>
-            <div class="curr-price-circle" id="curr_price_circle"></div>
-        </div>
-    </div>
-    @@include('../../components/nav/nav.html', { "name": "home" })
-    <div class="alert"></div>
+				</div>
+			</div>
+			<div class="gopbottom" ms-visible="myGopNum!=0 && isShowHeader">
+				<a href="javascript:void(0);" class="gopli">
+					<div class="gopli-title">持有果仁(<i class="iconfont icon-g"></i>)</div>
+					<div class="gopli-numbers">{{myGopNum|floorFix}}</div>
+				</a>
+				<a class="gopli" href="experience-gop.html#!/">
+					<div class="gopli-title">体验果仁(<i class="iconfont icon-g"></i>)</div>
+					<div class="gopli-numbers">{{validExperGopNum|floorFix}}</div>
+				</a>
+				<a href="javascript:void(0);" class="gopli">
+					<div class="gopli-title font-rmb-icon">浮动盈亏(<span class="icon-rmb">¥</span>)</div>
+					<div class="gopli-numbers">
+						<span class="home-banner-mygop-incomegop-incomenum-sign">{{((gopNowPrice-gopAvgPrice)*myGopNum)|sign}}</span>
+						<span>{{Math.abs((gopNowPrice-gopAvgPrice)*myGopNum).toFixed(2)}}</span>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="home-gop">
+			<a href="purchase.html#!/" class="home-gop-buy"><span class="home-gop-buy-span"></span><span>买果仁</span></a>
+			<a href="transfer.html?cangory=GOP_MARKET" class="home-gop-transfer"><span class="home-gop-transfer-span"></span><span>转果仁</span></a>
+		</div>
+		<h3 class="home-chart-title " id="chart_title">近7日果仁价格曲线(<span class="font-rmb-icon">¥</span>)</h3>
+		<div class="home-chart" id="home_chart_outer">
+			<div class="home-chart-item" id="chart-history"></div>
+			<div class="home-chart-cover"></div>
+			<div class="curr-price-tip" id="curr_price_tip">果仁现价<span class="curr-price-span font-rmb-icon">¥ {{gopNowPrice.toFixed(2)}}</span></div>
+			<div class="curr-price-circle" id="curr_price_circle"></div>
+		</div>
+	</div>
+	@@include('../../components/nav/nav.html', { "name": "home" })
+	<div class="alert"></div>
 </div>
-@@include('../../../source/include/bottom.html',
-{
-"name": "home",
-"jquery": true,
-"highcharts":true
-})
+@@include('../../../source/include/bottom.html', { "name": "home", "jquery": true, "highcharts":true })

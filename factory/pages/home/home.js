@@ -63,6 +63,8 @@ require([
 		gopAvgPrice:0,  //平均价
 		totalInCome: 0, //累计收益
 		yesterDayIncome: 0, //昨天收益
+		validExperGopNum : 0,//有效体验果仁数
+		lockedExperGopIncome : 0,
 		curIndex: 0,
 		isShowHeader:false,
 		incomePercentNumber:"10",
@@ -94,6 +96,8 @@ require([
 			homeVm.isShowHeader = true;
 			if (data.status == 200) {
 				homeVm.myGopNum = data.data.gopNum;
+				homeVm.validExperGopNum = data.data.validExperGopNum;
+				homeVm.lockedExperGopIncome = data.data.lockedExperGopIncome;
 				if (homeVm.myGopNum > 0) {
 					homeVm.curIndex = 1;
 				}

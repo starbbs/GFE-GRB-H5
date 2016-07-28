@@ -1,0 +1,205 @@
+﻿// 姜晓妮 2016-07-22  创建
+// H5微信端 --- 体验果仁
+
+@charset 'utf-8';
+
+@import '../../../source/scss/main';
+@import '../../dialogs/confirm/confirm';
+@import '../../dialogs/dialog';
+
+$img: $g-pages + '/experience-gop/images'; //
+$image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
+html {
+    background-color: $g-background;
+}
+$colorpriceblue: #bedbff; //收益蓝
+$colorgray: #f2f2f2; //收益灰
+$color999: #999999;
+$colorpricered: #ff5a6b;
+$colorwhite: #fff;
+.screen-r {
+    overflow-x: hidden;
+    @extend %fade-in;
+    &-header {
+        background-image: url($image + '/home-bgblue.jpg');
+        background-size: cover;
+        background-repeat: repeat;
+        text-align: center;
+        overflow: hidden;
+        padding-bottom: 20px;
+        &-step {
+            width: 86.93%;
+            margin-top:22px;
+        }
+        &-pig {
+            margin: 18px auto 0;
+            @include sprite($img + '/pig.png', 76px);
+        }
+        &-experience {
+            display: block;
+            margin: 14px auto 0;
+            font-size: 16px;
+            color: $colorpriceblue;
+            line-height: 16px;
+        }
+        &-price {
+            margin: 27px 3.2% 0;
+            line-height: 12px;
+            &-hr1,
+            &-hr2 {
+                display: inline-block;
+                width: 33.3%;
+                height: 1px;
+                border: none;
+                border-top: 1px solid $colorpriceblue;
+                margin-top: 6px;
+            }
+            &-hr1 {
+                float: left;
+            }
+            &-hr2 {
+                float: right;
+            }
+            &-span {
+                display: inline-block;
+                span{
+                    font-size: 12px;
+                    color: $colorpriceblue;
+                }
+            }
+        }
+        &-bottom {
+            margin: 20px auto 0;
+            font-size: 8px;
+            color: #5883f2;
+            &-expression {
+                background-color: $g-white;
+                border-radius: 12px;
+                padding: 0 9px;
+                font-size: 12px;
+                display: inline-block;
+            }
+            &-sign{
+                display: inline-block;
+                color: $colorpriceblue;
+            }
+        }
+    }
+    &-middle {
+        overflow: hidden;
+        &-menu {
+            margin: 0 16px;
+            text-align: none;
+            &-li {
+                width: 100%;
+                margin-top: 16px;
+                background-color: $g-white;
+                height: 106px;
+                border-radius: 10px;
+                &-left {
+                    float: left;
+                    display: inline-block;
+                    margin: 20px 0 20px 15px;
+                    &-lu {
+                        line-height: 23px;
+                        &-lum {
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+                        .greeicon{
+                            @include sprite($img + '/gree.png', 23px);
+                        }
+                        .blueicon{
+                            @include sprite($img + '/blue.png', 23px);
+                        }
+                        &-lun {
+                            font-size: 22px;
+                            color: #777;
+                            vertical-align: middle;
+                        }
+                        &-lud {
+                            display: inline-block;
+                            border-radius: 10px;
+                            background-color: $colorgray;
+                            padding: 0 12px;
+                            text-align: center; //              vertical-align: middle;
+                            line-height: 24px;
+                            span{
+                                font-size: 14px;
+                            }
+                        }
+                        .lud-expire{
+                            color: $colorpricered;
+                        }
+                    }
+                    &-ld {
+                        font-size: 12px;
+                        color: $color999;
+                        margin-top: 23px;
+                        line-height: 24px;
+                    }
+                }
+                &-right {
+                    display: inline-block;
+                    float: right;
+                    padding: 19px 17px 12px 0;
+                    text-align: right;
+                    .greenfont{
+                        color: #47b29c;
+                    }
+                    .defaultfont{
+                        color: #000;
+                    }
+                    &-ru {
+                        font-size: 14px;
+                        line-height: 30px;
+                        color: $colorpricered;
+                        margin-right: 3px;
+                       &-ru3 {
+                            font-size: 30px;
+                            span{
+                                font-size: 14px;
+                            }
+                       }
+                    }
+                    &-rd {
+                        border-radius: 5px;
+                        background-color: $colorpricered;
+                        text-align: center;
+                        line-height: 31px;
+                        height: 31px;
+                        width: 80px;
+                        color: $colorwhite;
+                        font-size: 12px; 
+                        outline: none;
+                        border: none; 
+                        float: right;
+                        margin-top: 8px;
+                    }
+                    .greebag{
+                        background-color: #cccccc;
+                    }
+                }
+            }
+        }
+    }
+    &-bottom {
+        margin-top: 40px;
+        color:$color999;
+        text-align: center;
+        font-size: 12px;
+        padding-bottom: 40px;
+    }
+    &-popup{
+       line-height:25px;
+      &-top{
+          font-size:14px;
+          &-f{
+              color:#5883f2;
+          }
+      } 
+      &-bottom{
+          margin-top:10px;
+      } 
+    }
+}
