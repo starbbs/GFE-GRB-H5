@@ -64,7 +64,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 							item.income = filters.ceilFix(item.income,2);
 							//判断条件
 							item.flag1 = item.validDays>=1;
-							item.flag = (experienceVM.gopNowPrice-item.gopPrice) < 0 && item.validDays > 0;
+							item.flag = (experienceVM.gopNowPrice-item.gopPrice) <= 0 && item.validDays > 0;
 							item.flag2 = (experienceVM.gopNowPrice-item.gopPrice) == 0 && item.validDays > 0;
 							//收益小数部分计算
 							var deci = Math.abs(item.income)-Math.abs(parseInt(item.income));
