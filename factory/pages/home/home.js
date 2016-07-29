@@ -98,7 +98,7 @@ require([
 				homeVm.myGopNum = data.data.gopNum;
 				homeVm.validExperGopNum = data.data.validExperGopNum;
 				homeVm.lockedExperGopIncome = data.data.lockedExperGopIncome;
-				if (homeVm.myGopNum > 0) {
+				if (homeVm.myGopNum > 0 || homeVm.lockedExperGopIncome>0) {
 					homeVm.curIndex = 1;
 				}
 			} else {
