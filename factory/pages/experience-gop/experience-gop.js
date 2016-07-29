@@ -72,7 +72,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 							//收益为负 且 已到期 时收益小数部分
 							var minDeci = filters.ceilFix((Math.abs(data.data.minIncome)-Math.abs(parseInt(data.data.minIncome))),2).split(".")[1];
 							//+ -
-							item.sign = (experienceVM.gopNowPrice-item.gopPrice) >= 0 ? '+' : (item.validDays >= 1 ? '-' : '+');
+							item.sign = parseFloat(item.income) >= 0 ? '+' : (item.validDays >= 1 ? '-' : '+');
 							//收益整数、小数部分显示
 							item.incomeInt = item.validDays >= 1 ? (item.income > 0 ? parseInt(item.income) : Math.abs(parseInt(item.income))) : (item.income > 1 ? parseInt(item.income) : parseInt(data.data.minIncome));
 							//alert(item.income);
