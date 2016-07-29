@@ -62,7 +62,6 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','mathtool
 								item.income = data.data.minIncome;
 							}
 							item.income = filters.ceilFix(item.income,2);
-							console.log(item.income);
 							//判断条件
 							item.flag1 = item.validDays>=1;
 							item.flag = parseFloat(item.income) <= 0 && item.validDays > 0;
