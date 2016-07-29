@@ -3,13 +3,30 @@
 @import '../../../source/scss/main';
 // 张树垚 2015-12-31 14:55:24 创建
 // H5微信端 --- 设置页面
+$img: $g-views + '/coupon/images';
+$image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
 
-
-.invite-grb{
+.invite-grb,.invite-kefu{
     @extend .view-style;
-    $img: $g-views + '/coupon/images';
-    $image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
-    
-    background: url($image + '/invite-code-bg.jpg');
+    background: url($image + '/invite-code-bg.jpg') no-repeat;
+    background-size: 100%;
     width: 100%;
+}
+.invite-code{
+    text-align: center;
+    margin-top: 30%;
+}
+.codeimg{
+    width: 200px;
+}
+.success{
+    font-size: 18px;
+    color: #feefc4;
+    text-align: center;
+}
+.desc{
+    font-size: 14px;
+    color: #FFFFFF;
+    opacity: 0.3;
+    text-align: center;
 }

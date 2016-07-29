@@ -26,20 +26,23 @@ html{
 	border-radius: 18px;
 }
 .invite{
-	// @extend %fade-in;
-	background-image: url($image + '/invite-unregistered-bg.jpg');
-	background-size: 100% auto;
-	background-repeat: no-repeat;
+	&-bg{
+	    width: 100%;
+	    position: absolute;
+	    top: 0px;
+	    left: 0px;
+	}
 	&-login{
-		background-image: url($image + '/invite-unregistered-hb.png');
-		background-size: 100%;
-		background-repeat: no-repeat;
-		background-position: -10px 2px;
 		margin: 0 auto;
 		margin-bottom: 7px;
-		// width: 320px;
-		 height: 457px;
+		position: relative;
+		&-hb{
+		    width: 100%;
+		}
 		&-friend{
+		    position: absolute;
+		    top: 0px;
+		    left: 0px;
 			margin: 0 auto;
 			padding-top: 58px;
 			margin-bottom: 90px;
@@ -65,6 +68,9 @@ html{
 			}
 		}
 		&-main{
+		    position: absolute;
+		    bottom: 50px;
+		    left: 0px;
 			&-mobile{
 				@extend %main-wh;
 				margin: 0 auto;
@@ -128,10 +134,11 @@ html{
 	}
 	&-info{
 		width: 290px;
-		height: 135px;
+		//height: 135px;
 		color: #f5e6be;
 		margin: 0 auto;
-		padding-bottom: 20px;
+		margin-top: 10px;
+		
 		&-up{
 			background-color: #351b45;
 			width: 290px;
