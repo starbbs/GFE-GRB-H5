@@ -1,0 +1,15 @@
+﻿@charset 'utf-8';
+
+@import '../../../source/scss/main';
+// 张树垚 2015-12-31 14:55:24 创建
+// H5微信端 --- 设置页面
+
+
+.invite-grb{
+    @extend .view-style;
+    $img: $g-views + '/coupon/images';
+    $image: $g-img;    // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
+    
+    background: url($image + '/invite-code-bg.jpg');
+    width: 100%;
+}
