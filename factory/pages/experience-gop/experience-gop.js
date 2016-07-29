@@ -2,8 +2,8 @@
 // H5微信端 --- 体验果仁
 
 
-require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert',],function(
-	router, api, weixin, filters, dialogConfirm
+require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','mathtool','h5-alert',],function(
+	router, api, weixin, filters, dialogConfirm, mathtool
 ){
 	router.init(true);
 	var gopToken = $.cookie('gopToken');
@@ -56,19 +56,19 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','h5-alert
 			 			if(item.status!="WITHDRAW"){
 			 				item.gopNum = item.gopNum;
 							//收益
-							item.income = item.status === 'LOCKED' ? item.getGopPrice*item.getGopNum : (experienceVM.gopNowPrice-item.gopPrice)*item.gopNum;
+							item.income = item.status === 'LOCKED' ? item.getGopPrice*item.getGopNum : (mathtool.reduce(experienceVM.gopNowPrice,item.gopPrice))*item.gopNum;
 							
 							if(item.validDays < 1 && item.income < 0){
 								item.income = data.data.minIncome;
 							}
 							item.income = filters.ceilFix(item.income,2);
+							console.log(item.income);
 							//判断条件
 							item.flag1 = item.validDays>=1;
-							item.flag = (experienceVM.gopNowPrice-item.gopPrice) <= 0 && item.validDays > 0;
-							item.flag2 = (experienceVM.gopNowPrice-item.gopPrice) == 0 && item.validDays > 0;
+							item.flag = parseFloat(item.income) <= 0 && item.validDays > 0;
+							item.flag2 = parseFloat(item.income) == 0 && item.validDays > 0;
 							//收益小数部分计算
-							var deci = Math.abs(item.income)-Math.abs(parseInt(item.income));
-							item.gopDecimal = filters.ceilFix(deci,2).split(".")[1];
+							item.gopDecimal = item.income.split(".")[1];
 							//收益为负 且 已到期 时收益小数部分
 							var minDeci = filters.ceilFix((Math.abs(data.data.minIncome)-Math.abs(parseInt(data.data.minIncome))),2).split(".")[1];
 							//+ -
