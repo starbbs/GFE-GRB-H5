@@ -103,7 +103,7 @@ define('h5-view-bill', [
     var gotoPayOrder = function (vm) { // 前往支付 买话费 跳转order
         // 买果仁
         if (vm.payType === '微信支付') {
-            weixin.pay.set(weixinPayData);
+
             weixin.pay.work();
             weixin.pay.onSuccess = function (res) {
                 buyInHandler('BUY_IN', vm.id, {
@@ -518,6 +518,9 @@ define('h5-view-bill', [
             if (!data.data || !data.data.buyinOrder || data.status != 200) {
                 //data.msg && $.alert(data.msg);
                 return;
+            }
+            if(weixinPayData){
+                weixin.pay.set(weixinPayData);
             }
             var order = data.data.buyinOrder; // 订单
             var list = data.data.recordList; // 支付
