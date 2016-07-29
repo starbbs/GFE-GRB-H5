@@ -48,6 +48,24 @@ html {
 	$colorworldblue: #AABFF5; //蓝色类似透明文字
 	$colorpricered: #ffa2a3; //收益红
     margin-bottom: 70px;
+    &-avtivity-tip{   //拉新活动的红包入口
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 31px;
+        line-height: 31px;
+        background: #feffea;
+        text-indent: 20px;
+        font-size: 14px;
+        color: #603d14;
+        &-arrow{
+            @include sprite($img + '/arrow.png', 8px, 15px);
+            position: absolute;
+            right: 20px;
+            top: 8px;
+        }
+    }
 	&-banner{
 		height: 160px;
 		padding-top: 30px;
