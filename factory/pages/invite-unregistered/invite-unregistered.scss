@@ -18,8 +18,8 @@ html{
 	font-family: "Microsoft Yahei";
 }
 %main-wh{
-	width: 251px;
-	height: 36px;
+	width: 100%;
+	height: 32px;
 }
 %input-border{
 	border: none;
@@ -33,32 +33,36 @@ html{
 	    left: 0px;
 	}
 	&-login{
-		margin: 0 auto;
 		margin-bottom: 7px;
 		position: relative;
 		&-hb{
-		    width: 100%;
+			display: block;
+		    width: 95%;
+		    margin: 0 auto;
+		    margin-left: 1px;
 		}
 		&-friend{
+			width: 100%;
 		    position: absolute;
-		    top: 0px;
-		    left: 0px;
-			margin: 0 auto;
-			padding-top: 58px;
-			margin-bottom: 90px;
+		    top: 13%;
+		    left: 50%;
+		    transform:translateX(-50%);
 			color: $colorFriend;
-			img{
+			&-header{
 				display: block;
-				width: 61px;
-				height: 61px;
-				border-radius: 30px;
+				width: 56px;
+				height: 56px;
+				//border-radius: ;
 				margin: 0 auto;
-				margin-bottom: 15px;
+				margin-bottom: 14px;
+				img{
+					width: 100%;
+				}
 			}
 			&-name{
 				font-size: 12px;
 				line-height: 12px;
-				margin-bottom: 13px;
+				margin-bottom: 10px;
 				text-align: center;
 			}
 			&-txt{
@@ -69,8 +73,10 @@ html{
 		}
 		&-main{
 		    position: absolute;
-		    bottom: 50px;
-		    left: 0px;
+		    top: 55%;
+		    left:50%;
+		    width: 65%;
+		    transform: translateX(-50%);
 			&-mobile{
 				@extend %main-wh;
 				margin: 0 auto;
@@ -79,7 +85,7 @@ html{
 				background-color: $colorWhite;
 				input{
 					padding-left: 21px;
-					line-height: 36px;
+					line-height: 32px;
 					font-size: 14px;
 				}
 			}
@@ -89,22 +95,22 @@ html{
 				margin-bottom: 15px;
 				&-l{
 					@extend %input-border;
-					height: 36px;
+					height: 32px;
 					background-color: $colorWhite;
-					width: 146px;
+					width: 58%;
 					display: inline-block;
 					input{
 						padding-left: 21px;
-						line-height: 36px;
+						line-height: 32px;
 						font-size: 14px;
 					}
 				}
 				span{
 					@extend %input-border;
 					display: inline-block;
-					width: 91px;
-					height: 36px;
-					line-height: 36px;
+					width: 36%;
+					height: 32px;
+					line-height: 32px;
 					font-size: 12px;
 					float: right;
 					color: $colorWhite;
@@ -120,7 +126,7 @@ html{
 					@extend %input-border;
 					@extend %main-wh;
 					color: $colorWhite;
-					line-height: 36px;
+					line-height: 32px;
 					font-size: 16px;
 					letter-spacing: 2px;
 					font-weight: bold;
@@ -128,26 +134,25 @@ html{
 	                border: none;
 	                background-color: $colorCode;
 				}
-				
 			}
 		}
 	}
 	&-info{
-		width: 290px;
-		//height: 135px;
+		position: absolute;
+		left: 50%;
+		transform:translateX(-50%);
+		width: 100%;
 		color: #f5e6be;
-		margin: 0 auto;
-		margin-top: 10px;
-		
 		&-up{
 			background-color: #351b45;
-			width: 290px;
-			height: 58px;
-			font-size: 11px;
+			width: 78%;
+			font-size: 8px;
 			border: 1px dashed #bc54f8;
 			padding-top: 8px;
-			margin-bottom: 20px;
-			line-height: 17px;
+			padding-bottom: 8px;
+			margin: 0 auto;
+			//margin-bottom: 20px;
+			line-height: 15px;
 			text-align: center;
 			border-radius: 15px;
 			&-money{
@@ -158,7 +163,7 @@ html{
 			color: #8c8793;
 			text-align: center;
 			font-size: 10px;
-			//padding-bottom: 20px;
+			padding-top: 13px;
 		}
 	}
 }
