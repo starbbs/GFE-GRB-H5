@@ -58,7 +58,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','mathtool
 							//收益
 							item.income = item.status === 'LOCKED' ? item.getGopPrice*item.getGopNum : (mathtool.reduce(experienceVM.gopNowPrice,item.gopPrice))*item.gopNum;
 							
-							if(item.validDays < 1 && item.income <= 0){
+							if(item.validDays < 1 && item.income < 1){
 								item.income = data.data.minIncome;
 							}
 							item.income = filters.ceilFix(item.income,2);
