@@ -48,8 +48,8 @@ require([
             var stateObj = {foo: "bar" + i};
             history.pushState(stateObj, "page " + i, "./home.html");
         }
-        var redirectUrl = window.location.protocol + config.main + "activity-index.html?uid=" + get.data.uid;
-        return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(redirectUrl) + '&response_type=code&scope=snsapi_userinfo&state=event#wechat_redirect';
+        var redirectUrl = window.location.protocol + config.main + "activity-index.html?uid=" + get.data.uid? get.data.uid:"";
+        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(redirectUrl) + '&response_type=code&scope=snsapi_userinfo&state=event#wechat_redirect';
     }
     function checkCode() {
         if (wxCode) { // 已授权
