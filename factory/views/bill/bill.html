@@ -19,7 +19,7 @@
 					<div class="bill-wait-buygop" ms-visible="status==='PROCESSING'">
 						<div class="bill-wait-buygop-float">
 							<div class="bill-wait-buygop-label">预获果仁 (<span class="iconfont icon-g"></span>)</div>
-							<div class="bill-wait-buygop-price green">{{noPayGopNum|floorFix}}</div>
+							<div class="bill-wait-buygop-price green">{{noPayGopNum|floorFix(3)}}</div>
 						</div>
 						<div class="bill-wait-buygop-float">
 							<div class="bill-wait-buygop-label">当前买入价(¥)</div>
@@ -198,7 +198,7 @@
 						<div class="bill-detail-right dark">
 							<p class="bill-detail-right-pr dark">
 								<span class="iconfont icon-g dark"></span>
-								{{payGop|ceilFix}}
+								{{payGop|ceilFix(3)}}
 							</p>
 						</div>
 					</div>					
@@ -347,7 +347,7 @@
 					<!--金额  手续费 免手续费 果仁已到帐-->
 					<div class="bill-get" ms-visible="transferNum">
 						<div class="bill-get-number" ms-class-1="ash:status==='FAILURE'">
-							{{transferSign}}{{transferNum|floorFix}}
+							{{transferSign}}{{transferNum|floorFix(3)}}
 						</div>
 						<div class="bill-get-label ash">{{poundage}}</div>
 					</div>
@@ -425,7 +425,7 @@
 					</div>	
 					<!--退款数量-->
 					<div class="bill-get">
-						<div class="bill-get-number" ms-class="silver:status==='FAILURE'">+{{refundNum|ceilFix}}</div>
+						<div class="bill-get-number" ms-class="silver:status==='FAILURE'">+{{refundNum|ceilFix(3)}}</div>
 						<div class="bill-get-label ash">{{refundWord}}</div>
 					</div>
 					<!--退款方-->

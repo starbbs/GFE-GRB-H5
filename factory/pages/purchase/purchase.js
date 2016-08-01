@@ -77,7 +77,7 @@ require([
                         vm.ifBuy = check.gopBuyValidate(this.value, vm.price);
                         if (vm.ifBuy) {
                             console.log(vm.price);
-                            vm.expect = this.value ? filters.floorFix(this.value / vm.price) : '';
+                            vm.expect = this.value ? filters.floorFix(this.value / vm.price,3) : '';
                         } else {
                             this.value = '';
                             vm.expect = '';

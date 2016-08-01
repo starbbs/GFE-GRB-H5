@@ -419,7 +419,7 @@ require([
 			}, function(data) {
 				if (data.status == 200) {
 					if (data.data.gopNum) {
-						transferTarget.gopNum = vm.gopNum = filters.floorFix(data.data.gopNum); //果仁数量
+						transferTarget.gopNum = vm.gopNum = filters.floorFix(data.data.gopNum,3); //果仁数量
 					}
 				} else {
 					console.log(data);

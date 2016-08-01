@@ -310,7 +310,8 @@ require([
         };
         //			       123.22    <span>G</span>    floorFix||ceilFix
         var numHandler = function(number, unit, filter) { // 数值处理
-            return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + filters[filter](Math.abs(number));
+        		console.log(number+"***"+ (unit.indexOf("rmb") >= 0));
+            return (number > 0 ? '+' : '-') + ' ' + unit + ' ' + (unit.indexOf("rmb") >= 0?filters[filter](Math.abs(number)):filters[filter](Math.abs(number),3));
         };
         // 处理 getList 的工具方法 -- 结束
 
