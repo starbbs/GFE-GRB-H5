@@ -1,7 +1,11 @@
 @charset 'utf-8';
 
 @import '../../../source/scss/main';
+@import '../../views/view';
+@import '../../views/invite-code/invite-code';
 @import '../../dialogs/dialog';
+@import '../../dialogs/confirm/confirm';
+@import '../../dialogs/alert/alert';
 
 $img: $g-pages + '/invite-unregistered/images';
 $image: $g-img; 
@@ -10,8 +14,10 @@ $colorFriend:#feefc4;
 $colorCode:#fabd31;
 $colorGet:#fab627;
 $colorWhite:#fff;
+$colorBlack:#000;
 $colorBorder:#bc54f8;
 $colorGet:#fab627;
+$colorGrey:#cfcfcf;
 
 html{
 	margin: 0;
@@ -82,7 +88,7 @@ html{
 		    position: absolute;
 		    top: 55%;
 		    left:50%;
-		    width: 65%;
+		    width: 67%;
 		    transform: translateX(-50%);
 			&-mobile{
 				@extend %main-wh;
@@ -108,7 +114,7 @@ html{
 						@extend %input-css;
 					}
 				}
-				span{
+				&-r{
 					@extend %input-border;
 					display: inline-block;
 					width: 36%;
@@ -116,9 +122,15 @@ html{
 					line-height: 32px;
 					font-size: 12px;
 					float: right;
-					color: $colorWhite;
+					//color: $colorWhite;
 					text-align: center;
 					letter-spacing: 1px;
+					background-color: $colorGrey;
+				}
+				&-r-whitefont{
+					color: $colorWhite;
+				}
+				&-r-active{
 					background-color: $colorCode;
 				}
 			}
@@ -139,7 +151,7 @@ html{
 	                // background: linear-gradient(45deg,$colorCode 50%,#000 50%);
 	                // background-size: 50px 50px;
 	                background:linear-gradient(45deg,$colorGet 25%,$colorCode 25%,$colorCode 50%,$colorGet 50%,$colorGet 75%,$colorCode 75%);
-	                background-size: 42px 42px;
+	                background-size: 44px 44px;
 	                background-position: -15px;
 				}
 			}
