@@ -11,6 +11,7 @@ $colorCode:#fabd31;
 $colorGet:#fab627;
 $colorWhite:#fff;
 $colorBorder:#bc54f8;
+$colorGet:#fab627;
 
 html{
 	margin: 0;
@@ -24,6 +25,12 @@ html{
 %input-border{
 	border: none;
 	border-radius: 18px;
+}
+%input-css{
+	width: 80%;
+	padding-left: 19px;
+	line-height: 32px;
+	font-size: 14px;
 }
 .invite{
 	&-bg{
@@ -84,9 +91,7 @@ html{
 				@extend %input-border;
 				background-color: $colorWhite;
 				input{
-					padding-left: 21px;
-					line-height: 32px;
-					font-size: 14px;
+					@extend %input-css;
 				}
 			}
 			&-code{
@@ -100,9 +105,7 @@ html{
 					width: 58%;
 					display: inline-block;
 					input{
-						padding-left: 21px;
-						line-height: 32px;
-						font-size: 14px;
+						@extend %input-css;
 					}
 				}
 				span{
@@ -133,6 +136,11 @@ html{
 					outline: none;
 	                border: none;
 	                background-color: $colorCode;
+	                // background: linear-gradient(45deg,$colorCode 50%,#000 50%);
+	                // background-size: 50px 50px;
+	                background:linear-gradient(45deg,$colorGet 25%,$colorCode 25%,$colorCode 50%,$colorGet 50%,$colorGet 75%,$colorCode 75%);
+	                background-size: 42px 42px;
+	                background-position: -15px;
 				}
 			}
 		}
