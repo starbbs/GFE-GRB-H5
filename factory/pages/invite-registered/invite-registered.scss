@@ -1,0 +1,224 @@
+﻿@charset 'utf-8';
+@import '../../../source/scss/main';
+@import '../../views/view';
+@import '../../views/invite-code/invite-code.scss';
+@import '../../dialogs/dialog';
+$img: $g-pages + '/invite-registered/images'; //
+$image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
+.screen-reg {
+    //  overflow-x: hidden; //  @extend %fade-in;
+    //  background-image: url($image + '/invite-registered-background.gif');
+    //  background-size: 100%;
+    width: 100%; //  background-repeat: no-repeat;
+    //  text-align: center;
+    overflow: auto;
+    float: left;
+    position: relative;
+    &-img {
+        float: left;
+        width: 100%;
+        z-index: -1;
+    }
+    &-out-main {
+        position: absolute;
+        bottom: 20px;
+        left: 4%;
+        width: 92%;
+    }
+    &-main {
+        overflow: hidden;
+        background-color: rgba(251, 208, 108, 0.6);
+        text-align: center;
+        &-side {
+            background-color: #fffaed;
+            border: 2px dashed #fe434c;
+            border-radius: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            width: 93.04%;
+            margin: 10px auto;
+            &-content {
+                margin: 31px 13.166% 0;
+                text-align: center;
+                position: relative; //              width:240px;
+                .peopleImg {
+                    float: left;
+                }
+                .iconImg {
+                    float: right;
+                }
+                &-friend {
+                    display: inline-block;
+                    text-align: center;
+                    span {
+                        font: bold 12px "Microsoft YaHei";
+                    }
+                    &-peopleImg {
+                        margin: 0 auto;
+                        @include sprite($img + '/people.png', 50px);
+                    }
+                    &-packageImg {
+                        margin: 0 auto;
+                        @include sprite($img + '/package.png', 50px);
+                    }
+                    &-iconImg {
+                        margin: 0 auto;
+                        @include sprite($img + '/icon.png', 50px);
+                    }
+                }
+                &-txt {
+                    position: absolute;
+                    top: 15px;
+                    font-size: 16px;
+                    display: inline-block;
+                }
+                .text1 {
+                    left: 30%;
+                }
+                .text2 {
+                    right: 30%;
+                }
+            }
+            &-button {
+                margin: 29px auto;
+                width: 74.9333%;
+                text-align: center;
+                font-size: 16px;
+                color: #ffffff;
+                background-color: #fe434c;
+                border-radius: 30px;
+                padding: 12px 0;
+                line-height: 16px;
+            }
+        }
+    }
+    //  底部
+    &-bottom {
+        margin-top: 26px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 12px;
+    }
+}
+//规则弹出框
+.screen-popup {
+    display: none;
+    overflow-x: hidden;
+    position: absolute;
+    z-index: 1;
+    padding-top: 116px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    background-size: 100%;
+    &-content {
+        overflow: hidden;
+        margin: 0 4%; //      width: 92%;
+        background-color: #ffffff;
+        padding: 20px 5.333%;
+        border-radius: 10px;
+        position: relative;
+        &-title {
+            text-align: center;
+            display: block;
+            color: #612eaf;
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 16px;
+        }
+        &-hr {
+            height: 1px;
+            border: none;
+            border-top: 1px dashed;
+            margin-bottom: 18px;
+        }
+        &-text {
+            font-size: 14px;
+            line-height: 33px;
+        }
+        &-close {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 24px;
+            line-height: 24px;
+            font-family: 'Arial';
+            transition: 0.3s;
+        }
+        &-close:hover,
+        &-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+}
+//好友分享框
+.screen-share {
+    //  display: none;
+    //  overflow-x: hidden;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    overflow: auto;
+    float: left;
+    &-img {
+        top: 0;
+        left: 0;
+        float: left;
+        width: 100%; //          z-index: 1;
+    }
+    &-content {
+        overflow: hidden;
+        position: relative;
+        height: 100%; //      z-index: ;
+        top: 0;
+        left: 0;
+        position: absolute;
+        background-image: url($image + '/wallet.gif');
+        background-size: 100%;
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        &-arrow {
+            position: absolute;
+            top: 16px;
+            right: 47px;
+            @include sprite($img + '/arrow.png', 106px,100px);
+        }
+        &-tip {
+            color: #ffffff;
+            position: absolute;
+            top: 250px;
+            left: 22.13%;
+            border: 1px dotted;
+            border-radius: 5px;
+            width: 55.74%;
+            position: relative;
+            &-txt {
+                &-img1 {
+                    position: relative;
+                    display: inline-block; //                  line-height:14px;
+                    vertical-align: middle;
+                    margin: 0 3px;
+                    @include sprite($img + '/point.png', 30px,15px);
+                }
+                &-img2 {
+                    position: relative;
+                    display: inline-block; //                   line-height:14px;
+                    vertical-align: middle;
+                    margin: 03px;
+                    @include sprite($img + '/connect.png', 15px);
+                }
+            }
+        }
+    }
+}
