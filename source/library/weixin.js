@@ -110,7 +110,11 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
                 },
             },
             set: function (pay) {
-                $.extend(weixin.pay.options,pay);
+                weixin.pay.options.timestamp = pay.timeStamp;
+                weixin.pay.options.nonceStr = pay.nonceStr;
+                weixin.pay.options.package = pay.package;
+                weixin.pay.options.signType = pay.signType;
+                weixin.pay.options.paySign = pay.paySign;
             },
             create: function (money, callback) {
                 api.createBuyinOrder({ // 创建买入订单
