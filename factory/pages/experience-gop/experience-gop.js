@@ -67,7 +67,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','mathtool
 							item.flag = parseFloat(item.income) <= 0 && item.validDays > 0;
 							item.flag2 = parseFloat(item.income) == 0 && item.validDays > 0;
 							//收益小数部分计算
-							item.gopDecimal = item.income.split(".")[1];
+							item.gopDecimal = item.income.toString().split(".")[1];
 							//收益为负 且 已到期 时收益小数部分
 							var minDeci = filters.ceilFix((Math.abs(data.data.minIncome)-Math.abs(parseInt(data.data.minIncome))),2).split(".")[1];
 							//+ -
