@@ -32,6 +32,41 @@ html {
 .screen-r.focus:after{
 	display: none;
 }
+.activity-banner{
+    width: 100%;
+    min-height: 100%;
+    background: rgba(0,0,0,0.6);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    &-detail{
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 35%;
+        img{
+            width: 100%;
+            border-radius: 10px;
+        }
+        button{
+            position: absolute;
+            bottom: 27px;
+            left: 10%;
+            width: 80%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: #FFFFFF;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #5a35a9;
+            font-weight: bold;
+        }
+    }
+}
 .home {
 	$bannerlayer2pt: 25px;     // banner图 我的总资产 累计收益
 	$bannercenterworldlineheight: 90px; //banner图 中间大字
@@ -66,18 +101,6 @@ html {
                 right: 20px;
                 top: 8px;
             }  
-        }
-        &-banner{
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            z-index: 100;
-            &-detail{
-                
-            }
         }
     }
 	&-banner{
