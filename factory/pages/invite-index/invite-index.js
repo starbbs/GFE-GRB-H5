@@ -1,7 +1,3 @@
-// 张树垚 2015-12-27 15:57:31 创建
-// H5微信端 --- 微信授权跳转页
-
-
 require([
     'h5-api', 'check', 'get', 'h5-weixin', 'h5-config'
 ], function (api, check, get, weixin, config) {
@@ -47,7 +43,7 @@ require([
             var stateObj = {foo: "bar" + i};
             history.pushState(stateObj, "page " + i, "./home.html");
         }
-        var redirectUrl = window.location.protocol + config.main + "activity-index.html?uid=" + (get.data.uid?get.data.uid:'');
+        var redirectUrl = window.location.protocol + config.main + "invite-index.html?uid=" + (get.data.uid?get.data.uid:'');
         location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(redirectUrl) + '&response_type=code&scope=snsapi_userinfo&state=event#wechat_redirect';
     }
     function checkCode() {
