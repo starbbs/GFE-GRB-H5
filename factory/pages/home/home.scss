@@ -235,9 +235,18 @@ html {
 					font-size: 18px;
 					font-weight: bold;
 				}
+				&-logo{
+					position: absolute;
+					top: 0;
+					right: 0;
+					@include sprite($img + '/hot.png', 30px,28px);
+				}
 			}
 			.gopli:nth-last-child(1){
 				border: none;
+			}
+			.gopli:nth-child(2){
+				position: relative;
 			}
 		}
 	}
