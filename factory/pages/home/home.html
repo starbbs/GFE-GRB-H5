@@ -1,16 +1,18 @@
 @@include('../../../source/include/top.html', {"name": "home"})
-<div class="activity-banner">
-	<div class="activity-banner-detail">
-		<img src="./images/home-tc_bg.jpg" />
-		<button>立即邀请</button>
-	</div>
-</div>
 <div class="screen-r">
 	<div class="home" ms-controller="home">
-		<div class="home-activity-tip">
-			你有100元红包待领取，点击查看
+		<!--	描述：活动入口 banner上tip和弹窗-->
+		<div class="activity-banner" ms-visible="isShowPopup">
+			<div class="activity-banner-detail">
+				<img src="./images/home-tc_bg.jpg" />
+				<button ms-click="toActivity">立即邀请</button>
+			</div>
+		</div>
+		<div class="home-activity-tip" ms-visible="isShowFront"  ms-click="toActivity">
+			{{frontTxt}}
 			<div class="home-activity-tip-arrow"></div>
 		</div>
+		<!--	活动入口结束-->
 		<div class="home-banner">
 			<!--没有买果仁-->
 			<div class="home-banner-nobuygop" ms-visible="myGopNum===0 && isShowHeader">
@@ -29,10 +31,10 @@
 				<div class="home-banner-mygop-totalgop" ms-visible="curIndex===1 ">
 					<div class="mytotalgop">
 						总资产( <span class="font-rmb-icon">¥</span> )
-						<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{((validExperGopNum*gopNowPrice)+lockedExperGopIncome).toFixed(2)}}</span>
+						<span class="experiencegop">含体验果仁<span class="font-rmb-icon">¥</span>{{((validExperGopNum*gopNowPrice)+lockedExperGopIncome)>0?((validExperGopNum*gopNowPrice)+lockedExperGopIncome).toFixed(2):0}}</span>
 					</div>
 					<div class="rmbnum">
-						<span>{{((myGopNum+validExperGopNum)*100*gopNowPrice/100+lockedExperGopIncome).toFixed(2)}}</span>
+						<span>{{((myGopNum+validExperGopNum)*100*gopNowPrice/100+lockedExperGopIncome)>0?((myGopNum+validExperGopNum)*100*gopNowPrice/100+lockedExperGopIncome).toFixed(2):0}}</span>
 					</div>
 
 				</div>
@@ -42,7 +44,7 @@
 					<div class="gopli-title">持有果仁(<i class="iconfont icon-g"></i>)</div>
 					<div class="gopli-numbers">{{myGopNum|floorFix(3)}}</div>
 				</a>
-				<a class="gopli" href="experience-gop.html#!/">
+				<a class="gopli" href="javascript:void(0);" ms-click='toExperGop'>
 					<span class="gopli-logo"></span>
 					<div class="gopli-title">体验果仁(<i class="iconfont icon-g"></i>)</div>
 					<div class="gopli-numbers">{{validExperGopNum|floorFix}}</div>

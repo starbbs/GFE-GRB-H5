@@ -70,6 +70,19 @@ require([
 		incomePercentNumber:"10",
 		incomePercentFloat:"00",
 		gopToken: gopToken ? true : false,
+		isShowPopup: false,  //活动入口弹窗是否展示
+		isShowFront : true, //活动入口最上边一条是否展示
+		frontTxt : '您有100元红包，请查看', //活动入口最上边一条的文案展示
+		toActivity : function(){  //跳转活动详情页面
+			location.href = 'invite-index.html';
+		},
+		toExperGop : function(){
+			if(homeVm.validExperGopNum > 0){
+				location.href ='experience-gop.html#!/';
+			}else{
+				location.href ='invite-registered.html#!/';
+			}
+		}
 
 	});
 	avalon.scan(main.get(0), homeVm);
@@ -105,12 +118,22 @@ require([
 
 			}
 		});
+		//邀请活动静态资源的开关控制
+		api.inviteResource(function(data){
+			if(data.status === 200){
+				homeVm.isShowPopup = data.data.popup.switch;
+				homeVm.frontTxt = data.data.front.text;
+				homeVm.isShowFront = data.data.front.switch;
+			}else{
+				$.alert(data.msg);
+			}
+		});
 		//两秒之后无论如何显示头部信息,防止因为后台接口挂掉而页面显示不全
 		setTimeout(function(){
 			homeVm.isShowHeader=true;
 		},2000);
 	}else{
-		homeVm.isShowHeader=true
+		homeVm.isShowHeader=true;
 	}
 
 
