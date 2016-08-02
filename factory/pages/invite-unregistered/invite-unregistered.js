@@ -71,7 +71,7 @@ require([
 			},1000);
 			if(inviteUnregisteredVM.verify_secs == 0){
 				clearTimeout(inviteUnregisteredVM.verifyTimer);
-				$("#getcode_btn").html("获取验证码").addClass("invite-login-main-code-r invite-login-main-code-r-active");
+				$("#getcode_btn").html("获取验证码").addClass("invite-login-main-code-r-active invite-login-main-code-r-whitefont");
 				inviteUnregisteredVM.verify_secs = 60;
 			}
 		},
@@ -85,7 +85,7 @@ require([
 		// 	//验证码校验
 		// 	var redirectUrl = window.location.protocol + config.main + "invite-unregistered.html";
 		// 	api.jiekou({canshu},function(data){//待改！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-		// 		if(data.status == 200){
+		// 		if(data.status === 200){
 		// 			//校验成功
 		// 			//参数传回接口（账号注册）待改！！！！！！！！！！！！！！！！！！！！
 		// 			data.mobile = inviteUnregisteredVM.mobile;
