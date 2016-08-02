@@ -347,6 +347,11 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	//93. 获取平均价
 	api.regist('getAvgCostPrice', '/gop/findAvgCostPriceByUserId');
 	
-
+	//94. 体验果仁列表
+	api.regist('experienceGopList', '/experienceGop/list');
+	
+	//95. 体验果仁领取收益
+	api.regist('experienceGopWithdraw', '/experienceGop/withdraw');
+	
 	return api;
 });

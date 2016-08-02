@@ -10,7 +10,7 @@ define('h5-config', function() {
 	var pathName = rootPatharr.length>1?rootPatharr[1]:'wx';
 	//测试环境参数配置
 	var paramConfig = {
-		baseUri : '//goopal.xiaojian.me',
+		baseUri : '//test123.xiaojian.me',
 		main : '//www.xiaojian.me/'+pathName+'/',
 		appid : 'wxe91980c4944999fe',
 		countAPIDomain:"//172.16.33.10:8089",
