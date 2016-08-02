@@ -58,7 +58,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
                 link: weixin.link, // 分享链接
                 imgUrl: weixin.imgUrl, // 分享图标
                 success: function () {
-                    _czc.push(["_trackEvent",'EventCount','Share2TimeLine','share1','EvCount-ShareToTimeLine','ShareToTimeLineClick']);
+                    _czc.push(["_trackEvent",'InviteCount','Share2TimeLine','share1',1]);
                     $.alert('分享成功');
                 },
                 cancel: function () {
@@ -74,7 +74,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
                 dataUrl: weixin.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
                 success: function () {
 //						$.alert('分享成功');
-                    _czc.push(["_trackEvent",'EventCount','Share2Fri','share2','EvCount-ShareToFriends','ShareToFriendsClick']);
+                    _czc.push(["_trackEvent",'InviteCount','Share2Fri','share2',2]);
                 },
                 cancel: function () {
                     $.alert('分享取消');
