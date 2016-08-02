@@ -3,7 +3,7 @@
 
 
 require([
-    'h5-api', 'check', 'get', 'h5-weixin', 'h5-config', ,
+    'h5-api', 'check', 'get', 'h5-weixin', 'h5-config'
 ], function (api, check, get, weixin, config) {
     var gopToken = $.cookie('gopToken'); // 果仁宝token
     var wxCode = get.data.code; // 微信认证返回code
@@ -22,7 +22,7 @@ require([
             var stateObj = {foo: "bar" + i};
             history.pushState(stateObj, "page " + i, "./home.html");
         }
-        location.href = "./invite-registered.html";
+        location.href = "./invite-registered.html?uid="+(get.data.uid?get.data.uid:'');
     }
 
     /**
@@ -34,21 +34,20 @@ require([
             var stateObj = {foo: "bar" + i};
             history.pushState(stateObj, "page " + i, "./home.html");
         }
-        location.href = "./invite-unregistered.html";
+        location.href = "./invite-unregistered.html?uid="+(get.data.uid?get.data.uid:'');
 
     }
     /**
      * 获取微信授权的url 返回的url 为 activity.html
      *
-     * @param _path
      * @returns {string}
      */
-    function gotoAuth(_path) {
+    function gotoAuth() {
         for (var i = 0; i < 10; i++) {
             var stateObj = {foo: "bar" + i};
             history.pushState(stateObj, "page " + i, "./home.html");
         }
-        var redirectUrl = window.location.protocol + config.main + "activity-index.html?uid=" + get.data.uid? get.data.uid:"";
+        var redirectUrl = window.location.protocol + config.main + "activity-index.html?uid=" + (get.data.uid?get.data.uid:'');
         location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + config.appid + '&redirect_uri=' + encodeURIComponent(redirectUrl) + '&response_type=code&scope=snsapi_userinfo&state=event#wechat_redirect';
     }
     function checkCode() {
