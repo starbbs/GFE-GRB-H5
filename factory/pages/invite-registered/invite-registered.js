@@ -4,14 +4,14 @@
 require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], function(
 	router, api, weixin, filters, View, h5alert
 ) {
-//		a={
-//  "data": {
-//      "max": 2,
-//      "limit": false
-//  },
-//  "msg": "success",
-//  "status": "200"
-//}
+	//		a={
+	//  "data": {
+	//      "max": 2,
+	//      "limit": false
+	//  },
+	//  "msg": "success",
+	//  "status": "200"
+	//}
 	router.init(true);
 	new View('invite-kefu');
 	var gopToken = $.cookie('gopToken');
@@ -35,7 +35,7 @@ require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], f
 			}, function(data) {
 				if(data.status === 200) {
 					if(data.data.limit) {
-						router.go("/invite-kefu");//limit为true时跳转到二维码页面
+						router.go("/invite-kefu"); //limit为true时跳转到二维码页面
 					} else {
 						inventeVM.shareFlag = true;
 					}
@@ -44,20 +44,18 @@ require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], f
 				}
 			});
 		},
-//		minuteInvente: function() {
-//			router.go("/invite-kefu");
-//		},
-//minuteInvente: function() {
-//	if(a.data.limit) {
-//		router.go("/invite-kefu");
-//	} else {
-//		inventeVM.shareFlag = true;
-//	}
-//},
+		//		minuteInvente: function() {
+		//			router.go("/invite-kefu");
+		//		},
+		//minuteInvente: function() {
+		//	if(a.data.limit) {
+		//		router.go("/invite-kefu");
+		//	} else {
+		//		inventeVM.shareFlag = true;
+		//	}
+		//},
 
-		
 	});
-	
 	$(".screen-popup ").addClass('on'); //延迟
 	$(".screen-share").addClass('on'); //延迟
 	avalon.scan();
