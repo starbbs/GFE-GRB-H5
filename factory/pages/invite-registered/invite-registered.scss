@@ -6,11 +6,7 @@
 $img: $g-pages + '/invite-registered/images'; //
 $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.png下生成
 .screen-reg {
-    //  overflow-x: hidden; //  @extend %fade-in;
-    //  background-image: url($image + '/invite-registered-background.gif');
-    //  background-size: 100%;
-    width: 100%; //  background-repeat: no-repeat;
-    //  text-align: center;
+    width: 100%;
     overflow: auto;
     float: left;
     position: relative;
@@ -21,13 +17,13 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
     }
     &-out-main {
         position: absolute;
-        bottom: 20px;
+        bottom: 25px;
         left: 4%;
         width: 92%;
     }
     &-main {
         overflow: hidden;
-        background-color: rgba(251, 208, 108, 0.6);
+        background-color: rgba(251, 208, 108, 0.8);
         text-align: center;
         &-side {
             background-color: #fffaed;
@@ -40,7 +36,7 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
             &-content {
                 margin: 31px 13.166% 0;
                 text-align: center;
-                position: relative; //              width:240px;
+                position: relative;
                 .peopleImg {
                     float: left;
                 }
@@ -102,20 +98,20 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
 }
 //规则弹出框
 .screen-popup {
-    display: none;
-    overflow-x: hidden;
+    @extend %fade-in;
+    overflow: auto;
     position: absolute;
+    float: left;
     z-index: 1;
-    padding-top: 116px;
+    padding: 112px 0;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
+    width: 100%; //  height: 100%;
+    background-color: rgba(0,0,0,0.8);
     background-size: 100%;
     &-content {
         overflow: hidden;
-        margin: 0 4%; //      width: 92%;
+        margin: 0 4%;
         background-color: #ffffff;
         padding: 20px 5.333%;
         border-radius: 10px;
@@ -146,10 +142,10 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
             line-height: 24px;
             font-family: 'Arial';
             transition: 0.3s;
+            color: #bbb;
         }
         &-close:hover,
         &-close:focus {
-            color: #bbb;
             text-decoration: none;
             cursor: pointer;
         }
@@ -157,33 +153,31 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
 }
 //好友分享框
 .screen-share {
-    //  display: none;
-    //  overflow-x: hidden;
+    @extend %fade-in;
     position: absolute;
+    float: left;
     z-index: 1;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%; //  height: 100%;
     background-color: rgba(0,0,0,0.9);
     background-size: 100%;
     background-repeat: no-repeat;
     overflow: auto;
-    float: left;
     &-img {
         top: 0;
         left: 0;
         float: left;
-        width: 100%; //          z-index: 1;
+        width: 100%;
     }
     &-content {
         overflow: hidden;
         position: relative;
-        height: 100%; //      z-index: ;
+        height: 100%;
         top: 0;
         left: 0;
         position: absolute;
-        background-image: url($image + '/wallet.gif');
+        background-image: url($image + '/invite-registered-wallet.gif');
         background-size: 100%;
         width: 100%;
         height: 100%;
@@ -203,19 +197,21 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
             border-radius: 5px;
             width: 55.74%;
             position: relative;
+            padding: 7px 10px;
             &-txt {
+                line-height: 20px;
                 &-img1 {
                     position: relative;
-                    display: inline-block; //                  line-height:14px;
+                    display: inline-block;
                     vertical-align: middle;
-                    margin: 0 3px;
+                    margin: -2px 3px 0;
                     @include sprite($img + '/point.png', 30px,15px);
                 }
                 &-img2 {
                     position: relative;
-                    display: inline-block; //                   line-height:14px;
+                    display: inline-block;
                     vertical-align: middle;
-                    margin: 03px;
+                    margin: -2px 3px 0;
                     @include sprite($img + '/connect.png', 15px);
                 }
             }

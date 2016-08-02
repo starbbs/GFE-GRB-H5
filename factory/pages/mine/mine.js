@@ -190,6 +190,7 @@ require([
 					vm.setnick = '修改'; //昵称。null或空字符串都表示未设置
 					vm.name = data.data.nickname;
 					vm.nickname = data.data.nickname;
+					$.cookie('nickname',data.data.nickname)
 				}
 				if (data.data.realname) {
 					vm.name = data.data.realname;
@@ -203,6 +204,7 @@ require([
 				if (data.data.hasWallet) {
 					vm.setWallet = '查看'; //果仁市场地址。null或空字符串都表示未设置
 				}
+				$.cookie('utag',data.data.usertag);
 				vm.internalGopAddress = data.data.internalGopAddress; //内部果仁地址。null或空字符串都表示未设置
 
 			} else {

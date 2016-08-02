@@ -53,7 +53,7 @@
 	color: $g-blue !important;
 	text-decoration: none;
 }
-
+a[title~="站长统计"]{display:none};
 .silver { color: $g-silver !important; }
 .blue { color: $g-blue !important; }
 .red { color: $g-red !important; }

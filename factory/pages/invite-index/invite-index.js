@@ -14,6 +14,7 @@ require([
      * 跳转到已注册用户的页面
      */
     function gotoRegisteredPage() {
+        //修改当前url历史使返回之后返回到首页,防止出现返不回的情况
         for (var i = 0; i < 10; i++) {
             var stateObj = {foo: "bar" + i};
             history.pushState(stateObj, "page " + i, "./home.html");
@@ -25,7 +26,7 @@ require([
      *    跳转到注册页面
      */
     function gotoRegister() {
-        //修改当前url使返回之后返回到首页,防止出现返不回的情况
+        //修改当前url历史使返回之后返回到首页,防止出现返不回的情况
         for (var i = 0; i < 10; i++) {
             var stateObj = {foo: "bar" + i};
             history.pushState(stateObj, "page " + i, "./home.html");
