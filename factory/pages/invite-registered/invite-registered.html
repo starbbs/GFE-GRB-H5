@@ -1,50 +1,52 @@
-@@include('../../../source/include/top.html', {"name": "invite-registered","title":"体验果仁"})
-<div class="screen-reg" ms-controller="invente">
-	<!--立即邀请好友-->
-	<img src="images/invite-registered-background.gif" class="screen-reg-img">
-	<div class="screen-reg-out-main">
-		<div class="screen-reg-main">
-			<div class="screen-reg-main-side">
-				<div class="screen-reg-main-side-content">
-					<div class="screen-reg-main-side-content-friend peopleImg">
-						<div class="screen-reg-main-side-content-friend-peopleImg">
+@@include('../../../source/include/top.html', {"name": "invite-registered","title":"邀请好友"})
+<div ms-controller="invente">
+	<div class="screen-reg">
+		<!--立即邀请好友-->
+		<img src="images/invite-registered-background.gif" class="screen-reg-img">
+		<div class="screen-reg-out-main">
+			<div class="screen-reg-main">
+				<div class="screen-reg-main-side">
+					<div class="screen-reg-main-side-content">
+						<div class="screen-reg-main-side-content-friend peopleImg">
+							<div class="screen-reg-main-side-content-friend-peopleImg">
+							</div>
+							<span>N个好友</span>
 						</div>
-						<span>N个好友</span>
-					</div>
-					<span class="screen-reg-main-side-content-txt text1">&times;</span>
-					<div class="screen-reg-main-side-content-friend packageImg">
-						<div class="screen-reg-main-side-content-friend-packageImg">
+						<span class="screen-reg-main-side-content-txt text1">&times;</span>
+						<div class="screen-reg-main-side-content-friend packageImg">
+							<div class="screen-reg-main-side-content-friend-packageImg">
+							</div>
+							<span>¥1000体验金</span>
 						</div>
-						<span>¥1000体验金</span>
-					</div>
-					<span class="screen-reg-main-side-content-txt text2">=</span>
-					<div class="screen-reg-main-side-content-friend iconImg">
-						<div class="screen-reg-main-side-content-friend-iconImg">
+						<span class="screen-reg-main-side-content-txt text2">=</span>
+						<div class="screen-reg-main-side-content-friend iconImg">
+							<div class="screen-reg-main-side-content-friend-iconImg">
+							</div>
+							<span>很多钱</span>
 						</div>
-						<span>很多钱</span>
+						<div class="screen-reg-main-side-button" ms-click="minuteInvente">
+							立即邀请好友
+						</div>
 					</div>
 				</div>
-				<div class="screen-reg-main-side-button">
-					立即邀请好友
-				</div>
+				<!--底部-->
+			</div>
+			<div class="screen-reg-bottom" ms-click="minuteRule">
+				详细规则&gt&gt
 			</div>
 		</div>
-		<!--底部-->
-		<div class="screen-reg-bottom" id="screen-reg-bottom">
-			详细规则&gt&gt
-		</div>
 	</div>
-</div>
-<div class="view">
+	<div class="view">
 		@@include('../../views/invite-code/invite-kefu.html')
 	</div>
-<!--详细规则页面-->
-<div class="screen-popup">
-	<div class="screen-popup-content">
-		<span class="screen-popup-content-close">&times;</span>
-		<span class="screen-popup-content-title">"邀友赚钱"活动详细规则</span>
-		<hr class="screen-popup-content-hr">
-		<span class="screen-popup-content-text">
+
+	<!--详细规则页面-->
+	<div class="screen-popup" ms-visible="mideFlag">
+		<div class="screen-popup-content">
+			<span class="screen-popup-content-close" ms-click="mideClose">&times;</span>
+			<span class="screen-popup-content-title">"邀友赚钱"活动详细规则</span>
+			<hr class="screen-popup-content-hr">
+			<span class="screen-popup-content-text">
 		1.每邀请一个好友注册得1000元体验果仁；
 		<br/>
 		2.好友成功注册也将获得1000元体验果仁；
@@ -59,18 +61,22 @@
 		<br/>
 		7.本活动最终解释权归北京果仁宝科技有限公司所有。	
 		</span>
-	</div>
-</div>
-<!--邀请好友分享页-->
-<div class="screen-share">
-	<img src="images/invite-registered-wallet.gif" class="screen-share-img">
-	<div class="screen-share-content">
-		<div class="screen-share-content-arrow">
-		</div>
-		<div class="screen-share-content-tip">
-			<div class="screen-share-content-tip-txt">1、点击页面右上角<div class="screen-share-content-tip-txt-img1"></div></div>
-			<div class="screen-share-content-tip-txt">2、选择<div class="screen-share-content-tip-txt-img2"></div>图标，发送微信好友</div>
 		</div>
 	</div>
+	<!--邀请好友分享页-->
+	<div class="screen-share" ms-visible="shareFlag">
+		<img src="images/invite-registered-wallet.gif" class="screen-share-img">
+		<div class="screen-share-content">
+			<div class="screen-share-content-arrow">
+			</div>
+			<div class="screen-share-content-tip">
+				<div class="screen-share-content-tip-txt">1、点击页面右上角<span class="screen-share-content-tip-txt-img1"></span>
+					<!--<img src="images/invite-registered-point.png" class="screen-share-content-tip-txt-img1"/>-->
+				</div>
+				<div class="screen-share-content-tip-txt">2、选择<span class="screen-share-content-tip-txt-img2"></span>图标，发送微信好友
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-	@@include('../../../source/include/bottom.html', {"name": "invite-registered"})
+@@include('../../../source/include/bottom.html', {"name": "invite-registered"})
