@@ -1,19 +1,12 @@
 // 姜晓妮 2016-07-22  创建
 // H5微信端 --- 体验果仁
 
-require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], function(
-	router, api, weixin, filters, View, h5alert
+require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', 'get'], function(
+	router, api, weixin, filters, View, h5alert, get
 ) {
-	//		a={
-	//  "data": {
-	//      "max": 2,
-	//      "limit": false
-	//  },
-	//  "msg": "success",
-	//  "status": "200"
-	//}
 	router.init(true);
 	new View('invite-kefu');
+	var userTag = get.data.uid;
 	var gopToken = $.cookie('gopToken');
 	var inventeVM = avalon.define({
 		$id: 'invente',
@@ -21,7 +14,7 @@ require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], f
 		shareFlag: false,
 		//		定义点击详细规则后页面跳出
 		minuteRule: function() {
-			_czc.push(["_trackEvent",'InviteCount','OtherCount','InviteDescClick',6]);
+			_czc.push(["_trackEvent", 'InviteCount', 'OtherCount', 'InviteDescClick', 6]);
 			inventeVM.mideFlag = true;
 		},
 		//		点击×号后关闭页面
@@ -30,10 +23,10 @@ require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], f
 		},
 		//点击立即邀请好友判断邀请数是否超过上限
 		minuteInvente: function() {
-			_czc.push(["_trackEvent",'InviteCount','ShareCount','shareBtnClick',5]);
+			_czc.push(["_trackEvent", 'InviteCount', 'ShareCount', 'shareBtnClick', 5]);
 			//调接口
 			api.inviteFriendLimit({
-				gopToken: gopToken
+				userTag: userTag
 			}, function(data) {
 				if(data.status === 200) {
 					if(data.data.limit) {
@@ -46,17 +39,6 @@ require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], f
 				}
 			});
 		},
-		//		minuteInvente: function() {
-		//			router.go("/invite-kefu");
-		//		},
-		//minuteInvente: function() {
-		//	if(a.data.limit) {
-		//		router.go("/invite-kefu");
-		//	} else {
-		//		inventeVM.shareFlag = true;
-		//	}
-		//},
-
 	});
 	$(".screen-popup ").addClass('on'); //延迟
 	$(".screen-share").addClass('on'); //延迟
