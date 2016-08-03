@@ -77,14 +77,15 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
             }
             &-button {
                 margin: 29px auto;
-                width: 74.9333%;
+                width: 88.25%;
                 text-align: center;
                 font-size: 16px;
                 color: #ffffff;
-                background-color: #fe434c;
+                background: #fe434c;
                 border-radius: 30px;
                 padding: 12px 0;
                 line-height: 16px;
+                background: linear-gradient(45deg, #fe434c 15%, #f3444c 0, #f3444c 25%, #fe434c 0, #fe434c 37%, #f3444c 0,#f3444c 47%, #fe434c 0, #fe434c 59%,#f3444c 0,#f3444c 69%, #fe434c 0, #fe434c 81%,#f3444c 0,#f3444c 91%, #fe434c 0);
             }
         }
     }
