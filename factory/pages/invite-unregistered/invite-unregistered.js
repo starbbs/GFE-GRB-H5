@@ -28,6 +28,10 @@ require([
 	        "nickname": "果小萌",
 	        "photo": "http://goopal.xiaojian.me/staticimage/xx_gxm_new.png"
 	    },
+	    // "data": {
+	    //     "nickname": "",
+	    //     "photo": ""
+	    // },
 	    "msg": "头像和名字获取失败",
 	    "status": 200
 	};
@@ -209,8 +213,8 @@ require([
 		//api.inviteFriend({userTag:userTag},function(data){
 			if(invitefrienddata.status === 200){
 				//alert("ok");
-				inviteUnregisteredVM.invitorName = invitefrienddata.data.nickname;
-				inviteUnregisteredVM.invitorLogo = invitefrienddata.data.photo;
+				inviteUnregisteredVM.invitorName = invitefrienddata.data.nickname ? invitefrienddata.data.nickname : '果仁萌';
+				inviteUnregisteredVM.invitorLogo = invitefrienddata.data.photo ? invitefrienddata.data.photo : './images/meng.png';
 			}
 			else{
 				$.alert(invitefrienddata.msg);
@@ -218,6 +222,7 @@ require([
 		//})
 	};
 	getInvitorInfo();
+	$(".invite").addClass('on');
 	avalon.scan();
 })
 

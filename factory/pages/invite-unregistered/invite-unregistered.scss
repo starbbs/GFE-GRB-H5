@@ -4,7 +4,6 @@
 @import '../../views/view';
 @import '../../views/invite-code/invite-code';
 @import '../../dialogs/dialog';
-@import '../../dialogs/confirm/confirm';
 @import '../../dialogs/alert/alert';
 
 $img: $g-pages + '/invite-unregistered/images';
@@ -39,6 +38,7 @@ html{
 	font-size: 14px;
 }
 .invite{
+	@extend %fade-in;
 	&-bg{
 	    width: 100%;
 	    position: absolute;
