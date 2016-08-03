@@ -1,5 +1,5 @@
 require([
-	'router', 'h5-view', 'h5-weixin', 'h5-api', 'check', 'get', "url", 'h5-alert', 'h5-config', 'h5-md5'
+	'router', 'h5-view', 'h5-weixin', 'h5-api', 'check', 'get', "url", 'h5-alert', 'h5-config', 'h5-md5','h5-text'
 ],function(router,View,weixin,api,check,get,url,h5alert,h5config,h5md5){
 	router.init(true);
 	new View('invite-grb');
@@ -8,17 +8,17 @@ require([
 	var openId = localStorage.getItem("openid");
 	var unionId = localStorage.getItem("unionid");
 
-	//test data
+	//test data---模拟数据测试用
 	var identifydata={
 		"status":200,
 		// "status":400,
 		"msg":"success" 
 	};
 	var wxregisterdata={
-		// "status":200,
-	 //    "msg":"success",
-	    "status":400,
-		"msg":"error",
+		"status":200,
+	    "msg":"success",
+	 //    "status":400,
+		// "msg":"error",
 	    "data":{
 	     "gopToken":"e8er843er834i8df8d34jddfdf89df89dffd8d8f934j43jk34"
 	    }
@@ -35,33 +35,17 @@ require([
 	    "msg": "头像和名字获取失败",
 	    "status": 200
 	};
-	//test
-	// var getInvitorInfo = function(){
-	// 	//api.inviteFriend({userTag:userTag},function(data){
-	// 		if(invitefrienddata.status === 200){
-	// 			alert("ok");
-	// 			inviteUnregisteredVM.invitorName = invitefrienddata.data.nickname;
-	// 			inviteUnregisteredVM.invitorLogo = invitefrienddata.data.photo;
-	// 		}
-	// 		else{
-	// 			$.alert(invitefrienddata.msg);
-	// 		}
-	// 	//})
-	// };
-	// getInvitorInfo();
+
 	//invite-unregistered页面控制器
 	var inviteUnregisteredVM = avalon.define({
 		$id: 'inviteUnregisteredController',
-		mobile: '',//input获取的用户填写的手机号
-		mobilecode: '',//input获取的用户填写的验证码
+		mobile: '',				//input获取的用户填写的手机号
+		mobilecode: '',			//input获取的用户填写的验证码
 		phoneStatus: false,
 		verifyTimer: 0,
 		verify_secs: 60,
-		invitorLogo:'',//./images/meng.png
-		invitorName:'',//果仁萌
-		close: function(attr){
-			inviteUnregisteredVM[attr] = '';
-		},
+		invitorLogo:'',			//./images/meng.png
+		invitorName:'',			//果仁萌
 		//手机号校验
 		checkPhone: function(){
 			inviteUnregisteredVM.phoneStatus = check.phone(inviteUnregisteredVM.mobile).result;
@@ -124,7 +108,7 @@ require([
 				inviteUnregisteredVM.verify_secs = 60;
 			}
 		},
-		//点击“立即领取”（获取体验金/体验果仁）
+		//点击“立即领取”（获取体验金/体验果仁）!!!!!!!!!!!!调接口!!!!!!!!!!!!!!!!!!!不删
 		// getExperienceGop: function(){
 			// _czc.push(["_trackEvent",'InviteCount','RegisterCount','goRegisterAndGetGOP',12]);//友盟事件统计
 		// 	if($.trim(inviteUnregisteredVM.mobile) == "" || $.trim(inviteUnregisteredVM.mobilecode) == ""){
@@ -165,7 +149,7 @@ require([
 		// 	});
 		// }
 
-		//test
+		//test---模拟数据测试用
 		getExperienceGop: function(){
 			if($.trim(inviteUnregisteredVM.mobile) == "" || $.trim(inviteUnregisteredVM.mobilecode) == ""){
 				h5alert("您的输入有误");
@@ -173,32 +157,27 @@ require([
 			}
 			//验证码校验
 			if(identifydata.status === 200){
-					if(wxregisterdata.status === 200){
-						//参数传回成功，清local storage
-						localStorage.removeItem("openid");
-						localStorage.removeItem("unionid");
-						localStorage.removeItem("username");
-						localStorage.removeItem("userimg");
-						//跳到果仁宝二维码分页
-						setTimeout(function(){router.go('/invite-grb');},1000);
-					}
-					else{
-						//参数传回失败
-						$.alert(wxregisterdata.msg);
-					}
+				if(wxregisterdata.status === 200){
+					//参数传回成功，清local storage
+					localStorage.removeItem("openid");
+					localStorage.removeItem("unionid");
+					localStorage.removeItem("username");
+					localStorage.removeItem("userimg");
+					//跳到果仁宝二维码分页
+					setTimeout(function(){router.go('/invite-grb');},1000);
+				}
+				else{
+					//参数传回失败
+					$.alert(wxregisterdata.msg);
+				}
 				//});
-			}
-			else{//验证码校验失败
+			}else{//验证码校验失败
 				$.alert('验证码错误');
 			}
 		}
-
-		//分页跳转测试
-		// getExperienceGop: function(){
-		// 	router.go('/invite-grb');
-		// }
 	});
-
+	
+	//获取分享人头像及昵称!!!!!!!!!!!!调接口!!!!!!!!!!!!!!!!!!!不删
 	// var getInvitorInfo = function(){
 	// 	api.inviteFriend({userTag:userTag},function(data){
 	// 		if(invitefrienddata.status === 200){
@@ -212,7 +191,7 @@ require([
 	// 	})
 	// };
 
-	//test
+	//test---模拟数据测试用
 	var getInvitorInfo = function(){
 		//api.inviteFriend({userTag:userTag},function(data){
 			if(invitefrienddata.status === 200){
@@ -225,6 +204,7 @@ require([
 			}
 		//})
 	};
+	
 	getInvitorInfo();
 	$(".invite").addClass('on');
 	avalon.scan();

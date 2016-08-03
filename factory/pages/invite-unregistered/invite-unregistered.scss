@@ -65,7 +65,6 @@ html{
 				display: block;
 				width: 56px;
 				height: 56px;
-				//border-radius: ;
 				margin: 0 auto;
 				margin-bottom: 14px;
 				img{
@@ -122,7 +121,6 @@ html{
 					line-height: 32px;
 					font-size: 12px;
 					float: right;
-					//color: $colorWhite;
 					text-align: center;
 					letter-spacing: 1px;
 					background-color: $colorGrey;
@@ -148,8 +146,6 @@ html{
 					outline: none;
 	                border: none;
 	                background-color: $colorCode;
-	                // background: linear-gradient(45deg,$colorCode 50%,#000 50%);
-	                // background-size: 50px 50px;
 	                background:linear-gradient(45deg,$colorGet 25%,$colorCode 25%,$colorCode 50%,$colorGet 50%,$colorGet 75%,$colorCode 75%);
 	                background:-webkit-linear-gradient(45deg,$colorGet 25%,$colorCode 25%,$colorCode 50%,$colorGet 50%,$colorGet 75%,$colorCode 75%);
 	                background-size: 44px 44px;
@@ -172,7 +168,6 @@ html{
 			padding-top: 8px;
 			padding-bottom: 8px;
 			margin: 0 auto;
-			//margin-bottom: 20px;
 			line-height: 15px;
 			text-align: center;
 			border-radius: 15px;
