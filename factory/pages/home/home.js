@@ -73,14 +73,20 @@ require([
 		isShowPopup: false,  //活动入口弹窗是否展示
 		isShowFront : true, //活动入口最上边一条是否展示
 		frontTxt : '您有100元红包，请查看', //活动入口最上边一条的文案展示
-		toActivity : function(){  //跳转活动详情页面
+		toActivity : function(x){  //跳转活动详情页面
+			if(x == 1){
+				_czc.push(["_trackEvent",'InviteCount','EnterCount','homeWinClick',4]);
+			}else{
+				_czc.push(["_trackEvent",'InviteCount','EnterCount','homeNavClick',1]);
+			}
 			location.href = 'invite-index.html';
 		},
 		toExperGop : function(){
-			if(homeVm.validExperGopNum > 0){
-				location.href ='experience-gop.html#!/';
-			}else{
+			_czc.push(["_trackEvent",'InviteCount','ExperienceGOPCount','gotoExpPage',13]);
+			if(homeVm.validExperGopNum == 0 && ((homeVm.validExperGopNum*homeVm.gopNowPrice)+homeVm.lockedExperGopIncome) == 0){
 				location.href ='invite-registered.html#!/';
+			}else{
+				location.href ='experience-gop.html#!/';
 			}
 		}
 

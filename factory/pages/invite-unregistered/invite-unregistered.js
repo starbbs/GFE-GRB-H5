@@ -28,6 +28,10 @@ require([
 	        "nickname": "果小萌",
 	        "photo": "http://goopal.xiaojian.me/staticimage/xx_gxm_new.png"
 	    },
+	    // "data": {
+	    //     "nickname": "",
+	    //     "photo": ""
+	    // },
 	    "msg": "头像和名字获取失败",
 	    "status": 200
 	};
@@ -65,6 +69,7 @@ require([
 				$("#getcode_btn").addClass("invite-login-main-code-r-active");//添加样式：黄色背景色
 				//countEvnet("inputedCorrectPhone");
 				$("#invite-login-moblie").blur();//移开键盘焦点
+				_czc.push(["_trackEvent",'InviteCount','RegisterCount','EnterInPhone',9]);//友盟事件统计
 			}
 			else if(!inviteUnregisteredVM.phoneStatus){
 				$("#getcode_btn").removeClass("invite-login-main-code-r-active");
@@ -89,6 +94,7 @@ require([
 					inviteUnregisteredVM.verify_secs = 60;
 					$("#getcode_btn").removeClass("invite-login-main-code-r-whitefont invite-login-main-code-r-active").html("<span id='verify_time_phonenum'>60</span>秒");
 					inviteUnregisteredVM.phonenum_verifyTimer();//获取验证码的倒计时函数调用
+					_czc.push(["_trackEvent",'InviteCount','RegisterCount','getCode',10]);//友盟事件统计
 				}
 				else if(data.status == 400){
 					h5alert(data.msg);
@@ -103,6 +109,7 @@ require([
 			if(inviteUnregisteredVM.mobilecode.length == 6){
 				$("#invite-login-code").blur();
 			}
+			_czc.push(["_trackEvent",'InviteCount','RegisterCount','enterInCode',11]);//友盟事件统计
 		},
 		//验证码倒计时
 		phonenum_verifyTimer: function(){
@@ -119,6 +126,7 @@ require([
 		},
 		//点击“立即领取”（获取体验金/体验果仁）
 		// getExperienceGop: function(){
+			// _czc.push(["_trackEvent",'InviteCount','RegisterCount','goRegisterAndGetGOP',12]);//友盟事件统计
 		// 	if($.trim(inviteUnregisteredVM.mobile) == "" || $.trim(inviteUnregisteredVM.mobilecode) == ""){
 		// 		h5alert("您的输入有误");
 		// 		return false;
@@ -209,8 +217,8 @@ require([
 		//api.inviteFriend({userTag:userTag},function(data){
 			if(invitefrienddata.status === 200){
 				//alert("ok");
-				inviteUnregisteredVM.invitorName = invitefrienddata.data.nickname;
-				inviteUnregisteredVM.invitorLogo = invitefrienddata.data.photo;
+				inviteUnregisteredVM.invitorName = invitefrienddata.data.nickname ? invitefrienddata.data.nickname : '果仁萌';
+				inviteUnregisteredVM.invitorLogo = invitefrienddata.data.photo ? invitefrienddata.data.photo : './images/meng.png';
 			}
 			else{
 				$.alert(invitefrienddata.msg);
@@ -218,6 +226,7 @@ require([
 		//})
 	};
 	getInvitorInfo();
+	$(".invite").addClass('on');
 	avalon.scan();
 })
 
