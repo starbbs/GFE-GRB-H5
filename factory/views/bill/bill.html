@@ -198,7 +198,7 @@
 						<div class="bill-detail-right dark">
 							<p class="bill-detail-right-pr dark">
 								<span class="iconfont icon-g dark"></span>
-								{{payGop|ceilFix(3)}}
+								{{payGop|ceilFix(3,true)}}
 							</p>
 						</div>
 					</div>					
@@ -208,7 +208,7 @@
 						<div class="bill-detail-right dark">
 							<p class="bill-detail-right-pr dark">
 								<span class="iconfont icon-g dark"></span>
-								{{payGop|ceilFix}}
+								{{payGop|ceilFix(3,true)}}
 							</p>
 						</div>
 					</div>
@@ -425,7 +425,7 @@
 					</div>	
 					<!--退款数量-->
 					<div class="bill-get">
-						<div class="bill-get-number" ms-class="silver:status==='FAILURE'">+{{refundNum|ceilFix(3)}}</div>
+						<div class="bill-get-number" ms-class="silver:status==='FAILURE'">+{{refundNum|ceilFix(3,true)}}</div>
 						<div class="bill-get-label ash">{{refundWord}}</div>
 					</div>
 					<!--退款方-->
