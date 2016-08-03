@@ -21,6 +21,7 @@ require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], f
 		shareFlag: false,
 		//		定义点击详细规则后页面跳出
 		minuteRule: function() {
+			_czc.push(["_trackEvent",'InviteCount','OtherCount','InviteDescClick',6]);
 			inventeVM.mideFlag = true;
 		},
 		//		点击×号后关闭页面
@@ -29,6 +30,7 @@ require(['router', 'h5-api', 'h5-weixin', 'filters', 'h5-view', 'h5-alert', ], f
 		},
 		//点击立即邀请好友判断邀请数是否超过上限
 		minuteInvente: function() {
+			_czc.push(["_trackEvent",'InviteCount','ShareCount','shareBtnClick',5]);
 			//调接口
 			api.inviteFriendLimit({
 				gopToken: gopToken
