@@ -203,8 +203,8 @@ require([
 	// 	api.inviteFriend({userTag:userTag},function(data){
 	// 		if(invitefrienddata.status === 200){
 	// 			//alert("ok");
-	// 			inviteUnregisteredVM.invitorName = invitefrienddata.data.nickname;
-	// 			inviteUnregisteredVM.invitorLogo = invitefrienddata.data.photo;
+	// 			inviteUnregisteredVM.invitorName = invitefrienddata.data.nickname ? invitefrienddata.data.nickname : '果仁萌';
+	// 			inviteUnregisteredVM.invitorLogo = invitefrienddata.data.photo ? invitefrienddata.data.photo : './images/meng.png';
 	// 		}
 	// 		else{
 	// 			$.alert(invitefrienddata.msg);
