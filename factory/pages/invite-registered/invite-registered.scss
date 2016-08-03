@@ -104,7 +104,6 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
     position: fixed;
     float: left;
     z-index: 1;
-//  padding: 112px 0;
     top: 0;
     left: 0;
     width: 100%; //  height: 100%;
@@ -152,6 +151,12 @@ $image: $g-img; // 静态图专用 images/_abc.png  在public/images/home-abc.pn
             text-decoration: none;
             cursor: pointer;
         }
+    }
+}
+@media screen and (max-width: 320px) {
+    .screen-popup-content-text {
+        font-size: 13px;
+        line-height: 25px;
     }
 }
 //好友分享框
