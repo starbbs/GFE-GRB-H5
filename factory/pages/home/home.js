@@ -79,14 +79,20 @@ require([
 			}else{
 				_czc.push(["_trackEvent",'InviteCount','EnterCount','homeNavClick',1]);
 			}
-			location.href = 'invite-index.html';
+			setTimeout(function(){
+				location.href = 'invite-index.html';
+			},100);
 		},
 		toExperGop : function(){
 			_czc.push(["_trackEvent",'InviteCount','ExperienceGOPCount','gotoExpPage',13]);
 			if(homeVm.validExperGopNum == 0 && ((homeVm.validExperGopNum*homeVm.gopNowPrice)+homeVm.lockedExperGopIncome) == 0){
-				location.href ='invite-registered.html#!/';
+				setTimeout(function(){
+					location.href ='invite-registered.html#!/';
+				},100);
 			}else{
-				location.href ='experience-gop.html#!/';
+				setTimeout(function(){
+					location.href ='experience-gop.html#!/';
+				},100);
 			}
 		}
 
