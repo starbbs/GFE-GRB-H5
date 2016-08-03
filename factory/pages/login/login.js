@@ -77,7 +77,7 @@ require([
 						phone: mobile,
 						unionId: unionid,
 					}, function(data) {
-						if (data.status == 200) {
+						if (data.status == 200 && data.data.related) {
 							api.wxregister({
 								phone: mobile,
 								identifyingCode: code,
@@ -98,7 +98,7 @@ require([
 								}
 							});
 						} else {
-							$.alert(data.msg);
+							$.alert("该手机号不能和微信号关联");
 							load.reset();
 						}
 					});
