@@ -12,6 +12,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','mathtool
 		gopNowPrice : 0, //果仁现价（取卖一价）
 		experienceList:[],
 		drawConfirm:function(){
+			_czc.push(["_trackEvent",'InviteCount','ExperienceGOPCount','getProfit',14]); //友盟统计
 			var li = $(this).parents(".screen-r-middle-menu-li");
 			var _this = li.get(0).dataset;
 			var flag = _this.flag;
@@ -29,6 +30,7 @@ require(['router', 'h5-api', 'h5-weixin','filters','h5-dialog-confirm','mathtool
 						    exeprienceGopId:gopId
 						},function(data){
 							if(data.status==200){
+								_czc.push(["_trackEvent",'InviteCount','ExperienceGOPCount','getProfitSuccess',15]);
 								li.hide();
 							}else{
 								$.alert(data.msg);

@@ -1,0 +1,40 @@
+@@include('../../../source/include/top.html', {"name": "invite-unregistered","title":"邀请好友"})
+<div class="invite" ms-controller="inviteUnregisteredController">
+	<img src="./images/invite-unregistered-bg.jpg" class="invite-bg" />
+	<div class="invite-login">
+		<img src="./images/invite-unregistered-hb.png" class="invite-login-hb"/>
+		<div class="invite-login-friend">
+		<div class="invite-login-friend-header">
+			<img ms-attr-src="invitorLogo">
+		</div>
+		<p class="invite-login-friend-name">我是<span>{{invitorName}}</span></p>
+		<p class="invite-login-friend-txt">送你一个<span>1000</span>元体验金，亲测靠谱</p>
+		</div>
+		<div class="invite-login-main">
+			<div class="invite-login-main-mobile">
+				<input type="text" id="invite-login-moblie" name="invite-login-moblie" placeholder="请输入手机号" maxlength="11" autocomplete="off" ms-duplex="mobile"
+				ms-on-input="checkPhone">
+			</div>
+			<div class="invite-login-main-code">
+				<div class="invite-login-main-code-l"><input type="text" id="invite-login-code" name="invite-login-code" placeholder="验证码" maxlength="6" autocomplete="off" ms-duplex="mobilecode" ms-on-input="inputCode"></div>
+				<span id="getcode_btn" class="invite-login-main-code-r invite-login-main-code-r-whitefont" ms-click="getCode">获取验证码</span>
+			</div>
+			<div class="invite-login-main-get">
+				<button ms-click="getExperienceGop">立即领取</button>
+			</div>
+		</div>
+	</div>
+	<div class="invite-info">
+		<p class="invite-info-up">输入手机号立即领取<span class="invite-info-up-money">1000元</span>体验果仁<br>
+		领取7天后回收，收益可提现。<br>
+		邀请好友再送<span>1000</span>元，邀请越多收益越多！
+		</p>
+		<p class="invite-info-down">*本活动最终解释权归北京果仁宝科技有限公司所有</p>
+	</div>
+</div>
+<div class="view">
+	<!-- 果仁宝二维码分页 -->
+	@@include('../../views/invite-code/invite-grb.html')
+</div>
+<div class="alert"></div>
+@@include('../../../source/include/bottom.html', {"name": "invite-unregistered"})

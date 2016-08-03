@@ -233,14 +233,17 @@ require([
 				}
 				if (parseFloat(filters.floorFix(parseFloat($('#address-mine-input-1')[0].value) + parseFloat(transferTarget.serviceFee))) > (parseFloat(transferTarget.gopNum))) {
 
-					dialogConfirm.set('您的果仁不足是否购买？', {
-						okBtnText: '是',
-						cancelBtnText: "否"
-					});
-					dialogConfirm.show();
-					dialogConfirm.onConfirm = function() {
-						window.location.href = 'purchase.html?from=' + url.basename;
-					};
+//					dialogConfirm.set('您的果仁不足是否购买？', {
+//						okBtnText: '是',
+//						cancelBtnText: "否"
+//					});
+//					dialogConfirm.show();
+//					dialogConfirm.onConfirm = function() {
+//						window.location.href = 'purchase.html?from=' + url.basename;
+//					};
+//1.3.3新需求：果仁不足，不可点击转账
+					transferTarget.notchecked = true; // 是否没有检验通过
+					$.alert("果仁不足");
 					return;
 				}
 

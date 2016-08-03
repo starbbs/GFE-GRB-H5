@@ -352,6 +352,17 @@ define('h5-api', ['api', 'h5-authorization', 'h5-alert', 'cookie', 'h5-config'],
 	
 	//95. 体验果仁领取收益
 	api.regist('experienceGopWithdraw', '/experienceGop/withdraw');
+
+	//96.邀友赚钱-获取微信用户信息
+	api.regist('inviteFriend', '/invitation/userInfo');
+
 	
+	//97.邀友赚钱-静态资源的开关控制
+	api.regist('inviteResource', '/invitation/resource');
+	
+	//98.用户邀请限制
+	api.regist('inviteFriendLimit', '/invitation/checkLimit');
+	
+
 	return api;
 });

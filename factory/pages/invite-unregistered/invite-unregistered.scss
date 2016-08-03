@@ -1,0 +1,185 @@
+@charset 'utf-8';
+
+@import '../../../source/scss/main';
+@import '../../views/view';
+@import '../../views/invite-code/invite-code';
+@import '../../dialogs/dialog';
+@import '../../dialogs/alert/alert';
+
+$img: $g-pages + '/invite-unregistered/images';
+$image: $g-img; 
+
+$colorFriend:#feefc4;
+$colorCode:#fabd31;
+$colorGet:#fab627;
+$colorWhite:#fff;
+$colorBlack:#000;
+$colorBorder:#bc54f8;
+$colorGet:#fab627;
+$colorGrey:#cfcfcf;
+
+html{
+	margin: 0;
+	padding: 0;
+	font-family: "Microsoft Yahei";
+}
+%main-wh{
+	width: 100%;
+	height: 32px;
+}
+%input-border{
+	border: none;
+	border-radius: 18px;
+}
+%input-css{
+	width: 80%;
+	padding-left: 19px;
+	line-height: 32px;
+	font-size: 14px;
+}
+.invite{
+	@extend %fade-in;
+	&-bg{
+	    width: 100%;
+	    position: absolute;
+	    top: 0px;
+	    left: 0px;
+	}
+	&-login{
+		margin-bottom: 7px;
+		position: relative;
+		&-hb{
+			display: block;
+		    width: 95%;
+		    margin: 0 auto;
+		    margin-left: 1px;
+		}
+		&-friend{
+			width: 100%;
+		    position: absolute;
+		    top: 13%;
+		    left: 50%;
+		    transform:translateX(-50%);
+			color: $colorFriend;
+			&-header{
+				display: block;
+				width: 56px;
+				height: 56px;
+				margin: 0 auto;
+				margin-bottom: 14px;
+				img{
+					width: 100%;
+				}
+			}
+			&-name{
+				font-size: 12px;
+				line-height: 12px;
+				margin-bottom: 10px;
+				text-align: center;
+			}
+			&-txt{
+				font-size: 14px;
+				line-height: 14px;
+				text-align: center;
+			}
+		}
+		&-main{
+		    position: absolute;
+		    top: 55%;
+		    left:50%;
+		    width: 67%;
+		    transform: translateX(-50%);
+			&-mobile{
+				@extend %main-wh;
+				margin: 0 auto;
+				margin-bottom: 15px;
+				@extend %input-border;
+				background-color: $colorWhite;
+				input{
+					@extend %input-css;
+				}
+			}
+			&-code{
+				@extend %main-wh;
+				margin: 0 auto;
+				margin-bottom: 15px;
+				&-l{
+					@extend %input-border;
+					height: 32px;
+					background-color: $colorWhite;
+					width: 58%;
+					display: inline-block;
+					input{
+						@extend %input-css;
+					}
+				}
+				&-r{
+					@extend %input-border;
+					display: inline-block;
+					width: 36%;
+					height: 32px;
+					line-height: 32px;
+					font-size: 12px;
+					float: right;
+					text-align: center;
+					letter-spacing: 1px;
+					background-color: $colorGrey;
+				}
+				&-r-whitefont{
+					color: $colorWhite;
+				}
+				&-r-active{
+					background-color: $colorCode;
+				}
+			}
+			&-get{
+				@extend %main-wh;
+				margin: 0 auto;
+				button{
+					@extend %input-border;
+					@extend %main-wh;
+					color: $colorWhite;
+					line-height: 32px;
+					font-size: 16px;
+					letter-spacing: 2px;
+					font-weight: bold;
+					outline: none;
+	                border: none;
+	                background-color: $colorCode;
+	                background:linear-gradient(45deg,$colorGet 25%,$colorCode 25%,$colorCode 50%,$colorGet 50%,$colorGet 75%,$colorCode 75%);
+	                background:-webkit-linear-gradient(45deg,$colorGet 25%,$colorCode 25%,$colorCode 50%,$colorGet 50%,$colorGet 75%,$colorCode 75%);
+	                background-size: 44px 44px;
+	                background-position: -15px;
+				}
+			}
+		}
+	}
+	&-info{
+		position: absolute;
+		left: 50%;
+		transform:translateX(-50%);
+		width: 100%;
+		color: #f5e6be;
+		&-up{
+			background-color: #351b45;
+			width: 78%;
+			font-size: 8px;
+			border: 1px dashed #bc54f8;
+			padding-top: 8px;
+			padding-bottom: 8px;
+			margin: 0 auto;
+			line-height: 15px;
+			text-align: center;
+			border-radius: 15px;
+			&-money{
+				color: #fce913;
+			}
+		}
+		&-down{
+			color: #8c8793;
+			text-align: center;
+			font-size: 10px;
+			padding-top: 13px;
+		}
+	}
+}

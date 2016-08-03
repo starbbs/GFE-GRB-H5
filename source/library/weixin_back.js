@@ -19,7 +19,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
     // var base = 'www.goopal.com.cn/wx'; // 地址
     var path = location.pathname;
     var rootPatharr = path.split("/");
-    var pathName = rootPatharr.length > 1 ? rootPatharr[1] : 'wx';
+    var pathName = rootPatharr.length>1?rootPatharr[1]:'wx';
     var base = 'www.xiaojian.me/' + pathName; // 地址
     var weixin = {
         // 参数
@@ -28,9 +28,9 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
         nonceStr: null,
         signature: null,
         title: '果仁宝',
-        desc: '注册领1000元红包,邀请越多,奖励越多!',
-        link: window.location.protocol + '//' + base + '/invite-index.html',
-        imgUrl: window.location.protocol + '//' + base + '/images/inviteshare.png',
+        desc: '果仁宝，具有理财属性的一站式消费新平台',
+        link: window.location.protocol + '//' + base + '/home.html',
+        imgUrl: window.location.protocol + '//' + base + '/images/share.jpg',
         type: '',
         dataUrl: '',
 //		success: function() { // 用户确认分享后执行的回调函数
@@ -50,36 +50,42 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
          *           {[string]}         options.link         [description]
          *           {[string]}         options.imgUrl         [description]
          */
-        setShare: function (options) {
+        setShare: function (type, options) {
+            if (typeof type !== 'string') {
+                options = type;
+                type = 'all';
+            }
             options = options || {};
-            wx.onMenuShareTimeline($.extend({
-                title: weixin.title, // 分享标题
-                desc: weixin.desc, // 分享描述
-                link: weixin.link, // 分享链接
-                imgUrl: weixin.imgUrl, // 分享图标
-                success: function () {
-                    _czc.push(["_trackEvent",'InviteCount','Share2TimeLine','share1',1]);
-                    $.alert('分享成功');
-                },
-                cancel: function () {
-                    $.alert('分享取消');
-                },
-            }, options));
-            wx.onMenuShareAppMessage($.extend({
-                title: weixin.title, // 分享标题
-                desc: weixin.desc, // 分享描述
-                link: weixin.link, // 分享链接
-                imgUrl: weixin.imgUrl, // 分享图标
-                type: weixin.type, // 分享类型,music、video或link，不填默认为link
-                dataUrl: weixin.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
-                success: function () {
+            if (arguments.length === 0 || type === 'all' || type === 'timeline') { // 分享到朋友圈
+                wx.onMenuShareTimeline($.extend({
+                    title: weixin.title, // 分享标题
+                    desc: weixin.desc, // 分享描述
+                    link: weixin.link, // 分享链接
+                    imgUrl: weixin.imgUrl, // 分享图标
+                    success: function () {
+                        $.alert('分享成功');
+                    },
+                    cancel: function () {
+                        $.alert('分享取消');
+                    },
+                }, options));
+            }
+            if (arguments.length === 0 || type === 'all' || type === 'appMessage') {
+                wx.onMenuShareAppMessage($.extend({
+                    title: weixin.title, // 分享标题
+                    desc: weixin.desc, // 分享描述
+                    link: weixin.link, // 分享链接
+                    imgUrl: weixin.imgUrl, // 分享图标
+                    type: weixin.type, // 分享类型,music、video或link，不填默认为link
+                    dataUrl: weixin.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function () {
 //						$.alert('分享成功');
-                    _czc.push(["_trackEvent",'InviteCount','Share2Fri','share2',2]);
-                },
-                cancel: function () {
-                    $.alert('分享取消');
-                },
-            }, options));
+                    },
+                    cancel: function () {
+                        $.alert('分享取消');
+                    },
+                }, options));
+            }
         },
         pay: { // 支付
             options: { // 参数
@@ -239,43 +245,7 @@ define('h5-weixin', ['h5-api', 'url', 'h5-authorization', 'h5-alert'], function 
                 "menuItem:share:brand", // 一些特殊公众号
             ]
         });
-        //设置分享之前先确认保存了用户的uid
-        var gopToken = $.cookie('gopToken');
-        var  nickname = $.cookie('nickname')?$.cookie('nickname'):"果仁萌",utag = $.cookie('utag')?$.cookie('utag'):"";
-        if (!utag) {
-            if (gopToken) {//根据gopToken 获取当前用户的基本信息。
-                api.info({
-                    gopToken: gopToken
-                }, function(data) {
-                    if (data.status == 200) {
-                        if (data.data.nickname) {
-                           $.cookie('nickname', data.data.nickname);
-                            nickname = data.data.nickname;
-                        }
-                        if (data.data.usertag) {
-                            $.cookie('utag', data.data.usertag);
-                            utag = data.data.usertag;
-                        }
-                    }
-                    weixin.setShare({
-                        title: "我是"+nickname+",我加入了果仁宝,送你1000元体验金,果仁宝会生钱的未来钱包", // 分享标题
-                        link: weixin.link+"?uid="+utag // 分享链接
-                    })
-                });
-            } else {
-                //没有登录的页面,按照默认的情况设置
-                weixin.setShare({
-                    title: "我是"+nickname+",我加入了果仁宝,送你1000元体验金,果仁宝会生钱的未来钱包", // 分享标题
-                    link: weixin.link+"?uid="+utag // 分享链接
-                })
-            }
-        } else {
-            //之前已经获取了nickname 和 utag
-            weixin.setShare({
-                title: "我是"+nickname+",我加入了果仁宝,送你1000元体验金,果仁宝会生钱的未来钱包", // 分享标题
-                link: weixin.link+"?uid="+utag // 分享链接
-            })
-        }
+        weixin.setShare();
     });
     weixin.config();
     return weixin;
